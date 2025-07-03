@@ -47,35 +47,21 @@ export default function HeroSection() {
 
   return (
     <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 gradient-hero animated-gradient opacity-90" />
+      {/* Lava Lamp Background */}
+      <div className="absolute inset-0 gradient-hero lava-lamp-bg" />
       
-      {/* Background Pattern Overlay */}
-      <div className="absolute inset-0 bg-black/20" />
-      
-      {/* Floating Elements */}
+      {/* Additional Floating Circles */}
       <div className="absolute inset-0 overflow-hidden">
-        {floatingElements.map((element, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-20 h-20 border border-white/10 rounded-full"
-            style={{
-              left: element.left,
-              top: element.top,
-            }}
-            animate={{
-              x: [0, 30, 0],
-              y: [0, -30, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: element.duration,
-              repeat: Infinity,
-              ease: easeInOut,
-            }}
-          />
-        ))}
+        <div className="floating-circle"></div>
+        <div className="floating-circle"></div>
+        <div className="floating-circle"></div>
+        <div className="floating-circle-small"></div>
+        <div className="floating-circle-small"></div>
+        <div className="floating-circle-small"></div>
       </div>
+      
+      {/* Subtle Overlay */}
+      <div className="absolute inset-0 bg-black/5" />
 
       {/* Main Content */}
       <motion.div
@@ -89,22 +75,22 @@ export default function HeroSection() {
           variants={itemVariants}
         >
           <motion.h1 
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold text-gray-800 leading-tight"
             variants={itemVariants}
           >
             Solve the{' '}
-            <span className="bg-gradient-to-r via-yellow-200 from-orange-400  bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-700 bg-clip-text text-transparent">
               Mystery
             </span>
             <br />
             Build Your{' '}
-            <span className="bg-blue-200 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-slate-800 via-gray-700 to-slate-900 bg-clip-text text-transparent">
               Team
             </span>
           </motion.h1>
 
           <motion.p 
-            className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed"
             variants={itemVariants}
           >
             Experience Toronto like never before with our immersive Cluedo-themed scavenger hunt. Navigate 9 iconic locations, solve intricate puzzles, and uncover the mystery while building unbreakable team bonds.
@@ -116,7 +102,7 @@ export default function HeroSection() {
           >
             <Button 
               size="lg" 
-              className="glass text-white hover:bg-white/20 border-white/30 px-8 py-4 text-lg font-semibold"
+              className="glass text-gray-800 hover:bg-white/20 border-gray-300/30 px-8 py-4 text-lg font-semibold"
               onClick={scrollToContact}
             >
               Plan Your Adventure
@@ -126,7 +112,7 @@ export default function HeroSection() {
             <Button 
               variant="outline" 
               size="lg" 
-              className="glass-dark text-white border-white/30 hover:bg-white/10 px-8 py-4 text-lg"
+              className="glass-dark text-gray-800 border-gray-300/30 hover:bg-white/10 px-8 py-4 text-lg"
               onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
             >
               How It Works
@@ -150,12 +136,12 @@ export default function HeroSection() {
               }}
             >
               <div className="flex justify-center mb-4">
-                <div className="p-3 rounded-full bg-white/10">
-                  <stat.icon className="h-8 w-8 text-white" />
+                <div className="p-3 rounded-full bg-gray-800/10">
+                  <stat.icon className="h-8 w-8 text-gray-800" />
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">{stat.label}</h3>
-              <p className="text-white/70">{stat.description}</p>
+              <h3 className="text-2xl font-bold text-gray-800 mb-1">{stat.label}</h3>
+              <p className="text-gray-600">{stat.description}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -167,8 +153,8 @@ export default function HeroSection() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/70 rounded-full mt-2" />
+          <div className="w-6 h-10 border-2 border-gray-800/50 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-gray-800/70 rounded-full mt-2" />
           </div>
         </motion.div>
     </section>

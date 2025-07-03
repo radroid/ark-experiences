@@ -124,7 +124,7 @@
 /* Custom gradient backgrounds */
 @layer utilities {
   .gradient-hero {
-    background: linear-gradient(135deg, #1a4fff 0%, #ff9900 100%);
+    background: #fdebce;
   }
   
   .gradient-section {
@@ -145,29 +145,208 @@
   
   /* Glass morphism effects */
   .glass {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
   }
   
   .glass-dark {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.05);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
   }
   
   .glass-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
   }
   
   /* Animated gradient backgrounds */
   .animated-gradient {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    background: #fdebce;
+  }
+  
+  /* Lava lamp floating circles */
+  .lava-lamp-bg {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .lava-lamp-bg::before,
+  .lava-lamp-bg::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.6;
+  }
+  
+  .lava-lamp-bg::before {
+    width: 300px;
+    height: 300px;
+    background: #1b6cfd;
+    top: 15%;
+    left: 5%;
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  .lava-lamp-bg::after {
+    width: 250px;
+    height: 250px;
+    background: #ff5b11;
+    top: 75%;
+    right: 5%;
+    animation: float-reverse 10s ease-in-out infinite;
+  }
+  
+  /* Additional floating circles */
+  .floating-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(30px);
+    opacity: 0.4;
+  }
+  
+  .floating-circle:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    background: #4a8cff;
+    top: 75%;
+    left: 80%;
+    animation: float-diagonal 12s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  
+  .floating-circle:nth-child(2) {
+    width: 180px;
+    height: 180px;
+    background: #ff5b11;
+    top: 85%;
+    left: 15%;
+    animation: float 9s ease-in-out infinite;
+    animation-delay: 4s;
+  }
+  
+  .floating-circle:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    background: #4a8cff;
+    top: 5%;
+    right: 20%;
+    animation: float-reverse 11s ease-in-out infinite;
+    animation-delay: 6s;
+  }
+  
+  /* Smaller floating circles for more variety */
+  .floating-circle-small {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.3;
+  }
+  
+  .floating-circle-small:nth-child(4) {
+    width: 100px;
+    height: 100px;
+    background: #ff5c11;
+    top: 35%;
+    left: 75%;
+    animation: float-wide 15s ease-in-out infinite;
+    animation-delay: 5s;
+  }
+  
+  .floating-circle-small:nth-child(5) {
+    width: 80px;
+    height: 80px;
+    background: #6296ef;
+    top: 65%;
+    right: 35%;
+    animation: float-diagonal 8s ease-in-out infinite;
+    animation-delay: 3s;
+  }
+  
+  .floating-circle-small:nth-child(6) {
+    width: 120px;
+    height: 120px;
+    background: #ff5b11;
+    top: 45%;
+    left: 10%;
+    animation: float-reverse 9s ease-in-out infinite;
+    animation-delay: 5s;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    25% {
+      transform: translate(120px, -80px) scale(1.1);
+    }
+    50% {
+      transform: translate(-100px, -150px) scale(0.9);
+    }
+    75% {
+      transform: translate(-80px, -40px) scale(1.05);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+  
+  @keyframes float-reverse {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    25% {
+      transform: translate(-150px, -100px) scale(0.9);
+    }
+    50% {
+      transform: translate(100px, -200px) scale(1.2);
+    }
+    75% {
+      transform: translate(200px, -80px) scale(0.8);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+  
+  @keyframes float-diagonal {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(180px, -120px) scale(1.1);
+    }
+    66% {
+      transform: translate(-120px, -180px) scale(0.8);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+  
+  @keyframes float-wide {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    20% {
+      transform: translate(200px, -60px) scale(1.2);
+    }
+    40% {
+      transform: translate(-150px, -120px) scale(0.8);
+    }
+    60% {
+      transform: translate(100px, -200px) scale(1.1);
+    }
+    80% {
+      transform: translate(-200px, -80px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
   }
   
   .clue-gradient {
