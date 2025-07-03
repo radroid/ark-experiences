@@ -35,6 +35,16 @@ export default function HeroSection() {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  // Fixed positions for floating elements to avoid hydration mismatch
+  const floatingElements = [
+    { left: '15%', top: '20%', duration: 8 },
+    { left: '85%', top: '30%', duration: 10 },
+    { left: '25%', top: '70%', duration: 9 },
+    { left: '75%', top: '60%', duration: 11 },
+    { left: '45%', top: '15%', duration: 9.5 },
+    { left: '65%', top: '80%', duration: 8.5 },
+  ]
+
   return (
     <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background */}
@@ -45,13 +55,13 @@ export default function HeroSection() {
       
       {/* Floating Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
+        {floatingElements.map((element, i) => (
           <motion.div
             key={i}
             className="absolute w-20 h-20 border border-white/10 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: element.left,
+              top: element.top,
             }}
             animate={{
               x: [0, 30, 0],
@@ -59,7 +69,7 @@ export default function HeroSection() {
               scale: [1, 1.1, 1],
             }}
             transition={{
-              duration: 8 + Math.random() * 4,
+              duration: element.duration,
               repeat: Infinity,
               ease: easeInOut,
             }}
@@ -69,7 +79,7 @@ export default function HeroSection() {
 
       {/* Main Content */}
       <motion.div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -94,12 +104,10 @@ export default function HeroSection() {
           </motion.h1>
 
           <motion.p 
-            className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed"
             variants={itemVariants}
           >
-            Experience Toronto like never before with our immersive Cluedo-themed scavenger hunt. 
-            Navigate 9 iconic locations, solve intricate puzzles, and uncover the mystery while building 
-            unbreakable team bonds.
+            Experience Toronto like never before with our immersive Cluedo-themed scavenger hunt. Navigate 9 iconic locations, solve intricate puzzles, and uncover the mystery while building unbreakable team bonds.
           </motion.p>
 
           <motion.div
@@ -128,7 +136,7 @@ export default function HeroSection() {
 
         {/* Stats Section */}
         <motion.div 
-          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+          className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
           variants={containerVariants}
         >
           {stats.map((stat, index) => (
@@ -151,10 +159,11 @@ export default function HeroSection() {
             </motion.div>
           ))}
         </motion.div>
+      </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      {/* Scroll Indicator */}
+      <motion.div
+          className="absolute bottom-8 left-8"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
@@ -162,7 +171,6 @@ export default function HeroSection() {
             <div className="w-1 h-3 bg-white/70 rounded-full mt-2" />
           </div>
         </motion.div>
-      </motion.div>
     </section>
   )
 } 

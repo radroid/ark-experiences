@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from '@/components/ui/navbar'
@@ -29,8 +29,12 @@ export const metadata: Metadata = {
     title: "ARK Scavenger Hunt - Team Building Adventures",
     description: "Cluedo-themed scavenger hunts across Toronto",
   },
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
