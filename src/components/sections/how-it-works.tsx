@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, easeOut } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { 
@@ -21,7 +21,7 @@ export default function HowItWorks() {
       title: 'Form Your Team',
       description: 'Split into 3 teams of 3-17 players each. Every team gets a unique starting location.',
       details: ['3 teams compete', 'Equal team sizes', 'Unique starting points'],
-      color: 'from-blue-500 to-cyan-500'
+      color: 'from-blue-600 to-orange-400'
     },
     {
       icon: MapPin,
@@ -35,7 +35,7 @@ export default function HowItWorks() {
       title: 'Solve Clues',
       description: 'Find hidden clues at each location. Some lead to the next spot, others reveal murder details.',
       details: ['Location clues', 'Murder mystery clues', 'Photo evidence required'],
-      color: 'from-orange-500 to-red-500'
+      color: 'from-orange-400 to-yellow-400'
     },
     {
       icon: Puzzle,
@@ -49,7 +49,7 @@ export default function HowItWorks() {
       title: 'Win the Game',
       description: 'First team to solve the murder correctly wins the grand prize!',
       details: ['Speed matters', 'Accuracy counts', 'Team collaboration wins'],
-      color: 'from-yellow-500 to-orange-500'
+      color: 'from-yellow-400 to-orange-500'
     }
   ]
 
@@ -90,12 +90,12 @@ export default function HowItWorks() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' }
+      transition: { duration: 0.6, ease: easeOut }
     }
   }
 
   return (
-    <section id="how-it-works" className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
+    <section id="how-it-works" className="pt-40 py-24 bg-gradient-to-br from-blue-50 via-yellow-50 to-orange-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"

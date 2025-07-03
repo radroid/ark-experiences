@@ -83,12 +83,12 @@ export default function HeroSection() {
             variants={itemVariants}
           >
             Solve the{' '}
-            <span className="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r via-yellow-200 from-orange-400  bg-clip-text text-transparent">
               Mystery
             </span>
             <br />
             Build Your{' '}
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-blue-200 bg-clip-text text-transparent">
               Team
             </span>
           </motion.h1>

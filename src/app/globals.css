@@ -124,42 +124,23 @@
 /* Custom gradient backgrounds */
 @layer utilities {
   .gradient-hero {
-    background: linear-gradient(
-      135deg,
-      #667eea 0%,
-      #764ba2 100%
-    );
+    background: linear-gradient(135deg, #1a4fff 0%, #ff9900 100%);
   }
   
   .gradient-section {
-    background: linear-gradient(
-      to bottom right,
-      #f8fafc 0%,
-      #e2e8f0 50%,
-      #cbd5e1 100%
-    );
+    background: linear-gradient(to bottom right, #f8f3e6 0%, #ffe066 50%, #ff9900 100%);
   }
   
   .gradient-cluedo {
-    background: linear-gradient(
-      135deg,
-      #1e3a8a 0%,
-      #3730a3 25%,
-      #7c2d12 50%,
-      #991b1b 75%,
-      #1f2937 100%
-    );
+    background: linear-gradient(135deg, #1a4fff 0%, #ff9900 50%, #ffd700 100%);
   }
   
   .gradient-mystery {
-    background: linear-gradient(
-      45deg,
-      #0f172a 0%,
-      #1e293b 25%,
-      #334155 50%,
-      #475569 75%,
-      #64748b 100%
-    );
+    background: linear-gradient(45deg, #1a4fff 0%, #ff9900 50%, #ffd700 100%);
+  }
+  
+  .bg-beige {
+    background-color: #f8f3e6;
   }
   
   /* Glass morphism effects */
