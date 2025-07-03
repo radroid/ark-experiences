@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { easeOut, motion } from 'framer-motion'
 
 interface SectionScrollContainerProps {
   children: React.ReactNode[]
@@ -28,7 +28,7 @@ export default function SectionScrollContainer({ children }: SectionScrollContai
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeOut
       }
     }
   }

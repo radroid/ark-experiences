@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, easeInOut, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, MapPin, Users, Clock } from 'lucide-react'
 
@@ -21,7 +21,7 @@ export default function HeroSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' }
+      transition: { duration: 0.6, ease: easeOut }
     }
   }
 
@@ -36,7 +36,7 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 gradient-hero animated-gradient opacity-90" />
       
@@ -61,7 +61,7 @@ export default function HeroSection() {
             transition={{
               duration: 8 + Math.random() * 4,
               repeat: Infinity,
-              ease: 'easeInOut',
+              ease: easeInOut,
             }}
           />
         ))}
