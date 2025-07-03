@@ -1,5 +1,20 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+
+# backup files
+*.bak
+*.backup
+*.old
+*.orig
+backup*
+
 # dependencies
 /node_modules
 /.pnp

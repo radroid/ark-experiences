@@ -1,0 +1,114 @@
+name: Deploy to Digital Ocean
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build:prod
+        env:
+          NODE_ENV: production
+
+      - name: Deploy to Digital Ocean
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Stop execution on error
+            set -e
+
+            echo "Starting deployment..."
+            DEPLOY_PATH="/var/www/funwithark.ca"
+            BACKUP_PATH="/var/www/backups/funwithark.ca-$(date +%Y%m%d_%H%M%S)"
+            
+            # Create backup directory if it doesn't exist
+            sudo mkdir -p /var/www/backups
+
+            # Backup existing deployment if it exists
+            if [ -d "$DEPLOY_PATH" ]; then
+              echo "Creating backup of existing deployment..."
+              sudo cp -r $DEPLOY_PATH $BACKUP_PATH
+            fi
+
+            # Ensure deploy directory exists with correct permissions
+            sudo mkdir -p $DEPLOY_PATH
+            sudo chown -R $USER:$USER $DEPLOY_PATH
+
+            # Create temporary directory for new deployment
+            TEMP_DIR=$(mktemp -d)
+            echo "Created temporary directory: $TEMP_DIR"
+
+            # Clone repository to temporary directory
+            echo "Cloning repository..."
+            git clone --depth 1 git@github.com:${{ github.repository_owner }}/ARK-Scavenger-Hunt.git $TEMP_DIR
+            cd $TEMP_DIR
+
+            # Install dependencies and build
+            echo "Installing dependencies..."
+            npm ci
+            
+            echo "Building application..."
+            NODE_ENV=production npm run build:prod
+
+            # Move build files to web root
+            echo "Moving build files..."
+            sudo rm -rf $DEPLOY_PATH/public/*
+            sudo mv dist/* $DEPLOY_PATH/public/
+
+            # Copy nginx configuration
+            echo "Updating nginx configuration..."
+            sudo rm -f /etc/nginx/sites-enabled/default
+            sudo rm -f /etc/nginx/sites-enabled/funwithark.ca.conf
+            sudo cp nginx/funwithark.ca.conf /etc/nginx/sites-available/funwithark.ca.conf
+            sudo ln -sf /etc/nginx/sites-available/funwithark.ca.conf /etc/nginx/sites-enabled/
+
+            # Set correct permissions
+            echo "Setting permissions..."
+            sudo chown -R www-data:www-data $DEPLOY_PATH/public
+            sudo find $DEPLOY_PATH/public -type f -exec chmod 644 {} \;
+            sudo find $DEPLOY_PATH/public -type d -exec chmod 755 {} \;
+
+            # Clean up temporary directory
+            echo "Cleaning up..."
+            rm -rf $TEMP_DIR
+
+            # Verify nginx configuration
+            echo "Verifying nginx configuration..."
+            sudo nginx -t
+
+            # Reload nginx if configuration is valid
+            if [ $? -eq 0 ]; then
+              echo "Reloading nginx..."
+              sudo systemctl reload nginx
+            else
+              echo "Nginx configuration test failed!"
+              exit 1
+            fi
+
+            # Clean up old backups (keep last 5)
+            echo "Cleaning up old backups..."
+            cd /var/www/backups
+            ls -t | tail -n +6 | xargs -r rm -rf
+
+            echo "Deployment completed successfully!" 
