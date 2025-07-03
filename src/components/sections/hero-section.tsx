@@ -75,11 +75,11 @@ export default function HeroSection() {
           variants={itemVariants}
         >
           <motion.h1 
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-gray-800 leading-tight"
+            className="text-3xl md:text-5xl lg:text-7xl font-bold text-gray-800 leading-tight"
             variants={itemVariants}
           >
             Solve the{' '}
-            <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-700 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-blue-900 bg-clip-text text-transparent">
               Mystery
             </span>
             <br />
@@ -93,7 +93,7 @@ export default function HeroSection() {
             className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed"
             variants={itemVariants}
           >
-            Experience Toronto like never before with our immersive Cluedo-themed scavenger hunt. Navigate 9 iconic locations, solve intricate puzzles, and uncover the mystery while building unbreakable team bonds.
+            Ready for an epic adventure? Experience Toronto like never before with our immersive Cluedo-themed scavenger hunt. Navigate 9 iconic locations, solve intricate puzzles, and create unforgettable memories with your team!
           </motion.p>
 
           <motion.div
