@@ -3,7 +3,7 @@
 import { motion, easeOut } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button-2'
 import { Star, Quote, Building2, Users, MapPin } from 'lucide-react'
 
 interface Testimonial {

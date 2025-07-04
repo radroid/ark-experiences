@@ -7,17 +7,16 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const {
-      company_name,
-      contact_person,
+      name,
       email,
       phone,
       team_size,
       preferred_date,
-      special_requirements,
+      message,
     } = body
 
     // Validate required fields
-    if (!company_name || !contact_person || !email) {
+    if (!name || !email) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -28,13 +27,13 @@ export async function POST(request: NextRequest) {
     const { data, error } = await supabaseAdmin
       .from('contacts')
       .insert({
-        company_name,
-        contact_person,
+        company_name: 'Individual Inquiry', // Default since we don't have company name anymore
+        contact_person: name,
         email,
         phone: phone || null,
         team_size: team_size ? parseInt(team_size.split('-')[0]) : null,
         preferred_date: preferred_date || null,
-        special_requirements: special_requirements || null,
+        special_requirements: message || null,
         status: 'new',
       })
       .select()
@@ -52,13 +51,13 @@ export async function POST(request: NextRequest) {
     try {
       // Send notification to ARK team
       const teamEmail = contactFormTemplates.teamNotification({
-        company_name,
-        contact_person,
+        company_name: 'Individual Inquiry',
+        contact_person: name,
         email,
         phone,
         team_size,
         preferred_date,
-        special_requirements,
+        special_requirements: message,
       })
 
       await resend.emails.send({
@@ -70,8 +69,8 @@ export async function POST(request: NextRequest) {
 
       // Send confirmation email to customer
       const customerEmail = contactFormTemplates.customerConfirmation({
-        company_name,
-        contact_person,
+        company_name: 'Individual Inquiry',
+        contact_person: name,
         email,
         team_size,
         preferred_date,

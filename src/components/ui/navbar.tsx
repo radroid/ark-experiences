@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button-2'
 import { Menu, Home, Info, Image as ImageIcon, MessageCircle, Mail } from 'lucide-react'
 
 export default function Navbar() {

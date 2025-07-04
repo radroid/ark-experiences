@@ -6,11 +6,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button-2'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { DatePicker } from '@/components/ui/date-picker'
 import { 
   Form, 
   FormControl, 
@@ -20,24 +20,18 @@ import {
   FormMessage 
 } from '@/components/ui/form'
 import { 
-  Mail, 
-  Phone, 
-  MapPin, 
   Send, 
   CheckCircle,
-  AlertCircle,
-  Users,
-  Calendar
+  AlertCircle
 } from 'lucide-react'
 
 const contactFormSchema = z.object({
-  company_name: z.string().min(2, 'Company name must be at least 2 characters'),
-  contact_person: z.string().min(2, 'Contact person name must be at least 2 characters'),
+  name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
   phone: z.string().optional(),
   team_size: z.string().optional(),
-  preferred_date: z.string().optional(),
-  special_requirements: z.string().optional(),
+  preferred_date: z.date().optional(),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
 })
 
 type ContactFormData = z.infer<typeof contactFormSchema>
@@ -49,13 +43,12 @@ export default function ContactForm() {
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      company_name: '',
-      contact_person: '',
+      name: '',
       email: '',
       phone: '',
       team_size: '',
-      preferred_date: '',
-      special_requirements: '',
+      preferred_date: undefined,
+      message: '',
     },
   })
 
@@ -69,7 +62,10 @@ export default function ContactForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          preferred_date: data.preferred_date ? data.preferred_date.toISOString().split('T')[0] : undefined,
+        }),
       })
 
       if (response.ok) {
@@ -106,280 +102,99 @@ export default function ContactForm() {
     }
   }
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: 'Email Us',
-      details: 'hello@arkscavengerhunt.com',
-      description: 'Get in touch for questions'
-    },
-    {
-      icon: Phone,
-      title: 'Call Us',
-      details: '+1 (416) 555-0123',
-      description: 'Mon-Fri, 9AM-6PM EST'
-    },
-    {
-      icon: MapPin,
-      title: 'Toronto Area',
-      details: 'GTA & Surrounding Areas',
-      description: 'We serve the Greater Toronto Area'
-    }
-  ]
-
   return (
-    <section id="contact" className="pt-40 py-24 gradient-cluedo relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-white rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-48 h-48 bg-yellow-300 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-red-400 rounded-full blur-2xl" />
+    <section id="contact" className="relative py-24 overflow-hidden">
+      {/* Background - Same as hero section */}
+      <div className="absolute inset-0 gradient-hero lava-lamp-bg" />
+      
+      {/* Additional Floating Circles */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="floating-circle"></div>
+        <div className="floating-circle"></div>
+        <div className="floating-circle"></div>
+        <div className="floating-circle-small"></div>
+        <div className="floating-circle-small"></div>
+        <div className="floating-circle-small"></div>
       </div>
+      
+      {/* Subtle Overlay */}
+      <div className="absolute inset-0 bg-black/5" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-white mb-6"
+            className="text-4xl md:text-5xl font-bold text-gray-800 mb-6"
             variants={itemVariants}
           >
-            Ready to Solve the{' '}
-            <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-              Mystery?
+            Ready to Start Your{' '}
+            <span className="bg-gradient-to-r from-blue-600 to-blue-900 bg-clip-text text-transparent">
+              Adventure?
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-white/90 max-w-3xl mx-auto"
+            className="text-xl text-gray-700 max-w-2xl mx-auto"
             variants={itemVariants}
           >
-            Book your team-building adventure today and experience the thrill of solving Toronto&apos;s greatest mystery
+            Get in touch with us to plan your perfect team-building experience. 
+            We&apos;ll help you create an unforgettable mystery adventure.
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <motion.div
-            className="space-y-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <motion.div variants={itemVariants}>
-              <h3 className="text-2xl font-bold text-white mb-6">Get In Touch</h3>
-              <p className="text-white/80 text-lg mb-8">
-                Ready to challenge your team? Contact us to plan your perfect mystery adventure. 
-                We&apos;ll customize the experience to your group size and preferences.
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <Card className="glass-card border-0 shadow-2xl max-w-2xl mx-auto">
+            <CardHeader className="text-center pb-6">
+              <CardTitle className="text-2xl font-bold text-gray-800">
+                Contact Us
+              </CardTitle>
+              <p className="text-gray-600 mt-2">
+                Fill out the form below and we&apos;ll get back to you within 24 hours
               </p>
-            </motion.div>
-
-            <div className="space-y-6">
-              {contactInfo.map((info, index) => (
+            </CardHeader>
+            <CardContent>
+              {submitStatus === 'success' ? (
                 <motion.div
-                  key={index}
-                  className="glass-card rounded-xl p-6"
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
+                  className="text-center py-12"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-full bg-white/10">
-                      <info.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">{info.title}</h4>
-                      <p className="text-yellow-300 font-medium mb-1">{info.details}</p>
-                      <p className="text-white/70 text-sm">{info.description}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Quick Stats */}
-            <motion.div 
-              className="grid grid-cols-2 gap-4 mt-8"
-              variants={itemVariants}
-            >
-              <div className="glass-card rounded-xl p-4 text-center">
-                <Users className="h-8 w-8 text-yellow-400 mx-auto mb-2" />
-                <div className="text-2xl font-bold text-white">500+</div>
-                <div className="text-white/70 text-sm">Teams Served</div>
-              </div>
-              <div className="glass-card rounded-xl p-4 text-center">
-                <Calendar className="h-8 w-8 text-yellow-400 mx-auto mb-2" />
-                <div className="text-2xl font-bold text-white">98%</div>
-                <div className="text-white/70 text-sm">Satisfaction Rate</div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <Card className="glass-card border-0 shadow-2xl">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-white">
-                  Plan Your Adventure
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {submitStatus === 'success' ? (
-                  <motion.div
-                    className="text-center py-8"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
+                  <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">Message Sent!</h3>
+                  <p className="text-gray-600 mb-6">
+                    Thank you for reaching out. We&apos;ll get back to you within 24 hours to plan your mystery adventure.
+                  </p>
+                  <Button
+                    onClick={() => setSubmitStatus('idle')}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
-                    <CheckCircle className="h-16 w-16 text-green-400 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-white mb-2">Message Sent!</h3>
-                    <p className="text-white/80">
-                      We&apos;ll get back to you within 24 hours to plan your mystery adventure.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="company_name"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-white">Company Name *</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="Your company"
-                                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="contact_person"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-white">Contact Person *</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="Your name"
-                                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="email"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-white">Email *</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="email"
-                                  placeholder="your@email.com"
-                                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="phone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-white">Phone</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="+1 (416) 555-0123"
-                                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="team_size"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-white">Team Size</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl>
-                                  <SelectTrigger className="bg-white/10 border-white/20 text-white">
-                                    <SelectValue placeholder="Select team size" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  <SelectItem value="9-15">9-15 people</SelectItem>
-                                  <SelectItem value="16-30">16-30 people</SelectItem>
-                                  <SelectItem value="31-45">31-45 people</SelectItem>
-                                  <SelectItem value="46+">46+ people</SelectItem>
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="preferred_date"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-white">Preferred Date</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="date"
-                                  className="bg-white/10 border-white/20 text-white"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-
+                    Send Another Message
+                  </Button>
+                </motion.div>
+              ) : (
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <FormField
                         control={form.control}
-                        name="special_requirements"
+                        name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-white">Special Requirements</FormLabel>
+                            <FormLabel className="text-gray-700 font-medium">Full Name *</FormLabel>
                             <FormControl>
-                              <Textarea
-                                placeholder="Any special requests or accessibility needs..."
-                                className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-[100px]"
+                              <Input
+                                placeholder="Your full name"
+                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500"
                                 {...field}
                               />
                             </FormControl>
@@ -388,41 +203,144 @@ export default function ContactForm() {
                         )}
                       />
 
-                      {submitStatus === 'error' && (
-                        <motion.div
-                          className="flex items-center gap-2 text-red-400 bg-red-400/10 p-3 rounded-lg"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                        >
-                          <AlertCircle className="h-5 w-5" />
-                          <span>Failed to send message. Please try again.</span>
-                        </motion.div>
-                      )}
-
-                      <Button
-                        type="submit"
-                        className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-semibold py-3"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black mr-2" />
-                            Sending...
-                          </>
-                        ) : (
-                          <>
-                            Send Message
-                            <Send className="ml-2 h-5 w-5" />
-                          </>
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-700 font-medium">Email Address *</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="email"
+                                placeholder="your@email.com"
+                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
                         )}
-                      </Button>
-                    </form>
-                  </Form>
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-700 font-medium">Phone Number</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="+1 (416) 555-0123"
+                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="team_size"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-gray-700 font-medium">Team Size</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger className="bg-white/80 border-gray-300 text-gray-800 focus:border-blue-500">
+                                  <SelectValue placeholder="Select team size" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="3-8">3-8 people</SelectItem>
+                                <SelectItem value="9-15">9-15 people</SelectItem>
+                                <SelectItem value="16-30">16-30 people</SelectItem>
+                                <SelectItem value="31+">31+ people</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <FormField
+                      control={form.control}
+                      name="preferred_date"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-700 font-medium">Preferred Date</FormLabel>
+                          <DatePicker
+                            value={field.value}
+                            onChange={field.onChange}
+                            placeholder="Select a date (minimum 2 weeks in advance)"
+                            label=""
+                            className="bg-white/80 border-gray-300 text-gray-800 focus:border-blue-500"
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-700 font-medium">Message *</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="Tell us about your team and any special requirements..."
+                              className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 min-h-[120px] resize-none"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    {submitStatus === 'error' && (
+                      <motion.div
+                        className="flex items-center gap-2 text-red-600 bg-red-50 p-4 rounded-lg border border-red-200"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <AlertCircle className="h-5 w-5" />
+                        <span>Failed to send message. Please try again.</span>
+                      </motion.div>
+                    )}
+
+                    <Button
+                      type="submit"
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 text-lg"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2" />
+                          Sending Message...
+                        </>
+                      ) : (
+                        <>
+                          Send Message
+                          <Send className="ml-2 h-5 w-5" />
+                        </>
+                      )}
+                    </Button>
+
+                    <p className="text-sm text-gray-500 text-center">
+                      We&apos;ll respond within 24 hours during business days
+                    </p>
+                  </form>
+                </Form>
+              )}
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </section>
   )

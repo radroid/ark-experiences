@@ -1,100 +1,158 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, easeOut } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { X, ChevronLeft, ChevronRight, Camera, Users, MapPin } from 'lucide-react'
+import { Button } from '@/components/ui/button-2'
+import { X, ChevronLeft, ChevronRight, Play, Pause, Volume2, VolumeX, Camera, Video, Users, MapPin } from 'lucide-react'
 
-interface GalleryImage {
+interface GalleryItem {
   id: number
+  type: 'image' | 'video'
   src: string
   alt: string
   title: string
   description: string
-  category: 'event' | 'team' | 'location'
+  category: 'event' | 'clue' | 'celebration' | 'location'
+  thumbnail?: string
 }
 
 export default function GallerySection() {
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'event' | 'team' | 'location'>('all')
+  const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'event' | 'clue' | 'celebration'>('all')
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
-  // Sample gallery images - in production these would come from Supabase
-  const galleryImages: GalleryImage[] = [
+  // Sample gallery items - in production these would come from Supabase
+  const galleryItems: GalleryItem[] = [
     {
       id: 1,
-      src: '/gallery/team-celebration.jpg',
-      alt: 'Team celebrating victory',
+      type: 'video',
+      src: '/gallery/players-celebration.mp4',
+      alt: 'Players celebrating after amazing experience',
       title: 'Victory Celebration',
-      description: 'Team Phoenix celebrates solving the mystery at Casa Loma',
-      category: 'team'
+      description: 'Watch the moment when all players erupt in applause after completing the epic scavenger hunt experience',
+      category: 'celebration'
     },
     {
       id: 2,
-      src: '/gallery/cn-tower-clue.jpg',
-      alt: 'Clue hunting at CN Tower',
-      title: 'CN Tower Challenge',
-      description: 'Teams searching for clues at Toronto\'s iconic landmark',
-      category: 'location'
+      type: 'video',
+      src: '/gallery/clue-hiding.mp4',
+      alt: 'Clue being hidden at CN Tower',
+      title: 'Behind the Scenes: Clue Placement',
+      description: 'See how we carefully place clues at Toronto\'s iconic CN Tower location',
+      category: 'clue'
     },
     {
       id: 3,
-      src: '/gallery/royal-ontario-museum.jpg',
-      alt: 'Royal Ontario Museum',
-      title: 'Museum Mystery',
-      description: 'Solving ancient riddles at the Royal Ontario Museum',
-      category: 'location'
+      type: 'image',
+      src: '/gallery/team-celebration.jpg',
+      alt: 'Team celebrating victory',
+      title: 'Team Phoenix Victory',
+      description: 'Team Phoenix celebrates solving the mystery at Casa Loma with pure joy',
+      category: 'event'
     },
     {
       id: 4,
+      type: 'video',
+      src: '/gallery/royal-ontario-clue.mp4',
+      alt: 'Clue discovery at Royal Ontario Museum',
+      title: 'Museum Mystery Solved',
+      description: 'Teams discovering and solving ancient riddles at the Royal Ontario Museum',
+      category: 'clue'
+    },
+    {
+      id: 5,
+      type: 'image',
       src: '/gallery/team-strategy.jpg',
       alt: 'Team planning strategy',
       title: 'Strategic Planning',
       description: 'Teams collaborating to piece together the murder mystery',
-      category: 'team'
-    },
-    {
-      id: 5,
-      src: '/gallery/distillery-district.jpg',
-      alt: 'Distillery District location',
-      title: 'Historic Distillery',
-      description: 'Uncovering secrets in Toronto\'s historic Distillery District',
-      category: 'location'
+      category: 'event'
     },
     {
       id: 6,
+      type: 'image',
       src: '/gallery/corporate-event.jpg',
       alt: 'Corporate team building event',
       title: 'Corporate Team Building',
       description: 'Tech company teams working together to solve the case',
       category: 'event'
+    },
+    {
+      id: 7,
+      type: 'video',
+      src: '/gallery/team-collaboration.mp4',
+      alt: 'Teams working together',
+      title: 'Collaboration in Action',
+      description: 'Watch teams work together to solve complex puzzles and riddles',
+      category: 'event'
+    },
+    {
+      id: 8,
+      type: 'image',
+      src: '/gallery/final-reveal.jpg',
+      alt: 'Final mystery reveal',
+      title: 'The Big Reveal',
+      description: 'The moment of truth when the mystery is finally solved',
+      category: 'celebration'
     }
   ]
 
   const categories = [
-    { id: 'all', label: 'All Photos', icon: Camera },
+    { id: 'all', label: 'All Media', icon: Camera },
     { id: 'event', label: 'Events', icon: Users },
-    { id: 'team', label: 'Teams', icon: Users },
-    { id: 'location', label: 'Locations', icon: MapPin }
+    { id: 'clue', label: 'Behind Scenes', icon: Video },
+    { id: 'celebration', label: 'Celebrations', icon: Users }
   ]
 
-  const filteredImages = selectedCategory === 'all' 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === selectedCategory)
+  const filteredItems = selectedCategory === 'all' 
+    ? galleryItems 
+    : galleryItems.filter(item => item.category === selectedCategory)
 
-  const nextImage = () => {
-    if (!selectedImage) return
-    const currentIndex = filteredImages.findIndex(img => img.id === selectedImage.id)
-    const nextIndex = (currentIndex + 1) % filteredImages.length
-    setSelectedImage(filteredImages[nextIndex])
+  const nextItem = () => {
+    if (!selectedItem) return
+    const currentIndex = filteredItems.findIndex(item => item.id === selectedItem.id)
+    const nextIndex = (currentIndex + 1) % filteredItems.length
+    setSelectedItem(filteredItems[nextIndex])
+    setIsPlaying(false)
   }
 
-  const prevImage = () => {
-    if (!selectedImage) return
-    const currentIndex = filteredImages.findIndex(img => img.id === selectedImage.id)
-    const prevIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length
-    setSelectedImage(filteredImages[prevIndex])
+  const prevItem = () => {
+    if (!selectedItem) return
+    const currentIndex = filteredItems.findIndex(item => item.id === selectedItem.id)
+    const prevIndex = (currentIndex - 1 + filteredItems.length) % filteredItems.length
+    setSelectedItem(filteredItems[prevIndex])
+    setIsPlaying(false)
   }
+
+  const togglePlay = () => {
+    if (selectedItem?.type === 'video' && videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause()
+      } else {
+        videoRef.current.play()
+      }
+      setIsPlaying(!isPlaying)
+    }
+  }
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted
+      setIsMuted(!isMuted)
+    }
+  }
+
+  useEffect(() => {
+    if (selectedItem?.type === 'video' && videoRef.current) {
+      videoRef.current.addEventListener('ended', () => setIsPlaying(false))
+      return () => {
+        videoRef.current?.removeEventListener('ended', () => setIsPlaying(false))
+      }
+    }
+  }, [selectedItem])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -130,7 +188,7 @@ export default function GallerySection() {
             className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             variants={itemVariants}
           >
-            Adventure{' '}
+            Experience{' '}
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               Gallery
             </span>
@@ -139,7 +197,7 @@ export default function GallerySection() {
             className="text-xl text-gray-600 max-w-3xl mx-auto"
             variants={itemVariants}
           >
-            See teams in action as they explore Toronto, solve mysteries, and create unforgettable memories
+            Immerse yourself in the excitement, mystery, and pure joy of our scavenger hunts through photos and videos
           </motion.p>
         </motion.div>
 
@@ -159,7 +217,7 @@ export default function GallerySection() {
                   ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
               }`}
-              onClick={() => setSelectedCategory(category.id as 'all' | 'event' | 'team' | 'location')}
+              onClick={() => setSelectedCategory(category.id as 'all' | 'event' | 'clue' | 'celebration')}
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -170,41 +228,53 @@ export default function GallerySection() {
           ))}
         </motion.div>
 
-        {/* Gallery Grid */}
+        {/* Massive Gallery Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
           <AnimatePresence mode="popLayout">
-            {filteredImages.map((image) => (
+            {filteredItems.map((item) => (
               <motion.div
-                key={image.id}
+                key={item.id}
                 variants={itemVariants}
                 layout
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4 }}
+                className="group cursor-pointer"
+                onClick={() => setSelectedItem(item)}
               >
-                <Card 
-                  className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300"
-                  onClick={() => setSelectedImage(image)}
-                >
+                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                   <CardContent className="p-0">
-                    <div className="relative aspect-[4/3] overflow-hidden">
+                    <div className="relative aspect-square overflow-hidden">
                       <div 
                         className="w-full h-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
                       >
-                        <Camera className="h-12 w-12 text-purple-400" />
+                        {item.type === 'video' ? (
+                          <Video className="h-8 w-8 text-purple-400" />
+                        ) : (
+                          <Camera className="h-8 w-8 text-purple-400" />
+                        )}
                       </div>
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                      
+                      {/* Play button overlay for videos */}
+                      {item.type === 'video' && (
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="bg-white/90 rounded-full p-3">
+                            <Play className="h-6 w-6 text-purple-600 ml-1" />
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 mb-1">{image.title}</h3>
-                      <p className="text-sm text-gray-600">{image.description}</p>
+                    <div className="p-3">
+                      <h3 className="font-semibold text-gray-900 text-sm mb-1 truncate">{item.title}</h3>
+                      <p className="text-xs text-gray-600 line-clamp-2">{item.description}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -213,7 +283,7 @@ export default function GallerySection() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Upload CTA */}
+        {/* Locations Discovery CTA */}
         <motion.div 
           className="mt-16 text-center"
           variants={itemVariants}
@@ -222,30 +292,33 @@ export default function GallerySection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <div className="glass-card rounded-2xl p-8 max-w-2xl mx-auto">
-            <Camera className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Share Your Adventure</h3>
+            <MapPin className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Discover the Locations</h3>
             <p className="text-gray-600 mb-6">
-              Did you participate in one of our scavenger hunts? We&apos;d love to see your photos!
+              Want to see the amazing locations we use in our hunts? Sign up and play to uncover the mystery of Toronto&apos;s most iconic landmarks!
             </p>
-            <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
-              Upload Photos
+            <Button 
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Plan Your Hunt
             </Button>
           </div>
         </motion.div>
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Massive Lightbox Modal */}
       <AnimatePresence>
-        {selectedImage && (
+        {selectedItem && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setSelectedItem(null)}
           >
             <motion.div
-              className="relative max-w-4xl max-h-[90vh] bg-white rounded-lg overflow-hidden"
+              className="relative max-w-6xl max-h-[90vh] bg-white rounded-lg overflow-hidden"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -253,32 +326,65 @@ export default function GallerySection() {
             >
               <button
                 className="absolute top-4 right-4 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
-                onClick={() => setSelectedImage(null)}
+                onClick={() => setSelectedItem(null)}
               >
                 <X className="h-6 w-6" />
               </button>
 
               <button
                 className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
-                onClick={prevImage}
+                onClick={prevItem}
               >
                 <ChevronLeft className="h-6 w-6" />
               </button>
 
               <button
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
-                onClick={nextImage}
+                onClick={nextItem}
               >
                 <ChevronRight className="h-6 w-6" />
               </button>
 
-              <div className="aspect-[4/3] bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
-                <Camera className="h-20 w-20 text-purple-400" />
+              {/* Media Display */}
+              <div className="relative">
+                {selectedItem.type === 'video' ? (
+                  <div className="relative aspect-video bg-black">
+                    <video
+                      ref={videoRef}
+                      src={selectedItem.src}
+                      className="w-full h-full object-cover"
+                      poster={selectedItem.thumbnail}
+                      onClick={togglePlay}
+                    />
+                    
+                    {/* Video Controls Overlay */}
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={togglePlay}
+                          className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
+                        >
+                          {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+                        </button>
+                        <button
+                          onClick={toggleMute}
+                          className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
+                        >
+                          {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="aspect-video bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                    <Camera className="h-20 w-20 text-purple-400" />
+                  </div>
+                )}
               </div>
 
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{selectedImage.title}</h3>
-                <p className="text-gray-600">{selectedImage.description}</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{selectedItem.title}</h3>
+                <p className="text-gray-600">{selectedItem.description}</p>
               </div>
             </motion.div>
           </motion.div>

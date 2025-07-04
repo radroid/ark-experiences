@@ -408,6 +408,187 @@
   background: linear-gradient(135deg, #5a67d8, #6b46c1);
 }
 
+/* Calendar styles for react-day-picker */
+.rdp {
+  --rdp-cell-size: 40px;
+  --rdp-accent-color: #3b82f6;
+  --rdp-background-color: #e2e8f0;
+  --rdp-accent-color-dark: #1d4ed8;
+  --rdp-background-color-dark: #475569;
+  --rdp-outline: 2px solid var(--rdp-accent-color);
+  --rdp-outline-selected: 2px solid rgba(0, 0, 0, 0.75);
+  margin: 0;
+  font-family: inherit;
+}
+
+.rdp-months {
+  display: flex;
+  justify-content: center;
+}
+
+.rdp-month {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  min-width: 280px;
+}
+
+.rdp-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  text-align: left;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  min-height: 2rem;
+}
+
+.rdp-caption_label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.rdp-nav {
+  white-space: nowrap;
+}
+
+.rdp-nav_button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #374151;
+}
+
+.rdp-nav_button:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.rdp-nav_button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.rdp-table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.rdp-head_cell {
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #64748b;
+  padding: 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rdp-tbody {
+  border: 0;
+}
+
+.rdp-row {
+  margin: 0;
+}
+
+.rdp-cell {
+  text-align: center;
+  padding: 0;
+  position: relative;
+}
+
+.rdp-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rdp-button:hover {
+  background: #f1f5f9;
+}
+
+.rdp-button[aria-selected="true"] {
+  background: var(--rdp-accent-color);
+  color: white;
+  font-weight: 500;
+}
+
+.rdp-button[aria-selected="true"]:hover {
+  background: var(--rdp-accent-color-dark);
+}
+
+.rdp-button[disabled] {
+  color: #cbd5e1;
+  cursor: not-allowed;
+  background: transparent;
+}
+
+.rdp-button[disabled]:hover {
+  background: transparent;
+}
+
+.rdp-day_today {
+  font-weight: bold;
+  color: var(--rdp-accent-color);
+}
+
+.rdp-day_outside {
+  color: #cbd5e1;
+}
+
+.rdp-caption_dropdowns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.rdp-dropdown {
+  border: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rdp-dropdown:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.rdp-dropdown:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Ensure proper z-index for popover */
+[data-radix-popper-content-wrapper] {
+  z-index: 50;
+}
+
 /* Section-wise scrolling styles */
 .scroll-container {
   height: 100vh;
@@ -430,6 +611,11 @@
   flex-direction: column;
 }
 
+/* Allow footer to be its natural height */
+.scroll-section:last-child {
+  min-height: auto;
+}
+
 /* Smooth scrolling for all elements */
 html {
   scroll-behavior: smooth;
@@ -440,4 +626,9 @@ html {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Allow footer section to be its natural height */
+.scroll-section:last-child > section {
+  min-height: auto;
 }

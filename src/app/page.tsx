@@ -3,17 +3,19 @@ import HowItWorks from '@/components/sections/how-it-works'
 import GallerySection from '@/components/sections/gallery-section'
 import TestimonialsSection from '@/components/sections/testimonials-section'
 import ContactForm from '@/components/sections/contact-form'
+import Footer from '@/components/sections/footer'
 import SectionScrollContainer from '@/components/sections/section-scroll-container'
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main>
       <SectionScrollContainer>
         <HeroSection />
         <HowItWorks />
         <GallerySection />
         <TestimonialsSection />
         <ContactForm />
+        <Footer />
       </SectionScrollContainer>
     </main>
   )
