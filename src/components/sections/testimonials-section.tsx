@@ -121,8 +121,8 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <section id="testimonials" className="pt-40 py-24 handdrawn-section-bg handdrawn-newspaper-bg relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials" className="section-padding bg-gradient-secondary relative overflow-hidden">
+      <div className="max-w-7xl mx-auto container-padding">
         {/* Header */}
         <motion.div
           className="text-center mb-16"
@@ -132,16 +132,16 @@ export default function TestimonialsSection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 handdrawn-heading"
+            className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
             variants={itemVariants}
           >
             What Teams Are{' '}
-            <span className="handdrawn-underline text-pink-700">
+            <span className="text-gradient">
               Saying
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-700 max-w-3xl mx-auto handdrawn-paragraph"
+            className="text-xl text-gray-600 max-w-3xl mx-auto"
             variants={itemVariants}
           >
             Don't just take our word for it - hear from teams who've experienced the thrill of solving mysteries together
@@ -150,7 +150,7 @@ export default function TestimonialsSection() {
 
         {/* Stats */}
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -159,23 +159,21 @@ export default function TestimonialsSection() {
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              className="text-center handdrawn-card"
+              className="text-center bg-white p-8 rounded-2xl shadow-soft hover-lift"
               variants={itemVariants}
-              whileHover={{ y: -5 }}
-              transition={{ duration: 0.2 }}
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full handdrawn-card-accent mb-4">
-                <stat.icon className="h-6 w-6 text-yellow-700" />
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-secondary mb-4">
+                <stat.icon className="h-6 w-6 text-primary" />
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-1 handdrawn-card-title">{stat.value}</div>
-              <div className="text-gray-600 handdrawn-card-desc">{stat.label}</div>
+              <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
+              <div className="text-gray-600">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
 
         {/* Testimonials Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 handdrawn-gallery-grid"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -185,30 +183,35 @@ export default function TestimonialsSection() {
             <motion.div
               key={testimonial.id}
               variants={itemVariants}
-              whileHover={{ y: -10 }}
-              transition={{ duration: 0.3 }}
-              className={`handdrawn-polaroid-card relative ${index % 2 === 0 ? 'rotate-[-1deg]' : 'rotate-[1deg]'} ${index % 3 === 0 ? 'z-20' : 'z-10'}`}
+              className="bg-white p-8 rounded-2xl shadow-soft hover-lift relative"
             >
-              {/* Hand-drawn quote mark accent */}
-              <div className="absolute -top-6 left-6 text-5xl text-yellow-700 handdrawn-quote">“</div>
-              <div className="absolute -bottom-6 right-6 text-5xl text-yellow-700 handdrawn-quote">”</div>
-              <div className="p-6">
+              {/* Quote mark accent */}
+              <div className="absolute top-6 right-6 text-4xl text-primary/20 font-serif">"</div>
+              <div className="absolute bottom-6 left-6 text-4xl text-primary/20 font-serif">"</div>
+              
+              <div className="relative z-10">
                 {/* Quote Icon and Stars */}
                 <div className="flex justify-between items-start mb-4">
-                  <span className="handdrawn-quote-icon">
-                    <Quote className="h-8 w-8 text-yellow-700 opacity-70" />
-                  </span>
+                  <Quote className="h-6 w-6 text-primary/60" />
                   <div className="flex gap-1">
                     {renderStars(testimonial.rating)}
                   </div>
                 </div>
-                <p className="text-gray-800 text-lg mb-4 handdrawn-paragraph">
+                
+                <p className="text-gray-700 text-lg mb-6 leading-relaxed">
                   {testimonial.text}
                 </p>
-                <div className="flex flex-col gap-1 mt-4">
-                  <span className="font-bold text-gray-900 handdrawn-card-title">{testimonial.name}</span>
-                  <span className="text-gray-700 handdrawn-card-desc">{testimonial.role} @ {testimonial.company}</span>
-                  <span className="text-gray-500 text-sm">{testimonial.teamSize} • {testimonial.location}</span>
+                
+                <div className="flex flex-col gap-1">
+                  <span className="font-bold text-gray-900 text-lg">{testimonial.name}</span>
+                  <span className="text-gray-600">{testimonial.role} @ {testimonial.company}</span>
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mt-2">
+                    <Users className="h-4 w-4" />
+                    <span>{testimonial.teamSize}</span>
+                    <span>•</span>
+                    <MapPin className="h-4 w-4" />
+                    <span>{testimonial.location}</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -223,18 +226,18 @@ export default function TestimonialsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 md:p-12 text-white">
+          <div className="bg-gradient-primary rounded-3xl p-12 text-gray-900 shadow-large">
             <motion.div className="max-w-3xl mx-auto">
               <h3 className="text-3xl md:text-4xl font-bold mb-4">
                 Ready to Create Your Own Success Story?
               </h3>
-              <p className="text-xl mb-8 text-white/90">
+              <p className="text-xl mb-8 text-gray-700">
                 Join hundreds of teams who've already discovered the power of mystery-solving team building
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
-                  className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+                  className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-medium hover-lift"
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Book Your Adventure
@@ -242,7 +245,7 @@ export default function TestimonialsSection() {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-white text-white hover:bg-white/10 px-8 py-4 text-lg"
+                  className="border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white px-8 py-4 text-lg font-medium hover-lift"
                 >
                   View More Reviews
                 </Button>

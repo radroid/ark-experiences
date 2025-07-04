@@ -128,17 +128,32 @@ export default function ContactForm() {
   ]
 
   return (
-    <section id="contact" className="pt-40 py-24 handdrawn-section-bg handdrawn-newspaper-bg relative overflow-hidden">
-      {/* Hand-drawn detective/map accents */}
-      <svg className="absolute left-0 top-0 w-40 h-40 z-0" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="40" cy="40" rx="18" ry="8" fill="#b6a77a" opacity="0.13"/>
-        <ellipse cx="60" cy="60" rx="8" ry="4" fill="#b6a77a" opacity="0.13"/>
-        <ellipse cx="80" cy="80" rx="12" ry="6" fill="#b6a77a" opacity="0.13"/>
-        <ellipse cx="100" cy="100" rx="7" ry="3" fill="#b6a77a" opacity="0.13"/>
-        <circle cx="120" cy="120" r="12" fill="#ffe066" stroke="#b6a77a" stroke-width="2"/>
-        <rect x="110" y="110" width="20" height="8" rx="4" fill="#fffbe6" stroke="#b6a77a" stroke-width="1.5"/>
-      </svg>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="contact" className="section-padding bg-white relative overflow-hidden">
+      {/* Playful accent illustrations */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Map pin accent */}
+        <motion.div
+          className="absolute top-20 left-20 text-primary/10"
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        >
+          <MapPin size={60} />
+        </motion.div>
+        
+        {/* Magnifying glass accent */}
+        <motion.div
+          className="absolute bottom-40 right-20 text-secondary/10"
+          animate={{ rotate: [0, 5, -5, 0] }}
+          transition={{ duration: 4, repeat: Infinity }}
+        >
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </motion.div>
+      </div>
+
+      <div className="max-w-7xl mx-auto container-padding relative z-10">
         <motion.div
           className="text-center mb-16"
           variants={containerVariants}
@@ -147,22 +162,23 @@ export default function ContactForm() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 handdrawn-heading"
+            className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
             variants={itemVariants}
           >
             Ready to Solve the{' '}
-            <span className="handdrawn-underline text-yellow-700">
+            <span className="text-gradient">
               Mystery?
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-700 max-w-3xl mx-auto handdrawn-paragraph"
+            className="text-xl text-gray-600 max-w-3xl mx-auto"
             variants={itemVariants}
           >
             Book your team-building adventure today and experience the thrill of solving Toronto's greatest mystery
           </motion.p>
         </motion.div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Contact Information */}
           <motion.div
             className="space-y-8"
@@ -173,7 +189,7 @@ export default function ContactForm() {
           >
             <motion.div variants={itemVariants}>
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Get In Touch</h3>
-              <p className="text-gray-700 text-lg mb-8">
+              <p className="text-gray-600 text-lg mb-8">
                 Ready to challenge your team? Contact us to plan your perfect mystery adventure. 
                 We'll customize the experience to your group size and preferences.
               </p>
@@ -182,28 +198,27 @@ export default function ContactForm() {
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={index}
-                  className="handdrawn-card rounded-xl p-6"
+                  className="bg-white p-6 rounded-2xl shadow-soft hover-lift"
                   variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-full handdrawn-card-accent">
-                      <info.icon className="h-6 w-6 text-yellow-700" />
+                    <div className="p-3 rounded-full bg-gradient-secondary">
+                      <info.icon className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-1 handdrawn-card-title">{info.title}</h4>
-                      <p className="text-yellow-700 font-medium mb-1">{info.details}</p>
-                      <p className="text-gray-600 text-sm handdrawn-card-desc">{info.description}</p>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-1">{info.title}</h4>
+                      <p className="text-primary font-medium mb-1">{info.details}</p>
+                      <p className="text-gray-500 text-sm">{info.description}</p>
                     </div>
                   </div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
+          
           {/* Contact Form */}
           <motion.div
-            className="handdrawn-card p-8"
+            className="bg-white p-8 rounded-3xl shadow-medium"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -216,9 +231,13 @@ export default function ContactForm() {
                   name="company_name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company Name</FormLabel>
+                      <FormLabel className="text-gray-700 font-medium">Company Name</FormLabel>
                       <FormControl>
-                        <Input className="handdrawn-input" placeholder="Your company or group name" {...field} />
+                        <Input 
+                          className="bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/20" 
+                          placeholder="Your company or group name" 
+                          {...field} 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -229,9 +248,13 @@ export default function ContactForm() {
                   name="contact_person"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Contact Person</FormLabel>
+                      <FormLabel className="text-gray-700 font-medium">Contact Person</FormLabel>
                       <FormControl>
-                        <Input className="handdrawn-input" placeholder="Your name" {...field} />
+                        <Input 
+                          className="bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/20" 
+                          placeholder="Your name" 
+                          {...field} 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -242,9 +265,13 @@ export default function ContactForm() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel className="text-gray-700 font-medium">Email</FormLabel>
                       <FormControl>
-                        <Input className="handdrawn-input" placeholder="you@email.com" {...field} />
+                        <Input 
+                          className="bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/20" 
+                          placeholder="you@email.com" 
+                          {...field} 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -255,9 +282,13 @@ export default function ContactForm() {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone</FormLabel>
+                      <FormLabel className="text-gray-700 font-medium">Phone</FormLabel>
                       <FormControl>
-                        <Input className="handdrawn-input" placeholder="(optional)" {...field} />
+                        <Input 
+                          className="bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/20" 
+                          placeholder="(optional)" 
+                          {...field} 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -268,9 +299,13 @@ export default function ContactForm() {
                   name="team_size"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Team Size</FormLabel>
+                      <FormLabel className="text-gray-700 font-medium">Team Size</FormLabel>
                       <FormControl>
-                        <Input className="handdrawn-input" placeholder="e.g. 12" {...field} />
+                        <Input 
+                          className="bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/20" 
+                          placeholder="e.g. 12" 
+                          {...field} 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -281,9 +316,13 @@ export default function ContactForm() {
                   name="preferred_date"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Preferred Date</FormLabel>
+                      <FormLabel className="text-gray-700 font-medium">Preferred Date</FormLabel>
                       <FormControl>
-                        <Input className="handdrawn-input" placeholder="e.g. 2024-07-15" {...field} />
+                        <Input 
+                          className="bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/20" 
+                          placeholder="e.g. 2024-07-15" 
+                          {...field} 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -294,26 +333,34 @@ export default function ContactForm() {
                   name="special_requirements"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Special Requirements</FormLabel>
+                      <FormLabel className="text-gray-700 font-medium">Special Requirements</FormLabel>
                       <FormControl>
-                        <Textarea className="handdrawn-input" placeholder="Let us know if you have any special requests or requirements" {...field} />
+                        <Textarea 
+                          className="bg-gray-50 border-gray-200 focus:border-primary focus:ring-primary/20" 
+                          placeholder="Let us know if you have any special requests or requirements" 
+                          {...field} 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="handdrawn-btn w-full text-lg font-bold flex items-center justify-center" disabled={isSubmitting}>
+                <Button 
+                  type="submit" 
+                  className="bg-gradient-primary text-gray-900 hover-lift w-full text-lg font-semibold flex items-center justify-center shadow-medium" 
+                  disabled={isSubmitting}
+                >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                   <Send className="ml-2 h-5 w-5" />
                 </Button>
                 {submitStatus === 'success' && (
-                  <div className="flex items-center gap-2 text-green-700 mt-2">
+                  <div className="flex items-center gap-2 text-green-700 mt-2 p-3 bg-green-50 rounded-lg">
                     <CheckCircle className="h-5 w-5" />
                     Message sent! We'll get back to you soon.
                   </div>
                 )}
                 {submitStatus === 'error' && (
-                  <div className="flex items-center gap-2 text-red-700 mt-2">
+                  <div className="flex items-center gap-2 text-red-700 mt-2 p-3 bg-red-50 rounded-lg">
                     <AlertCircle className="h-5 w-5" />
                     Something went wrong. Please try again.
                   </div>

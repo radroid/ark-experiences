@@ -35,44 +35,46 @@ export default function HeroSection() {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  // Fixed positions for floating elements to avoid hydration mismatch
-  const floatingElements = [
-    { left: '15%', top: '20%', duration: 8 },
-    { left: '85%', top: '30%', duration: 10 },
-    { left: '25%', top: '70%', duration: 9 },
-    { left: '75%', top: '60%', duration: 11 },
-    { left: '45%', top: '15%', duration: 9.5 },
-    { left: '65%', top: '80%', duration: 8.5 },
-  ]
-
   return (
-    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden handdrawn-hero-bg">
-      {/* Hand-drawn Frame Overlay */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M30 60 Q800 0 1570 60 Q1600 450 1570 840 Q800 900 30 840 Q0 450 30 60 Z" stroke="#b6a77a" stroke-width="8" fill="none"/>
-        <path d="M60 100 Q800 40 1540 100 Q1570 450 1540 800 Q800 860 60 800 Q30 450 60 100 Z" stroke="#e2dbc7" stroke-width="4" fill="none"/>
-      </svg>
-      {/* Map-like accents: faint grid and footprints */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g opacity="0.08">
-          <path d="M0 100 H1600" stroke="#b6a77a" stroke-width="2"/>
-          <path d="M0 300 H1600" stroke="#b6a77a" stroke-width="2"/>
-          <path d="M0 500 H1600" stroke="#b6a77a" stroke-width="2"/>
-          <path d="M0 700 H1600" stroke="#b6a77a" stroke-width="2"/>
-          <path d="M200 0 V900" stroke="#b6a77a" stroke-width="2"/>
-          <path d="M800 0 V900" stroke="#b6a77a" stroke-width="2"/>
-          <path d="M1400 0 V900" stroke="#b6a77a" stroke-width="2"/>
-        </g>
-        <g opacity="0.12">
-          <ellipse cx="300" cy="200" rx="18" ry="8" fill="#b6a77a"/>
-          <ellipse cx="320" cy="220" rx="8" ry="4" fill="#b6a77a"/>
-          <ellipse cx="340" cy="240" rx="12" ry="6" fill="#b6a77a"/>
-          <ellipse cx="360" cy="260" rx="7" ry="3" fill="#b6a77a"/>
-        </g>
-      </svg>
+    <section id="hero-section" className="relative min-h-screen flex items-center justify-center bg-white pt-16">
+      {/* Playful accent illustrations */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Map pin accent */}
+        <motion.div
+          className="absolute top-20 right-20 text-primary/20"
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        >
+          <MapPin size={60} />
+        </motion.div>
+        
+        {/* Magnifying glass accent */}
+        <motion.div
+          className="absolute bottom-40 left-20 text-secondary/20"
+          animate={{ rotate: [0, 5, -5, 0] }}
+          transition={{ duration: 4, repeat: Infinity }}
+        >
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </motion.div>
+        
+        {/* Footprint accent */}
+        <motion.div
+          className="absolute top-1/2 right-1/4 text-primary/15"
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9ZM19 9H14V4H5V21H19V9Z"/>
+          </svg>
+        </motion.div>
+      </div>
+
       {/* Main Content */}
       <motion.div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -82,32 +84,32 @@ export default function HeroSection() {
           variants={itemVariants}
         >
           <motion.h1 
-            className="text-3xl md:text-5xl lg:text-7xl font-bold text-gray-800 leading-tight handdrawn-heading"
+            className="text-4xl md:text-6xl lg:text-8xl font-bold text-gray-900 leading-tight"
             variants={itemVariants}
           >
             Solve the{' '}
-            <span className="handdrawn-underline text-blue-900">
+            <span className="text-gradient">
               Mystery
             </span>
             <br />
             Build Your{' '}
-            <span className="handdrawn-underline text-slate-900">
+            <span className="text-primary">
               Team
             </span>
           </motion.h1>
           <motion.p 
-            className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed handdrawn-paragraph"
+            className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
             variants={itemVariants}
           >
             Ready for an epic adventure? Experience Toronto like never before with our immersive Cluedo-themed scavenger hunt. Navigate 9 iconic locations, solve intricate puzzles, and create unforgettable memories with your team!
           </motion.p>
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             variants={itemVariants}
           >
             <Button 
               size="lg" 
-              className="handdrawn-btn text-gray-800 px-8 py-4 text-lg font-semibold"
+              className="bg-gradient-primary text-gray-900 px-8 py-4 text-lg font-semibold shadow-medium hover-lift"
               onClick={scrollToContact}
             >
               Plan Your Adventure
@@ -116,49 +118,47 @@ export default function HeroSection() {
             <Button 
               variant="outline" 
               size="lg" 
-              className="handdrawn-btn-outline text-gray-800 px-8 py-4 text-lg"
+              className="border-2 border-gray-300 text-gray-700 px-8 py-4 text-lg font-medium hover:bg-gray-50 hover-lift"
               onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
             >
               How It Works
             </Button>
           </motion.div>
         </motion.div>
+        
         {/* Stats Section */}
         <motion.div 
-          className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
           variants={containerVariants}
         >
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              className="handdrawn-card p-6 text-center"
+              className="bg-white p-8 rounded-2xl shadow-soft hover-lift text-center"
               variants={itemVariants}
-              whileHover={{ 
-                scale: 1.05, 
-                transition: { duration: 0.2 } 
-              }}
             >
               <div className="flex justify-center mb-4">
-                <div className="p-3 rounded-full handdrawn-card-accent">
-                  <stat.icon className="h-8 w-8 text-gray-800" />
+                <div className="p-4 rounded-full bg-gradient-secondary">
+                  <stat.icon className="h-8 w-8 text-primary" />
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-1 handdrawn-card-title">{stat.label}</h3>
-              <p className="text-gray-600 handdrawn-card-desc">{stat.description}</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">{stat.label}</h3>
+              <p className="text-gray-600">{stat.description}</p>
             </motion.div>
           ))}
         </motion.div>
       </motion.div>
+      
       {/* Scroll Indicator */}
       <motion.div
-          className="absolute bottom-8 left-8"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className="w-6 h-10 border-2 border-gray-800/50 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-gray-800/70 rounded-full mt-2" />
-          </div>
-        </motion.div>
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-gray-400 rounded-full mt-2" />
+        </div>
+      </motion.div>
     </section>
   )
 } 

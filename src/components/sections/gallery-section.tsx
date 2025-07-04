@@ -117,8 +117,8 @@ export default function GallerySection() {
   }
 
   return (
-    <section id="gallery" className="pt-40 py-24 handdrawn-section-bg handdrawn-newspaper-bg relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="gallery" className="section-padding bg-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto container-padding">
         <motion.div
           className="text-center mb-16"
           variants={containerVariants}
@@ -127,16 +127,16 @@ export default function GallerySection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 handdrawn-heading"
+            className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
             variants={itemVariants}
           >
             Adventure{' '}
-            <span className="handdrawn-underline text-pink-700">
+            <span className="text-gradient">
               Gallery
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-700 max-w-3xl mx-auto handdrawn-paragraph"
+            className="text-xl text-gray-600 max-w-3xl mx-auto"
             variants={itemVariants}
           >
             See teams in action as they explore Toronto, solve mysteries, and create unforgettable memories
@@ -145,7 +145,7 @@ export default function GallerySection() {
 
         {/* Category Filter */}
         <motion.div 
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-wrap justify-center gap-4 mb-16"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -154,7 +154,11 @@ export default function GallerySection() {
           {categories.map((category) => (
             <motion.button
               key={category.id}
-              className={`flex items-center gap-2 px-6 py-3 handdrawn-badge font-medium transition-all duration-300 ${selectedCategory === category.id ? 'bg-yellow-100' : 'bg-white hover:bg-yellow-50'}`}
+              className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                selectedCategory === category.id 
+                  ? 'bg-gradient-primary text-gray-900 shadow-medium' 
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
               onClick={() => setSelectedCategory(category.id as any)}
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
@@ -166,9 +170,9 @@ export default function GallerySection() {
           ))}
         </motion.div>
 
-        {/* Gallery Grid - Newspaper Collage Style */}
+        {/* Gallery Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 handdrawn-gallery-grid"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -184,23 +188,23 @@ export default function GallerySection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4 }}
-                className={`handdrawn-polaroid-card relative cursor-pointer ${idx % 2 === 0 ? 'rotate-[-2deg]' : 'rotate-[2deg]'} ${idx % 3 === 0 ? 'z-20' : 'z-10'}`}
+                className="bg-white rounded-2xl shadow-soft hover-lift cursor-pointer overflow-hidden"
                 onClick={() => setSelectedImage(image)}
               >
-                {/* Tape accent */}
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4 handdrawn-tape" />
-                {/* Paperclip accent */}
-                {idx % 3 === 0 && <div className="absolute top-2 right-2 handdrawn-paperclip" />}
-                <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <img 
                     src={image.src} 
                     alt={image.alt} 
-                    className="w-full h-full object-cover handdrawn-polaroid-img" 
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" 
                   />
+                  {/* Playful accent icon */}
+                  <div className="absolute top-4 right-4 p-2 bg-white/90 rounded-full shadow-soft">
+                    <Camera className="h-4 w-4 text-primary" />
+                  </div>
                 </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-lg handdrawn-card-title">{image.title}</h3>
-                  <p className="text-gray-700 handdrawn-card-desc">{image.description}</p>
+                <div className="p-6">
+                  <h3 className="font-bold text-xl text-gray-900 mb-2">{image.title}</h3>
+                  <p className="text-gray-600">{image.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -209,19 +213,19 @@ export default function GallerySection() {
 
         {/* Upload CTA */}
         <motion.div 
-          className="mt-16 text-center"
+          className="mt-20 text-center"
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="glass-card rounded-2xl p-8 max-w-2xl mx-auto">
-            <Camera className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+          <div className="bg-gradient-secondary rounded-3xl p-12 max-w-2xl mx-auto shadow-medium">
+            <Camera className="h-12 w-12 text-primary mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Share Your Adventure</h3>
             <p className="text-gray-600 mb-6">
               Did you participate in one of our scavenger hunts? We'd love to see your photos!
             </p>
-            <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+            <Button className="bg-gradient-primary text-gray-900 hover-lift shadow-medium">
               Upload Photos
             </Button>
           </div>
@@ -239,7 +243,7 @@ export default function GallerySection() {
             onClick={() => setSelectedImage(null)}
           >
             <motion.div
-              className="relative max-w-4xl max-h-[90vh] bg-white rounded-lg overflow-hidden"
+              className="relative max-w-4xl max-h-[90vh] bg-white rounded-2xl overflow-hidden shadow-large"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -266,11 +270,11 @@ export default function GallerySection() {
                 <ChevronRight className="h-6 w-6" />
               </button>
 
-              <div className="aspect-[4/3] bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
-                <Camera className="h-20 w-20 text-purple-400" />
+              <div className="aspect-[4/3] bg-gradient-secondary flex items-center justify-center">
+                <Camera className="h-20 w-20 text-primary" />
               </div>
 
-              <div className="p-6">
+              <div className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">{selectedImage.title}</h3>
                 <p className="text-gray-600">{selectedImage.description}</p>
               </div>
