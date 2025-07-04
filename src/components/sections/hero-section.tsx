@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, easeInOut, easeOut } from 'framer-motion'
+import { motion, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, MapPin, Users, Clock } from 'lucide-react'
 
@@ -35,15 +35,7 @@ export default function HeroSection() {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  // Fixed positions for floating elements to avoid hydration mismatch
-  const floatingElements = [
-    { left: '15%', top: '20%', duration: 8 },
-    { left: '85%', top: '30%', duration: 10 },
-    { left: '25%', top: '70%', duration: 9 },
-    { left: '75%', top: '60%', duration: 11 },
-    { left: '45%', top: '15%', duration: 9.5 },
-    { left: '65%', top: '80%', duration: 8.5 },
-  ]
+
 
   return (
     <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden">

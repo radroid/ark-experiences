@@ -159,7 +159,7 @@ export default function GallerySection() {
                   ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
               }`}
-              onClick={() => setSelectedCategory(category.id as any)}
+              onClick={() => setSelectedCategory(category.id as 'all' | 'event' | 'team' | 'location')}
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -225,7 +225,7 @@ export default function GallerySection() {
             <Camera className="h-12 w-12 text-purple-600 mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Share Your Adventure</h3>
             <p className="text-gray-600 mb-6">
-              Did you participate in one of our scavenger hunts? We'd love to see your photos!
+              Did you participate in one of our scavenger hunts? We&apos;d love to see your photos!
             </p>
             <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
               Upload Photos

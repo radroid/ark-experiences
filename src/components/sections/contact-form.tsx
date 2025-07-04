@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { 
   Form, 
@@ -157,7 +157,7 @@ export default function ContactForm() {
             className="text-xl text-white/90 max-w-3xl mx-auto"
             variants={itemVariants}
           >
-            Book your team-building adventure today and experience the thrill of solving Toronto's greatest mystery
+            Book your team-building adventure today and experience the thrill of solving Toronto&apos;s greatest mystery
           </motion.p>
         </motion.div>
 
@@ -174,7 +174,7 @@ export default function ContactForm() {
               <h3 className="text-2xl font-bold text-white mb-6">Get In Touch</h3>
               <p className="text-white/80 text-lg mb-8">
                 Ready to challenge your team? Contact us to plan your perfect mystery adventure. 
-                We'll customize the experience to your group size and preferences.
+                We&apos;ll customize the experience to your group size and preferences.
               </p>
             </motion.div>
 
@@ -243,7 +243,7 @@ export default function ContactForm() {
                     <CheckCircle className="h-16 w-16 text-green-400 mx-auto mb-4" />
                     <h3 className="text-xl font-semibold text-white mb-2">Message Sent!</h3>
                     <p className="text-white/80">
-                      We'll get back to you within 24 hours to plan your mystery adventure.
+                      We&apos;ll get back to you within 24 hours to plan your mystery adventure.
                     </p>
                   </motion.div>
                 ) : (

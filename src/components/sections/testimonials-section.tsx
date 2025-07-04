@@ -2,7 +2,7 @@
 
 import { motion, easeOut } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+
 import { Button } from '@/components/ui/button'
 import { Star, Quote, Building2, Users, MapPin } from 'lucide-react'
 
@@ -36,7 +36,7 @@ export default function TestimonialsSection() {
       company: 'Creative Marketing Inc',
       role: 'Team Lead',
       rating: 5,
-      text: 'The perfect blend of challenge and fun! We solved the murder mystery just in time and the competitive element really brought out everyone\'s best. Highly recommend for any team looking to bond while exploring Toronto.',
+      text: 'The perfect blend of challenge and fun! We solved the murder mystery just in time and the competitive element really brought out everyone&apos;s best. Highly recommend for any team looking to bond while exploring Toronto.',
       teamSize: '18 people',
       location: 'Liberty Village'
     },
@@ -144,7 +144,7 @@ export default function TestimonialsSection() {
             className="text-xl text-gray-600 max-w-3xl mx-auto"
             variants={itemVariants}
           >
-            Don't just take our word for it - hear from teams who've experienced the thrill of solving mysteries together
+            Don&apos;t just take our word for it - hear from teams who&apos;ve experienced the thrill of solving mysteries together
           </motion.p>
         </motion.div>
 
@@ -181,7 +181,7 @@ export default function TestimonialsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.id}
               variants={itemVariants}
@@ -200,7 +200,7 @@ export default function TestimonialsSection() {
 
                   {/* Testimonial Text */}
                   <p className="text-gray-700 leading-relaxed mb-6 italic">
-                    "{testimonial.text}"
+                    &ldquo;{testimonial.text}&rdquo;
                   </p>
 
                   {/* Author Info */}
@@ -252,7 +252,7 @@ export default function TestimonialsSection() {
                 Ready to Create Your Own Success Story?
               </h3>
               <p className="text-xl mb-8 text-white/90">
-                Join hundreds of teams who've already discovered the power of mystery-solving team building
+                Join hundreds of teams who&apos;ve already discovered the power of mystery-solving team building
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
