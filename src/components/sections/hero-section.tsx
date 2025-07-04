@@ -2,7 +2,7 @@
 
 import { motion, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, MapPin, Users, Clock } from 'lucide-react'
+import { ArrowRight, MapPin, Users, Clock, DollarSign } from 'lucide-react'
 
 export default function HeroSection() {
   const containerVariants = {
@@ -27,8 +27,9 @@ export default function HeroSection() {
 
   const stats = [
     { icon: MapPin, label: '9 Locations', description: 'Across Toronto' },
-    { icon: Users, label: '3-50 Players', description: 'Team sizes' },
-    { icon: Clock, label: '2-4 Hours', description: 'Duration' }
+    { icon: Users, label: '3-20 Players', description: 'Team sizes' },
+    { icon: Clock, label: '4 Hours', description: 'Duration' },
+    // { icon: DollarSign, label: 'Approx. $70 CAD', description: 'Cost per person' }
   ]
 
   const scrollToContact = () => {
