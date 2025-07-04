@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
@@ -10,6 +10,8 @@ import { Menu, X, Home, Info, Image as ImageIcon, MessageCircle, Mail } from 'lu
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isMobileLayout, setIsMobileLayout] = useState(false)
+  const navRef = useRef<HTMLDivElement>(null)
 
   const navItems = [
     { href: '#how-it-works', label: 'How It Works', icon: Info },
@@ -17,6 +19,56 @@ export default function Navbar() {
     { href: '#testimonials', label: 'Testimonials', icon: MessageCircle },
     { href: '#contact', label: 'Contact', icon: Mail }
   ]
+
+  // Custom hook to detect when navigation text wraps
+  useEffect(() => {
+    const checkNavLayout = () => {
+      if (navRef.current) {
+        const navElement = navRef.current
+        const navItems = navElement.querySelectorAll('[data-nav-item]')
+        let shouldUseMobileLayout = false
+
+        // Check if the capsule is too narrow first
+        if (navElement.offsetWidth < 600) {
+          shouldUseMobileLayout = true
+        } else {
+          // Only check for text wrapping if the capsule is wide enough
+          navItems.forEach((item) => {
+            const rect = item.getBoundingClientRect()
+            const parentRect = navElement.getBoundingClientRect()
+            
+            // Check if any nav item is wrapping or overflowing
+            if (rect.height > 60 || rect.bottom > parentRect.bottom - 10) {
+              shouldUseMobileLayout = true
+            }
+          })
+        }
+
+        setIsMobileLayout(shouldUseMobileLayout)
+      }
+    }
+
+    // Check on mount and resize
+    checkNavLayout()
+    
+    // Debounced resize handler
+    let resizeTimer: NodeJS.Timeout
+    const handleResize = () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(checkNavLayout, 100)
+    }
+    
+    window.addEventListener('resize', handleResize)
+    
+    // Check after a short delay to ensure fonts are loaded
+    const timer = setTimeout(checkNavLayout, 100)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(timer)
+      clearTimeout(resizeTimer)
+    }
+  }, [])
 
   return (
     <nav className="fixed top-5 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8">
@@ -31,8 +83,12 @@ export default function Navbar() {
         />
       </Link>
       
-      {/* Desktop Navigation - hidden on mobile */}
-      <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2">
+      {/* Desktop Navigation - always rendered but conditionally visible */}
+      <div 
+        ref={navRef}
+        className={`${isMobileLayout ? 'invisible' : 'visible'} absolute left-1/2 transform -translate-x-1/2`}
+        style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
+      >
         <div className="w-[60vw] h-20 flex items-center justify-center rounded-full glass shadow-lg backdrop-blur-xl bg-white/40 border border-white/30 px-8" style={{boxShadow: '0 8px 32px 0 rgba(31,38,135,0.25)'}}>
           <NavigationMenu>
             <NavigationMenuList className="flex gap-12">
@@ -40,7 +96,8 @@ export default function Navbar() {
                 <NavigationMenuItem key={item.href}>
                   <Link 
                     href={item.href} 
-                    className="font-semibold text-lg text-black hover:text-white hover:bg-[#1b6cfd] transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+                    data-nav-item
+                    className="font-semibold text-lg text-black hover:text-white hover:bg-[#1b6cfd] transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg whitespace-nowrap"
                   >
                     {item.label}
                   </Link>
@@ -51,8 +108,8 @@ export default function Navbar() {
         </div>
       </div>
       
-      {/* Mobile Navigation - Improved with best practices */}
-      <div className="md:hidden">
+      {/* Mobile Navigation - shown when desktop nav wraps or is too narrow */}
+      <div className={isMobileLayout ? 'block' : 'hidden'}>
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>
             <Button 
@@ -127,7 +184,7 @@ export default function Navbar() {
       </div>
       
       {/* Invisible spacer to maintain layout balance on desktop */}
-      <div className="hidden md:block w-[90px] h-[90px] flex-shrink-0"></div>
+      <div className={`${isMobileLayout ? 'hidden' : 'block'} w-[90px] h-[90px] flex-shrink-0`}></div>
     </nav>
   )
 } 
