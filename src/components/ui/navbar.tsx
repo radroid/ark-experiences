@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from 'react'
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Home, Info, Image as ImageIcon, MessageCircle, Mail } from 'lucide-react'
+import { Menu, Home, Info, Image as ImageIcon, MessageCircle, Mail } from 'lucide-react'
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)

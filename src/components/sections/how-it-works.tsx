@@ -21,35 +21,40 @@ export default function HowItWorks() {
       title: 'Form Your Team',
       description: 'Split into 3 teams of 3-17 players each. Every team gets a unique starting location.',
       details: ['3 teams compete', 'Equal team sizes', 'Unique starting points'],
-      color: 'from-blue-600 to-orange-400'
+      color: 'bg-blue-100 text-blue-800',
+      bgColor: 'bg-blue-50'
     },
     {
       icon: MapPin,
       title: 'Navigate Toronto',
       description: 'Visit 9 iconic Toronto locations, each holding clues to the next destination.',
       details: ['9 unique locations', 'Toronto landmarks', 'GPS coordinates provided'],
-      color: 'from-purple-500 to-pink-500'
+      color: 'bg-purple-100 text-purple-800',
+      bgColor: 'bg-purple-50'
     },
     {
       icon: Search,
       title: 'Solve Clues',
       description: 'Find hidden clues at each location. Some lead to the next spot, others reveal murder details.',
       details: ['Location clues', 'Murder mystery clues', 'Photo evidence required'],
-      color: 'from-orange-400 to-yellow-400'
+      color: 'bg-orange-100 text-orange-800',
+      bgColor: 'bg-orange-50'
     },
     {
       icon: Puzzle,
       title: 'Piece Together',
       description: 'Collect evidence to determine the weapon, person, and motive behind the murder.',
       details: ['Weapon identification', 'Suspect analysis', 'Motive discovery'],
-      color: 'from-green-500 to-teal-500'
+      color: 'bg-green-100 text-green-800',
+      bgColor: 'bg-green-50'
     },
     {
       icon: Trophy,
       title: 'Win the Game',
       description: 'First team to solve the murder correctly wins the grand prize!',
       details: ['Speed matters', 'Accuracy counts', 'Team collaboration wins'],
-      color: 'from-yellow-400 to-orange-500'
+      color: 'bg-yellow-100 text-yellow-800',
+      bgColor: 'bg-yellow-50'
     }
   ]
 
@@ -139,29 +144,34 @@ export default function HowItWorks() {
                 variants={itemVariants}
               >
                 <div className="flex-1 lg:text-right lg:pr-8 mb-8 lg:mb-0">
-                  <Card className="glass-card border-0 shadow-xl">
+                  <Card className={`border-0 shadow-xl ${step.bgColor}`}>
                     <CardContent className="p-8">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className={`p-3 rounded-full bg-gradient-to-r ${step.color}`}>
-                          <step.icon className="h-8 w-8 text-white" />
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-bold text-gray-900">{step.title}</h3>
-                          <Badge variant="secondary" className="mt-1">
-                            Step {index + 1}
-                          </Badge>
-                        </div>
+                      {/* Step Number Badge */}
+                      <div className="flex justify-end mb-6">
+                        <Badge className={`${step.color} text-lg font-bold px-4 py-2`}>
+                          Step {index + 1}
+                        </Badge>
                       </div>
                       
-                      <p className="text-gray-700 text-lg mb-4 leading-relaxed">
+                      {/* Icon and Title */}
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className={`p-4 rounded-full ${step.color}`}>
+                          <step.icon className="h-8 w-8" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-gray-900">{step.title}</h3>
+                      </div>
+                      
+                      {/* Description */}
+                      <p className="text-gray-700 text-lg mb-6 leading-relaxed">
                         {step.description}
                       </p>
                       
-                      <ul className="space-y-2">
+                      {/* Details List */}
+                      <ul className="space-y-3">
                         {step.details.map((detail, i) => (
-                          <li key={i} className="flex items-center gap-2 text-gray-600">
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                            {detail}
+                          <li key={i} className="flex items-start gap-3 text-gray-600">
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="leading-relaxed">{detail}</span>
                           </li>
                         ))}
                       </ul>
@@ -175,8 +185,8 @@ export default function HowItWorks() {
                   whileHover={{ scale: 1.2 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center shadow-lg`}>
-                    <step.icon className="h-8 w-8 text-white" />
+                  <div className={`w-16 h-16 rounded-full ${step.color} flex items-center justify-center shadow-lg`}>
+                    <step.icon className="h-8 w-8" />
                   </div>
                 </motion.div>
 

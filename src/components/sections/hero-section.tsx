@@ -2,7 +2,7 @@
 
 import { motion, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, MapPin, Users, Clock, DollarSign } from 'lucide-react'
+import { ArrowRight, MapPin, Users, Clock } from 'lucide-react'
 
 export default function HeroSection() {
   const containerVariants = {
