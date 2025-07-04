@@ -121,7 +121,7 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <section id="testimonials" className="pt-40 py-24 bg-gradient-to-br from-blue-50 via-yellow-50 to-orange-100">
+    <section id="testimonials" className="pt-40 py-24 handdrawn-section-bg handdrawn-newspaper-bg relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -132,16 +132,16 @@ export default function TestimonialsSection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 handdrawn-heading"
             variants={itemVariants}
           >
             What Teams Are{' '}
-            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="handdrawn-underline text-pink-700">
               Saying
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-700 max-w-3xl mx-auto handdrawn-paragraph"
             variants={itemVariants}
           >
             Don't just take our word for it - hear from teams who've experienced the thrill of solving mysteries together
@@ -159,23 +159,23 @@ export default function TestimonialsSection() {
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              className="text-center"
+              className="text-center handdrawn-card"
               variants={itemVariants}
               whileHover={{ y: -5 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 mb-4">
-                <stat.icon className="h-6 w-6 text-purple-600" />
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full handdrawn-card-accent mb-4">
+                <stat.icon className="h-6 w-6 text-yellow-700" />
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
-              <div className="text-gray-600">{stat.label}</div>
+              <div className="text-3xl font-bold text-gray-900 mb-1 handdrawn-card-title">{stat.value}</div>
+              <div className="text-gray-600 handdrawn-card-desc">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
 
         {/* Testimonials Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 handdrawn-gallery-grid"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -187,53 +187,30 @@ export default function TestimonialsSection() {
               variants={itemVariants}
               whileHover={{ y: -10 }}
               transition={{ duration: 0.3 }}
+              className={`handdrawn-polaroid-card relative ${index % 2 === 0 ? 'rotate-[-1deg]' : 'rotate-[1deg]'} ${index % 3 === 0 ? 'z-20' : 'z-10'}`}
             >
-              <Card className="h-full hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
-                <CardContent className="p-6">
-                  {/* Quote Icon */}
-                  <div className="flex justify-between items-start mb-4">
-                    <Quote className="h-8 w-8 text-purple-600 opacity-60" />
-                    <div className="flex gap-1">
-                      {renderStars(testimonial.rating)}
-                    </div>
+              {/* Hand-drawn quote mark accent */}
+              <div className="absolute -top-6 left-6 text-5xl text-yellow-700 handdrawn-quote">“</div>
+              <div className="absolute -bottom-6 right-6 text-5xl text-yellow-700 handdrawn-quote">”</div>
+              <div className="p-6">
+                {/* Quote Icon and Stars */}
+                <div className="flex justify-between items-start mb-4">
+                  <span className="handdrawn-quote-icon">
+                    <Quote className="h-8 w-8 text-yellow-700 opacity-70" />
+                  </span>
+                  <div className="flex gap-1">
+                    {renderStars(testimonial.rating)}
                   </div>
-
-                  {/* Testimonial Text */}
-                  <p className="text-gray-700 leading-relaxed mb-6 italic">
-                    "{testimonial.text}"
-                  </p>
-
-                  {/* Author Info */}
-                  <div className="border-t pt-4">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center text-white font-semibold">
-                        {testimonial.name.split(' ').map(n => n[0]).join('')}
-                      </div>
-                      <div>
-                        <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                        <div className="text-sm text-gray-600">{testimonial.role}</div>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Building2 className="h-4 w-4" />
-                        {testimonial.company}
-                      </div>
-                      <div className="flex items-center gap-4 text-sm">
-                        <div className="flex items-center gap-1 text-gray-600">
-                          <Users className="h-4 w-4" />
-                          {testimonial.teamSize}
-                        </div>
-                        <div className="flex items-center gap-1 text-gray-600">
-                          <MapPin className="h-4 w-4" />
-                          {testimonial.location}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                </div>
+                <p className="text-gray-800 text-lg mb-4 handdrawn-paragraph">
+                  {testimonial.text}
+                </p>
+                <div className="flex flex-col gap-1 mt-4">
+                  <span className="font-bold text-gray-900 handdrawn-card-title">{testimonial.name}</span>
+                  <span className="text-gray-700 handdrawn-card-desc">{testimonial.role} @ {testimonial.company}</span>
+                  <span className="text-gray-500 text-sm">{testimonial.teamSize} • {testimonial.location}</span>
+                </div>
+              </div>
             </motion.div>
           ))}
         </motion.div>

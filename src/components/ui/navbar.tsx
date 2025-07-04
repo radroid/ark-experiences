@@ -14,26 +14,26 @@ export default function Navbar() {
             alt="ARK Experience Logo" 
             width={90} 
             height={90} 
-            className="drop-shadow-xl rounded-full border-4 border-white bg-beige hover:scale-105 transition-transform duration-200" 
+            className="drop-shadow-xl rounded-full border-4 bg-beige hover:scale-105 transition-transform duration-200 handdrawn-logo-border" 
           />
         </Link>
         
         {/* TODO: hover effect not working. Fix it. */}
         {/* Capsule Nav */}
-        <div className="w-[60vw] h-20 flex items-center justify-center rounded-full glass shadow-lg backdrop-blur-xl bg-white/40 border border-white/30 px-8" style={{boxShadow: '0 8px 32px 0 rgba(31,38,135,0.25)'}}>
+        <div className="w-[60vw] h-20 flex items-center justify-center rounded-full shadow-lg px-8 handdrawn-nav-bg relative" style={{boxShadow: '0 8px 32px 0 rgba(31,38,135,0.25)'}}>
           <NavigationMenu>
             <NavigationMenuList className="flex gap-8">
               <NavigationMenuItem>
-                <NavigationMenuLink href="#how-it-works" className="font-semibold text-lg text-black hover:text-blue-500 transition-colors duration-200 cursor-pointer">How It Works</NavigationMenuLink>
+                <NavigationMenuLink href="#how-it-works" className="font-semibold text-lg text-black nav-link-handdrawn">How It Works</NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#gallery" className="font-semibold text-lg text-black hover:text-blue-500 transition-colors duration-200 cursor-pointer">Gallery</NavigationMenuLink>
+                <NavigationMenuLink href="#gallery" className="font-semibold text-lg text-black nav-link-handdrawn">Gallery</NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#testimonials" className="font-semibold text-lg text-black hover:text-blue-500 transition-colors duration-200 cursor-pointer">Testimonials</NavigationMenuLink>
+                <NavigationMenuLink href="#testimonials" className="font-semibold text-lg text-black nav-link-handdrawn">Testimonials</NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#contact" className="font-semibold text-lg text-black hover:text-blue-500 transition-colors duration-200 cursor-pointer">Contact</NavigationMenuLink>
+                <NavigationMenuLink href="#contact" className="font-semibold text-lg text-black nav-link-handdrawn">Contact</NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>

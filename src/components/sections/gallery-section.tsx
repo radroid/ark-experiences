@@ -117,7 +117,7 @@ export default function GallerySection() {
   }
 
   return (
-    <section id="gallery" className="pt-40 py-24 bg-gradient-to-br from-blue-50 via-yellow-50 to-orange-100">
+    <section id="gallery" className="pt-40 py-24 handdrawn-section-bg handdrawn-newspaper-bg relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -127,16 +127,16 @@ export default function GallerySection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 handdrawn-heading"
             variants={itemVariants}
           >
             Adventure{' '}
-            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="handdrawn-underline text-pink-700">
               Gallery
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-700 max-w-3xl mx-auto handdrawn-paragraph"
             variants={itemVariants}
           >
             See teams in action as they explore Toronto, solve mysteries, and create unforgettable memories
@@ -154,11 +154,7 @@ export default function GallerySection() {
           {categories.map((category) => (
             <motion.button
               key={category.id}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                selectedCategory === category.id
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
-              }`}
+              className={`flex items-center gap-2 px-6 py-3 handdrawn-badge font-medium transition-all duration-300 ${selectedCategory === category.id ? 'bg-yellow-100' : 'bg-white hover:bg-yellow-50'}`}
               onClick={() => setSelectedCategory(category.id as any)}
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
@@ -170,16 +166,16 @@ export default function GallerySection() {
           ))}
         </motion.div>
 
-        {/* Gallery Grid */}
+        {/* Gallery Grid - Newspaper Collage Style */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 handdrawn-gallery-grid"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
           <AnimatePresence mode="popLayout">
-            {filteredImages.map((image) => (
+            {filteredImages.map((image, idx) => (
               <motion.div
                 key={image.id}
                 variants={itemVariants}
@@ -188,26 +184,24 @@ export default function GallerySection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4 }}
+                className={`handdrawn-polaroid-card relative cursor-pointer ${idx % 2 === 0 ? 'rotate-[-2deg]' : 'rotate-[2deg]'} ${idx % 3 === 0 ? 'z-20' : 'z-10'}`}
+                onClick={() => setSelectedImage(image)}
               >
-                <Card 
-                  className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300"
-                  onClick={() => setSelectedImage(image)}
-                >
-                  <CardContent className="p-0">
-                    <div className="relative aspect-[4/3] overflow-hidden">
-                      <div 
-                        className="w-full h-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                      >
-                        <Camera className="h-12 w-12 text-purple-400" />
-                      </div>
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 mb-1">{image.title}</h3>
-                      <p className="text-sm text-gray-600">{image.description}</p>
-                    </div>
-                  </CardContent>
-                </Card>
+                {/* Tape accent */}
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4 handdrawn-tape" />
+                {/* Paperclip accent */}
+                {idx % 3 === 0 && <div className="absolute top-2 right-2 handdrawn-paperclip" />}
+                <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                  <img 
+                    src={image.src} 
+                    alt={image.alt} 
+                    className="w-full h-full object-cover handdrawn-polaroid-img" 
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg handdrawn-card-title">{image.title}</h3>
+                  <p className="text-gray-700 handdrawn-card-desc">{image.description}</p>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>

@@ -118,6 +118,10 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-color: #f7f3e8;
+    background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="60" fill="%23f7f3e8"/><path d="M2 58 Q30 62 58 58 Q62 30 58 2 Q30 -2 2 2 Q-2 30 2 58 Z" fill="none" stroke="%23e2dbc7" stroke-width="1.5"/><path d="M10 10 Q30 20 50 10 Q40 30 50 50 Q30 40 10 50 Q20 30 10 10 Z" fill="none" stroke="%23e2dbc7" stroke-width="1"/></svg>');
+    background-repeat: repeat;
+    min-height: 100vh;
   }
 }
 
@@ -440,4 +444,230 @@ html {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Hand-drawn nav background effect */
+.handdrawn-nav-bg {
+  background: #fff8e1;
+  border-radius: 40px;
+  position: relative;
+  overflow: visible;
+}
+
+/* Hand-drawn logo border effect */
+.handdrawn-logo-border {
+  border: none !important;
+  box-shadow: 0 2px 8px 0 rgba(31,38,135,0.10);
+  background: #fff8e1;
+}
+
+/* Hand-drawn nav link underline on hover */
+.nav-link-handdrawn {
+  position: relative;
+  transition: color 0.2s;
+}
+.nav-link-handdrawn:hover::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 6px;
+  background: url('data:image/svg+xml;utf8,<svg width="80" height="6" viewBox="0 0 80 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4 Q20 2 40 4 Q60 6 78 2" stroke="%23b6a77a" stroke-width="2" fill="none"/></svg>') repeat-x;
+  background-size: 80px 6px;
+  pointer-events: none;
+}
+
+/* Hand-drawn Hero Section Background */
+.handdrawn-hero-bg {
+  background: #f7f3e8;
+  position: relative;
+}
+
+/* Hand-drawn Heading Underline */
+.handdrawn-underline {
+  position: relative;
+}
+.handdrawn-underline::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 12px;
+  background: url('data:image/svg+xml;utf8,<svg width="180" height="12" viewBox="0 0 180 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10 Q60 2 90 10 Q120 18 178 6" stroke="%23b6a77a" stroke-width="4" fill="none"/></svg>') repeat-x;
+  background-size: 180px 12px;
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  pointer-events: none;
+}
+
+/* Hand-drawn Paragraph Accent */
+.handdrawn-paragraph {
+  background: rgba(255, 248, 225, 0.7);
+  border-radius: 12px;
+  padding: 0.5em 1em;
+  display: inline-block;
+}
+
+/* Hand-drawn Card */
+.handdrawn-card {
+  background: #fff8e1;
+  border-radius: 24px;
+  box-shadow: 0 4px 16px 0 rgba(31,38,135,0.10);
+  transition: box-shadow 0.2s;
+}
+.handdrawn-card-accent {
+  background: #f7f3e8;
+}
+.handdrawn-card-title {
+  position: relative;
+}
+.handdrawn-card-title::after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 6px;
+  background: url('data:image/svg+xml;utf8,<svg width="80" height="6" viewBox="0 0 80 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4 Q20 2 40 4 Q60 6 78 2" stroke="%23b6a77a" stroke-width="2" fill="none"/></svg>') repeat-x;
+  background-size: 80px 6px;
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  pointer-events: none;
+}
+.handdrawn-card-desc {
+  font-style: italic;
+}
+
+/* Hand-drawn Button */
+.handdrawn-btn {
+  background: #fff8e1;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px 0 rgba(31,38,135,0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.handdrawn-btn:hover {
+  background: #f7f3e8;
+  box-shadow: 0 4px 16px 0 rgba(31,38,135,0.15);
+}
+.handdrawn-btn-outline {
+  background: transparent;
+  border-radius: 18px;
+  box-shadow: none;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.handdrawn-btn-outline:hover {
+  background: #fff8e1;
+  box-shadow: 0 2px 8px 0 rgba(31,38,135,0.10);
+}
+
+/* Hand-drawn Section Background */
+.handdrawn-section-bg {
+  background: #fff8e1;
+  position: relative;
+}
+
+/* Hand-drawn Badge */
+.handdrawn-badge {
+  display: inline-block;
+  background: #f7f3e8;
+  border-radius: 10px;
+  padding: 0.1em 0.7em;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #b6a77a;
+  margin-left: 0.5em;
+}
+
+/* Hand-drawn Checkmark */
+.handdrawn-check {
+  color: #b6a77a;
+  font-size: 1.1em;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+/* Hand-drawn Newspaper Gallery Styles */
+.handdrawn-newspaper-bg {
+  background: #f7f3e8;
+  background-image: url('data:image/svg+xml;utf8,<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="80" fill="%23f7f3e8"/><path d="M2 78 Q40 82 78 78 Q82 40 78 2 Q40 -2 2 2 Q-2 40 2 78 Z" fill="none" stroke="%23e2dbc7" stroke-width="1.5"/><path d="M10 10 Q40 20 70 10 Q60 40 70 70 Q40 60 10 70 Q20 40 10 10 Z" fill="none" stroke="%23e2dbc7" stroke-width="1"/></svg>');
+  background-repeat: repeat;
+}
+.handdrawn-gallery-grid {
+  position: relative;
+  z-index: 1;
+}
+.handdrawn-polaroid-card {
+  background: #fffef8;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px 0 rgba(31,38,135,0.10), 0 1.5px 0 #e2dbc7 inset;
+  transition: box-shadow 0.2s, transform 0.2s;
+  padding-bottom: 0.5em;
+  min-height: 320px;
+  max-width: 100%;
+  overflow: visible;
+}
+.handdrawn-polaroid-card:hover {
+  box-shadow: 0 12px 32px 0 rgba(31,38,135,0.18), 0 2px 0 #e2dbc7 inset;
+  transform: scale(1.03) rotate(-1deg);
+}
+.handdrawn-polaroid-img {
+  border-radius: 12px 12px 8px 8px;
+  border: 2px dashed #e2dbc7;
+  background: #f7f3e8;
+}
+.handdrawn-tape {
+  background: repeating-linear-gradient(135deg, #ffe066 0 6px, #fffbe6 6px 12px);
+  border-radius: 4px;
+  box-shadow: 0 2px 6px 0 rgba(31,38,135,0.10);
+  opacity: 0.85;
+}
+.handdrawn-paperclip {
+  width: 28px;
+  height: 28px;
+  background: none;
+  position: relative;
+}
+.handdrawn-paperclip::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 7px;
+  top: 2px;
+  width: 14px;
+  height: 22px;
+  border: 2.5px solid #b6a77a;
+  border-radius: 8px 8px 12px 12px;
+  border-bottom: none;
+  background: none;
+}
+
+/* Hand-drawn Input Fields */
+.handdrawn-input {
+  background: #fffef8;
+  border-radius: 10px;
+  padding: 0.75em 1em;
+  font-size: 1.05em;
+  color: #222;
+  box-shadow: 0 1.5px 0 #e2dbc7 inset;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.handdrawn-input:focus {
+  outline: none;
+  border-color: #ffe066;
+  box-shadow: 0 0 0 2px #ffe06633;
+}
+
+/* Remove borders from hand-drawn elements */
+.handdrawn-nav-bg,
+.handdrawn-logo-border,
+.handdrawn-btn,
+.handdrawn-btn-outline,
+.handdrawn-card,
+.handdrawn-card-accent,
+.handdrawn-badge,
+.handdrawn-polaroid-card,
+.handdrawn-polaroid-img,
+.handdrawn-input {
+  border: none !important;
 }

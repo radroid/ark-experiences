@@ -95,8 +95,48 @@ export default function HowItWorks() {
   }
 
   return (
-    <section id="how-it-works" className="pt-40 py-24 bg-gradient-to-br from-blue-50 via-yellow-50 to-orange-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="how-it-works" className="pt-40 py-24 handdrawn-section-bg relative overflow-hidden">
+      {/* Hand-drawn Top Divider */}
+      <svg className="absolute top-0 left-0 w-full h-16 z-0" viewBox="0 0 1600 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 32 Q400 0 800 32 Q1200 64 1600 32" stroke="#b6a77a" stroke-width="6" fill="none"/>
+      </svg>
+      {/* Hand-drawn Route Map */}
+      <svg className="absolute left-1/2 top-40 -translate-x-1/2 z-0 hidden lg:block" width="900" height="600" viewBox="0 0 900 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Route Path */}
+        <path d="M60 80 Q180 120 200 220 Q220 320 350 300 Q480 280 500 400 Q520 520 700 500 Q820 480 840 560" stroke="#b6a77a" stroke-width="8" stroke-dasharray="18 18" fill="none"/>
+        {/* Footprints */}
+        <ellipse cx="120" cy="110" rx="10" ry="5" fill="#b6a77a" opacity="0.18"/>
+        <ellipse cx="130" cy="120" rx="5" ry="2.5" fill="#b6a77a" opacity="0.18"/>
+        <ellipse cx="210" cy="200" rx="8" ry="4" fill="#b6a77a" opacity="0.18"/>
+        <ellipse cx="360" cy="320" rx="7" ry="3" fill="#b6a77a" opacity="0.18"/>
+        <ellipse cx="520" cy="420" rx="10" ry="5" fill="#b6a77a" opacity="0.18"/>
+        {/* Arrow to gold pot */}
+        <path d="M820 480 Q830 520 840 560" stroke="#b6a77a" stroke-width="6" marker-end="url(#arrowhead)" fill="none"/>
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L10,5 L0,10 L3,5 Z" fill="#b6a77a" />
+          </marker>
+        </defs>
+        {/* Gold Pot at the End */}
+        <g transform="translate(820,540)">
+          <ellipse cx="20" cy="30" rx="20" ry="12" fill="#e2c275" stroke="#b6a77a" stroke-width="3"/>
+          <rect x="5" y="10" width="30" height="20" rx="10" fill="#ffd700" stroke="#b6a77a" stroke-width="3"/>
+          <ellipse cx="20" cy="10" rx="15" ry="8" fill="#ffe066" stroke="#b6a77a" stroke-width="2"/>
+          <ellipse cx="20" cy="10" rx="10" ry="4" fill="#fffbe6" opacity="0.7"/>
+          <circle cx="12" cy="18" r="3" fill="#ffe066"/>
+          <circle cx="28" cy="18" r="3" fill="#ffe066"/>
+        </g>
+      </svg>
+      {/* Map-like accents: dotted path and footprints */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.10">
+          <path d="M200 100 Q400 200 800 100 Q1200 0 1400 200" stroke="#b6a77a" stroke-width="3" stroke-dasharray="12 12" fill="none"/>
+          <ellipse cx="250" cy="120" rx="10" ry="5" fill="#b6a77a"/>
+          <ellipse cx="270" cy="140" rx="5" ry="2.5" fill="#b6a77a"/>
+          <ellipse cx="290" cy="160" rx="8" ry="4" fill="#b6a77a"/>
+        </g>
+      </svg>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           className="text-center mb-16"
           variants={containerVariants}
@@ -105,22 +145,21 @@ export default function HowItWorks() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 handdrawn-heading"
             variants={itemVariants}
           >
             How the Mystery{' '}
-            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="handdrawn-underline text-pink-700">
               Unfolds
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-700 max-w-3xl mx-auto handdrawn-paragraph"
             variants={itemVariants}
           >
             A thrilling journey through Toronto where teams race against time to solve a Cluedo-style murder mystery
           </motion.p>
         </motion.div>
-
         {/* Timeline Steps */}
         <motion.div 
           className="relative mb-20"
@@ -129,8 +168,7 @@ export default function HowItWorks() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-purple-500 to-pink-500 hidden lg:block" />
-          
+          {/* Remove techy timeline line */}
           <div className="space-y-12">
             {steps.map((step, index) => (
               <motion.div
@@ -139,63 +177,54 @@ export default function HowItWorks() {
                 variants={itemVariants}
               >
                 <div className="flex-1 lg:text-right lg:pr-8 mb-8 lg:mb-0">
-                  <Card className="glass-card border-0 shadow-xl">
-                    <CardContent className="p-8">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className={`p-3 rounded-full bg-gradient-to-r ${step.color}`}>
-                          <step.icon className="h-8 w-8 text-white" />
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-bold text-gray-900">{step.title}</h3>
-                          <Badge variant="secondary" className="mt-1">
-                            Step {index + 1}
-                          </Badge>
-                        </div>
+                  <div className="handdrawn-card p-8">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="p-3 rounded-full handdrawn-card-accent">
+                        <step.icon className="h-8 w-8 text-gray-800" />
                       </div>
-                      
-                      <p className="text-gray-700 text-lg mb-4 leading-relaxed">
-                        {step.description}
-                      </p>
-                      
-                      <ul className="space-y-2">
-                        {step.details.map((detail, i) => (
-                          <li key={i} className="flex items-center gap-2 text-gray-600">
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                            {detail}
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-900 handdrawn-card-title">{step.title}</h3>
+                        <span className="handdrawn-badge mt-1">Step {index + 1}</span>
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-lg mb-4 leading-relaxed handdrawn-paragraph">
+                      {step.description}
+                    </p>
+                    <ul className="space-y-2">
+                      {step.details.map((detail, i) => (
+                        <li key={i} className="flex items-center gap-2 text-gray-600">
+                          <span className="handdrawn-check mr-1">✔</span>
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-
-                {/* Timeline Node */}
+                {/* Timeline Node - replaced with hand-drawn accent */}
                 <motion.div 
                   className="relative z-10 hidden lg:block"
                   whileHover={{ scale: 1.2 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center shadow-lg`}>
-                    <step.icon className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 rounded-full handdrawn-card-accent flex items-center justify-center shadow-lg">
+                    <step.icon className="h-8 w-8 text-gray-800" />
                   </div>
                 </motion.div>
-
                 <div className="flex-1 lg:pl-8 hidden lg:block" />
               </motion.div>
             ))}
           </div>
         </motion.div>
-
         {/* Scoring System */}
         <motion.div
-          className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100"
+          className="handdrawn-card rounded-3xl p-8 border-0"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.div className="text-center mb-12" variants={itemVariants}>
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
+            <h3 className="text-3xl font-bold text-gray-900 mb-4 handdrawn-card-title">
               Scoring System
             </h3>
             <p className="text-lg text-gray-600">
@@ -235,6 +264,10 @@ export default function HowItWorks() {
           </motion.div>
         </motion.div>
       </div>
+      {/* Hand-drawn Bottom Divider */}
+      <svg className="absolute bottom-0 left-0 w-full h-16 z-0" viewBox="0 0 1600 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 32 Q400 64 800 32 Q1200 0 1600 32" stroke="#b6a77a" stroke-width="6" fill="none"/>
+      </svg>
     </section>
   )
 } 
