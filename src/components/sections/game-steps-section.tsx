@@ -68,7 +68,7 @@ export default function GameStepsSection() {
   return (
     <div ref={containerRef} className="relative">
       {/* Title Section */}
-      <section className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-blue-50">
+      <section id="how-it-works" className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-blue-50">
         <div className="text-center">
           <motion.h2 
             className="text-4xl md:text-5xl font-bold text-gray-900 mb-8"

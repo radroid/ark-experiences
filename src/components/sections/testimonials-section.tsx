@@ -4,7 +4,7 @@ import { motion, easeOut } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 
 import { Button } from '@/components/ui/button-2'
-import { Star, Quote, Building2, Users, MapPin } from 'lucide-react'
+import { Star, Quote, Building2, Users, MapPin, Calendar } from 'lucide-react'
 
 interface Testimonial {
   id: number
@@ -83,10 +83,9 @@ export default function TestimonialsSection() {
   ]
 
   const stats = [
-    { value: '500+', label: 'Teams Served', icon: Users },
     { value: '98%', label: 'Satisfaction Rate', icon: Star },
     { value: '4.9/5', label: 'Average Rating', icon: Star },
-    { value: '50+', label: 'Company Partners', icon: Building2 }
+    { value: 'Since 2024', label: 'Established', icon: Calendar }
   ]
 
   const renderStars = (rating: number) => {
@@ -121,7 +120,7 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <section id="testimonials" className="pt-40 py-24 bg-gradient-to-br from-blue-50 via-yellow-50 to-orange-100">
+    <section id="testimonials" className="pt-40 py-24 bg-gradient-to-b from-[#f8f3e6] via-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -136,7 +135,7 @@ export default function TestimonialsSection() {
             variants={itemVariants}
           >
             What Teams Are{' '}
-            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-orange-600 bg-clip-text text-transparent">
               Saying
             </span>
           </motion.h2>
@@ -150,7 +149,7 @@ export default function TestimonialsSection() {
 
         {/* Stats */}
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 w-2/3 mx-auto justify-center items-center"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -164,8 +163,8 @@ export default function TestimonialsSection() {
               whileHover={{ y: -5 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 mb-4">
-                <stat.icon className="h-6 w-6 text-purple-600" />
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-r from-blue-100 to-orange-100 mb-4">
+                <stat.icon className="h-12 w-12 text-blue-600" />
               </div>
               <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
               <div className="text-gray-600">{stat.label}</div>
@@ -192,7 +191,7 @@ export default function TestimonialsSection() {
                 <CardContent className="p-6">
                   {/* Quote Icon */}
                   <div className="flex justify-between items-start mb-4">
-                    <Quote className="h-8 w-8 text-purple-600 opacity-60" />
+                    <Quote className="h-8 w-8 text-blue-600 opacity-60" />
                     <div className="flex gap-1">
                       {renderStars(testimonial.rating)}
                     </div>
@@ -206,7 +205,7 @@ export default function TestimonialsSection() {
                   {/* Author Info */}
                   <div className="border-t pt-4">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center text-white font-semibold">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-orange-600 flex items-center justify-center text-white font-semibold">
                         {testimonial.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
@@ -246,7 +245,7 @@ export default function TestimonialsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 md:p-12 text-white">
+          <div className="bg-gradient-to-r from-blue-400 to-blue-700 rounded-3xl p-8 md:p-12 text-white">
             <motion.div className="max-w-3xl mx-auto">
               <h3 className="text-3xl md:text-4xl font-bold mb-4">
                 Ready to Create Your Own Success Story?
@@ -257,17 +256,10 @@ export default function TestimonialsSection() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
-                  className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+                  className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Book Your Adventure
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-white text-white hover:bg-white/10 px-8 py-4 text-lg"
-                >
-                  View More Reviews
                 </Button>
               </div>
             </motion.div>

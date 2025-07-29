@@ -141,8 +141,7 @@ export default function ContactForm() {
             className="text-xl text-gray-700 max-w-2xl mx-auto"
             variants={itemVariants}
           >
-            Get in touch with us to plan your perfect team-building experience. 
-            We&apos;ll help you create an unforgettable mystery adventure.
+            Get in touch with us to plan your perfect experience. 
           </motion.p>
         </motion.div>
 
@@ -247,18 +246,24 @@ export default function ContactForm() {
                         name="team_size"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-gray-700 font-medium">Team Size</FormLabel>
+                            <FormLabel className="text-gray-700 font-medium">Total Number of People</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger className="bg-white/80 border-gray-300 text-gray-800 focus:border-blue-500">
-                                  <SelectValue placeholder="Select team size" />
+                                  <SelectValue placeholder="Select Number of People" />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                <SelectItem value="3-8">3-8 people</SelectItem>
-                                <SelectItem value="9-15">9-15 people</SelectItem>
-                                <SelectItem value="16-30">16-30 people</SelectItem>
-                                <SelectItem value="31+">31+ people</SelectItem>
+                                <SelectItem value="1-5">1-5 people</SelectItem>
+                                <SelectItem value="6-10">6-10 people</SelectItem>
+                                <SelectItem value="11-15">11-15 people</SelectItem>
+                                <SelectItem value="16-20">16-20 people</SelectItem>
+                                <SelectItem value="21-25">21-25 people</SelectItem>
+                                <SelectItem value="26-30">26-30 people</SelectItem>
+                                <SelectItem value="31-35">31-35 people</SelectItem>
+                                <SelectItem value="36-40">36-40 people</SelectItem>
+                                <SelectItem value="41-45">41-45 people</SelectItem>
+                                <SelectItem value="46-50">46-50 people</SelectItem>
                               </SelectContent>
                             </Select>
                             <FormMessage />
