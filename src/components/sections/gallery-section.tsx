@@ -5,6 +5,7 @@ import { motion, AnimatePresence, easeOut } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button-2'
 import { X, ChevronLeft, ChevronRight, Play, Pause, Volume2, VolumeX, Camera, Video, Users, MapPin } from 'lucide-react'
+import Image from 'next/image'
 
 interface GalleryItem {
   id: number
@@ -15,6 +16,9 @@ interface GalleryItem {
   description: string
   category: 'event' | 'clue' | 'celebration' | 'location'
   thumbnail?: string
+  width?: number
+  height?: number
+  aspectRatio: 'landscape' | 'portrait' | 'square'
 }
 
 export default function GallerySection() {
@@ -24,86 +28,162 @@ export default function GallerySection() {
   const [isMuted, setIsMuted] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // Sample gallery items - in production these would come from Supabase
+  // Updated gallery items with real media files and proper aspect ratios
   const galleryItems: GalleryItem[] = [
     {
       id: 1,
       type: 'video',
-      src: '/gallery/players-celebration.mp4',
-      alt: 'Players celebrating after amazing experience',
-      title: 'Victory Celebration',
-      description: 'Watch the moment when all players erupt in applause after completing the epic scavenger hunt experience',
-      category: 'celebration'
+      src: '/gallery/all-teams-celebration.mp4',
+      alt: 'All teams celebrating together after completing the hunt',
+      title: 'Ultimate Victory Celebration',
+      description: 'The epic moment when all teams come together to celebrate after solving the murder mystery - pure joy and triumph!',
+      category: 'celebration',
+      thumbnail: '/gallery/all-teams-celebration-thumb.jpg',
+      width: 3840,
+      height: 2160,
+      aspectRatio: 'landscape'
     },
     {
       id: 2,
       type: 'video',
-      src: '/gallery/clue-hiding.mp4',
-      alt: 'Clue being hidden at CN Tower',
-      title: 'Behind the Scenes: Clue Placement',
-      description: 'See how we carefully place clues at Toronto\'s iconic CN Tower location',
-      category: 'clue'
+      src: '/gallery/ar-clue-example.mp4',
+      alt: 'AR clue example in action',
+      title: 'AR Clue Discovery',
+      description: 'Experience the future of scavenger hunting with our cutting-edge AR technology revealing hidden clues in real-world locations!',
+      category: 'clue',
+      thumbnail: '/gallery/ar-clue-example-thumb.jpg',
+      width: 886,
+      height: 1920,
+      aspectRatio: 'portrait'
     },
     {
       id: 3,
-      type: 'image',
-      src: '/gallery/team-celebration.jpg',
-      alt: 'Team celebrating victory',
-      title: 'Team Phoenix Victory',
-      description: 'Team Phoenix celebrates solving the mystery at Casa Loma with pure joy',
-      category: 'event'
+      type: 'video',
+      src: '/gallery/team1-solving-timelapse.mp4',
+      alt: 'Team 1 solving puzzles in timelapse',
+      title: 'Team 1: Solving in Action',
+      description: 'Watch Team 1 piece together the clues in this thrilling timelapse - minds working at lightning speed!',
+      category: 'event',
+      thumbnail: '/gallery/team1-solving-timelapse-thumb.jpg',
+      width: 720,
+      height: 1280,
+      aspectRatio: 'portrait'
     },
     {
       id: 4,
-      type: 'video',
-      src: '/gallery/royal-ontario-clue.mp4',
-      alt: 'Clue discovery at Royal Ontario Museum',
-      title: 'Museum Mystery Solved',
-      description: 'Teams discovering and solving ancient riddles at the Royal Ontario Museum',
-      category: 'clue'
+      type: 'image',
+      src: '/gallery/billiards-clue-example.jpg',
+      alt: 'Billiards table clue discovery',
+      title: 'Billiards Mystery Clue',
+      description: 'A crucial clue hidden in plain sight at the billiards table - can you spot what the teams discovered here?',
+      category: 'clue',
+      width: 1024,
+      height: 768,
+      aspectRatio: 'landscape'
     },
     {
       id: 5,
       type: 'image',
-      src: '/gallery/team-strategy.jpg',
-      alt: 'Team planning strategy',
-      title: 'Strategic Planning',
-      description: 'Teams collaborating to piece together the murder mystery',
-      category: 'event'
+      src: '/gallery/murder-victim.jpg',
+      alt: 'The murder victim scene - crucial evidence',
+      title: 'The Murder Victim',
+      description: 'A crucial piece of evidence in the mystery - who is this victim and what secrets do they hold?',
+      category: 'clue',
+      width: 1024,
+      height: 768,
+      aspectRatio: 'landscape'
     },
     {
       id: 6,
-      type: 'image',
-      src: '/gallery/corporate-event.jpg',
-      alt: 'Corporate team building event',
-      title: 'Corporate Team Building',
-      description: 'Tech company teams working together to solve the case',
-      category: 'event'
+      type: 'video',
+      src: '/gallery/team2-location8.mp4',
+      alt: 'Team 2 exploring location 8',
+      title: 'Team 2 at Location #8',
+      description: 'Team 2 discovers hidden clues at one of Toronto\'s iconic mystery locations - what will they find?',
+      category: 'event',
+      thumbnail: '/gallery/team2-location8-thumb.jpg',
+      width: 720,
+      height: 1280,
+      aspectRatio: 'portrait'
     },
     {
       id: 7,
-      type: 'video',
-      src: '/gallery/team-collaboration.mp4',
-      alt: 'Teams working together',
-      title: 'Collaboration in Action',
-      description: 'Watch teams work together to solve complex puzzles and riddles',
-      category: 'event'
+      type: 'image',
+      src: '/gallery/team1-location2.jpg',
+      alt: 'Team 1 investigating at location 2',
+      title: 'Team 1: Location Investigation',
+      description: 'Team 1 carefully examines clues at their second location - every detail matters in solving the case!',
+      category: 'event',
+      width: 1024,
+      height: 768,
+      aspectRatio: 'landscape'
     },
     {
       id: 8,
       type: 'image',
-      src: '/gallery/final-reveal.jpg',
-      alt: 'Final mystery reveal',
-      title: 'The Big Reveal',
-      description: 'The moment of truth when the mystery is finally solved',
-      category: 'celebration'
+      src: '/gallery/team2-location3.jpg',
+      alt: 'Team 2 at location 3',
+      title: 'Team 2: Hunt in Progress',
+      description: 'Team 2 strategizes and searches for vital clues - teamwork makes the dream work!',
+      category: 'event',
+      width: 1024,
+      height: 768,
+      aspectRatio: 'landscape'
+    },
+    {
+      id: 9,
+      type: 'image',
+      src: '/gallery/team3-location7.jpg',
+      alt: 'Team 3 at location 7',
+      title: 'Team 3: Final Stretch',
+      description: 'Team 3 reaches one of the later locations in their quest - the mystery is almost solved!',
+      category: 'event',
+      width: 1024,
+      height: 768,
+      aspectRatio: 'landscape'
+    },
+    {
+      id: 10,
+      type: 'image',
+      src: '/gallery/team2-location6.jpg',
+      alt: 'Team 2 collaborating at location 6',
+      title: 'Team 2: Collaboration Zone',
+      description: 'Intense collaboration as Team 2 pieces together multiple clues - the excitement is palpable!',
+      category: 'event',
+      width: 1024,
+      height: 768,
+      aspectRatio: 'landscape'
+    },
+    {
+      id: 11,
+      type: 'image',
+      src: '/gallery/team3-location6.jpg',
+      alt: 'Team 3 investigating at location 6',
+      title: 'Team 3: Detective Mode',
+      description: 'Team 3 channels their inner detectives, carefully analyzing every clue at this crucial location!',
+      category: 'event',
+      width: 1024,
+      height: 768,
+      aspectRatio: 'landscape'
+    },
+    {
+      id: 12,
+      type: 'image',
+      src: '/gallery/team3-location3.jpg',
+      alt: 'Team 3 at location 3',
+      title: 'Team 3: Early Breakthrough',
+      description: 'Team 3 makes an early breakthrough at location 3 - could this be the key to solving the entire mystery?',
+      category: 'event',
+      width: 1024,
+      height: 768,
+      aspectRatio: 'landscape'
     }
   ]
 
   const categories = [
     { id: 'all', label: 'All Media', icon: Camera },
     { id: 'event', label: 'Events', icon: Users },
-    { id: 'clue', label: 'Behind Scenes', icon: Video },
+    { id: 'clue', label: 'Clues', icon: MapPin },
     { id: 'celebration', label: 'Celebrations', icon: Users }
   ]
 
@@ -175,7 +255,7 @@ export default function GallerySection() {
   }
 
   return (
-    <section id="gallery" className="pt-40 py-24 bg-gradient-to-br from-blue-50 via-yellow-50 to-orange-100">
+    <section id="gallery" className="pt-40 py-24 gradient-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -185,16 +265,16 @@ export default function GallerySection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-bold text-gray-200 mb-6"
             variants={itemVariants}
           >
             Experience{' '}
-            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-200 to-blue-500 bg-clip-text text-transparent">
               Gallery
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-300 max-w-3xl mx-auto"
             variants={itemVariants}
           >
             Immerse yourself in the excitement, mystery, and pure joy of our scavenger hunts through photos and videos
@@ -214,8 +294,8 @@ export default function GallerySection() {
               key={category.id}
               className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                 selectedCategory === category.id
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+                  ? 'glass-button text-white shadow-lg'
+                  : 'glass text-gray-700 hover:bg-white/50 border border-gray-200'
               }`}
               onClick={() => setSelectedCategory(category.id as 'all' | 'event' | 'clue' | 'celebration')}
               variants={itemVariants}
@@ -228,16 +308,16 @@ export default function GallerySection() {
           ))}
         </motion.div>
 
-        {/* Massive Gallery Grid */}
+        {/* Responsive Masonry Gallery Grid */}
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4"
+          className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 space-y-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => (
+            {filteredItems.map((item, index) => (
               <motion.div
                 key={item.id}
                 variants={itemVariants}
@@ -246,28 +326,50 @@ export default function GallerySection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4 }}
-                className="group cursor-pointer"
+                className="group cursor-pointer break-inside-avoid mb-4"
                 onClick={() => setSelectedItem(item)}
               >
-                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group-hover:scale-105 bg-white/80 backdrop-blur-sm border border-white/50">
                   <CardContent className="p-0">
-                    <div className="relative aspect-square overflow-hidden">
-                      <div 
-                        className="w-full h-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                      >
-                        {item.type === 'video' ? (
-                          <Video className="h-8 w-8 text-purple-400" />
-                        ) : (
-                          <Camera className="h-8 w-8 text-purple-400" />
-                        )}
-                      </div>
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                      
-                      {/* Play button overlay for videos */}
-                      {item.type === 'video' && (
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="bg-white/90 rounded-full p-3">
-                            <Play className="h-6 w-6 text-purple-600 ml-1" />
+                    <div className="relative overflow-hidden">
+                      {item.type === 'video' && item.thumbnail ? (
+                        <div className="relative">
+                          <Image
+                            src={item.thumbnail}
+                            alt={item.alt}
+                            width={item.width || 800}
+                            height={item.height || 600}
+                            className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"
+                            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                            priority={index < 4}
+                          />
+                          {/* Video Play Overlay */}
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="bg-white/90 rounded-full p-3">
+                              <Play className="h-6 w-6 text-blue-600 ml-1" />
+                            </div>
+                          </div>
+                          {/* Video Icon Badge */}
+                          <div className="absolute top-2 right-2 bg-black/70 rounded-full p-2">
+                            <Video className="h-4 w-4 text-white" />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="relative">
+                          <Image
+                            src={item.src}
+                            alt={item.alt}
+                            width={item.width || 800}
+                            height={item.height || 600}
+                            className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"
+                            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                            priority={index < 4}
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                          {/* Image Icon Badge */}
+                          <div className="absolute top-2 right-2 bg-black/70 rounded-full p-2">
+                            <Camera className="h-4 w-4 text-white" />
                           </div>
                         </div>
                       )}
@@ -282,32 +384,9 @@ export default function GallerySection() {
             ))}
           </AnimatePresence>
         </motion.div>
-
-        {/* Locations Discovery CTA */}
-        <motion.div 
-          className="mt-16 text-center"
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <div className="glass-card rounded-2xl p-8 max-w-2xl mx-auto">
-            <MapPin className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Discover the Locations</h3>
-            <p className="text-gray-600 mb-6">
-              Want to see the amazing locations we use in our hunts? Sign up and play to uncover the mystery of Toronto&apos;s most iconic landmarks!
-            </p>
-            <Button 
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Plan Your Hunt
-            </Button>
-          </div>
-        </motion.div>
       </div>
 
-      {/* Massive Lightbox Modal */}
+      {/* Enhanced Lightbox Modal */}
       <AnimatePresence>
         {selectedItem && (
           <motion.div
@@ -348,11 +427,11 @@ export default function GallerySection() {
               {/* Media Display */}
               <div className="relative">
                 {selectedItem.type === 'video' ? (
-                  <div className="relative aspect-video bg-black">
+                  <div className="relative bg-black">
                     <video
                       ref={videoRef}
                       src={selectedItem.src}
-                      className="w-full h-full object-cover"
+                      className="w-full h-auto max-h-[70vh] object-contain"
                       poster={selectedItem.thumbnail}
                       onClick={togglePlay}
                     />
@@ -376,8 +455,15 @@ export default function GallerySection() {
                     </div>
                   </div>
                 ) : (
-                  <div className="aspect-video bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
-                    <Camera className="h-20 w-20 text-purple-400" />
+                  <div className="relative">
+                    <Image
+                      src={selectedItem.src}
+                      alt={selectedItem.alt}
+                      width={selectedItem.width || 800}
+                      height={selectedItem.height || 600}
+                      className="w-full h-auto max-h-[70vh] object-contain"
+                      priority
+                    />
                   </div>
                 )}
               </div>
