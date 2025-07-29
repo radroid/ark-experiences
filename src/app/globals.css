@@ -589,31 +589,33 @@
   z-index: 50;
 }
 
-/* Section-wise scrolling styles */
-.scroll-container {
+/* Full-screen scrolling styles */
+.fullscreen-scroll-container {
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
-.scroll-container::-webkit-scrollbar {
+.fullscreen-scroll-container::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
 
-.scroll-section {
+.fullscreen-section {
   min-height: 100vh;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 /* Allow footer to be its natural height */
-.scroll-section:last-child {
+.fullscreen-section:last-child {
   min-height: auto;
+  scroll-snap-align: start;
 }
 
 /* Smooth scrolling for all elements */
@@ -622,13 +624,27 @@ html {
 }
 
 /* Ensure sections take full viewport height */
-.scroll-section > section {
+.fullscreen-section > section {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 /* Allow footer section to be its natural height */
-.scroll-section:last-child > section {
+.fullscreen-section:last-child > section {
   min-height: auto;
+}
+
+/* Ensure body and html take full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure main container takes full height */
+main {
+  height: 100vh;
+  overflow: hidden;
 }

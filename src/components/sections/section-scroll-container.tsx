@@ -1,58 +1,71 @@
 'use client'
 
-import { easeOut, motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 
 interface SectionScrollContainerProps {
   children: React.ReactNode[]
 }
 
 export default function SectionScrollContainer({ children }: SectionScrollContainerProps) {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.1
-      }
-    }
-  }
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const sectionVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 50 
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: easeOut
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    // Enable smooth scrolling behavior
+    container.style.scrollBehavior = 'smooth'
+
+    // Optional: Add keyboard navigation
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault()
+        const currentSection = getCurrentSection()
+        if (currentSection && currentSection.nextElementSibling) {
+          currentSection.nextElementSibling.scrollIntoView({ behavior: 'smooth' })
+        }
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault()
+        const currentSection = getCurrentSection()
+        if (currentSection && currentSection.previousElementSibling) {
+          currentSection.previousElementSibling.scrollIntoView({ behavior: 'smooth' })
+        }
       }
     }
-  }
+
+    const getCurrentSection = () => {
+      const sections = container.querySelectorAll('.fullscreen-section')
+      const containerRect = container.getBoundingClientRect()
+      
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect()
+        if (rect.top <= containerRect.height / 2 && rect.bottom >= containerRect.height / 2) {
+          return section as HTMLElement
+        }
+      }
+      return null
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
   return (
-    <div className="scroll-container">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {children.map((child, index) => (
-          <motion.div
-            key={index}
-            className="scroll-section"
-            variants={sectionVariants}
-            viewport={{ once: true, margin: "-20%" }}
-            whileInView="visible"
-            initial="hidden"
-          >
-            {child}
-          </motion.div>
-        ))}
-      </motion.div>
+    <div 
+      ref={containerRef}
+      className="fullscreen-scroll-container"
+    >
+      {children.map((child, index) => (
+        <div
+          key={index}
+          className="fullscreen-section"
+        >
+          {child}
+        </div>
+      ))}
     </div>
   )
 } 
