@@ -27,7 +27,7 @@ export default function HeroSection() {
 
   const stats = [
     { icon: MapPin, label: '9 Locations', description: 'Across Toronto' },
-    { icon: Users, label: '3-20 Players', description: 'Team sizes' },
+    { icon: Users, label: '2-5 Players', description: 'Team size' },
     { icon: Clock, label: '4 Hours', description: 'Duration' },
     // { icon: DollarSign, label: 'Approx. $70 CAD', description: 'Cost per person' }
   ]
@@ -86,7 +86,15 @@ export default function HeroSection() {
             className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed"
             variants={itemVariants}
           >
-            Ready for an epic adventure? Experience Toronto like never before with our immersive Cluedo-themed scavenger hunt. Navigate 9 iconic locations, solve intricate puzzles, and create unforgettable memories with your team!
+            Are you ready for an epic adventure?
+            <br />
+            <br />
+            Experience Toronto like never before with our immersive Cluedo-themed scavenger hunt.
+            <br />
+            <br />
+            Navigate 9 iconic locations, solve intricate puzzles, and create unforgettable memories with your team!
+            <br />
+            <br />
           </motion.p>
 
           <motion.div
@@ -95,17 +103,16 @@ export default function HeroSection() {
           >
             <Button 
               size="lg" 
-              className="glass text-gray-800 hover:bg-white/20 border-gray-300/30 px-8 py-4 text-lg font-semibold"
+              className="glass-button px-8 py-4 text-lg font-semibold cursor-pointer"
               onClick={scrollToContact}
             >
               Plan Your Adventure
-              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             
             <Button 
               variant="outline" 
               size="lg" 
-              className="glass-dark text-gray-800 border-gray-300/30 hover:bg-white/10 px-8 py-4 text-lg"
+              className="glass-dark text-gray-800 border-gray-300/30 hover:bg-white/10 px-8 py-4 text-lg cursor-help"
               onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
             >
               How It Works

@@ -149,6 +149,20 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.4);
   }
+
+  .glass-button {
+    background: linear-gradient(135deg, #155CF9 0%, #1C3D9A 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .glass-button:hover {
+    background: linear-gradient(135deg, #155df9e3 0%, #1c3e9ae1 100%);
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(0, 0, 0, 0.8);
+  }
   
   .glass-dark {
     background: rgba(0, 0, 0, 0.05);
