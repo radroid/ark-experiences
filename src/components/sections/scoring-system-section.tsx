@@ -5,8 +5,6 @@ import { Button } from '@/components/ui/button'
 import { 
   Trophy,
   Mail,
-  Phone,
-  MessageCircle,
   Eye,
   Lock
 } from 'lucide-react'
@@ -96,7 +94,7 @@ export default function ScoringSystemSection() {
             className="text-3xl md:text-4xl font-bold text-gray-200 mb-4 max-w-3xl mx-auto leading-relaxed"
             variants={itemVariants}
           >
-            Where's the{' '}
+            Where&apos;s the{' '}
             <span className="bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text text-transparent font-semibold">mystery</span>{' '}
             in that?
           </motion.p>

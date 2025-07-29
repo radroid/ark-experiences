@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, easeOut } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button-2'
+
 import { X, ChevronLeft, ChevronRight, Play, Pause, Volume2, VolumeX, Camera, Video, Users, MapPin } from 'lucide-react'
 import Image from 'next/image'
 
@@ -227,9 +227,10 @@ export default function GallerySection() {
 
   useEffect(() => {
     if (selectedItem?.type === 'video' && videoRef.current) {
-      videoRef.current.addEventListener('ended', () => setIsPlaying(false))
+      const video = videoRef.current
+      video.addEventListener('ended', () => setIsPlaying(false))
       return () => {
-        videoRef.current?.removeEventListener('ended', () => setIsPlaying(false))
+        video.removeEventListener('ended', () => setIsPlaying(false))
       }
     }
   }, [selectedItem])

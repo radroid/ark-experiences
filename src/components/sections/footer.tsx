@@ -1,7 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { 
   Mail, 
   Phone, 
@@ -9,6 +8,7 @@ import {
   ArrowRight
 } from 'lucide-react'
 import { Button } from '@/components/ui/button-2'
+import Image from 'next/image'
 
 export default function Footer() {
   const [isFlashlightOn, setIsFlashlightOn] = useState(false)
@@ -80,7 +80,7 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <div className="flex items-center mb-6">
-              <img src="/ark-logo.png" alt="ARK Scavenger Hunt" className="h-24 w-auto mr-3" />
+              <Image src="/ark-logo.png" alt="ARK Scavenger Hunt" width={96} height={96} className="h-24 w-auto mr-3" />
             </div>
             <p className="text-gray-300 mb-6">
               Experience Toronto with our immersive Cluedo-themed scavenger hunt.

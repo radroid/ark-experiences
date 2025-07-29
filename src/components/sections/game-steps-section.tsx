@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useRef, useState } from 'react'
@@ -17,7 +17,7 @@ export default function GameStepsSection() {
   const containerRef = useRef(null)
   const [revealedSteps, setRevealedSteps] = useState<number[]>([])
   const [activeStep, setActiveStep] = useState<number>(-1)
-  const { scrollYProgress } = useScroll({
+  useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   })

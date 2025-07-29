@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, easeOut } from 'framer-motion'
-import { CheckCircle, Users2, UserCheck } from 'lucide-react'
+import { Users2, UserCheck } from 'lucide-react'
 
 export default function GameModesSection() {
   const gameModes = [
