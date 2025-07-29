@@ -68,7 +68,7 @@ export default function GameStepsSection() {
   return (
     <div ref={containerRef} className="relative">
       {/* Title Section */}
-      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-blue-50">
         <div className="text-center">
           <motion.h2 
             className="text-4xl md:text-5xl font-bold text-gray-900 mb-8"
@@ -107,7 +107,7 @@ export default function GameStepsSection() {
       {/* Main Steps Container */}
       <div className="relative flex min-h-screen">
         {/* Sticky Left Side - Stacking Steps */}
-        <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-start pt-20 px-6 lg:px-10 bg-gradient-to-br from-gray-50 to-blue-50 overflow-auto self-start">
+        <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-start pt-20 px-6 lg:px-10 bg-blue-50 overflow-auto self-start">
                      <div className="space-y-4 max-h-screen overflow-hidden scrollbar-hide p-2">
             {steps.map((step, index) => {
               const isRevealed = revealedSteps.includes(index)
@@ -162,14 +162,14 @@ export default function GameStepsSection() {
         </div>
 
         {/* Sticky Center Timeline Line */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-500 to-blue-900 h-full z-10" />
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-500 via-blue-900 to-black h-full z-10" />
 
         {/* Scrollable Right Side - Step Details */}
         <div className="w-1/2 ml-auto overflow-hidden">
           {steps.map((step, index) => (
                           <section 
                 key={index}
-                className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex items-center justify-center px-8 lg:px-16 relative"
+                className="min-h-screen bg-blue-50 flex items-center justify-center px-8 lg:px-16 relative"
                 data-step-section={index}
               >
                 {/* Active step tracker */}
