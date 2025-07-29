@@ -26,8 +26,8 @@ export default function GameStepsSection() {
     {
       icon: Users,
       title: 'Form Your Team',
-      description: 'Split into 3 teams of 2-5 players each. Every team gets a unique starting location.',
-      details: ['3 teams compete', 'Equal team sizes', 'Unique starting points'],
+      description: 'Form teams of 2-5 players each. Every team gets a unique starting location.',
+      details: ['Equal team sizes', 'Unique starting points'],
       color: 'bg-blue-100 text-blue-800',
       bgColor: 'bg-blue-50'
     },
@@ -91,7 +91,7 @@ export default function GameStepsSection() {
           >
             A thrilling journey through Toronto where teams race against time to solve a Cluedo-style murder mystery
           </motion.p>
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-500 h-3/4 to-blue-900 z-10" />
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-200 h-3/4 to-blue-900 z-10" />
         </div>
 
         {/* Timeline line starts here */}
@@ -127,7 +127,7 @@ export default function GameStepsSection() {
                   }}
                 >
                   <div className={`flex items-center gap-6 p-6 rounded-2xl backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 ${
-                    isActive ? 'bg-white/95 border-2 border-purple-200' : 'bg-white/80'
+                  isActive ? 'bg-white/95 border-2 border-gray-200' : 'bg-white/80'
                   }`}>
                     <motion.div 
                       className={`w-16 h-16 rounded-full ${step.color} flex items-center justify-center shadow-lg transition-transform duration-300`}
@@ -162,7 +162,7 @@ export default function GameStepsSection() {
         </div>
 
         {/* Sticky Center Timeline Line */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-500 via-blue-900 to-black h-full z-10" />
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-300 via-blue-900 to-black h-full z-10" />
 
         {/* Scrollable Right Side - Step Details */}
         <div className="w-1/2 ml-auto overflow-hidden">
@@ -240,9 +240,9 @@ export default function GameStepsSection() {
                 </Card>
               </motion.div>
 
-                             {/* Timeline node for current step */}
+              {/* Timeline node for current step
                <motion.div
-                 className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border-4 border-purple-500 shadow-lg z-20"
+                 className="absolute left-1/2 transform -translate-x-93 -translate-y-1/2 w-8 h-8 rounded-full bg-white border-4 border-purple-500 shadow-lg z-20"
                  style={{ top: '50vh' }}
                  initial={{ scale: 0 }}
                  whileInView={{ scale: 1 }}
@@ -252,7 +252,7 @@ export default function GameStepsSection() {
                  <div className={`w-full h-full rounded-full ${step.color} flex items-center justify-center`}>
                    <step.icon className="h-4 w-4" />
                  </div>
-               </motion.div>
+               </motion.div> */}
             </section>
           ))}
         </div>
