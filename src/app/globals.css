@@ -290,6 +290,115 @@
     animation: float-reverse 9s ease-in-out infinite;
     animation-delay: 5s;
   }
+
+  /* Dark Lava lamp floating circles */
+  .dark-lava-lamp-bg {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .dark-lava-lamp-bg::before,
+  .dark-lava-lamp-bg::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.8;
+  }
+  
+  .dark-lava-lamp-bg::before {
+    width: 300px;
+    height: 300px;
+    background: #4a8cff;
+    top: 15%;
+    left: 5%;
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  .dark-lava-lamp-bg::after {
+    width: 250px;
+    height: 250px;
+    background: #ff7b40;
+    top: 75%;
+    right: 5%;
+    animation: float-reverse 10s ease-in-out infinite;
+  }
+  
+  /* Dark floating circles */
+  .dark-floating-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(30px);
+    opacity: 0.6;
+  }
+  
+  .dark-floating-circle:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    background: #6296ff;
+    top: 75%;
+    left: 80%;
+    animation: float-diagonal 12s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  
+  .dark-floating-circle:nth-child(2) {
+    width: 180px;
+    height: 180px;
+    background: #ff7b40;
+    top: 85%;
+    left: 15%;
+    animation: float 9s ease-in-out infinite;
+    animation-delay: 4s;
+  }
+  
+  .dark-floating-circle:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    background: #6296ff;
+    top: 5%;
+    right: 20%;
+    animation: float-reverse 11s ease-in-out infinite;
+    animation-delay: 6s;
+  }
+  
+  /* Dark smaller floating circles */
+  .dark-floating-circle-small {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.4;
+  }
+  
+  .dark-floating-circle-small:nth-child(4) {
+    width: 100px;
+    height: 100px;
+    background: #ff8c50;
+    top: 35%;
+    left: 75%;
+    animation: float-wide 15s ease-in-out infinite;
+    animation-delay: 5s;
+  }
+  
+  .dark-floating-circle-small:nth-child(5) {
+    width: 80px;
+    height: 80px;
+    background: #7ba6ff;
+    top: 65%;
+    right: 35%;
+    animation: float-diagonal 8s ease-in-out infinite;
+    animation-delay: 3s;
+  }
+  
+  .dark-floating-circle-small:nth-child(6) {
+    width: 120px;
+    height: 120px;
+    background: #ff7b40;
+    top: 45%;
+    left: 10%;
+    animation: float-reverse 9s ease-in-out infinite;
+    animation-delay: 5s;
+  }
   
   @keyframes float {
     0% {
