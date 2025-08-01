@@ -37,9 +37,8 @@ export default function HeroSection() {
   }
 
 
-
   return (
-    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
       {/* Lava Lamp Background */}
       <div className="absolute inset-0 gradient-hero lava-lamp-bg" />
       
@@ -58,7 +57,7 @@ export default function HeroSection() {
 
       {/* Main Content */}
       <motion.div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -68,7 +67,7 @@ export default function HeroSection() {
           variants={itemVariants}
         >
           <motion.h1 
-            className="text-3xl md:text-5xl lg:text-7xl font-bold text-gray-800 leading-tight"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight"
             variants={itemVariants}
           >
             Solve the{' '}
@@ -76,9 +75,9 @@ export default function HeroSection() {
               Mystery
             </span>
             <br />
-            Build Your{' '}
-            <span className="bg-gradient-to-r from-slate-800 via-gray-700 to-slate-900 bg-clip-text text-transparent">
-              Team
+            Around the{' '}
+            <span className="bg-gradient-to-r from-orange-400 via-orange-700 to-orange-900 bg-clip-text text-transparent">
+              City
             </span>
           </motion.h1>
 
@@ -89,11 +88,7 @@ export default function HeroSection() {
             Are you ready for an epic adventure?
             <br />
             <br />
-            Experience Toronto like never before with our immersive Cluedo-themed scavenger hunt.
-            <br />
-            <br />
-            Navigate 9 iconic locations, solve intricate puzzles, and create unforgettable memories with your team!
-            <br />
+            Experience Toronto with our immersive <u>Cluedo-themed Scavenger Hunt</u>.
             <br />
           </motion.p>
 
@@ -137,11 +132,11 @@ export default function HeroSection() {
             >
               <div className="flex justify-center mb-4">
                 <div className="p-3 rounded-full bg-gray-800/10">
-                  <stat.icon className="h-8 w-8 text-gray-800" />
+                  <stat.icon className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10 text-gray-800" />
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-1">{stat.label}</h3>
-              <p className="text-gray-600">{stat.description}</p>
+              <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-1">{stat.label}</h3>
+              <p className="text-gray-600 text-sm md:text-base lg:text-lg">{stat.description}</p>
             </motion.div>
           ))}
         </motion.div>
