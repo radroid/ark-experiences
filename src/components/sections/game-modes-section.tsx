@@ -11,10 +11,9 @@ export default function GameModesSection() {
       color: 'bg-green-100 text-green-800',
       bgColor: 'bg-green-50',
       details: [
-        { label: 'Teams', value: '1 active team playing' },
-        { label: 'Players', value: '2-5 players' },
         { label: 'Objective', value: 'Work together to solve the mystery' },
-        { label: 'Starting Points', value: 'Single starting location' }
+        { label: 'Teams', value: '1 active team playing' },
+        { label: 'Players', value: '2-5 players' }
       ]
     },
     {
@@ -23,10 +22,9 @@ export default function GameModesSection() {
       color: 'bg-red-100 text-red-800',
       bgColor: 'bg-red-50',
       details: [
-        { label: 'Teams', value: 'Up to 3 active teams playing' },
-        { label: 'Players', value: '2-5 players in a team' },
         { label: 'Objective', value: 'Race against other teams to solve first' },
-        { label: 'Starting Points', value: 'Unique starting locations for each team' }
+        { label: 'Teams', value: 'Up to 3 active teams playing' },
+        { label: 'Players', value: '6-15 players (2-5 in a team)' }
       ]
     }
   ]
@@ -52,7 +50,7 @@ export default function GameModesSection() {
   }
 
   return (
-    <section id="game-modes" className="min-h-screen flex items-center justify-center bg-gray-50">
+    <section id="game-modes" className="min-h-screen flex items-center justify-center bg-gray-50 py-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col items-center justify-center min-h-screen">
           <motion.div
@@ -63,7 +61,7 @@ export default function GameModesSection() {
             viewport={{ once: true, margin: "-100px" }}
           >
             <motion.h2 
-              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-6"
               variants={itemVariants}
             >
               Choose Your{' '}
