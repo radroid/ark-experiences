@@ -103,7 +103,7 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="contact" className="relative py-24 overflow-hidden">
+    <section id="contact" className="relative py-30 overflow-hidden">
       {/* Background - Same as hero section */}
       <div className="absolute inset-0 gradient-hero lava-lamp-bg" />
       
@@ -137,12 +137,6 @@ export default function ContactForm() {
               Adventure?
             </span>
           </motion.h2>
-          <motion.p 
-            className="text-xl text-gray-700 max-w-2xl mx-auto"
-            variants={itemVariants}
-          >
-            Get in touch with us to plan your perfect experience. 
-          </motion.p>
         </motion.div>
 
         <motion.div
@@ -151,27 +145,24 @@ export default function ContactForm() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <Card className="glass-card border-0 shadow-2xl max-w-2xl mx-auto">
-            <CardHeader className="text-center pb-6">
+          <Card className="glass-card border-0 shadow-2xl max-w-3xl mx-auto">
+            <CardHeader className="text-center pb-2">
               <CardTitle className="text-2xl font-bold text-gray-800">
                 Contact Us
               </CardTitle>
-              <p className="text-gray-600 mt-2">
-                Fill out the form below and we&apos;ll get back to you within 24 hours
-              </p>
             </CardHeader>
             <CardContent>
               {submitStatus === 'success' ? (
                 <motion.div
-                  className="text-center py-12"
+                  className="text-center py-10"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
+                  <CheckCircle className="h-16 w-16 text-green-700 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">Message Sent!</h3>
                   <p className="text-gray-600 mb-6">
-                    Thank you for reaching out. We&apos;ll get back to you within 24 hours to plan your mystery adventure.
+                    Thank you for reaching out. We&apos;ll get back to you within 24 hours to plan your adventure.
                   </p>
                   <Button
                     onClick={() => setSubmitStatus('idle')}

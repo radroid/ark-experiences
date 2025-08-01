@@ -35,7 +35,7 @@ export default function ScoringSystemSection() {
   }
 
   return (
-    <section id="mystery-cta" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section id="mystery-cta" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black py-20">
       {/* Dark Lava Lamp Background */}
       <div className="absolute inset-0 dark-lava-lamp-bg" />
       
@@ -65,6 +65,18 @@ export default function ScoringSystemSection() {
             Scoring System
           </motion.h1>
 
+          {/* Main Headline */}
+          <motion.h2 
+            className="text-md md:text-lg text-gray-400 mb-6 leading-tight"
+            variants={itemVariants}
+          >
+            So you want to know{' '}
+            <span className="text-orange-400">
+              everything
+            </span>{' '}
+            now?
+          </motion.h2>
+
           {/* Mystery Lock Icon */}
           <motion.div 
             className="mb-8"
@@ -77,17 +89,7 @@ export default function ScoringSystemSection() {
             </div>
           </motion.div>
 
-          {/* Main Headline */}
-          <motion.h2 
-            className="text-md md:text-lg text-gray-400 mb-6 leading-tight"
-            variants={itemVariants}
-          >
-            So you want to know{' '}
-            <span className="text-orange-400">
-              everything
-            </span>{' '}
-            now?
-          </motion.h2>
+          
 
           {/* Subheadline */}
           <motion.p 
@@ -111,8 +113,7 @@ export default function ScoringSystemSection() {
           </motion.p>
 
           {/* Main Contact Form CTA */}
-          <motion.div 
-            className="mb-16"
+          <motion.div
             variants={itemVariants}
           >
             <motion.div

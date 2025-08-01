@@ -50,7 +50,7 @@ export default function GameModesSection() {
   }
 
   return (
-    <section id="game-modes" className="min-h-screen flex items-center justify-center bg-gray-50 py-30">
+    <section id="game-modes" className="min-h-screen flex items-center justify-center bg-gray-50 py-15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col items-center justify-center min-h-screen">
           <motion.div
