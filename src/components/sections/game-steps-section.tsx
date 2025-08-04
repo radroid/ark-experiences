@@ -85,11 +85,11 @@ export default function GameStepsSection() {
 
   return (
     <div ref={containerRef} className="relative">
-      {/* Continuous Timeline - Spans entire section height, behind content */}
+      {/* Continuous Timeline - Spans entire section height, above backgrounds but below content */}
       <motion.div 
-        className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-200 via-blue-900 to-black z-0"
+        className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-200 via-blue-900 to-black z-30"
         style={{ 
-          top: '20vh', // Start from title area
+          top: '60vh', // Start from title area
           height: 'calc(100% - 10vh)' // Extend to bottom with some padding
         }}
         initial={{ scaleY: 0, transformOrigin: 'top' }}
@@ -128,7 +128,7 @@ export default function GameStepsSection() {
       {/* Desktop/Tablet Layout */}
       <div className="relative flex min-h-screen">
         {/* Sticky Left Side - Stacking Steps */}
-        <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-start pt-12 lg:pt-20 px-4 lg:px-10 bg-blue-50 overflow-auto self-start z-20">
+        <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-start pt-12 lg:pt-20 pl-4 lg:pl-10 pr-8 lg:pr-12 bg-blue-50 overflow-auto self-start z-20">
           <div className="space-y-3 lg:space-y-4 max-h-screen overflow-hidden scrollbar-hide p-2">
             {steps.map((step, index) => {
               const isRevealed = revealedSteps.includes(index)
@@ -186,9 +186,9 @@ export default function GameStepsSection() {
         {steps.map((step, index) => (
           <motion.div
             key={`node-${index}`}
-            className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-white border-4 border-width-0.1 shadow-lg z-30"
+            className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-white border-1 border-gray-300 shadow-lg z-40"
             style={{ 
-              top: `${25 + (index * 15)}vh` // Distribute nodes along the timeline
+              top: `${18 + (index * 99)}vh` // Distribute nodes along the timeline
             }}
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
@@ -206,7 +206,7 @@ export default function GameStepsSection() {
           {steps.map((step, index) => (
             <section 
               key={index}
-              className="min-h-screen bg-blue-50 flex items-center justify-center px-4 lg:px-16 relative"
+              className="min-h-screen bg-blue-50 flex items-center justify-center pl-8 lg:pl-12 pr-4 lg:pr-16 relative"
               data-step-section={index}
             >
               {/* Active step tracker */}
@@ -284,7 +284,7 @@ export default function GameStepsSection() {
 
 // Step type definition
 type Step = {
-  icon: any;
+  icon: React.ComponentType<{ className?: string; }>;
   title: string;
   description: string;
   details: string[];
