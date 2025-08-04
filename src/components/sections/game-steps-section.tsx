@@ -128,8 +128,8 @@ export default function GameStepsSection() {
       {/* Desktop/Tablet Layout */}
       <div className="relative flex min-h-screen">
         {/* Sticky Left Side - Stacking Steps */}
-        <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-start pt-12 lg:pt-20 pl-4 lg:pl-10 pr-8 lg:pr-12 bg-blue-50 overflow-auto self-start z-20">
-          <div className="space-y-3 lg:space-y-4 max-h-screen overflow-hidden scrollbar-hide p-2">
+        <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-center pl-4 lg:pl-10 pr-8 lg:pr-12 bg-blue-50 overflow-hidden self-start z-20">
+          <div className="space-y-2 lg:space-y-3 w-full p-2">
             {steps.map((step, index) => {
               const isRevealed = revealedSteps.includes(index)
               const isActive = activeStep === index
@@ -147,7 +147,7 @@ export default function GameStepsSection() {
                     ease: "easeOut"
                   }}
                 >
-                  <div className={`flex items-center gap-4 lg:gap-6 p-4 lg:p-6 rounded-2xl backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 ${
+                  <div className={`flex items-center gap-4 lg:gap-6 p-4 lg:p-6 rounded-2xl backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 max-w-full ${
                   isActive ? 'bg-white/95 border-2 border-gray-200' : 'bg-white/80'
                   }`}>
                     <motion.div 
@@ -202,7 +202,7 @@ export default function GameStepsSection() {
         ))}
 
         {/* Scrollable Right Side - Step Details */}
-        <div className="w-1/2 ml-auto overflow-hidden z-20">
+        <div className="w-1/2 ml-auto overflow-x-hidden z-20">
           {steps.map((step, index) => (
             <section 
               key={index}
@@ -243,7 +243,7 @@ export default function GameStepsSection() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true, margin: "-100px" }}
               >
-                <Card className={`border-0 shadow-2xl ${step.bgColor} hover:shadow-3xl transition-all duration-300`}>
+                <Card className={`border-0 shadow-2xl ${step.bgColor} hover:shadow-3xl transition-all duration-300 max-w-full`}>
                   <CardContent className="p-6 lg:p-8">
                     <div className="text-center mb-6 lg:mb-8">
                       <div className={`inline-flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-full ${step.color} mb-4 lg:mb-6`}>
@@ -295,10 +295,10 @@ type Step = {
 // Mobile-optimized component
 function MobileGameStepsSection({ steps }: { steps: Step[] }) {
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-blue-50 relative">
+    <div className="bg-gradient-to-b from-gray-50 to-blue-50 relative overflow-hidden w-full">
       {/* Mobile Continuous Timeline - Behind content */}
       <motion.div 
-        className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-200 via-blue-900 to-black z-0"
+        className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-200 via-blue-900 to-black z-0 "
         style={{ 
           top: '60vh', // Start after title section
           height: 'calc(100% - 50vh)' // Extend to bottom
@@ -352,7 +352,7 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
       </section>
 
       {/* Mobile Steps - Single Column Layout */}
-      <div className="px-4 pb-12 relative z-20">
+      <div className="px-4 pb-12 relative z-20 w-full overflow-x-hidden">
         <div className="max-w-lg mx-auto space-y-8">
           {steps.map((step, index) => (
             <div key={index} className="relative">
@@ -375,7 +375,7 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true, margin: "-50px" }}
               >
-                <Card className={`border-0 shadow-xl ${step.bgColor} hover:shadow-2xl transition-all duration-300 overflow-hidden relative z-10`}>
+                <Card className={`border-0 shadow-xl ${step.bgColor} hover:shadow-2xl transition-all duration-300 overflow-hidden relative z-10 max-w-full`}>
                   <CardContent className="p-6">
                     {/* Step header */}
                     <div className="flex items-center gap-4 mb-6">
