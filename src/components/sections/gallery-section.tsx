@@ -204,8 +204,9 @@ export default function GallerySection() {
 
   // Cleanup hover videos on unmount
   useEffect(() => {
+    const currentVideoRefs = hoverVideoRefs.current
     return () => {
-      Object.values(hoverVideoRefs.current).forEach(video => {
+      Object.values(currentVideoRefs).forEach(video => {
         if (video) {
           video.pause()
         }
