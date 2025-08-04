@@ -2,8 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, easeOut } from 'framer-motion'
-import { Card, CardContent } from '@/components/ui/card'
-
 import { X, ChevronLeft, ChevronRight, Play, Pause, Volume2, VolumeX, Camera, Video, Users, MapPin } from 'lucide-react'
 import Image from 'next/image'
 
@@ -26,7 +24,9 @@ export default function GallerySection() {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'event' | 'clue' | 'celebration'>('all')
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
+  const [hoveredVideoId, setHoveredVideoId] = useState<number | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const hoverVideoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({})
 
   // Updated gallery items with real media files and proper aspect ratios
   const galleryItems: GalleryItem[] = [
@@ -191,6 +191,28 @@ export default function GallerySection() {
     ? galleryItems 
     : galleryItems.filter(item => item.category === selectedCategory)
 
+  // Cleanup hover videos when category changes
+  useEffect(() => {
+    setHoveredVideoId(null)
+    Object.values(hoverVideoRefs.current).forEach(video => {
+      if (video) {
+        video.pause()
+        video.currentTime = 0
+      }
+    })
+  }, [selectedCategory])
+
+  // Cleanup hover videos on unmount
+  useEffect(() => {
+    return () => {
+      Object.values(hoverVideoRefs.current).forEach(video => {
+        if (video) {
+          video.pause()
+        }
+      })
+    }
+  }, [])
+
   const nextItem = () => {
     if (!selectedItem) return
     const currentIndex = filteredItems.findIndex(item => item.id === selectedItem.id)
@@ -222,6 +244,26 @@ export default function GallerySection() {
     if (videoRef.current) {
       videoRef.current.muted = !isMuted
       setIsMuted(!isMuted)
+    }
+  }
+
+  const handleVideoHover = (itemId: number) => {
+    setHoveredVideoId(itemId)
+    const video = hoverVideoRefs.current[itemId]
+    if (video) {
+      video.currentTime = 0
+      video.play().catch(() => {
+        // Ignore autoplay failures
+      })
+    }
+  }
+
+  const handleVideoHoverEnd = (itemId: number) => {
+    setHoveredVideoId(null)
+    const video = hoverVideoRefs.current[itemId]
+    if (video) {
+      video.pause()
+      video.currentTime = 0
     }
   }
 
@@ -329,58 +371,78 @@ export default function GallerySection() {
                 transition={{ duration: 0.4 }}
                 className="group cursor-pointer break-inside-avoid mb-4"
                 onClick={() => setSelectedItem(item)}
+                onMouseEnter={() => item.type === 'video' && handleVideoHover(item.id)}
+                onMouseLeave={() => item.type === 'video' && handleVideoHoverEnd(item.id)}
               >
-                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group-hover:scale-105 bg-white/80 backdrop-blur-sm border border-white/50">
-                  <CardContent className="p-0">
-                    <div className="relative overflow-hidden">
-                      {item.type === 'video' && item.thumbnail ? (
-                        <div className="relative">
-                          <Image
-                            src={item.thumbnail}
-                            alt={item.alt}
-                            width={item.width || 800}
-                            height={item.height || 600}
-                            className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"
-                            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-                            priority={index < 4}
-                          />
-                          {/* Video Play Overlay */}
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div className="bg-white/90 rounded-full p-3">
-                              <Play className="h-6 w-6 text-blue-600 ml-1" />
-                            </div>
-                          </div>
-                          {/* Video Icon Badge */}
-                          <div className="absolute top-2 right-2 bg-black/70 rounded-full p-2">
-                            <Video className="h-4 w-4 text-white" />
+                <div className="overflow-hidden rounded-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                  <div className="relative overflow-hidden">
+                    {item.type === 'video' && item.thumbnail ? (
+                      <div className="relative">
+                        {/* Thumbnail Image */}
+                        <Image
+                          src={item.thumbnail}
+                          alt={item.alt}
+                          width={item.width || 800}
+                          height={item.height || 600}
+                          className={`w-full h-auto object-cover transition-all duration-300 group-hover:scale-110 ${
+                            hoveredVideoId === item.id ? 'opacity-0' : 'opacity-100'
+                          }`}
+                          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                          priority={index < 4}
+                        />
+                        
+                        {/* Hover Video */}
+                        <video
+                          ref={(el) => {
+                            if (el) hoverVideoRefs.current[item.id] = el
+                          }}
+                          src={item.src}
+                          className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${
+                            hoveredVideoId === item.id ? 'opacity-100' : 'opacity-0'
+                          }`}
+                          muted
+                          loop
+                          playsInline
+                          preload="metadata"
+                        />
+                        
+                        {/* Video Play Overlay - only show when not hovering */}
+                        <div className={`absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 ${
+                          hoveredVideoId === item.id ? 'opacity-0' : 'opacity-100'
+                        }`} />
+                        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
+                          hoveredVideoId === item.id ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
+                        }`}>
+                          <div className="bg-white/90 rounded-full p-3">
+                            <Play className="h-6 w-6 text-blue-600 ml-1" />
                           </div>
                         </div>
-                      ) : (
-                        <div className="relative">
-                          <Image
-                            src={item.src}
-                            alt={item.alt}
-                            width={item.width || 800}
-                            height={item.height || 600}
-                            className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"
-                            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-                            priority={index < 4}
-                          />
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                          {/* Image Icon Badge */}
-                          <div className="absolute top-2 right-2 bg-black/70 rounded-full p-2">
-                            <Camera className="h-4 w-4 text-white" />
-                          </div>
+                        
+                        {/* Video Icon Badge */}
+                        <div className="absolute top-2 right-2 bg-black/70 rounded-full p-2 z-10">
+                          <Video className="h-4 w-4 text-white" />
                         </div>
-                      )}
-                    </div>
-                    <div className="p-3">
-                      <h3 className="font-semibold text-gray-900 text-sm mb-1 truncate">{item.title}</h3>
-                      <p className="text-xs text-gray-600 line-clamp-2">{item.description}</p>
-                    </div>
-                  </CardContent>
-                </Card>
+                      </div>
+                    ) : (
+                      <div className="relative">
+                        <Image
+                          src={item.src}
+                          alt={item.alt}
+                          width={item.width || 800}
+                          height={item.height || 600}
+                          className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"
+                          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                          priority={index < 4}
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                        {/* Image Icon Badge */}
+                        <div className="absolute top-2 right-2 bg-black/70 rounded-full p-2">
+                          <Camera className="h-4 w-4 text-white" />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>
