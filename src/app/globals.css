@@ -745,9 +745,25 @@ html {
 .fullscreen-scroll-container {
   height: 100vh;
   overflow-y: auto;
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   /* Remove scrollbar hiding to show custom scrollbar */
+  
+  /* Desktop: Enable scroll snapping for precise section navigation */
+  @media (min-width: 1024px) {
+    scroll-snap-type: y mandatory;
+  }
+  
+  /* Mobile: Disable scroll snapping for natural social media-like scrolling */
+  @media (max-width: 1023px) {
+    scroll-snap-type: none;
+    /* Add momentum scrolling for iOS */
+    -webkit-overflow-scrolling: touch;
+    /* Enhanced mobile scrolling properties */
+    overscroll-behavior: contain;
+    scroll-padding-top: 0;
+    /* Better touch scrolling performance */
+    will-change: scroll-position;
+  }
 }
 
 /* Custom scrollbar specifically for main container */
@@ -773,22 +789,70 @@ html {
 
 .fullscreen-section {
   min-height: 100vh;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   display: flex;
   flex-direction: column;
   position: relative;
+  
+  /* Desktop: Enable scroll snapping for precise section navigation */
+  @media (min-width: 1024px) {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  
+  /* Mobile: Allow natural scrolling without snap stops */
+  @media (max-width: 1023px) {
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
 }
 
 /* Allow footer to be its natural height */
 .fullscreen-section:last-child {
   min-height: auto;
-  scroll-snap-align: start;
+  
+  /* Desktop: Keep scroll snap for footer */
+  @media (min-width: 1024px) {
+    scroll-snap-align: start;
+  }
+  
+  /* Mobile: No snap alignment for footer */
+  @media (max-width: 1023px) {
+    scroll-snap-align: none;
+  }
 }
 
 /* Smooth scrolling for all elements */
 html {
   scroll-behavior: smooth;
+}
+
+/* Enhanced mobile scrolling experience */
+@media (max-width: 1023px) {
+  html {
+    /* Allow natural momentum scrolling on mobile */
+    scroll-behavior: auto;
+  }
+  
+  body {
+    /* Prevent overscroll bounce effects that can feel jarring */
+    overscroll-behavior-y: contain;
+    /* Enable hardware acceleration for smoother scrolling */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  
+  /* Hide custom scrollbars on mobile for cleaner look */
+  .fullscreen-scroll-container::-webkit-scrollbar {
+    display: none;
+    width: 0px;
+    background: transparent;
+  }
+  
+  /* Ensure touch-friendly scrolling */
+  .fullscreen-scroll-container {
+    /* Better touch responsiveness */
+    touch-action: pan-y;
+  }
 }
 
 /* Ensure sections take full viewport height */

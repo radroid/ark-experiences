@@ -90,7 +90,7 @@ export default function GameStepsSection() {
         className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-200 via-blue-900 to-black z-30"
         style={{ 
           top: '60vh', // Start from title area
-          height: 'calc(100% - 10vh)' // Extend to bottom with some padding
+          height: 'calc(100% - 60vh)' // Extend to bottom with some padding
         }}
         initial={{ scaleY: 0, transformOrigin: 'top' }}
         whileInView={{ scaleY: 1 }}
@@ -301,7 +301,7 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
         className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-200 via-blue-900 to-black z-0 "
         style={{ 
           top: '60vh', // Start after title section
-          height: 'calc(100% - 50vh)' // Extend to bottom
+          height: 'calc(100% - 60vh)' // Extend to bottom
         }}
         initial={{ scaleY: 0, transformOrigin: 'top' }}
         whileInView={{ scaleY: 1 }}

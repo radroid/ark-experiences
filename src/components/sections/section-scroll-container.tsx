@@ -13,11 +13,23 @@ export default function SectionScrollContainer({ children }: SectionScrollContai
     const container = containerRef.current
     if (!container) return
 
-    // Enable smooth scrolling behavior
-    container.style.scrollBehavior = 'smooth'
+    // Check if we're on mobile
+    const isMobile = () => window.innerWidth <= 1023
 
-    // Optional: Add keyboard navigation
+    // Set appropriate scroll behavior based on device
+    if (isMobile()) {
+      // Mobile: Natural scrolling without forced smooth behavior
+      container.style.scrollBehavior = 'auto'
+    } else {
+      // Desktop: Smooth scrolling behavior
+      container.style.scrollBehavior = 'smooth'
+    }
+
+    // Keyboard navigation only for desktop
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Skip keyboard navigation on mobile devices
+      if (isMobile()) return
+
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault()
         const currentSection = getCurrentSection()
@@ -46,10 +58,21 @@ export default function SectionScrollContainer({ children }: SectionScrollContai
       return null
     }
 
+    // Handle resize to update scroll behavior
+    const handleResize = () => {
+      if (isMobile()) {
+        container.style.scrollBehavior = 'auto'
+      } else {
+        container.style.scrollBehavior = 'smooth'
+      }
+    }
+
     document.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('resize', handleResize)
     
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('resize', handleResize)
     }
   }, [])
 
