@@ -117,7 +117,7 @@ export default function Navbar() {
                 <Link 
                   href={blogItem.href} 
                   data-nav-item
-                  className="font-bold text-lg text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-200 cursor-pointer px-5 py-2 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap"
+                  className="font-bold text-lg text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-200 cursor-pointer px-5 py-2 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap"
                 >
                   📝 {blogItem.label}
                 </Link>

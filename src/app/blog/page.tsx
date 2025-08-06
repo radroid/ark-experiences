@@ -36,7 +36,7 @@ export default function BlogIndexPage() {
     <main className="container mx-auto px-4 py-8 max-w-6xl">
       {/* Header */}
       <header className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
           Adventure Blog
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -158,7 +158,7 @@ export default function BlogIndexPage() {
       </section>
 
       {/* Newsletter Signup Section */}
-      <section className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white text-center">
+      <section className="mt-16 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl p-8 text-white text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">
           🚀 Stay Updated on Toronto Adventures
         </h2>
@@ -169,9 +169,9 @@ export default function BlogIndexPage() {
           <input
             type="email"
             placeholder="Enter your email"
-            className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+            className="flex-1 px-4 py-3 rounded-lg text-white placeholder-gray-200 outline-white focus:outline-none focus:ring-2 focus:ring-white/50"
           />
-          <button className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+          <button className="bg-white text-blue-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
             Subscribe
           </button>
         </div>
@@ -191,7 +191,7 @@ export default function BlogIndexPage() {
           </p>
           <Link 
             href="/"
-            className="inline-flex items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200 transform hover:scale-105"
+            className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-purple-800 transition-all duration-200 transform hover:scale-105"
           >
             🏠 Back to Home & Book Adventure
           </Link>
