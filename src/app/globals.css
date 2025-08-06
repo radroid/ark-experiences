@@ -821,9 +821,19 @@ html {
   }
 }
 
-/* Smooth scrolling for all elements */
-html {
+/* Smooth scrolling for all elements - EXCEPT blog pages */
+html:not(.blog-page) {
   scroll-behavior: smooth;
+}
+
+/* Blog pages: Natural scrolling behavior */
+html.blog-page {
+  scroll-behavior: auto !important;
+}
+
+html.blog-page body {
+  overflow-y: auto !important;
+  height: auto !important;
 }
 
 /* Enhanced mobile scrolling experience */
@@ -876,10 +886,26 @@ html, body {
   overflow-x: hidden; /* Prevent horizontal scroll globally */
 }
 
-/* Ensure main container takes full height with no overflow */
-main {
+/* Ensure main container takes full height with no overflow - ONLY for main site */
+main:not(.blog-page) {
   height: 100vh;
   overflow: hidden; /* Main container should not scroll */
+}
+
+/* Blog pages: Allow natural scrolling */
+.blog-page main {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Blog-specific scrolling behavior */
+.blog-layout {
+  scroll-behavior: auto !important;
+}
+
+.blog-layout * {
+  scroll-snap-type: none !important;
+  scroll-snap-align: none !important;
 }
 
 

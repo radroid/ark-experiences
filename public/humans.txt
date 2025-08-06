@@ -1,0 +1,23 @@
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Team: ARK Scavenger Hunt
+    Location: Toronto, Ontario, Canada
+    Contact: team [at] funwithark.ca
+
+# THANKS
+
+    All the amazing teams who have participated in our scavenger hunts
+    Toronto tourism community
+    Local businesses that support our adventures
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3, TypeScript
+    Next.js, React
+    Tailwind CSS
+    Vercel Analytics
+    Standards: HTML5, CSS3, Semantic Markup
+    Components: Responsive Design, Performance Optimized
+    Software: Built with love for team building experiences

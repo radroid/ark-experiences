@@ -3,15 +3,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button-2'
-import { Menu, Home, Info, Image as ImageIcon, MessageCircle, Mail } from 'lucide-react'
+import { Menu, Home, Info, Image as ImageIcon, MessageCircle, Mail, BookOpen } from 'lucide-react'
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isMobileLayout, setIsMobileLayout] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
 
   const navItems = [
     { href: '#how-it-works', label: 'How It Works', icon: Info },
@@ -19,6 +21,8 @@ export default function Navbar() {
     { href: '#testimonials', label: 'Testimonials', icon: MessageCircle },
     { href: '#contact', label: 'Contact', icon: Mail }
   ]
+
+  const blogItem = { href: '/blog', label: 'Blog', icon: BookOpen }
 
   // Custom hook to detect when navigation text wraps
   useEffect(() => {
@@ -70,6 +74,11 @@ export default function Navbar() {
     }
   }, [])
 
+  // Hide navbar on blog pages (after all hooks)
+  if (pathname?.startsWith('/blog')) {
+    return null
+  }
+
   return (
     <nav className="fixed top-5 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8">
       {/* Logo - responsive sizing */}
@@ -103,6 +112,16 @@ export default function Navbar() {
                   </Link>
                 </NavigationMenuItem>
               ))}
+              {/* Distinctive Blog Link */}
+              <NavigationMenuItem key={blogItem.href}>
+                <Link 
+                  href={blogItem.href} 
+                  data-nav-item
+                  className="font-bold text-lg text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-200 cursor-pointer px-5 py-2 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap"
+                >
+                  📝 {blogItem.label}
+                </Link>
+              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>
@@ -169,6 +188,16 @@ export default function Navbar() {
                     </Link>
                   )
                 })}
+                
+                {/* Distinctive Blog Link for Mobile */}
+                <Link
+                  href={blogItem.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-bold text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-200 group shadow-lg"
+                >
+                  <BookOpen className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
+                  <span>📝 {blogItem.label}</span>
+                </Link>
               </div>
               
               {/* Footer */}
