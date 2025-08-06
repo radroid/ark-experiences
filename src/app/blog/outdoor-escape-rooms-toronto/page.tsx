@@ -35,7 +35,7 @@ export default function OutdoorEscapeRoomsTorontoPage() {
             Toronto offers a unique blend of urban excitement and diverse neighborhoods that make it an ideal location for outdoor escape room experiences. From the iconic CN Tower to the historic Distillery District, the city provides countless backdrops for immersive mystery adventures that escape room enthusiasts love.
           </p>
           <p className="mb-4">
-            For young professionals and board game lovers, Toronto's walkable downtown core creates the perfect playground for interactive puzzle-solving experiences. Each neighborhood offers its own character and challenges, making outdoor escape room adventures more engaging and memorable than traditional indoor rooms.
+            For young professionals and board game lovers, Toronto&apos;s walkable downtown core creates the perfect playground for interactive puzzle-solving experiences. Each neighborhood offers its own character and challenges, making outdoor escape room adventures more engaging and memorable than traditional indoor rooms.
           </p>
         </section>
 
@@ -45,7 +45,7 @@ export default function OutdoorEscapeRoomsTorontoPage() {
           <div className="mb-6">
             <h3 className="text-xl font-medium mb-3">1. Cluedo-Themed Outdoor Mystery Adventures</h3>
             <p className="mb-3">
-              Experience Toronto like never before with ARK's Cluedo-themed outdoor escape room adventure. Perfect for board game enthusiasts and escape room lovers, this immersive experience combines classic mystery solving with real-world exploration across iconic Toronto locations.
+              Experience Toronto like never before with ARK&apos;s Cluedo-themed outdoor escape room adventure. Perfect for board game enthusiasts and escape room lovers, this immersive experience combines classic mystery solving with real-world exploration across iconic Toronto locations.
             </p>
             <ul className="list-disc list-inside mb-3 text-gray-700">
               <li>Explore downtown Toronto landmarks while solving puzzles</li>
@@ -59,14 +59,14 @@ export default function OutdoorEscapeRoomsTorontoPage() {
           <div className="mb-6">
             <h3 className="text-xl font-medium mb-3">2. Urban Treasure Hunts</h3>
             <p className="mb-3">
-              Toronto's diverse neighborhoods offer endless possibilities for treasure hunt adventures. From Queen Street West's eclectic shops to the Financial District's towering skyscrapers, each area provides unique challenges for puzzle-solving enthusiasts.
+              Toronto&apos;s diverse neighborhoods offer endless possibilities for treasure hunt adventures. From Queen Street West&apos;s eclectic shops to the Financial District&apos;s towering skyscrapers, each area provides unique challenges for puzzle-solving enthusiasts.
             </p>
           </div>
 
           <div className="mb-6">
             <h3 className="text-xl font-medium mb-3">3. Interactive Historical Mysteries</h3>
             <p className="mb-3">
-              Combine Toronto's rich history with escape room excitement. Explore areas like Casa Loma, the Distillery District, and Old Town Toronto while solving historical mysteries and puzzles.
+              Combine Toronto&apos;s rich history with escape room excitement. Explore areas like Casa Loma, the Distillery District, and Old Town Toronto while solving historical mysteries and puzzles.
             </p>
           </div>
         </section>
@@ -88,7 +88,7 @@ export default function OutdoorEscapeRoomsTorontoPage() {
           <div className="mb-6">
             <h3 className="text-xl font-medium mb-3">Seasonal Considerations for Outdoor Escape Rooms</h3>
             <p className="mb-3">
-              Toronto's four distinct seasons offer different opportunities for outdoor escape room experiences:
+              Toronto&apos;s four distinct seasons offer different opportunities for outdoor escape room experiences:
             </p>
             <ul className="list-disc list-inside mb-3 text-gray-700">
               <li><strong>Summer:</strong> Perfect weather for extended outdoor adventures and waterfront exploration</li>
@@ -101,13 +101,13 @@ export default function OutdoorEscapeRoomsTorontoPage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Why Young Professionals Love Outdoor Escape Rooms</h2>
           <p className="mb-4">
-            Outdoor escape rooms offer the perfect blend of mental stimulation and social interaction that appeals to Toronto's young professional community:
+            Outdoor escape rooms offer the perfect blend of mental stimulation and social interaction that appeals to Toronto&apos;s young professional community:
           </p>
           <ul className="list-disc list-inside mb-3 text-gray-700">
             <li><strong>Social Connection:</strong> Build stronger friendships through shared problem-solving experiences</li>
             <li><strong>Mental Challenge:</strong> Exercise critical thinking and creativity outside the office</li>
             <li><strong>City Exploration:</strong> Discover hidden gems and new perspectives on familiar areas</li>
-            <li><strong>Instagram-Worthy:</strong> Unique photo opportunities across Toronto's most photogenic locations</li>
+            <li><strong>Instagram-Worthy:</strong> Unique photo opportunities across Toronto&apos;s most photogenic locations</li>
             <li><strong>Date Activity:</strong> Perfect for couples looking for something more engaging than dinner and a movie</li>
             <li><strong>Weekend Adventure:</strong> Active way to spend leisure time with friends</li>
           </ul>
@@ -149,11 +149,11 @@ export default function OutdoorEscapeRoomsTorontoPage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">The ARK Advantage: Cluedo Meets Toronto</h2>
           <p className="mb-4">
-            ARK stands out in Toronto's outdoor adventure scene by combining the beloved board game Cluedo with real-world exploration:
+            ARK stands out in Toronto&apos;s outdoor adventure scene by combining the beloved board game Cluedo with real-world exploration:
           </p>
           <ul className="list-disc list-inside mb-3 text-gray-700">
             <li><strong>Familiar Theme:</strong> Board game lovers instantly connect with the Cluedo mystery format</li>
-            <li><strong>Urban Integration:</strong> Toronto's landmarks become part of the game board</li>
+            <li><strong>Urban Integration:</strong> Toronto&apos;s landmarks become part of the game board</li>
             <li><strong>Scalable Challenge:</strong> Puzzles adapt to different skill levels and group dynamics</li>
             <li><strong>Photography Opportunities:</strong> Perfect for social media sharing and memories</li>
             <li><strong>Team Building Potential:</strong> Great for corporate groups looking for unique experiences</li>
@@ -163,11 +163,11 @@ export default function OutdoorEscapeRoomsTorontoPage() {
           <div className="bg-blue-50 p-6 rounded-lg mt-6">
             <h3 className="text-lg font-semibold mb-3">Ready for Your Toronto Outdoor Escape Room Adventure?</h3>
             <p className="mb-4">
-              Whether you're an escape room enthusiast, board game lover, or young professional looking for unique weekend activities, ARK offers the perfect blend of mystery, exploration, and fun in downtown Toronto.
+              Whether you&apos;re an escape room enthusiast, board game lover, or young professional looking for unique weekend activities, ARK offers the perfect blend of mystery, exploration, and fun in downtown Toronto.
             </p>
-            <a href="/#contact" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <Link href="/#contact" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
               Book Your Adventure Today
-            </a>
+            </Link>
             <div className="mt-4">
               <Link href="/blog" className="text-blue-600 hover:text-blue-800 font-medium">
                 ← Back to Blog
@@ -193,7 +193,7 @@ export default function OutdoorEscapeRoomsTorontoPage() {
             </div>
             <div>
               <h4 className="font-medium mb-2">Communication is Key:</h4>
-              <p className="text-gray-700">Share discoveries immediately, ask questions, and don't be afraid to think out loud. The best solutions often come from collaborative thinking.</p>
+              <p className="text-gray-700">Share discoveries immediately, ask questions, and don&apos;t be afraid to think out loud. The best solutions often come from collaborative thinking.</p>
             </div>
           </div>
         </section>

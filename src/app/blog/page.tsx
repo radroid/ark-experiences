@@ -105,7 +105,7 @@ export default function BlogIndexPage() {
             <div className="text-6xl mb-4">🎯</div>
             <h3 className="text-2xl font-bold mb-4 text-gray-800">More Adventures Coming Soon!</h3>
             <p className="text-gray-600 max-w-md mx-auto">
-              We're working on exciting new content about outdoor escape rooms, Toronto adventures, and tips for escape room enthusiasts.
+              We&apos;re working on exciting new content about outdoor escape rooms, Toronto adventures, and tips for escape room enthusiasts.
             </p>
           </div>
         ) : (
@@ -187,7 +187,7 @@ export default function BlogIndexPage() {
             Ready for Your Own Adventure?
           </h2>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Experience Toronto's ultimate outdoor escape room adventure with ARK. Perfect for young professionals and escape room enthusiasts!
+            Experience Toronto&apos;s ultimate outdoor escape room adventure with ARK. Perfect for young professionals and escape room enthusiasts!
           </p>
           <Link 
             href="/"
