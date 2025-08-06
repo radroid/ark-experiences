@@ -8,6 +8,9 @@
 .env.production.local
 
 
+# Performance
+*performance_review/*
+
 # backup files
 *.bak
 *.backup
