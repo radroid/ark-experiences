@@ -75,9 +75,6 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL("https://www.funwithark.ca"),
-  verification: {
-    google: "your-google-verification-code", // Replace with actual verification code
-  },
 };
 
 export const viewport: Viewport = {
@@ -100,8 +97,8 @@ export default function RootLayout({
         "alternateName": "Fun With ARK",
         "description": "Toronto's ultimate outdoor escape room experience for young professionals, escape room enthusiasts, and board game lovers. Interactive puzzle solving adventures across downtown Toronto.",
         "url": "https://www.funwithark.ca",
-        "telephone": "+1-416-XXX-XXXX", // Replace with actual phone
-        "email": "info@funwithark.ca", // Replace with actual email
+        "telephone": "+1-647-839-8849", 
+        "email": "team@funwithark.ca",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Toronto",
@@ -135,11 +132,11 @@ export default function RootLayout({
       },
       {
         "@type": "Service",
-        "@id": "https://www.funwithark.ca/#service",
+        "@id": "https://www.funwithark.ca/#how-it-works",
         "name": "Outdoor Escape Room Adventure",
         "description": "Interactive outdoor escape room experience designed for escape room enthusiasts, board game lovers, and young professionals exploring downtown Toronto.",
         "provider": {
-          "@id": "https://www.funwithark.ca/#organization"
+          "@id": "https://www.funwithark.ca/"
         },
         "serviceType": "Outdoor Escape Room Experience",
         "areaServed": {
@@ -160,12 +157,12 @@ export default function RootLayout({
       },
       {
         "@type": "WebSite",
-        "@id": "https://www.funwithark.ca/#website",
+        "@id": "https://www.funwithark.ca/",
         "url": "https://www.funwithark.ca",
         "name": "ARK",
         "description": "Toronto's ultimate outdoor escape room adventure for young professionals and escape room enthusiasts",
         "publisher": {
-          "@id": "https://www.funwithark.ca/#organization"
+          "@id": "https://www.funwithark.ca/"
         },
         "inLanguage": "en-CA",
         "potentialAction": {
@@ -176,7 +173,7 @@ export default function RootLayout({
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://www.funwithark.ca/#breadcrumb",
+        "@id": "https://www.funwithark.ca/",
         "itemListElement": [
           {
             "@type": "ListItem",
