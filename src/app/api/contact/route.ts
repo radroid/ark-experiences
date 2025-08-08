@@ -1,7 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase'
-import { resend } from '@/lib/resend'
-import { contactFormTemplates } from '@/lib/email-templates'
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,70 +20,44 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Save to Supabase
-    const { data, error } = await supabaseAdmin
-      .from('contacts')
-      .insert({
-        company_name: 'Individual Inquiry', // Default since we don't have company name anymore
-        contact_person: name,
-        email,
-        phone: phone || null,
-        team_size: team_size ? parseInt(team_size.split('-')[0]) : null,
-        preferred_date: preferred_date || null,
-        special_requirements: message || null,
-        status: 'new',
-      })
-      .select()
-      .single()
+    // Invoke Supabase Edge Function which saves and sends emails
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseServiceRole = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-    if (error) {
-      console.error('Supabase error:', error)
+    if (!supabaseUrl || !supabaseServiceRole) {
+      console.error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
       return NextResponse.json(
-        { error: 'Failed to save contact information' },
+        { error: 'Server not configured for email sending' },
         { status: 500 }
       )
     }
 
-    // Send notification email via Resend
-    try {
-      // Send notification to ARK team
-      const teamEmail = contactFormTemplates.teamNotification({
-        company_name: 'Individual Inquiry',
-        contact_person: name,
+    const res = await fetch(`${supabaseUrl}/functions/v1/send-contact-email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${supabaseServiceRole}`,
+      },
+      body: JSON.stringify({
+        name,
         email,
         phone,
         team_size,
         preferred_date,
-        special_requirements: message,
-      })
+        message,
+      }),
+    })
 
-      await resend.emails.send({
-        from: 'ARK Scavenger Hunt <hello@arkscavengerhunt.com>',
-        to: ['hello@arkscavengerhunt.com'],
-        subject: teamEmail.subject,
-        html: teamEmail.html,
-      })
-
-      // Send confirmation email to customer
-      const customerEmail = contactFormTemplates.customerConfirmation({
-        company_name: 'Individual Inquiry',
-        contact_person: name,
-        email,
-        team_size,
-        preferred_date,
-      })
-
-      await resend.emails.send({
-        from: 'ARK Scavenger Hunt <hello@arkscavengerhunt.com>',
-        to: [email],
-        subject: customerEmail.subject,
-        html: customerEmail.html,
-      })
-    } catch (emailError) {
-      console.error('Email sending error:', emailError)
-      // Don't fail the entire request if email fails
+    if (!res.ok) {
+      const text = await res.text()
+      console.error('send-contact-email failed:', text)
+      return NextResponse.json(
+        { error: 'Failed to send email' },
+        { status: 500 }
+      )
     }
 
+    const data = await res.json()
     return NextResponse.json(
       { message: 'Contact information saved successfully', id: data.id },
       { status: 200 }
