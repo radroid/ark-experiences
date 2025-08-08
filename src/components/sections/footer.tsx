@@ -50,13 +50,15 @@ export default function Footer() {
       icon: Mail,
       title: 'Email Us',
       details: 'team@funwithark.ca',
-      description: 'Get in touch for questions'
+      description: 'Get in touch for questions',
+      href: 'mailto:team@funwithark.ca'
     },
     {
       icon: Phone,
       title: 'Call Us',
       details: '+1 (647) 839-8849',
-      description: 'Mon-Fri, 9AM-6PM EST'
+      description: 'Mon-Fri, 9AM-6PM EST',
+      href: 'tel:+16478398849'
     },
     {
       icon: MapPin,
@@ -122,7 +124,16 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-white">{info.title}</p>
-                    <p className="text-sm text-blue-400">{info.details}</p>
+                     {info.href ? (
+                       <a
+                         href={info.href}
+                         className="text-sm text-blue-400 hover:text-blue-300 hover:underline underline-offset-2 break-all"
+                       >
+                         {info.details}
+                       </a>
+                     ) : (
+                       <p className="text-sm text-blue-400">{info.details}</p>
+                     )}
                     <p className="text-xs text-gray-400">{info.description}</p>
                   </div>
                 </div>
