@@ -27,6 +27,7 @@ export default function GallerySection() {
   const [hoveredVideoId, setHoveredVideoId] = useState<number | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const hoverVideoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({})
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
 
   // Updated gallery items with real media files and proper aspect ratios
   const galleryItems: GalleryItem[] = [
@@ -214,6 +215,20 @@ export default function GallerySection() {
     }
   }, [])
 
+  // Detect touch devices (mobile/tablet)
+  useEffect(() => {
+    const hasTouch = () => {
+      if (typeof window === 'undefined') return false
+      return (
+        'ontouchstart' in window ||
+        (navigator as any).maxTouchPoints > 0 ||
+        (navigator as any).msMaxTouchPoints > 0 ||
+        window.matchMedia?.('(pointer: coarse)').matches === true
+      )
+    }
+    setIsTouchDevice(hasTouch())
+  }, [])
+
   const nextItem = () => {
     if (!selectedItem) return
     const currentIndex = filteredItems.findIndex(item => item.id === selectedItem.id)
@@ -266,6 +281,38 @@ export default function GallerySection() {
       video.pause()
       video.currentTime = 0
     }
+  }
+
+  // Pause any inline preview when opening the lightbox
+  useEffect(() => {
+    if (selectedItem) {
+      Object.values(hoverVideoRefs.current).forEach(video => {
+        if (video) {
+          video.pause()
+          video.currentTime = 0
+        }
+      })
+      setHoveredVideoId(null)
+    }
+  }, [selectedItem])
+
+  // Handle item click with mobile-friendly behavior
+  const handleItemClick = (item: GalleryItem) => {
+    if (isTouchDevice && item.type === 'video') {
+      const isPreviewActive = hoveredVideoId === item.id
+      if (!isPreviewActive) {
+        setHoveredVideoId(item.id)
+        const video = hoverVideoRefs.current[item.id]
+        if (video) {
+          video.currentTime = 0
+          video.play().catch(() => {
+            // Ignore play promise rejections
+          })
+        }
+        return
+      }
+    }
+    setSelectedItem(item)
   }
 
   useEffect(() => {
@@ -371,7 +418,7 @@ export default function GallerySection() {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4 }}
                 className="group cursor-pointer break-inside-avoid mb-4"
-                onClick={() => setSelectedItem(item)}
+                onClick={() => handleItemClick(item)}
                 onMouseEnter={() => item.type === 'video' && handleVideoHover(item.id)}
                 onMouseLeave={() => item.type === 'video' && handleVideoHoverEnd(item.id)}
               >
@@ -412,7 +459,11 @@ export default function GallerySection() {
                           hoveredVideoId === item.id ? 'opacity-0' : 'opacity-100'
                         }`} />
                         <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
-                          hoveredVideoId === item.id ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
+                          hoveredVideoId === item.id
+                            ? 'opacity-0'
+                            : isTouchDevice
+                              ? 'opacity-100'
+                              : 'opacity-0 group-hover:opacity-100'
                         }`}>
                           <div className="bg-white/90 rounded-full p-3">
                             <Play className="h-6 w-6 text-blue-600 ml-1" />
@@ -497,6 +548,7 @@ export default function GallerySection() {
                       src={selectedItem.src}
                       className="w-full h-auto max-h-[70vh] object-contain"
                       poster={selectedItem.thumbnail}
+                      playsInline
                       onClick={togglePlay}
                     />
                     
