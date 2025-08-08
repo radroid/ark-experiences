@@ -219,10 +219,14 @@ export default function GallerySection() {
   useEffect(() => {
     const hasTouch = () => {
       if (typeof window === 'undefined') return false
+      const nav = navigator as Navigator & {
+        maxTouchPoints?: number
+        msMaxTouchPoints?: number
+      }
       return (
         'ontouchstart' in window ||
-        (navigator as any).maxTouchPoints > 0 ||
-        (navigator as any).msMaxTouchPoints > 0 ||
+        (typeof nav.maxTouchPoints === 'number' && nav.maxTouchPoints > 0) ||
+        (typeof nav.msMaxTouchPoints === 'number' && nav.msMaxTouchPoints > 0) ||
         window.matchMedia?.('(pointer: coarse)').matches === true
       )
     }
