@@ -1,5 +1,6 @@
 import { HuntLocation, HuntProgress, HuntAnswer } from '@/types'
 import { supabase } from './supabase'
+import { DevHuntManager } from './hunt-data-dev'
 
 // Sample hunt locations - replace with your actual data
 export const HUNT_LOCATIONS: HuntLocation[] = [
@@ -63,17 +64,35 @@ export const HUNT_LOCATIONS: HuntLocation[] = [
   },
 ]
 
+// Smart Hunt Manager that falls back to dev mode when Supabase is unavailable
 export class HuntManager {
   private userId: string
   private locations: HuntLocation[]
   private progress: HuntProgress | null = null
+  private devManager: DevHuntManager | null = null
+  private isDevMode: boolean = false
 
   constructor(userId: string) {
     this.userId = userId
     this.locations = [...HUNT_LOCATIONS]
   }
 
+  // Check if we should use dev mode (no Supabase env vars or connection issues)
+  private shouldUseDevMode(): boolean {
+    return !process.env.NEXT_PUBLIC_SUPABASE_URL || 
+           !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+           process.env.NODE_ENV === 'development'
+  }
+
   async loadProgress(): Promise<HuntLocation[]> {
+    // Try Supabase first, fall back to dev mode if it fails
+    if (this.shouldUseDevMode()) {
+      console.log('🧪 Using DevHuntManager (Supabase not configured)')
+      this.isDevMode = true
+      this.devManager = new DevHuntManager(this.userId)
+      return await this.devManager.loadProgress()
+    }
+
     try {
       const { data, error } = await supabase
         .from('hunt_progress')
@@ -105,8 +124,11 @@ export class HuntManager {
 
       return this.locations
     } catch (error) {
-      console.error('Error loading hunt progress:', error)
-      throw error
+      console.error('🚨 Supabase error, falling back to dev mode:', error)
+      // Fall back to dev mode if Supabase fails
+      this.isDevMode = true
+      this.devManager = new DevHuntManager(this.userId)
+      return await this.devManager.loadProgress()
     }
   }
 
@@ -162,6 +184,11 @@ export class HuntManager {
   }
 
   async submitAnswer(locationId: number, answer: HuntAnswer): Promise<{ success: boolean; message: string }> {
+    // Use dev manager if in dev mode
+    if (this.isDevMode && this.devManager) {
+      return await this.devManager.submitAnswer(locationId, answer)
+    }
+
     if (!this.progress) {
       throw new Error('Hunt progress not initialized')
     }
@@ -237,14 +264,23 @@ export class HuntManager {
   }
 
   getLocations(): HuntLocation[] {
+    if (this.isDevMode && this.devManager) {
+      return this.devManager.getLocations()
+    }
     return this.locations
   }
 
   isHuntCompleted(): boolean {
+    if (this.isDevMode && this.devManager) {
+      return this.devManager.isHuntCompleted()
+    }
     return this.progress?.completedAt != null
   }
 
   getCompletionPercentage(): number {
+    if (this.isDevMode && this.devManager) {
+      return this.devManager.getCompletionPercentage()
+    }
     if (!this.progress) return 0
     return Math.round((this.progress.completedLocations.length / 7) * 100)
   }

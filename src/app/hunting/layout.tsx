@@ -13,8 +13,21 @@ export default function HuntingLayout({
   // Show loading state while checking device
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div 
+        className="min-h-screen bg-slate-900 flex items-center justify-center"
+        role="status" 
+        aria-live="polite"
+        aria-label="Loading hunt application"
+      >
+        <div className="text-center space-y-4">
+          <div 
+            className="animate-spin rounded-full h-12 w-12 border-2 border-emerald-400 border-t-transparent mx-auto"
+            aria-hidden="true"
+          />
+          <p className="text-emerald-100 text-sm font-medium">
+            Loading your adventure...
+          </p>
+        </div>
       </div>
     )
   }
@@ -22,29 +35,33 @@ export default function HuntingLayout({
   // Show desktop restriction message
   if (!isMobile) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center p-8">
-        <div className="max-w-md text-center space-y-6">
+      <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-6">
+        <div className="max-w-sm text-center space-y-6">
           <Image
             src="/ark-logo.png"
-            alt="ARK Experience"
-            width={120}
-            height={120}
-            className="mx-auto"
+            alt="ARK Experience Logo"
+            width={100}
+            height={100}
+            className="mx-auto opacity-80"
+            priority
           />
           <div className="space-y-4">
-            <h1 className="text-2xl font-bold text-gray-800">
-              Are you trying to cheat? 🤔
+            <h1 className="text-2xl font-bold text-white leading-tight">
+              Mobile Adventure Awaits
             </h1>
-            <p className="text-lg text-gray-600">
-              Kidding! This side of the website is only available on mobile.
-            </p>
-            <p className="text-sm text-gray-500">
-              Please access this page from your mobile device to participate in the hunt.
-            </p>
+            <div className="space-y-2">
+              <p className="text-slate-300 text-base leading-relaxed">
+                This experience is crafted for mobile devices with touch, camera, and GPS.
+              </p>
+              <p className="text-emerald-400 text-sm font-medium">
+                📱 Switch to your phone to begin the hunt
+              </p>
+            </div>
           </div>
-          <div className="p-4 bg-white rounded-lg shadow-sm border">
-            <p className="text-xs text-gray-400">
-              🔍 The hunt experience is designed for mobile devices with GPS and camera access.
+          <div className="p-4 bg-slate-800/50 rounded-2xl border border-slate-700">
+            <p className="text-slate-400 text-xs leading-relaxed">
+              The hunt requires camera access, location services, and touch interactions 
+              optimized for mobile devices.
             </p>
           </div>
         </div>
@@ -52,24 +69,10 @@ export default function HuntingLayout({
     )
   }
 
-  // Mobile layout
+  // Simple mobile layout - no header, everything handled in page
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b sticky top-0 z-50">
-        <div className="px-4 py-3 flex items-center justify-between">
-          <Image
-            src="/ark-logo.png"
-            alt="ARK Experience"
-            width={40}
-            height={40}
-          />
-          <h1 className="text-lg font-semibold text-gray-800">Hunt</h1>
-          <div className="w-10"></div> {/* Spacer for centering */}
-        </div>
-      </header>
-      <main className="pb-20">
-        {children}
-      </main>
+    <div className="min-h-screen">
+      {children}
     </div>
   )
 }
