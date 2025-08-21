@@ -86,3 +86,40 @@ export interface Location {
   clue_type: 'location' | 'murder'
   image_url?: string
 }
+
+// Scavenger Hunt Types
+export interface HuntLocation {
+  id: number
+  title: string
+  description: string
+  mapImageUrl?: string
+  isUnlocked: boolean
+  isCompleted: boolean
+  correctAnswer?: string
+  userAnswer?: HuntAnswer
+  order: number
+}
+
+export interface HuntAnswer {
+  type: 'text' | 'image' | 'audio' | 'video'
+  content: string | File
+  submittedAt: string
+}
+
+export interface HuntProgress {
+  id: string
+  userId: string
+  currentLocationId: number
+  completedLocations: number[]
+  answers: Record<number, HuntAnswer>
+  startedAt: string
+  completedAt?: string
+}
+
+export interface HuntUser {
+  id: string
+  email: string
+  isApproved: boolean
+  hasSignedWaiver: boolean
+  createdAt: string
+}
