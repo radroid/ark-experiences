@@ -1,12 +1,17 @@
 {
-  "name": "temp-ark-project",
+  "name": "ark-monorepo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev:web": "pnpm --filter @ark/web dev",
+    "dev:hunt": "pnpm --filter @ark/hunt dev",
+    "build:web": "pnpm --filter @ark/web build",
+    "build:hunt": "pnpm --filter @ark/hunt build",
+    "build": "pnpm build:web && pnpm build:hunt",
+    "start:web": "pnpm --filter @ark/web start",
+    "start:hunt": "pnpm --filter @ark/hunt start",
+    "lint": "pnpm --filter @ark/web lint && pnpm --filter @ark/hunt lint",
+    "type-check": "pnpm --filter @ark/web type-check && pnpm --filter @ark/hunt type-check"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
