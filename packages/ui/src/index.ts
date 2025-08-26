@@ -1,7 +1,7 @@
 // UI Components
 export * from './components/badge'
-export * from './components/button'
-export * from './components/button-2'
+export { Button, buttonVariants } from './components/button'
+export { Button as Button2, buttonVariants as button2Variants } from './components/button-2'
 export * from './components/calendar'
 export * from './components/card'
 export * from './components/conditional-navbar'

@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start --port 3000",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf .next && rm -rf node_modules/.cache",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
     "@ark/ui": "workspace:*",

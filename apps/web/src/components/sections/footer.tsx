@@ -7,7 +7,7 @@ import {
   MapPin, 
   ArrowRight
 } from 'lucide-react'
-import { Button } from '@/components/ui/button-2'
+import { Button2 as Button } from '@ark/ui'
 import Image from 'next/image'
 
 export default function Footer() {

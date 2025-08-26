@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, easeOut } from 'framer-motion'
-import { Button } from '@/components/ui/button-2'
+import { Button2 as Button } from '@ark/ui'
 import { MapPin, Users, Clock } from 'lucide-react'
 
 export default function HeroSection() {

@@ -1,8 +1,7 @@
 'use client'
 
 import { motion, useScroll } from 'framer-motion'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, Badge } from '@ark/ui'
 import { useRef, useState, useEffect } from 'react'
 import { 
   Users, 

@@ -19,7 +19,13 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@ark/ui": ["../../packages/ui/src"],
+      "@ark/ui/*": ["../../packages/ui/src/*"],
+      "@ark/lib": ["../../packages/lib/src"],
+      "@ark/lib/*": ["../../packages/lib/src/*"],
+      "@ark/types": ["../../packages/types/src"],
+      "@ark/types/*": ["../../packages/types/src/*"]
     }
   },
   "include": [

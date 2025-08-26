@@ -1,20 +1,32 @@
-# Environment Setup Instructions
+# Environment Setup Instructions - Monorepo
 
-## ✅ **Fixed Issues:**
-- ✅ All TypeScript/ESLint errors resolved
-- ✅ Supabase client error handling improved
-- ✅ Environment variable validation added
+## ✅ **Production Ready Status:**
+- ✅ All TypeScript/ESLint errors resolved across monorepo
+- ✅ Supabase client error handling with graceful fallbacks
+- ✅ Environment variable validation with placeholder support
+- ✅ Both applications build and run successfully
+- ✅ Monorepo structure optimized for Vercel deployment
 
-## 🔧 **Required Setup:**
+## 🔧 **Environment Configuration:**
 
 ### 1. Create Environment File
-Create a `.env.local` file in the project root with these variables:
+Create a `.env.local` file in the **monorepo root** with these variables:
 
 ```bash
 # Copy this content to .env.local in your project root
+# These variables are shared across both apps (web and hunt)
+
+# Supabase Configuration (Required for production)
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
+
+# Email Configuration (Required for web app contact forms)
+RESEND_API_KEY=your-resend-api-key-here
+
+# Application URLs (Optional - for production)
+NEXT_PUBLIC_APP_URL=https://yourdomain.com
+NEXT_PUBLIC_HUNT_URL=https://yourdomain.com/hunt
 ```
 
 ### 2. Get Your Supabase Keys
@@ -29,12 +41,20 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
 ### 3. Set Up Database Tables
 Run the SQL commands from `SUPABASE_SCHEMA.md` in your Supabase SQL editor.
 
-### 4. Test the Application
+### 4. Test the Applications
 ```bash
+# Start both applications
 pnpm dev
+
+# Or start individually:
+pnpm dev:web   # Marketing website on :3000
+pnpm dev:hunt  # Hunt application on :3001
 ```
 
-Visit `/hunting` on a mobile device to test the application.
+**Testing:**
+- Visit `http://localhost:3000` for the marketing website
+- Visit `http://localhost:3001` for the hunt application
+- Hunt app works on desktop in dev mode (no mobile restriction)
 
 ## 🚨 **Error Resolution:**
 

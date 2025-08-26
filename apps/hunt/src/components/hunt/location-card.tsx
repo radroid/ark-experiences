@@ -15,7 +15,7 @@ import {
   CheckCircle2,
   Loader2
 } from 'lucide-react'
-import Image from 'next/image'
+
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface LocationCardProps {
@@ -48,13 +48,13 @@ export function LocationCard({
       onSubmitAnswer(location.id, {
         type: 'text',
         content: textAnswer.trim(),
-        submittedAt: new Date().toISOString()
+        timestamp: new Date()
       })
     } else if (selectedFile) {
       onSubmitAnswer(location.id, {
         type: activeTab,
         content: selectedFile,
-        submittedAt: new Date().toISOString()
+        timestamp: new Date()
       })
     }
   }
@@ -146,7 +146,7 @@ export function LocationCard({
             id={`location-${location.id}-title`}
             className="text-xl font-medium text-slate-700 mb-3"
           >
-            Challenge {location.order}
+            Challenge {location.id}
           </h3>
           <p 
             id={`location-${location.id}-status`}
@@ -230,7 +230,7 @@ export function LocationCard({
               </div>
               <div>
                 <span className="text-sm font-medium text-slate-500">
-                  Challenge {location.order}
+                  Challenge {location.id}
                 </span>
                 {location.isCompleted && (
                   <div className="text-xs text-emerald-600 font-medium mt-1">
@@ -246,7 +246,7 @@ export function LocationCard({
             id={`location-${location.id}-title`}
             className="text-2xl font-bold text-slate-900 leading-tight mb-4"
           >
-            {location.title}
+            {location.name}
           </h2>
         </div>
 
@@ -261,20 +261,11 @@ export function LocationCard({
             </p>
           </div>
 
-          {/* Map Preview */}
-          {location.mapImageUrl && (
-            <div className="relative">
-              <div className="relative h-64 bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl overflow-hidden shadow-inner">
-                <Image
-                  src={location.mapImageUrl}
-                  alt={`Visual clue for ${location.title}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 400px"
-                />
-              </div>
-            </div>
-          )}
+          {/* Clue Section */}
+          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl p-6 border border-emerald-100">
+            <h3 className="text-lg font-semibold text-emerald-800 mb-3">Your Clue</h3>
+            <p className="text-emerald-700 leading-relaxed">{location.clue}</p>
+          </div>
 
           {/* Answer Input Section */}
           <div className="space-y-6">

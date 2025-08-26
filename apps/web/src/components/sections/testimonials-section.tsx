@@ -1,9 +1,9 @@
 'use client'
 
 import { motion, easeOut } from 'framer-motion'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@ark/ui'
 
-import { Button } from '@/components/ui/button-2'
+import { Button2 as Button } from '@ark/ui'
 import { Star, Quote, Building2, Users, MapPin, Calendar } from 'lucide-react'
 
 interface Testimonial {

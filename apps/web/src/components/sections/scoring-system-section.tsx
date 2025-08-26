@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, easeOut } from 'framer-motion'
-import { Button } from '@/components/ui/button'
+import { Button } from '@ark/ui'
 import { 
   Trophy,
   Mail,

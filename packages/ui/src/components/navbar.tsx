@@ -4,9 +4,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from '@/components/ui/navigation-menu'
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
-import { Button } from '@/components/ui/button-2'
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from './navigation-menu'
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from './sheet'
+import { Button } from './button-2'
 import { Menu, Home, Info, Image as ImageIcon, MessageCircle, Mail, BookOpen } from 'lucide-react'
 
 export default function Navbar() {

@@ -1,25 +1,16 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# env files
+# Environment files
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env*
 
-
-# Performance
-*performance_review/*
-
-# backup files
-*.bak
-*.backup
-*.old
-*.orig
-backup*
-
-# dependencies
-/node_modules
+# Dependencies (monorepo structure)
+node_modules/
+**/node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -28,32 +19,116 @@ backup*
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
+# Package manager files
+pnpm-debug.log*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Next.js build outputs (all apps)
+.next/
+**//.next/
+out/
+**/out/
+dist/
+**/dist/
 
-# vercel
-.vercel
+# Build outputs
+build/
+**/build/
 
-# typescript
+# Testing
+coverage/
+**/coverage/
+.nyc_output
+
+# TypeScript
 *.tsbuildinfo
+**/tsconfig.tsbuildinfo
 next-env.d.ts
+
+# Performance reviews
+performance_review/
+*performance_review/*
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+backup*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# SSL certificates
+*.pem
+
+# Deployment
+.vercel
+.netlify
+
+# Temporary folders
+tmp/
+temp/
+
+# Cache directories
+.cache/
+**/.cache/
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.parcel-cache
+
+# Supabase
+.supabase/
+
+# Local development
+.local

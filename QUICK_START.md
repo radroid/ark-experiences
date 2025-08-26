@@ -1,18 +1,38 @@
-# 🚀 Quick Start Guide - ARK Scavenger Hunt
+# 🚀 Quick Start Guide - ARK Scavenger Hunt Monorepo
 
 ## ⚡ **Instant Testing (No Setup Required)**
 
-### **Step 1: Start the App**
+### **Step 1: Install Dependencies**
 ```bash
-pnpm dev
+# Clone the repository
+git clone https://github.com/your-username/ark-scavenger-hunt.git
+cd ark-scavenger-hunt
+
+# Install all dependencies (monorepo)
+pnpm install
 ```
 
-### **Step 2: Test the Hunt**
-1. Visit: `http://localhost:3000/hunting`
+### **Step 2: Start the Applications**
+```bash
+# Start both apps simultaneously
+pnpm dev
+
+# OR start individually:
+pnpm dev:web   # Marketing website on :3000
+pnpm dev:hunt  # Hunt application on :3001
+```
+
+### **Step 3: Test the Hunt**
+1. Visit: `http://localhost:3001` (Hunt app)
 2. Look for the orange **"Dev Mode"** panel at the top
 3. Click **"Show Dev Login Options"**
 4. Click any test user to instantly sign in
 5. Start solving the hunt!
+
+### **Step 4: Test the Marketing Site**
+1. Visit: `http://localhost:3000` (Marketing website)
+2. Explore the landing page, gallery, and contact forms
+3. Test responsive design on different screen sizes
 
 **✨ What Works Out of the Box:**
 - ✅ Complete hunt functionality without any database
@@ -53,8 +73,10 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
 
 ### **Step 4: Restart and Test**
 ```bash
-# Stop the dev server (Ctrl+C) and restart
-pnpm dev
+# Stop the dev servers (Ctrl+C) and restart
+pnpm dev        # Both apps
+# OR
+pnpm dev:hunt   # Just the hunt app
 ```
 
 Now you'll have:
@@ -101,11 +123,11 @@ Dev mode only appears when:
 ipconfig getifaddr en0  # macOS
 hostname -I             # Linux
 
-# Start server on network
-pnpm dev -- --hostname 0.0.0.0
+# Start hunt app on network
+pnpm dev:hunt -- --hostname 0.0.0.0
 
 # Visit from phone
-http://YOUR_IP:3000/hunting
+http://YOUR_IP:3001
 ```
 
 ---

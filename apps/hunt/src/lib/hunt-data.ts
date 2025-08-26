@@ -1,66 +1,82 @@
-import { HuntLocation, HuntProgress, HuntAnswer } from '@ark/types'
-import { supabase } from '@ark/lib'
+import { HuntLocation, HuntAnswer } from '@ark/types'
+import { supabase, isSupabaseConfigured } from '@ark/lib'
 import { DevHuntManager } from './hunt-data-dev'
+
+// Supabase-specific progress type
+interface SupabaseHuntProgress {
+  id: string
+  userId: string
+  currentLocationId: number
+  completedLocations: number[]
+  answers: Record<number, HuntAnswer>
+  startedAt: string
+  completedAt?: string
+}
 
 // Sample hunt locations - replace with your actual data
 export const HUNT_LOCATIONS: HuntLocation[] = [
   {
     id: 1,
-    title: "Study Room",
+    name: "Study Room",
     description: "Lorem Ipsum some description that can go here. It can then continue and possibly summarize what this location has?",
-    mapImageUrl: "/gallery/team1-location2.jpg",
+    clue: "Look for the place where knowledge is consumed with caffeine",
     isUnlocked: true,
     isCompleted: false,
-    order: 1,
     correctAnswer: "Re-Reading Cafe" // This would be stored securely server-side
   },
   {
     id: 2,
-    title: "The Mystery Begins",
+    name: "The Mystery Begins",
     description: "Follow the clues to uncover the first piece of the puzzle. Look carefully at your surroundings.",
+    clue: "Where books sleep in organized rows",
     isUnlocked: false,
     isCompleted: false,
-    order: 2,
+    correctAnswer: "library"
   },
   {
     id: 3,
-    title: "Hidden Chamber",
+    name: "Hidden Chamber",
     description: "The ancient secrets lie within these walls. Can you decode the message?",
+    clue: "Where old documents rest in eternal slumber",
     isUnlocked: false,
     isCompleted: false,
-    order: 3,
+    correctAnswer: "archives"
   },
   {
     id: 4,
-    title: "The Final Clue",
+    name: "The Final Clue",
     description: "All paths lead here. Use everything you've learned to solve the ultimate puzzle.",
+    clue: "X marks the spot where pirates hide their gold",
     isUnlocked: false,
     isCompleted: false,
-    order: 4,
+    correctAnswer: "treasure"
   },
   {
     id: 5,
-    title: "Treasure Room",
+    name: "Treasure Room",
     description: "Congratulations! You've found the treasure. But can you unlock it?",
+    clue: "The sweet taste of accomplishment",
     isUnlocked: false,
     isCompleted: false,
-    order: 5,
+    correctAnswer: "victory"
   },
   {
     id: 6,
-    title: "Secret Passage",
+    name: "Secret Passage",
     description: "Not all is as it seems. Sometimes you must look beyond the obvious.",
+    clue: "A hidden way through the walls",
     isUnlocked: false,
     isCompleted: false,
-    order: 6,
+    correctAnswer: "passage"
   },
   {
     id: 7,
-    title: "Victory",
+    name: "Victory",
     description: "You've completed the ultimate challenge. Well done, adventurer!",
+    clue: "The end of all journeys",
     isUnlocked: false,
     isCompleted: false,
-    order: 7,
+    correctAnswer: "completed"
   },
 ]
 
@@ -68,7 +84,7 @@ export const HUNT_LOCATIONS: HuntLocation[] = [
 export class HuntManager {
   private userId: string
   private locations: HuntLocation[]
-  private progress: HuntProgress | null = null
+  private progress: SupabaseHuntProgress | null = null
   private devManager: DevHuntManager | null = null
   private isDevMode: boolean = false
 
@@ -79,9 +95,7 @@ export class HuntManager {
 
   // Check if we should use dev mode (no Supabase env vars or connection issues)
   private shouldUseDevMode(): boolean {
-    return !process.env.NEXT_PUBLIC_SUPABASE_URL || 
-           !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-           process.env.NODE_ENV === 'development'
+    return !isSupabaseConfigured() || process.env.NODE_ENV === 'development'
   }
 
   async loadProgress(): Promise<HuntLocation[]> {
@@ -150,7 +164,7 @@ export class HuntManager {
   }
 
   private async initializeProgress() {
-    const newProgress: Omit<HuntProgress, 'id'> = {
+    const newProgress: Omit<SupabaseHuntProgress, 'id'> = {
       userId: this.userId,
       currentLocationId: 1,
       completedLocations: [],

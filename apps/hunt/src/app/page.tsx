@@ -235,7 +235,7 @@ export default function HuntingPage() {
                         id="email"
                         type="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                         placeholder="your@email.com"
                         required
                         className="min-h-[48px] bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-emerald-400 focus:ring-emerald-400"
@@ -446,7 +446,7 @@ export default function HuntingPage() {
                   aria-hidden="true"
                 />
                 <h1 className="text-lg font-semibold text-slate-900">
-                  Challenge {currentLocation?.order || 1}
+                  Challenge {currentCardIndex + 1}
                 </h1>
               </div>
             </div>

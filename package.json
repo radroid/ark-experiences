@@ -5,13 +5,20 @@
   "scripts": {
     "dev:web": "pnpm --filter @ark/web dev",
     "dev:hunt": "pnpm --filter @ark/hunt dev",
+    "dev": "concurrently \"pnpm dev:web\" \"pnpm dev:hunt\"",
     "build:web": "pnpm --filter @ark/web build",
     "build:hunt": "pnpm --filter @ark/hunt build",
     "build": "pnpm build:web && pnpm build:hunt",
+    "build:production": "NODE_ENV=production pnpm build",
     "start:web": "pnpm --filter @ark/web start",
     "start:hunt": "pnpm --filter @ark/hunt start",
+    "start": "concurrently \"pnpm start:web\" \"pnpm start:hunt\"",
     "lint": "pnpm --filter @ark/web lint && pnpm --filter @ark/hunt lint",
-    "type-check": "pnpm --filter @ark/web type-check && pnpm --filter @ark/hunt type-check"
+    "lint:fix": "pnpm --filter @ark/web lint --fix && pnpm --filter @ark/hunt lint --fix",
+    "type-check": "pnpm --filter @ark/web type-check && pnpm --filter @ark/hunt type-check",
+    "clean": "pnpm --filter @ark/web clean && pnpm --filter @ark/hunt clean",
+    "test": "pnpm --filter @ark/web test && pnpm --filter @ark/hunt test",
+    "preview": "pnpm build && pnpm start"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -46,6 +53,7 @@
     "@types/node": "^20.19.11",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
+    "concurrently": "^9.1.0",
     "eslint": "^9.33.0",
     "eslint-config-next": "15.3.4",
     "tailwindcss": "^4.1.12",
