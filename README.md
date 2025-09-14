@@ -33,7 +33,7 @@ A modern, responsive website for ARK Scavenger Hunt showcasing our Cluedo-themed
 ### Backend & Services
 - **Database**: Supabase (PostgreSQL)
 - **Email**: Resend
-- **Deployment**: Cloudflare Pages
+- **Deployment**: Vercel
 
 ## 📦 Installation
 
@@ -151,36 +151,6 @@ A modern, responsive website for ARK Scavenger Hunt showcasing our Cluedo-themed
 
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 🌐 Deployment
-
-### Cloudflare Pages
-
-1. **Connect your repository to Cloudflare Pages**
-   - Go to [Cloudflare Pages](https://pages.cloudflare.com/)
-   - Click "Create a project"
-   - Connect your GitHub repository
-
-2. **Configure build settings**
-   - Framework preset: Next.js
-   - Build command: `npm run build`
-   - Build output directory: `.next`
-   - Node.js version: 20
-
-3. **Set environment variables**
-   Add all your environment variables in the Cloudflare Pages dashboard.
-
-4. **Deploy**
-   Your site will automatically deploy on every push to the main branch.
-
-### Alternative: Vercel
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel --prod
-```
 
 ## 📁 Project Structure
 
@@ -234,7 +204,7 @@ Forms use React Hook Form with Zod validation. Schema definitions are in each co
 
 ### Code Style
 - TypeScript strict mode enabled
-- ESLint + Prettier for code formatting
+- ESLint + Prettier for code formatting - sometimes i prefer biome here.
 - Tailwind CSS for styling
 - Consistent naming conventions
 
