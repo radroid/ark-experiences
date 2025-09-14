@@ -29,7 +29,7 @@ const contactFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
   phone: z.string().optional(),
-  team_size: z.string().optional(),
+  team_size: z.string().min(1, 'Please select team size').optional(),
   preferred_date: z.date().optional(),
   message: z.string().min(10, 'Message must be at least 10 characters'),
 })
@@ -68,11 +68,18 @@ export default function ContactForm() {
         }),
       })
 
+      const responseData = await response.json()
+
       if (response.ok) {
         setSubmitStatus('success')
         form.reset()
+        // Scroll to success message
+        setTimeout(() => {
+          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+        }, 100)
       } else {
-        throw new Error('Failed to submit form')
+        console.error('Server error:', responseData.error)
+        throw new Error(responseData.error || 'Failed to submit form')
       }
     } catch (error) {
       console.error('Error submitting form:', error)
@@ -145,11 +152,12 @@ export default function ContactForm() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <Card className="glass-card border-0 shadow-2xl max-w-3xl mx-auto">
-            <CardHeader className="text-center pb-2">
-              <CardTitle className="text-2xl font-bold text-gray-800">
+          <Card className="glass-card border-0 shadow-2xl max-w-3xl mx-auto overflow-hidden">
+            <CardHeader className="text-center pb-6 bg-gradient-to-r from-blue-50 to-indigo-50">
+              <CardTitle className="text-3xl font-bold text-gray-800">
                 Contact Us
               </CardTitle>
+              <p className="text-gray-600 mt-2">Let's plan your adventure together!</p>
             </CardHeader>
             <CardContent>
               {submitStatus === 'success' ? (
@@ -184,7 +192,7 @@ export default function ContactForm() {
                             <FormControl>
                               <Input
                                 placeholder="Your full name"
-                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500"
+                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 hover:border-blue-400 transition-colors"
                                 {...field}
                               />
                             </FormControl>
@@ -203,7 +211,7 @@ export default function ContactForm() {
                               <Input
                                 type="email"
                                 placeholder="your@email.com"
-                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500"
+                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 hover:border-blue-400 transition-colors"
                                 {...field}
                               />
                             </FormControl>
@@ -222,8 +230,9 @@ export default function ContactForm() {
                             <FormLabel className="text-gray-700 font-medium">Phone Number</FormLabel>
                             <FormControl>
                               <Input
+                                type="tel"
                                 placeholder="+1 (416) 555-0123"
-                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500"
+                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 hover:border-blue-400 transition-colors"
                                 {...field}
                               />
                             </FormControl>
@@ -238,23 +247,26 @@ export default function ContactForm() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-gray-700 font-medium">Total Number of People</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
-                                <SelectTrigger className="bg-white/80 border-gray-300 text-gray-800 focus:border-blue-500">
+                                <SelectTrigger className="bg-white/80 border-gray-300 text-gray-800 focus:border-blue-500 hover:border-blue-400">
                                   <SelectValue placeholder="Select Number of People" />
                                 </SelectTrigger>
                               </FormControl>
-                              <SelectContent>
-                                <SelectItem value="1-5">1-5 people</SelectItem>
-                                <SelectItem value="6-10">6-10 people</SelectItem>
-                                <SelectItem value="11-15">11-15 people</SelectItem>
-                                <SelectItem value="16-20">16-20 people</SelectItem>
-                                <SelectItem value="21-25">21-25 people</SelectItem>
-                                <SelectItem value="26-30">26-30 people</SelectItem>
-                                <SelectItem value="31-35">31-35 people</SelectItem>
-                                <SelectItem value="36-40">36-40 people</SelectItem>
-                                <SelectItem value="41-45">41-45 people</SelectItem>
-                                <SelectItem value="46-50">46-50 people</SelectItem>
+                              <SelectContent className="max-h-60 overflow-y-auto">
+                                <SelectItem value="2">2 people</SelectItem>
+                                <SelectItem value="3">3 people</SelectItem>
+                                <SelectItem value="4">4 people</SelectItem>
+                                <SelectItem value="5">5 people</SelectItem>
+                                <SelectItem value="6">6 people</SelectItem>
+                                <SelectItem value="7">7 people</SelectItem>
+                                <SelectItem value="8">8 people</SelectItem>
+                                <SelectItem value="9">9 people</SelectItem>
+                                <SelectItem value="10">10 people</SelectItem>
+                                <SelectItem value="15">15 people</SelectItem>
+                                <SelectItem value="20">20 people</SelectItem>
+                                <SelectItem value="25">25 people</SelectItem>
+                                <SelectItem value="30">30+ people</SelectItem>
                               </SelectContent>
                             </Select>
                             <FormMessage />
@@ -269,13 +281,14 @@ export default function ContactForm() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-gray-700 font-medium">Preferred Date</FormLabel>
-                          <DatePicker
-                            value={field.value}
-                            onChange={field.onChange}
-                            placeholder="Select a date (minimum 2 weeks in advance)"
-                            label=""
-                            className="bg-white/80 border-gray-300 text-gray-800 focus:border-blue-500"
-                          />
+                          <FormControl>
+                            <DatePicker
+                              value={field.value}
+                              onChange={field.onChange}
+                              placeholder="Select a date (minimum 2 weeks in advance)"
+                              className="bg-white/80 border-gray-300 text-gray-800 focus:border-blue-500 hover:border-blue-400"
+                            />
+                          </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -290,7 +303,7 @@ export default function ContactForm() {
                           <FormControl>
                             <Textarea
                               placeholder="Tell us about your team and any special requirements..."
-                              className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 min-h-[120px] resize-none"
+                              className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 hover:border-blue-400 transition-colors min-h-[120px] resize-none"
                               {...field}
                             />
                           </FormControl>
@@ -301,12 +314,15 @@ export default function ContactForm() {
 
                     {submitStatus === 'error' && (
                       <motion.div
-                        className="flex items-center gap-2 text-red-600 bg-red-50 p-4 rounded-lg border border-red-200"
+                        className="flex items-center gap-2 text-red-700 bg-red-50 p-4 rounded-lg border border-red-200"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                       >
-                        <AlertCircle className="h-5 w-5" />
-                        <span>Failed to send message. Please try again.</span>
+                        <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium">Failed to send message</p>
+                          <p className="text-sm text-red-600">Please check your connection and try again, or contact us directly.</p>
+                        </div>
                       </motion.div>
                     )}
 

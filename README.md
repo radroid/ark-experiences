@@ -11,28 +11,34 @@ A modern, responsive website for ARK Scavenger Hunt showcasing our Cluedo-themed
 - **Interactive Sections**: 
   - Hero section with animated background
   - How It Works timeline
+  - Game modes and steps sections
+  - Scoring system display
   - Image gallery with lightbox
   - Customer testimonials
   - Contact form with validation
+- **Blog System**: SEO-optimized blog with dynamic routing
+- **PWA Support**: Manifest file for progressive web app features
 - **Backend Integration**: 
   - Supabase for database storage
   - Resend for email notifications
   - Form validation with Zod
-- **Performance Optimized**: Next.js 14 with App Router, lazy loading, and optimized images
+- **Performance Optimized**: Next.js 15 with App Router, lazy loading, and optimized images
 
 ## 🚀 Tech Stack
 
 ### Frontend
-- **Framework**: Next.js 14 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS with custom utilities
-- **Animations**: Framer Motion
-- **UI Components**: Shadcn/ui
-- **Forms**: React Hook Form + Zod validation
+- **Framework**: Next.js 15.3.4 with App Router
+- **Language**: TypeScript 5.9.2
+- **Styling**: Tailwind CSS 4.1.11 with custom utilities
+- **Animations**: Framer Motion 12.23.12
+- **UI Components**: Shadcn/ui with Radix UI primitives
+- **Forms**: React Hook Form 7.62.0 + Zod 3.25.76 validation
+- **Icons**: Lucide React 0.525.0
 
 ### Backend & Services
 - **Database**: Supabase (PostgreSQL)
-- **Email**: Resend
+- **Email**: Resend 4.8.0
+- **Analytics**: Vercel Analytics & Speed Insights
 - **Deployment**: Vercel
 
 ## 📦 Installation
@@ -155,26 +161,50 @@ A modern, responsive website for ARK Scavenger Hunt showcasing our Cluedo-themed
 ## 📁 Project Structure
 
 ```
-src/
-├── app/
-│   ├── api/contact/         # Contact form API route
-│   ├── globals.css          # Global styles and custom utilities
-│   ├── layout.tsx           # Root layout with metadata
-│   └── page.tsx             # Main homepage
-├── components/
-│   ├── sections/            # Page sections
-│   │   ├── hero-section.tsx
-│   │   ├── how-it-works.tsx
-│   │   ├── gallery-section.tsx
-│   │   ├── testimonials-section.tsx
-│   │   └── contact-form.tsx
-│   └── ui/                  # Reusable UI components (Shadcn/ui)
-├── lib/
-│   ├── supabase.ts          # Supabase client configuration
-│   ├── resend.ts            # Resend email configuration
-│   └── utils.ts             # Utility functions
-└── types/
-    └── index.ts             # TypeScript type definitions
+├── apps/                    # Future monorepo applications
+│   ├── hunt/               # Hunt-specific app (placeholder)
+│   └── web/                # Web app (placeholder)
+├── packages/               # Shared packages (future monorepo)
+│   ├── lib/               # Shared library code
+│   ├── types/             # Shared TypeScript types
+│   └── ui/                # Shared UI components
+├── src/                   # Main application source
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── contact/   # Contact form API route
+│   │   ├── blog/          # Blog pages and layout
+│   │   ├── globals.css    # Global styles and custom utilities
+│   │   ├── layout.tsx     # Root layout with metadata
+│   │   ├── manifest.ts    # PWA manifest
+│   │   ├── page.tsx       # Main homepage
+│   │   └── sitemap.ts     # Dynamic sitemap generation
+│   ├── components/
+│   │   ├── sections/      # Page sections
+│   │   │   ├── hero-section.tsx
+│   │   │   ├── how-it-works.tsx
+│   │   │   ├── gallery-section.tsx
+│   │   │   ├── game-modes-section.tsx
+│   │   │   ├── game-steps-section.tsx
+│   │   │   ├── scoring-system-section.tsx
+│   │   │   ├── testimonials-section.tsx
+│   │   │   ├── contact-form.tsx
+│   │   │   └── footer.tsx
+│   │   ├── ui/            # Reusable UI components (Shadcn/ui)
+│   │   └── blog-scroll-handler.tsx
+│   ├── lib/
+│   │   ├── supabase.ts    # Supabase client configuration
+│   │   ├── resend.ts      # Resend email configuration
+│   │   ├── email-templates.ts # Email template definitions
+│   │   └── utils.ts       # Utility functions
+│   └── types/
+│       └── index.ts       # TypeScript type definitions
+├── supabase/              # Supabase configuration and functions
+│   ├── config.toml        # Supabase local config
+│   └── functions/         # Edge functions
+├── public/                # Static assets
+│   ├── gallery/           # Gallery images and videos
+│   └── ark-logo.png       # Brand assets
+└── performance_review/    # Performance analysis reports
 ```
 
 ## 🎨 Customization
@@ -197,10 +227,10 @@ Forms use React Hook Form with Zod validation. Schema definitions are in each co
 ## 🔧 Development
 
 ### Available Scripts
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
+- `pnpm dev` / `npm run dev` - Start development server
+- `pnpm build` / `npm run build` - Build for production
+- `pnpm start` / `npm run start` - Start production server
+- `pnpm lint` / `npm run lint` - Run ESLint
 
 ### Code Style
 - TypeScript strict mode enabled

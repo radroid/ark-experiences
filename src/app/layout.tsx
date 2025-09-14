@@ -2,6 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from '@/components/ui/navbar'
+import FloatingBlogButton from '@/components/floating-blog-button'
+import FloatingContactButton from '@/components/floating-contact-button'
+import ScrollBehaviorHandler from '@/components/scroll-behavior-handler'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
@@ -195,32 +198,14 @@ export default function RootLayout({
             __html: JSON.stringify(structuredData),
           }}
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Handle scroll restoration for blog pages
-              if (typeof window !== 'undefined') {
-                const pathname = window.location.pathname;
-                if (pathname.startsWith('/blog')) {
-                  // Enable natural scrolling for blog pages
-                  if (history.scrollRestoration) {
-                    history.scrollRestoration = 'auto';
-                  }
-                  // Remove any scroll-smooth behavior from blog pages
-                  document.documentElement.style.scrollBehavior = 'auto';
-                } else {
-                  // Enable smooth scrolling for main site
-                  document.documentElement.style.scrollBehavior = 'smooth';
-                }
-              }
-            `,
-          }}
-        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
+        <ScrollBehaviorHandler />
         <Navbar />
+        <FloatingContactButton />
+        <FloatingBlogButton />
         {children}
         <SpeedInsights />
         <Analytics />

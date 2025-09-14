@@ -22,9 +22,8 @@ export default function Navbar() {
     { href: '#contact', label: 'Contact', icon: Mail }
   ]
 
-  const blogItem = { href: '/blog', label: 'Blog', icon: BookOpen }
 
-  // Custom hook to detect when navigation text wraps
+  // Custom hook to detect when navigation items are too compressed
   useEffect(() => {
     const checkNavLayout = () => {
       if (navRef.current) {
@@ -32,20 +31,22 @@ export default function Navbar() {
         const navItems = navElement.querySelectorAll('[data-nav-item]')
         let shouldUseMobileLayout = false
 
-        // Check if the capsule is too narrow first
-        if (navElement.offsetWidth < 600) {
+        // Check if items are too compressed (less than 5px gap)
+        const items = Array.from(navItems)
+        for (let i = 0; i < items.length - 1; i++) {
+          const currentItem = items[i].getBoundingClientRect()
+          const nextItem = items[i + 1].getBoundingClientRect()
+          const gap = nextItem.left - currentItem.right
+          
+          if (gap < 5) {
+            shouldUseMobileLayout = true
+            break
+          }
+        }
+
+        // Also check if the capsule itself is too narrow for content
+        if (navElement.offsetWidth < 480) {
           shouldUseMobileLayout = true
-        } else {
-          // Only check for text wrapping if the capsule is wide enough
-          navItems.forEach((item) => {
-            const rect = item.getBoundingClientRect()
-            const parentRect = navElement.getBoundingClientRect()
-            
-            // Check if any nav item is wrapping or overflowing
-            if (rect.height > 60 || rect.bottom > parentRect.bottom - 10) {
-              shouldUseMobileLayout = true
-            }
-          })
         }
 
         setIsMobileLayout(shouldUseMobileLayout)
@@ -98,30 +99,20 @@ export default function Navbar() {
         className={`${isMobileLayout ? 'invisible' : 'visible'} absolute left-1/2 transform -translate-x-1/2`}
         style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
       >
-        <div className="w-[60vw] h-20 flex items-center justify-center rounded-full glass shadow-lg backdrop-blur-xl bg-white/40 border border-white/30 px-8" style={{boxShadow: '0 8px 32px 0 rgba(31,38,135,0.25)'}}>
-          <NavigationMenu>
-            <NavigationMenuList className="flex gap-12">
+        <div className="w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full glass shadow-lg backdrop-blur-xl bg-white/40 border border-white/30 px-4" style={{boxShadow: '0 8px 32px 0 rgba(31,38,135,0.25)'}}>
+          <NavigationMenu className="w-full">
+            <NavigationMenuList className="flex items-center justify-center w-full" style={{ gap: 'clamp(5px, 2vw, 3rem)' }}>
               {navItems.map((item) => (
                 <NavigationMenuItem key={item.href}>
                   <Link 
                     href={item.href} 
                     data-nav-item
-                    className="font-semibold text-lg text-black hover:text-white hover:bg-[#1b6cfd] transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg whitespace-nowrap"
+                    className="font-semibold text-lg text-black hover:text-white hover:bg-[#1b6cfd] transition-all duration-200 cursor-pointer px-3 py-2 rounded-lg whitespace-nowrap flex-shrink-0"
                   >
                     {item.label}
                   </Link>
                 </NavigationMenuItem>
               ))}
-              {/* Distinctive Blog Link */}
-              <NavigationMenuItem key={blogItem.href}>
-                <Link 
-                  href={blogItem.href} 
-                  data-nav-item
-                  className="font-bold text-lg text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-200 cursor-pointer px-5 py-2 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap"
-                >
-                  📝 {blogItem.label}
-                </Link>
-              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>
@@ -189,14 +180,14 @@ export default function Navbar() {
                   )
                 })}
                 
-                {/* Distinctive Blog Link for Mobile */}
+                {/* Blog Link for Mobile - Simple version */}
                 <Link
-                  href={blogItem.href}
+                  href="/blog"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-bold text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-200 group shadow-lg"
                 >
                   <BookOpen className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
-                  <span>📝 {blogItem.label}</span>
+                  <span>📝 Blog</span>
                 </Link>
               </div>
               
