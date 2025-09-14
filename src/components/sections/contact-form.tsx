@@ -153,11 +153,11 @@ export default function ContactForm() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <Card className="glass-card border-0 shadow-2xl max-w-3xl mx-auto overflow-hidden">
-            <CardHeader className="text-center pb-6 bg-gradient-to-r from-blue-50 to-indigo-50">
+            <CardHeader className="text-center pb-6">
               <CardTitle className="text-3xl font-bold text-gray-800">
                 Contact Us
               </CardTitle>
-              <p className="text-gray-600 mt-2">Let's plan your adventure together!</p>
+              <p className="text-gray-600 mt-2">Let&apos;s plan your adventure together!</p>
             </CardHeader>
             <CardContent>
               {submitStatus === 'success' ? (

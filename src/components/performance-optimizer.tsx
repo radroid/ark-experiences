@@ -13,6 +13,7 @@ interface NavigatorWithConnection extends Navigator {
   connection?: NavigatorConnection;
   mozConnection?: NavigatorConnection;
   webkitConnection?: NavigatorConnection;
+  deviceMemory?: number;
 }
 
 export default function PerformanceOptimizer() {
@@ -23,7 +24,7 @@ export default function PerformanceOptimizer() {
       const connection = nav.connection || nav.mozConnection || nav.webkitConnection;
       
       // Get device performance hints
-      const deviceMemory = (nav as any).deviceMemory || 4; // Default to 4GB
+      const deviceMemory = nav.deviceMemory || 4; // Default to 4GB
       const hardwareConcurrency = nav.hardwareConcurrency || 4; // Default to 4 cores
       
       // Connection speed detection

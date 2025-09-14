@@ -10,7 +10,9 @@ import {
   Heart, 
   Share2, 
   Play, 
-  Pause
+  Pause,
+  Volume2,
+  VolumeX
 } from 'lucide-react'
 import Image from 'next/image'
 import { track } from '@vercel/analytics/react'
@@ -48,6 +50,7 @@ export default function MobileGalleryModal({
   const [showCaption, setShowCaption] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
+  const [isMuted, setIsMuted] = useState(true)
   const [showLikeAnimation, setShowLikeAnimation] = useState(false)
   const [showFastForward, setShowFastForward] = useState(false)
   const [showToast, setShowToast] = useState('')
@@ -80,6 +83,15 @@ export default function MobileGalleryModal({
     setShowCaption(true)
     resetControlsTimeout()
   }, [resetControlsTimeout])
+
+  // Toggle mute/unmute for videos
+  const toggleMute = useCallback(() => {
+    setIsMuted(prev => !prev)
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted
+    }
+    showControlsWithTimeout()
+  }, [isMuted, showControlsWithTimeout])
 
 
   // Handle video play/pause
@@ -520,19 +532,34 @@ export default function MobileGalleryModal({
                     <Share2 className="h-6 w-6" />
                   </button>
 
-                  {/* Video play/pause (only for videos) */}
+                  {/* Video controls (only for videos) */}
                   {selectedItem.type === 'video' && (
-                    <button
-                      onClick={toggleVideoPlayback}
-                      className="p-3 bg-white/20 text-white rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
-                      aria-label={isPlaying ? 'Pause video' : 'Play video'}
-                    >
-                      {isPlaying ? (
-                        <Pause className="h-6 w-6" />
-                      ) : (
-                        <Play className="h-6 w-6" />
-                      )}
-                    </button>
+                    <>
+                      <button
+                        onClick={toggleVideoPlayback}
+                        className="p-3 bg-white/20 text-white rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
+                        aria-label={isPlaying ? 'Pause video' : 'Play video'}
+                      >
+                        {isPlaying ? (
+                          <Pause className="h-6 w-6" />
+                        ) : (
+                          <Play className="h-6 w-6" />
+                        )}
+                      </button>
+                      
+                      {/* Mute/unmute button */}
+                      <button
+                        onClick={toggleMute}
+                        className="p-3 bg-white/20 text-white rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
+                        aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                      >
+                        {isMuted ? (
+                          <VolumeX className="h-6 w-6" />
+                        ) : (
+                          <Volume2 className="h-6 w-6" />
+                        )}
+                      </button>
+                    </>
                   )}
                 </div>
 
