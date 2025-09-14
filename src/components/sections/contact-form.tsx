@@ -110,9 +110,9 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="contact" className="relative py-30 overflow-hidden">
-      {/* Background - Same as hero section */}
-      <div className="absolute inset-0 gradient-hero lava-lamp-bg" />
+    <section id="contact" className="relative py-30 overflow-hidden" style={{backgroundColor: 'var(--ghost-white)'}}>
+      {/* Subtle floating elements for visual interest */}
+      <div className="absolute inset-0 lava-lamp-bg" />
       
       {/* Additional Floating Circles */}
       <div className="absolute inset-0 overflow-hidden">
@@ -124,8 +124,8 @@ export default function ContactForm() {
         <div className="floating-circle-small"></div>
       </div>
       
-      {/* Subtle Overlay */}
-      <div className="absolute inset-0 bg-black/5" />
+      {/* Subtle Overlay for better text readability */}
+      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.95}} />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -136,11 +136,12 @@ export default function ContactForm() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-800 mb-6"
+            className="text-4xl md:text-5xl font-bold mb-6"
+            style={{color: 'var(--text-primary)'}}
             variants={itemVariants}
           >
             Ready to Start Your{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-blue-900 bg-clip-text text-transparent">
+            <span style={{color: 'var(--primary-blue)'}}>
               Adventure?
             </span>
           </motion.h2>
@@ -154,10 +155,10 @@ export default function ContactForm() {
         >
           <Card className="glass-card border-0 shadow-2xl max-w-3xl mx-auto overflow-hidden">
             <CardHeader className="text-center pb-6">
-              <CardTitle className="text-3xl font-bold text-gray-800">
+              <CardTitle className="text-3xl font-bold" style={{color: 'var(--text-primary)'}}>
                 Contact Us
               </CardTitle>
-              <p className="text-gray-600 mt-2">Let&apos;s plan your adventure together!</p>
+              <p className="mt-2" style={{color: 'var(--text-body)'}}>Let&apos;s plan your adventure together!</p>
             </CardHeader>
             <CardContent>
               {submitStatus === 'success' ? (
@@ -167,14 +168,14 @@ export default function ContactForm() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <CheckCircle className="h-16 w-16 text-green-700 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">Message Sent!</h3>
-                  <p className="text-gray-600 mb-6">
+                  <CheckCircle className="h-16 w-16 mx-auto mb-4" style={{color: 'var(--highlight-gold)'}} />
+                  <h3 className="text-xl font-semibold mb-2" style={{color: 'var(--text-primary)'}}>Message Sent!</h3>
+                  <p className="mb-6" style={{color: 'var(--text-body)'}}>
                     Thank you for reaching out. We&apos;ll get back to you within 24 hours to plan your adventure.
                   </p>
                   <Button
                     onClick={() => setSubmitStatus('idle')}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                    className="secondary-button"
                   >
                     Send Another Message
                   </Button>
@@ -188,11 +189,16 @@ export default function ContactForm() {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-gray-700 font-medium">Full Name *</FormLabel>
+                            <FormLabel className="font-medium" style={{color: 'var(--text-secondary)'}}>Full Name *</FormLabel>
                             <FormControl>
                               <Input
                                 placeholder="Your full name"
-                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 hover:border-blue-400 transition-colors"
+                                className="transition-colors"
+                                style={{
+                                  backgroundColor: 'var(--pure-white)',
+                                  borderColor: 'var(--soft-gray-300)',
+                                  color: 'var(--safe-black)'
+                                }}
                                 {...field}
                               />
                             </FormControl>
@@ -206,12 +212,17 @@ export default function ContactForm() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-gray-700 font-medium">Email Address *</FormLabel>
+                            <FormLabel className="font-medium" style={{color: 'var(--text-secondary)'}}>Email Address *</FormLabel>
                             <FormControl>
                               <Input
                                 type="email"
                                 placeholder="your@email.com"
-                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 hover:border-blue-400 transition-colors"
+                                className="transition-colors"
+                                style={{
+                                  backgroundColor: 'var(--pure-white)',
+                                  borderColor: 'var(--soft-gray-300)',
+                                  color: 'var(--safe-black)'
+                                }}
                                 {...field}
                               />
                             </FormControl>
@@ -227,12 +238,17 @@ export default function ContactForm() {
                         name="phone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-gray-700 font-medium">Phone Number</FormLabel>
+                            <FormLabel className="font-medium" style={{color: 'var(--text-secondary)'}}>Phone Number</FormLabel>
                             <FormControl>
                               <Input
                                 type="tel"
                                 placeholder="+1 (416) 555-0123"
-                                className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 hover:border-blue-400 transition-colors"
+                                className="transition-colors"
+                                style={{
+                                  backgroundColor: 'var(--pure-white)',
+                                  borderColor: 'var(--soft-gray-300)',
+                                  color: 'var(--safe-black)'
+                                }}
                                 {...field}
                               />
                             </FormControl>
@@ -246,10 +262,17 @@ export default function ContactForm() {
                         name="team_size"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-gray-700 font-medium">Total Number of People</FormLabel>
+                            <FormLabel className="font-medium" style={{color: 'var(--text-secondary)'}}>Total Number of People</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
-                                <SelectTrigger className="bg-white/80 border-gray-300 text-gray-800 focus:border-blue-500 hover:border-blue-400">
+                                <SelectTrigger 
+                                  className="transition-colors"
+                                  style={{
+                                    backgroundColor: 'var(--ghost-white-800)',
+                                    borderColor: 'var(--caf-noir-300)',
+                                    color: 'var(--eerie-black)'
+                                  }}
+                                >
                                   <SelectValue placeholder="Select Number of People" />
                                 </SelectTrigger>
                               </FormControl>
@@ -280,13 +303,13 @@ export default function ContactForm() {
                       name="preferred_date"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-700 font-medium">Preferred Date</FormLabel>
+                          <FormLabel className="font-medium" style={{color: 'var(--text-secondary)'}}>Preferred Date</FormLabel>
                           <FormControl>
                             <DatePicker
                               value={field.value}
                               onChange={field.onChange}
                               placeholder="Select a date (minimum 2 weeks in advance)"
-                              className="bg-white/80 border-gray-300 text-gray-800 focus:border-blue-500 hover:border-blue-400"
+                              className="date-picker-button"
                             />
                           </FormControl>
                           <FormMessage />
@@ -299,11 +322,16 @@ export default function ContactForm() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-700 font-medium">Message *</FormLabel>
+                          <FormLabel className="font-medium" style={{color: 'var(--text-secondary)'}}>Message *</FormLabel>
                           <FormControl>
                             <Textarea
                               placeholder="Tell us about your team and any special requirements..."
-                              className="bg-white/80 border-gray-300 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 hover:border-blue-400 transition-colors min-h-[120px] resize-none"
+                              className="transition-colors min-h-[120px] resize-none"
+                              style={{
+                                backgroundColor: 'var(--ghost-white-800)',
+                                borderColor: 'var(--caf-noir-300)',
+                                color: 'var(--eerie-black)'
+                              }}
                               {...field}
                             />
                           </FormControl>
@@ -314,21 +342,26 @@ export default function ContactForm() {
 
                     {submitStatus === 'error' && (
                       <motion.div
-                        className="flex items-center gap-2 text-red-700 bg-red-50 p-4 rounded-lg border border-red-200"
+                        className="flex items-center gap-2 p-4 rounded-lg border"
+                        style={{
+                          color: 'var(--cocoa-brown)',
+                          backgroundColor: 'var(--cocoa-brown-50)',
+                          borderColor: 'var(--cocoa-brown-200)'
+                        }}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                       >
                         <AlertCircle className="h-5 w-5 flex-shrink-0" />
                         <div>
                           <p className="font-medium">Failed to send message</p>
-                          <p className="text-sm text-red-600">Please check your connection and try again, or contact us directly.</p>
+                          <p className="text-sm" style={{color: 'var(--cocoa-brown-600)'}}>Please check your connection and try again, or contact us directly.</p>
                         </div>
                       </motion.div>
                     )}
 
                     <Button
                       type="submit"
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 text-lg"
+                      className="w-full cta-button font-semibold py-3 text-lg"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
@@ -344,7 +377,7 @@ export default function ContactForm() {
                       )}
                     </Button>
 
-                    <p className="text-sm text-gray-500 text-center">
+                    <p className="text-sm text-center" style={{color: 'var(--text-muted)'}}>
                       We&apos;ll respond within 24 hours during business days
                     </p>
                   </form>

@@ -38,9 +38,9 @@ export default function HeroSection() {
 
 
   return (
-    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
-      {/* Lava Lamp Background */}
-      <div className="absolute inset-0 gradient-hero lava-lamp-bg" />
+    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10" style={{backgroundColor: 'var(--ghost-white)'}}>
+      {/* Subtle floating elements for visual interest */}
+      <div className="absolute inset-0 lava-lamp-bg" />
       
       {/* Additional Floating Circles */}
       <div className="absolute inset-0 overflow-hidden">
@@ -52,8 +52,8 @@ export default function HeroSection() {
         <div className="floating-circle-small"></div>
       </div>
       
-      {/* Subtle Overlay */}
-      <div className="absolute inset-0 bg-black/5" />
+      {/* Subtle Overlay for better text readability */}
+      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.9}} />
 
       {/* Main Content */}
       <motion.div
@@ -67,22 +67,24 @@ export default function HeroSection() {
           variants={itemVariants}
         >
           <motion.h1 
-            className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight"
+            style={{color: 'var(--text-primary)'}}
             variants={itemVariants}
           >
             Solve the{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-blue-900 bg-clip-text text-transparent">
+            <span style={{color: 'var(--primary-blue)'}}>
               Mystery
             </span>
             <br />
             Around the{' '}
-            <span className="bg-gradient-to-r from-orange-400 via-orange-700 to-orange-900 bg-clip-text text-transparent">
+            <span style={{color: 'var(--accent-orange)'}}>
               City
             </span>
           </motion.h1>
 
           <motion.p 
-            className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+            style={{color: 'var(--text-body)'}}
             variants={itemVariants}
           >
             Are you ready for an epic adventure?
@@ -98,7 +100,7 @@ export default function HeroSection() {
           >
             <Button 
               size="lg" 
-              className="glass-button px-8 py-4 text-lg font-semibold cursor-pointer"
+              className="cta-button px-8 py-4 text-lg font-semibold cursor-pointer"
               onClick={scrollToContact}
             >
               Plan Your Adventure
@@ -107,7 +109,7 @@ export default function HeroSection() {
             <Button 
               variant="outline" 
               size="lg" 
-              className="glass-dark text-gray-800 border-gray-300/30 hover:bg-white/10 px-8 py-4 text-lg cursor-help"
+              className="secondary-button px-8 py-4 text-lg cursor-help"
               onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
             >
               How It Works
@@ -131,12 +133,12 @@ export default function HeroSection() {
               }}
             >
               <div className="flex justify-center mb-4">
-                <div className="p-3 rounded-full bg-gray-800/10">
-                  <stat.icon className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10 text-gray-800" />
+                <div className="p-3 rounded-full" style={{backgroundColor: 'var(--eerie-black-100)'}}>
+                  <stat.icon className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" style={{color: 'var(--eerie-black)'}} />
                 </div>
               </div>
-              <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-1">{stat.label}</h3>
-              <p className="text-gray-600 text-sm md:text-base lg:text-lg">{stat.description}</p>
+              <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
+              <p className="text-sm md:text-base lg:text-lg" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -148,8 +150,8 @@ export default function HeroSection() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className="w-6 h-10 border-2 border-gray-800/50 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-gray-800/70 rounded-full mt-2" />
+          <div className="w-6 h-10 border-2 rounded-full flex justify-center" style={{borderColor: 'var(--eerie-black-500)'}}>
+            <div className="w-1 h-3 rounded-full mt-2" style={{backgroundColor: 'var(--eerie-black-700)'}} />
           </div>
         </motion.div>
     </section>

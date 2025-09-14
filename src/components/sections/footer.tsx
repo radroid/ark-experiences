@@ -76,7 +76,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer style={{backgroundColor: 'var(--eerie-black)', color: 'var(--text-on-dark)'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Company Info */}
@@ -84,12 +84,12 @@ export default function Footer() {
             <div className="flex items-center mb-6">
               <Image src="/ark-logo.png" alt="ARK Scavenger Hunt" width={96} height={96} className="h-24 w-auto mr-3" />
             </div>
-            <p className="text-gray-300 mb-6">
+            <p className="mb-6" style={{color: 'var(--pure-white)', opacity: 0.9}}>
               Experience Toronto with our immersive Cluedo-themed scavenger hunt.
             </p>
             <Button 
               onClick={scrollToContact}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
+              className="cta-button"
             >
               Contact Us
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -98,13 +98,14 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-4" style={{color: 'var(--text-on-dark)'}}>Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <a 
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className="transition-colors"
+                    style={{color: 'var(--pure-white)', opacity: 0.85}}
                   >
                     {link.name}
                   </a>
@@ -115,26 +116,27 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+            <h4 className="text-lg font-semibold mb-4" style={{color: 'var(--text-on-dark)'}}>Contact Info</h4>
             <div className="space-y-3">
               {contactInfo.map((info, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <div className="p-2 rounded-full bg-blue-600/20">
-                    <info.icon className="h-4 w-4 text-blue-400" />
+                  <div className="p-2 rounded-full" style={{backgroundColor: 'var(--primary-blue-200)'}}>
+                    <info.icon className="h-4 w-4" style={{color: 'var(--yinmn-blue-400)'}} />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-white">{info.title}</p>
+                    <p className="text-sm font-medium" style={{color: 'var(--text-on-dark)'}}>{info.title}</p>
                      {info.href ? (
                        <a
                          href={info.href}
-                         className="text-sm text-blue-400 hover:text-blue-300 hover:underline underline-offset-2 break-all"
+                         className="text-sm hover:underline underline-offset-2 break-all"
+                         style={{color: 'var(--primary-blue)'}}
                        >
                          {info.details}
                        </a>
                      ) : (
-                       <p className="text-sm text-blue-400">{info.details}</p>
+                       <p className="text-sm" style={{color: 'var(--primary-blue)'}}>{info.details}</p>
                      )}
-                    <p className="text-xs text-gray-400">{info.description}</p>
+                    <p className="text-xs" style={{color: 'var(--pure-white)', opacity: 0.8}}>{info.description}</p>
                   </div>
                 </div>
               ))}
@@ -143,7 +145,7 @@ export default function Footer() {
         </div>
 
         {/* Company Title Section - Full Width with UV Effect */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
+        <div className="mt-12 pt-8 border-t" style={{borderColor: 'var(--safe-black-800)'}}>
           <div className="text-center">
             <div 
               ref={titleRef}
@@ -166,7 +168,10 @@ export default function Footer() {
                              {/* Main Title */}
                <h3 
                  className="text-[8vw] font-bold mb-4 select-none transition-opacity duration-300"
-                 style={{ opacity: isFlashlightOn ? 0 : 1 }}
+                 style={{ 
+                   color: 'var(--pure-white)',
+                   opacity: isFlashlightOn ? 0 : 1 
+                 }}
                >
                  ARK Scavenger Hunt
                </h3>
@@ -175,8 +180,8 @@ export default function Footer() {
               <div 
                 className="absolute inset-0 flex items-center justify-center text-[4vw] font-bold"
                 style={{
-                  color: '#8B5CF6',
-                  textShadow: '0 0 10px #A855F7',
+                  color: 'var(--primary-blue)',
+                  textShadow: '0 0 10px var(--primary-blue-600)',
                   opacity: isFlashlightOn ? 1 : 0,
                   maskImage: isFlashlightOn ? `radial-gradient(circle 200px at ${mousePosition.x}px ${mousePosition.y}px, black 40%, transparent 70%)` : 'radial-gradient(circle 0px at 50% 50%, transparent 100%, transparent 100%)',
                   WebkitMaskImage: isFlashlightOn ? `radial-gradient(circle 200px at ${mousePosition.x}px ${mousePosition.y}px, black 40%, transparent 70%)` : 'radial-gradient(circle 0px at 50% 50%, transparent 100%, transparent 100%)',
@@ -197,9 +202,9 @@ export default function Footer() {
                     width: 160,
                     height: 160,
                     background: `radial-gradient(circle, 
-                      rgba(139, 92, 246, 0.3) 0%, 
-                      rgba(168, 85, 247, 0.2) 30%, 
-                      rgba(192, 132, 252, 0.1) 50%, 
+                      var(--primary-blue-300) 0%, 
+                      var(--primary-blue-200) 30%, 
+                      var(--primary-blue-100) 50%, 
                       transparent 70%)`,
                     borderRadius: '50%',
                     filter: 'blur(2px)',
@@ -218,17 +223,17 @@ export default function Footer() {
                     width: 80,
                     height: 80,
                     background: `radial-gradient(circle, 
-                      rgba(139, 92, 246, 0.6) 0%, 
-                      rgba(168, 85, 247, 0.4) 40%, 
+                      var(--primary-blue-600) 0%, 
+                      var(--primary-blue-400) 40%, 
                       transparent 70%)`,
                     borderRadius: '50%',
-                    boxShadow: '0 0 20px rgba(139, 92, 246, 0.5)'
+                    boxShadow: '0 0 20px var(--primary-blue-500)'
                   }}
                 />
               )}
             </div>
             
-            <p className="text-gray-400 text-sm mt-6">
+            <p className="text-sm mt-6" style={{color: 'var(--pure-white)', opacity: 0.8}}>
               © 2024 ARK Scavenger Hunt. All rights reserved.
             </p>
           </div>

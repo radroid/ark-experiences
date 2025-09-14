@@ -81,7 +81,7 @@ export default function Navbar() {
         className={`navbar-desktop ${isMobileLayout ? 'navbar-hidden' : 'navbar-visible'} absolute left-1/2 transform -translate-x-1/2`}
         style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
       >
-        <div className="w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full glass shadow-lg backdrop-blur-xl bg-white/40 border border-white/30 px-4" style={{boxShadow: '0 8px 32px 0 rgba(31,38,135,0.25)'}}>
+        <div className="w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full glass shadow-lg backdrop-blur-xl px-4" style={{boxShadow: '0 8px 32px 0 var(--safe-black-300)'}}>
           <NavigationMenu className="w-full">
             <NavigationMenuList className="flex items-center justify-center w-full gap-6 md:gap-8 lg:gap-12">
               {navItems.map((item) => (
@@ -89,7 +89,8 @@ export default function Navbar() {
                   <Link 
                     href={item.href} 
                     data-nav-item
-                    className="font-semibold text-lg text-black hover:text-white hover:bg-[#1b6cfd] transition-colors duration-200 cursor-pointer px-3 py-2 rounded-lg whitespace-nowrap flex-shrink-0"
+                    className="font-semibold text-lg text-foreground hover:text-primary-foreground hover:bg-primary transition-colors duration-200 cursor-pointer px-3 py-2 rounded-lg whitespace-nowrap flex-shrink-0"
+                    style={{color: 'var(--safe-black)'} as React.CSSProperties}
                   >
                     {item.label}
                   </Link>
@@ -107,19 +108,20 @@ export default function Navbar() {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="h-14 w-14 rounded-full glass shadow-lg backdrop-blur-xl bg-white/40 border border-white/30 hover:bg-white/60 transition-colors duration-200"
+              className="h-14 w-14 rounded-full glass shadow-lg backdrop-blur-xl transition-colors duration-200"
               aria-label="Open navigation menu"
             >
-              <Menu className="h-7 w-7 text-black" />
+              <Menu className="h-7 w-7" style={{color: 'var(--safe-black)'}} />
             </Button>
           </SheetTrigger>
           <SheetContent 
             side="left" 
-            className="w-[280px] sm:w-[320px] bg-white/95 backdrop-blur-xl border-r border-white/30 p-0"
+            className="w-[280px] sm:w-[320px] backdrop-blur-xl p-0"
+            style={{background: 'var(--pure-white-900)', borderRight: '1px solid var(--soft-gray-300)'}}
           >
             <div className="flex flex-col h-full">
               {/* Header with SheetTitle for accessibility */}
-              <SheetHeader className="flex items-center justify-between p-6 border-b border-white/20">
+              <SheetHeader className="flex items-center justify-between p-6" style={{borderBottom: '1px solid var(--soft-gray-200)'}}>
                 <SheetTitle asChild>
                   <Link href="#hero-section" onClick={() => setMobileMenuOpen(false)} className="flex items-center space-x-3">
                     <Image 
@@ -129,7 +131,7 @@ export default function Navbar() {
                       height={50} 
                       className="drop-shadow-lg hover:scale-105 transition-transform duration-200" 
                     />
-                    <span className="text-lg font-semibold text-black">ARK Experience</span>
+                    <span className="text-lg font-semibold" style={{color: 'var(--safe-black)'}}>ARK Experience</span>
                   </Link>
                 </SheetTitle>
               </SheetHeader>
@@ -140,7 +142,8 @@ export default function Navbar() {
                 <Link
                   href="#hero-section"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-semibold text-black hover:text-white hover:bg-[#1b6cfd] transition-all duration-200 group"
+                  className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-semibold transition-all duration-200 group"
+                  style={{color: 'var(--safe-black)'}}
                 >
                   <Home className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                   <span>Home</span>
@@ -154,7 +157,8 @@ export default function Navbar() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-semibold text-black hover:text-white hover:bg-[#1b6cfd] transition-all duration-200 group"
+                      className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-semibold transition-all duration-200 group"
+                      style={{color: 'var(--safe-black)'}}
                     >
                       <IconComponent className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                       <span>{item.label}</span>
@@ -166,7 +170,8 @@ export default function Navbar() {
                 <Link
                   href="/blog"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-bold text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-200 group shadow-lg"
+                  className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-bold transition-all duration-200 group shadow-lg"
+                  style={{color: 'var(--pure-white)', backgroundColor: 'var(--primary-blue)'}}
                 >
                   <BookOpen className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                   <span>📝 Blog</span>
@@ -174,8 +179,8 @@ export default function Navbar() {
               </div>
               
               {/* Footer */}
-              <div className="p-6 border-t border-white/20">
-                <div className="text-center text-sm text-gray-600">
+              <div className="p-6" style={{borderTop: '1px solid var(--soft-gray-200)'}}>
+                <div className="text-center text-sm" style={{color: 'var(--text-muted)'}}>
                   <p className="font-medium">Adventure Awaits</p>
                   <p className="text-xs mt-1">Explore • Discover • Experience</p>
                 </div>

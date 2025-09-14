@@ -92,9 +92,11 @@ export default function TestimonialsSection() {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`h-4 w-4 ${
-          i < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
-        }`}
+        className="h-4 w-4"
+        style={{
+          color: i < rating ? 'var(--cocoa-brown-400)' : 'var(--caf-noir-300)',
+          fill: i < rating ? 'var(--cocoa-brown-400)' : 'var(--caf-noir-300)'
+        }}
       />
     ))
   }
@@ -120,7 +122,7 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <section id="testimonials" className="pt-40 py-24 bg-gradient-to-b from-[#f8f3e6] via-gray-50 to-white">
+    <section id="testimonials" className="pt-40 py-24" style={{backgroundColor: 'var(--ghost-white)'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -131,16 +133,18 @@ export default function TestimonialsSection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-bold mb-6"
+            style={{color: 'var(--text-primary)'}}
             variants={itemVariants}
           >
             What Teams Are{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-orange-600 bg-clip-text text-transparent">
+            <span style={{color: 'var(--primary-blue)'}}>
               Saying
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl max-w-3xl mx-auto"
+            style={{color: 'var(--text-body)'}}
             variants={itemVariants}
           >
             Don&apos;t just take our word for it - hear from teams who&apos;ve experienced the thrill of solving mysteries together
@@ -163,11 +167,11 @@ export default function TestimonialsSection() {
               whileHover={{ y: -5 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-r from-blue-100 to-orange-100 mb-4">
-                <stat.icon className="h-12 w-12 text-blue-600" />
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-4" style={{backgroundColor: 'var(--primary-blue-100)'}}>
+                <stat.icon className="h-12 w-12" style={{color: 'var(--primary-blue)'}} />
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
-              <div className="text-gray-600">{stat.label}</div>
+              <div className="text-3xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.value}</div>
+              <div style={{color: 'var(--text-muted)'}}>{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -191,45 +195,45 @@ export default function TestimonialsSection() {
                 <CardContent className="p-6">
                   {/* Quote Icon */}
                   <div className="flex justify-between items-start mb-4">
-                    <Quote className="h-8 w-8 text-blue-600 opacity-60" />
+                    <Quote className="h-8 w-8 opacity-60" style={{color: 'var(--yinmn-blue)'}} />
                     <div className="flex gap-1">
                       {renderStars(testimonial.rating)}
                     </div>
                   </div>
 
                   {/* Testimonial Text */}
-                  <p className="text-gray-700 leading-relaxed mb-6 italic">
+                  <p className="leading-relaxed mb-6 italic" style={{color: 'var(--text-body)'}}>
                     &ldquo;{testimonial.text}&rdquo;
                   </p>
 
                   {/* Author Info */}
                   <div className="border-t pt-4">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-orange-600 flex items-center justify-center text-white font-semibold">
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center font-semibold" style={{backgroundColor: 'var(--primary-blue)', color: 'var(--pure-white)'}}>
                         {testimonial.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                        <div className="text-sm text-gray-600">{testimonial.role}</div>
+                        <div className="font-semibold" style={{color: 'var(--text-primary)'}}>{testimonial.name}</div>
+                        <div className="text-sm" style={{color: 'var(--text-muted)'}}>{testimonial.role}</div>
                       </div>
                     </div>
                     
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Building2 className="h-4 w-4" />
-                        {testimonial.company}
-                      </div>
-                      <div className="flex items-center gap-4 text-sm">
-                        <div className="flex items-center gap-1 text-gray-600">
-                          <Users className="h-4 w-4" />
-                          {testimonial.teamSize}
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-sm" style={{color: 'var(--text-muted)'}}>
+                          <Building2 className="h-4 w-4" />
+                          {testimonial.company}
                         </div>
-                        <div className="flex items-center gap-1 text-gray-600">
-                          <MapPin className="h-4 w-4" />
-                          {testimonial.location}
+                        <div className="flex items-center gap-4 text-sm">
+                          <div className="flex items-center gap-1" style={{color: 'var(--text-muted)'}}>
+                            <Users className="h-4 w-4" />
+                            {testimonial.teamSize}
+                          </div>
+                          <div className="flex items-center gap-1" style={{color: 'var(--text-muted)'}}>
+                            <MapPin className="h-4 w-4" />
+                            {testimonial.location}
+                          </div>
                         </div>
                       </div>
-                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -245,18 +249,18 @@ export default function TestimonialsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="bg-gradient-to-r from-blue-400 to-blue-700 rounded-3xl p-8 md:p-12 text-white">
+          <div className="rounded-3xl p-8 md:p-12" style={{backgroundColor: 'var(--primary-blue)', color: 'var(--pure-white)'}}>
             <motion.div className="max-w-3xl mx-auto">
               <h3 className="text-3xl md:text-4xl font-bold mb-4">
                 Ready to Create Your Own Success Story?
               </h3>
-              <p className="text-xl mb-8 text-white/90">
+              <p className="text-xl mb-8" style={{color: 'var(--pure-white)', opacity: 0.9}}>
                 Join hundreds of teams who&apos;ve already discovered the power of mystery-solving team building
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
-                  className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+                  className="cta-button px-8 py-4 text-lg font-semibold"
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Book Your Adventure

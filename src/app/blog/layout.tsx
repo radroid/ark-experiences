@@ -1,3 +1,4 @@
+import React from 'react'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import BlogScrollHandler from '@/components/blog-scroll-handler'
@@ -15,32 +16,37 @@ export default function BlogLayout({
   return (
     <>
       <BlogScrollHandler />
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen" style={{backgroundColor: 'var(--ghost-white)'}}>
         {/* Blog Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-6">
+        <div className="py-6" style={{backgroundColor: 'var(--yinmn-blue)', color: 'var(--ghost-white)'}}>
           <div className="container mx-auto px-4">
             {/* Navigation breadcrumb */}
-            <div className="flex items-center gap-2 mb-4 text-blue-200">
+            <div className="flex items-center gap-2 mb-4" style={{color: 'var(--ghost-white-200)'}}>
               <Link 
                 href="/" 
-                className="hover:text-white transition-colors duration-200 flex items-center gap-1"
+                className="transition-colors duration-200 flex items-center gap-1"
+                style={{color: 'var(--ghost-white-200)'}}
               >
                 🏠 Home
               </Link>
               <span>→</span>
-              <span className="text-white">Blog</span>
+              <span style={{color: 'var(--ghost-white)'}}>Blog</span>
             </div>
             
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold">Outdoor Adventure Blog</h1>
-                <p className="text-blue-100 mt-1">Expert insights for Toronto escape room and adventure experiences</p>
+                <p className="mt-1" style={{color: 'var(--ghost-white-100)'}}>Expert insights for Toronto escape room and adventure experiences</p>
               </div>
               
               {/* Back to Home Button */}
               <Link 
                 href="/"
-                className="inline-flex items-center bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 hover:scale-105 whitespace-nowrap"
+                className="inline-flex items-center backdrop-blur-sm px-4 py-2 rounded-lg font-semibold transition-all duration-200 hover:scale-105 whitespace-nowrap"
+                style={{
+                  backgroundColor: 'var(--ghost-white-200)',
+                  color: 'var(--ghost-white)'
+                }}
               >
                 ← Back to ARK
               </Link>

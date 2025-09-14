@@ -1,3 +1,4 @@
+import React from 'react'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -33,13 +34,14 @@ const blogPosts = [
 
 export default function BlogIndexPage() {
   return (
-    <main className="container mx-auto px-4 py-8 max-w-6xl">
+    <>
+      <main className="container mx-auto px-4 py-8 max-w-6xl">
       {/* Header */}
       <header className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r bg-clip-text text-transparent" style={{backgroundImage: 'linear-gradient(to right, var(--yinmn-blue), var(--caf-noir))'}}>
           Adventure Blog
         </h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <p className="text-xl max-w-2xl mx-auto" style={{color: 'var(--caf-noir-600)'}}>
           Expert insights on outdoor escape rooms, Toronto adventures, and creating unforgettable experiences for young professionals and escape room enthusiasts.
         </p>
       </header>
@@ -51,26 +53,30 @@ export default function BlogIndexPage() {
             <span className="mr-3">⭐</span>
             Featured Article
           </h2>
-          <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <div className="rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300" style={{backgroundColor: 'var(--ghost-white)', border: '1px solid var(--caf-noir-200)'}}>
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <div className="flex items-center gap-4 mb-4">
-                  <span className="bg-purple-100 text-purple-800 text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{backgroundColor: 'var(--caf-noir-100)', color: 'var(--caf-noir-800)'}}>
                     {blogPosts[0].category}
                   </span>
-                  <span className="text-gray-500 text-sm">{blogPosts[0].date}</span>
-                  <span className="text-gray-500 text-sm">•</span>
-                  <span className="text-gray-500 text-sm">{blogPosts[0].readTime}</span>
+                  <span className="text-sm" style={{color: 'var(--caf-noir-500)'}}>{blogPosts[0].date}</span>
+                  <span className="text-sm" style={{color: 'var(--caf-noir-500)'}}>•</span>
+                  <span className="text-sm" style={{color: 'var(--caf-noir-500)'}}>{blogPosts[0].readTime}</span>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+                <h3 className="text-2xl md:text-3xl font-bold mb-4" style={{color: 'var(--eerie-black)'}}>
                   {blogPosts[0].title}
                 </h3>
-                <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                <p className="mb-6 text-lg leading-relaxed" style={{color: 'var(--caf-noir-600)'}}>
                   {blogPosts[0].excerpt}
                 </p>
                 <Link 
                   href={`/blog/${blogPosts[0].slug}`}
-                  className="inline-flex items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 transform hover:scale-105"
+                  className="inline-flex items-center px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105"
+                  style={{
+                    backgroundColor: 'var(--yinmn-blue)',
+                    color: 'var(--ghost-white)'
+                  }}
                 >
                   Read Full Article
                   <span className="ml-2">→</span>
@@ -84,7 +90,7 @@ export default function BlogIndexPage() {
                   height={250}
                   className="rounded-xl shadow-lg object-cover w-full h-64"
                 />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-gray-800">
+                <div className="absolute top-4 right-4 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold" style={{backgroundColor: 'var(--ghost-white-900)', color: 'var(--eerie-black)'}}>
                   Latest
                 </div>
               </div>
@@ -103,8 +109,8 @@ export default function BlogIndexPage() {
         {blogPosts.length === 0 ? (
           <div className="text-center py-16">
             <div className="text-6xl mb-4">🎯</div>
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">More Adventures Coming Soon!</h3>
-            <p className="text-gray-600 max-w-md mx-auto">
+            <h3 className="text-2xl font-bold mb-4" style={{color: 'var(--eerie-black)'}}>More Adventures Coming Soon!</h3>
+            <p className="max-w-md mx-auto" style={{color: 'var(--caf-noir-600)'}}>
               We&apos;re working on exciting new content about outdoor escape rooms, Toronto adventures, and tips for escape room enthusiasts.
             </p>
           </div>
@@ -113,7 +119,8 @@ export default function BlogIndexPage() {
             {blogPosts.map((post) => (
               <article 
                 key={post.id}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:transform hover:scale-105"
+                className="rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:transform hover:scale-105"
+                style={{backgroundColor: 'var(--ghost-white)'}}
               >
                 <div className="relative">
                   <Image
@@ -123,29 +130,30 @@ export default function BlogIndexPage() {
                     height={200}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-gray-800">
+                  <div className="absolute top-4 left-4 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold" style={{backgroundColor: 'var(--ghost-white-900)', color: 'var(--eerie-black)'}}>
                     {post.category}
                   </div>
                 </div>
                 
                 <div className="p-6">
-                  <div className="flex items-center gap-2 mb-3 text-sm text-gray-500">
+                  <div className="flex items-center gap-2 mb-3 text-sm" style={{color: 'var(--caf-noir-500)'}}>
                     <span>{post.date}</span>
                     <span>•</span>
                     <span>{post.readTime}</span>
                   </div>
                   
-                  <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-purple-600 transition-colors duration-200">
+                  <h3 className="text-xl font-bold mb-3 transition-colors duration-200" style={{color: 'var(--eerie-black)'}}>
                     {post.title}
                   </h3>
                   
-                  <p className="text-gray-600 mb-4 line-clamp-3">
+                  <p className="mb-4 line-clamp-3" style={{color: 'var(--caf-noir-600)'}}>
                     {post.excerpt}
                   </p>
                   
                   <Link 
                     href={`/blog/${post.slug}`}
-                    className="inline-flex items-center text-purple-600 hover:text-purple-800 font-semibold transition-colors duration-200"
+                    className="inline-flex items-center font-semibold transition-colors duration-200"
+                    style={{color: 'var(--yinmn-blue)'}}
                   >
                     Read More
                     <span className="ml-1 transform group-hover:translate-x-1 transition-transform duration-200">→</span>
@@ -158,45 +166,52 @@ export default function BlogIndexPage() {
       </section>
 
       {/* Newsletter Signup Section */}
-      <section className="mt-16 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl p-8 text-white text-center">
+      <section className="mt-16 rounded-2xl p-8 text-center" style={{backgroundColor: 'var(--yinmn-blue)', color: 'var(--ghost-white)'}}>
         <h2 className="text-2xl md:text-3xl font-bold mb-4">
           🚀 Stay Updated on Toronto Adventures
         </h2>
-        <p className="text-blue-100 mb-6 text-lg max-w-2xl mx-auto">
+        <p className="mb-6 text-lg max-w-2xl mx-auto" style={{color: 'var(--ghost-white-100)'}}>
           Get the latest tips on outdoor escape rooms, Toronto adventure guides, and exclusive updates on new ARK experiences.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
           <input
             type="email"
             placeholder="Enter your email"
-            className="flex-1 px-4 py-3 rounded-lg text-white placeholder-gray-200 outline-white focus:outline-none focus:ring-2 focus:ring-white/50"
+            className="flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-2"
+            style={{
+              color: 'var(--ghost-white)',
+              backgroundColor: 'transparent',
+              border: '1px solid var(--ghost-white-300)',
+              '--placeholder-color': 'var(--ghost-white-200)'
+            } as React.CSSProperties}
           />
-          <button className="bg-white text-blue-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+          <button className="px-6 py-3 rounded-lg font-semibold transition-colors duration-200" style={{backgroundColor: 'var(--ghost-white)', color: 'var(--yinmn-blue)'}}>
             Subscribe
           </button>
         </div>
-        <p className="text-blue-200 text-sm mt-3">
+        <p className="text-sm mt-3" style={{color: 'var(--ghost-white-200)'}}>
           Join other adventure enthusiasts and escape room lovers in Toronto!
         </p>
       </section>
 
       {/* Back to Home CTA */}
       <section className="mt-16 text-center">
-        <div className="bg-gray-50 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold mb-4 text-gray-900">
+        <div className="rounded-2xl p-8" style={{backgroundColor: 'var(--ghost-white)', border: '1px solid var(--caf-noir-200)'}}>
+          <h2 className="text-2xl font-bold mb-4" style={{color: 'var(--eerie-black)'}}>
             Ready for Your Own Adventure?
           </h2>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+          <p className="mb-6 max-w-2xl mx-auto" style={{color: 'var(--caf-noir-600)'}}>
             Experience Toronto&apos;s ultimate outdoor escape room adventure with ARK. Perfect for young professionals and escape room enthusiasts!
           </p>
           <Link 
             href="/"
-            className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-purple-800 transition-all duration-200 transform hover:scale-105"
+            className="cta-button inline-flex items-center px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 transform hover:scale-105"
           >
             🏠 Back to Home & Book Adventure
           </Link>
         </div>
       </section>
     </main>
+    </>
   )
 }

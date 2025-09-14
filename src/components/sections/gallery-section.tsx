@@ -306,7 +306,7 @@ export default function GallerySection() {
   }
 
   return (
-    <section id="gallery" className="pt-40 py-24 gradient-section">
+    <section id="gallery" className="pt-40 py-24" style={{backgroundColor: 'var(--eerie-black)'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -316,16 +316,18 @@ export default function GallerySection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-200 mb-6"
+            className="text-4xl md:text-5xl font-bold mb-6"
+            style={{color: 'var(--text-on-dark)'}}
             variants={itemVariants}
           >
             Experience{' '}
-            <span className="bg-gradient-to-r from-blue-200 to-blue-500 bg-clip-text text-transparent">
+            <span style={{color: 'var(--highlight-gold)'}}>
               Gallery
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
+            className="text-xl max-w-3xl mx-auto"
+            style={{color: 'var(--pure-white)', opacity: 0.9}}
             variants={itemVariants}
           >
             Immerse yourself in the excitement, mystery, and pure joy of our scavenger hunts through photos and videos
@@ -343,11 +345,17 @@ export default function GallerySection() {
           {categories.map((category) => (
             <motion.button
               key={category.id}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                selectedCategory === category.id
-                  ? 'glass-button text-white shadow-lg'
-                  : 'glass text-gray-700 hover:bg-white/50 border border-gray-200'
-              }`}
+              className="flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300"
+              style={selectedCategory === category.id ? {
+                backgroundColor: 'var(--primary-blue)',
+                color: 'var(--pure-white)',
+                border: '1px solid var(--primary-blue)'
+              } : {
+                backgroundColor: 'var(--pure-white)',
+                color: 'var(--safe-black)',
+                border: '1px solid var(--pure-white)',
+                opacity: 0.95
+              }}
               onClick={() => setSelectedCategory(category.id as 'all' | 'event' | 'clue' | 'celebration')}
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
@@ -415,9 +423,9 @@ export default function GallerySection() {
                         />
                         
                         {/* Video Play Overlay - only show when not hovering */}
-                        <div className={`absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 ${
+                        <div className={`absolute inset-0 transition-colors duration-300 ${
                           hoveredVideoId === item.id ? 'opacity-0' : 'opacity-100'
-                        }`} />
+                        }`} style={{backgroundColor: hoveredVideoId === item.id ? 'transparent' : 'var(--eerie-black-200)'}} />
                         <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
                           hoveredVideoId === item.id
                             ? 'opacity-0'
@@ -425,14 +433,14 @@ export default function GallerySection() {
                               ? 'opacity-100'
                               : 'opacity-0 group-hover:opacity-100'
                         }`}>
-                          <div className="bg-white/90 rounded-full p-3">
-                            <Play className="h-6 w-6 text-blue-600 ml-1" />
+                          <div className="rounded-full p-3" style={{backgroundColor: 'var(--ghost-white-900)'}}>
+                            <Play className="h-6 w-6 ml-1" style={{color: 'var(--yinmn-blue)'}} />
                           </div>
                         </div>
                         
                         {/* Video Icon Badge */}
-                        <div className="absolute top-2 right-2 bg-black/70 rounded-full p-2 z-10">
-                          <Video className="h-4 w-4 text-white" />
+                        <div className="absolute top-2 right-2 rounded-full p-2 z-10" style={{backgroundColor: 'var(--eerie-black-700)'}}>
+                          <Video className="h-4 w-4" style={{color: 'var(--ghost-white)'}} />
                         </div>
                       </div>
                     ) : (
@@ -446,10 +454,10 @@ export default function GallerySection() {
                           sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
                           priority={index < 4}
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                        <div className="absolute inset-0 group-hover:transition-colors duration-300" style={{backgroundColor: 'transparent'}} />
                         {/* Image Icon Badge */}
-                        <div className="absolute top-2 right-2 bg-black/70 rounded-full p-2">
-                          <Camera className="h-4 w-4 text-white" />
+                        <div className="absolute top-2 right-2 rounded-full p-2" style={{backgroundColor: 'var(--eerie-black-700)'}}>
+                          <Camera className="h-4 w-4" style={{color: 'var(--ghost-white)'}} />
                         </div>
                       </div>
                     )}

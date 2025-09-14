@@ -343,15 +343,20 @@ export default function MobileGalleryModal({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 bg-black touch-none"
-        style={{ height: '100vh', width: '100vw' }}
+        className="fixed inset-0 z-50 touch-none"
+        style={{
+          backgroundColor: 'var(--safe-black)',
+          height: '100vh', 
+          width: '100vw'
+        }}
         role="dialog"
         aria-modal="true"
         aria-label={`Viewing ${selectedItem.type}: ${selectedItem.title}`}
       >
         {/* Close button - always visible */}
         <button
-          className="absolute top-4 right-4 z-50 p-3 bg-black/50 text-white rounded-full backdrop-blur-sm"
+          className="absolute top-4 right-4 z-50 p-3 rounded-full backdrop-blur-sm"
+          style={{backgroundColor: 'var(--safe-black-500)', color: 'var(--pure-white)'}}
           onClick={onClose}
           aria-label="Close gallery"
         >
@@ -416,7 +421,7 @@ export default function MobileGalleryModal({
               />
             </div>
           ) : (
-            <div className="relative h-full w-full flex items-center justify-center bg-black">
+            <div className="relative h-full w-full flex items-center justify-center" style={{backgroundColor: 'var(--safe-black)'}}>
               <video
                 ref={videoRef}
                 src={selectedItem.src}
@@ -439,8 +444,8 @@ export default function MobileGalleryModal({
                     className="absolute inset-0 flex items-center justify-center"
                     onClick={toggleVideoPlayback}
                   >
-                    <div className="bg-white/90 rounded-full p-4">
-                      <Play className="h-8 w-8 text-black ml-1" />
+                    <div className="rounded-full p-4" style={{backgroundColor: 'var(--pure-white-900)'}}>
+                      <Play className="h-8 w-8 ml-1" style={{color: 'var(--safe-black)'}} />
                     </div>
                   </motion.button>
                 )}
@@ -458,7 +463,8 @@ export default function MobileGalleryModal({
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
-                    className="absolute top-4 right-16 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium"
+                    className="absolute top-4 right-16 px-3 py-1 rounded-full text-sm font-medium"
+                    style={{backgroundColor: 'var(--safe-black-700)', color: 'var(--pure-white)'}}
                   >
                     2x
                   </motion.div>
@@ -502,7 +508,8 @@ export default function MobileGalleryModal({
                 {/* Left arrow */}
                 <button
                   onClick={onPrev}
-                  className="p-3 bg-white/20 text-white rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
+                  className="p-3 rounded-full backdrop-blur-sm transition-colors"
+                  style={{backgroundColor: 'var(--pure-white-200)', color: 'var(--pure-white)'}}
                   aria-label="Previous image"
                 >
                   <ChevronLeft className="h-6 w-6" />
@@ -513,11 +520,11 @@ export default function MobileGalleryModal({
                   {/* Like button */}
                   <button
                     onClick={handleLike}
-                    className={`p-3 rounded-full backdrop-blur-sm transition-colors ${
-                      isLiked 
-                        ? 'bg-red-500/80 text-white' 
-                        : 'bg-white/20 text-white hover:bg-white/30'
-                    }`}
+                    className="p-3 rounded-full backdrop-blur-sm transition-colors"
+                    style={{
+                      backgroundColor: isLiked ? 'var(--cocoa-brown-500)' : 'var(--ghost-white-200)',
+                      color: 'var(--ghost-white)'
+                    }}
                     aria-label={isLiked ? 'Unlike this item' : 'Like this item'}
                   >
                     <Heart className={`h-6 w-6 ${isLiked ? 'fill-current' : ''}`} />
@@ -526,7 +533,8 @@ export default function MobileGalleryModal({
                   {/* Share button */}
                   <button
                     onClick={handleShare}
-                    className="p-3 bg-white/20 text-white rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
+                    className="p-3 rounded-full backdrop-blur-sm transition-colors"
+                  style={{backgroundColor: 'var(--pure-white-200)', color: 'var(--pure-white)'}}
                     aria-label="Share this item"
                   >
                     <Share2 className="h-6 w-6" />
@@ -537,7 +545,8 @@ export default function MobileGalleryModal({
                     <>
                       <button
                         onClick={toggleVideoPlayback}
-                        className="p-3 bg-white/20 text-white rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
+                        className="p-3 rounded-full backdrop-blur-sm transition-colors"
+                  style={{backgroundColor: 'var(--pure-white-200)', color: 'var(--pure-white)'}}
                         aria-label={isPlaying ? 'Pause video' : 'Play video'}
                       >
                         {isPlaying ? (
@@ -550,7 +559,8 @@ export default function MobileGalleryModal({
                       {/* Mute/unmute button */}
                       <button
                         onClick={toggleMute}
-                        className="p-3 bg-white/20 text-white rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
+                        className="p-3 rounded-full backdrop-blur-sm transition-colors"
+                  style={{backgroundColor: 'var(--pure-white-200)', color: 'var(--pure-white)'}}
                         aria-label={isMuted ? 'Unmute video' : 'Mute video'}
                       >
                         {isMuted ? (
@@ -566,7 +576,8 @@ export default function MobileGalleryModal({
                 {/* Right arrow */}
                 <button
                   onClick={onNext}
-                  className="p-3 bg-white/20 text-white rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
+                  className="p-3 rounded-full backdrop-blur-sm transition-colors"
+                  style={{backgroundColor: 'var(--pure-white-200)', color: 'var(--pure-white)'}}
                   aria-label="Next image"
                 >
                   <ChevronRight className="h-6 w-6" />
@@ -585,9 +596,9 @@ export default function MobileGalleryModal({
               exit={{ y: 50, opacity: 0 }}
               className="absolute top-4 left-4 right-4 z-40"
             >
-              <div className="bg-black/60 backdrop-blur-sm rounded-lg p-4 text-white">
+              <div className="backdrop-blur-sm rounded-lg p-4" style={{backgroundColor: 'var(--safe-black-600)', color: 'var(--pure-white)'}}>
                 <h3 className="text-lg font-semibold mb-1">{selectedItem.title}</h3>
-                <p className="text-sm text-gray-200 leading-relaxed">{selectedItem.description}</p>
+                <p className="text-sm leading-relaxed" style={{color: 'var(--pure-white)', opacity: 0.9}}>{selectedItem.description}</p>
               </div>
             </motion.div>
           )}
@@ -600,7 +611,8 @@ export default function MobileGalleryModal({
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
-              className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-black/80 text-white px-4 py-2 rounded-full text-sm backdrop-blur-sm z-50"
+              className="absolute top-20 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-full text-sm backdrop-blur-sm z-50"
+              style={{backgroundColor: 'var(--safe-black-800)', color: 'var(--pure-white)'}}
             >
               {showToast}
             </motion.div>

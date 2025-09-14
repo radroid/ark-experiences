@@ -41,40 +41,45 @@ export default function GameStepsSection() {
       title: 'Form Your Team',
       description: 'Form teams of 2-5 players each. Every team gets a unique starting location.',
       details: ['Equal team sizes', 'Unique starting points'],
-      color: 'bg-blue-100 text-blue-800',
-      bgColor: 'bg-blue-50'
+      iconColor: 'var(--primary-blue)',
+      bgColor: 'var(--primary-blue-100)',
+      cardBgColor: 'var(--primary-blue-50)'
     },
     {
       icon: Search,
       title: 'Solve Clues',
       description: 'Find hidden clues at each location. Some lead to the next spot, others reveal murder details.',
       details: ['Location clues', 'Murder mystery clues', 'Photo evidence required'],
-      color: 'bg-orange-100 text-orange-800',
-      bgColor: 'bg-orange-50'
+      iconColor: 'var(--accent-orange)',
+      bgColor: 'var(--accent-orange-100)',
+      cardBgColor: 'var(--accent-orange-50)'
     },
     {
       icon: MapPin,
       title: 'Navigate Toronto',
       description: 'Visit 9 iconic Toronto locations, each holding clues to the next destination.',
       details: ['9 unique locations', 'Toronto landmarks', 'GPS coordinates provided'],
-      color: 'bg-purple-100 text-purple-800',
-      bgColor: 'bg-purple-50'
+      iconColor: 'var(--highlight-gold)',
+      bgColor: 'var(--highlight-gold-100)',
+      cardBgColor: 'var(--highlight-gold-50)'
     },
     {
       icon: Puzzle,
       title: 'Piece Together',
       description: 'Collect evidence to determine the weapon, person, and motive behind the murder.',
       details: ['Weapon identification', 'Suspect analysis', 'Motive discovery'],
-      color: 'bg-green-100 text-green-800',
-      bgColor: 'bg-green-50'
+      iconColor: 'var(--soft-gray)',
+      bgColor: 'var(--soft-gray-300)',
+      cardBgColor: 'var(--soft-gray-100)'
     },
     {
       icon: Trophy,
       title: 'Win the Game',
       description: 'First team to solve the murder correctly wins the grand prize!',
       details: ['Speed matters', 'Accuracy counts', 'Team collaboration wins'],
-      color: 'bg-yellow-100 text-yellow-800',
-      bgColor: 'bg-yellow-50'
+      iconColor: 'var(--accent-orange)',
+      bgColor: 'var(--accent-orange-200)',
+      cardBgColor: 'var(--accent-orange-100)'
     }
   ]
 
@@ -87,8 +92,9 @@ export default function GameStepsSection() {
     <div ref={containerRef} className="relative">
       {/* Continuous Timeline - Spans entire section height, above backgrounds but below content */}
       <motion.div 
-        className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-200 via-blue-900 to-black z-30"
+        className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-1 z-30"
         style={{ 
+          background: 'var(--primary-blue)',
           top: '60vh', // Start from title area
           height: 'calc(100% - 60vh)' // Extend to bottom with some padding
         }}
@@ -99,22 +105,24 @@ export default function GameStepsSection() {
       />
 
       {/* Title Section */}
-      <section id="how-it-works" className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-blue-50 px-4 relative">
+      <section id="how-it-works" className="min-h-screen flex items-center justify-center px-4 relative" style={{backgroundColor: 'var(--ghost-white)'}}>
         <div className="text-center max-w-4xl mx-auto relative z-10">
           <motion.h2 
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 lg:mb-8"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 lg:mb-8"
+            style={{color: 'var(--text-primary)'}}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
             How the Mystery{' '}
-            <span className="bg-gradient-to-r from-blue-900 to-purple-600 bg-clip-text text-transparent">
+            <span style={{color: 'var(--primary-blue)'}}>
               Unfolds
             </span>
           </motion.h2>
           <motion.p 
-            className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto pb-12 lg:pb-20 px-4"
+            className="text-lg sm:text-xl max-w-3xl mx-auto pb-12 lg:pb-20 px-4"
+            style={{color: 'var(--text-body)'}}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -128,7 +136,7 @@ export default function GameStepsSection() {
       {/* Desktop/Tablet Layout */}
       <div className="relative flex min-h-screen">
         {/* Sticky Left Side - Stacking Steps */}
-        <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-center pl-4 lg:pl-10 pr-8 lg:pr-12 bg-blue-50 overflow-hidden self-start z-20">
+        <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-center pl-4 lg:pl-10 pr-8 lg:pr-12 overflow-hidden self-start z-20" style={{backgroundColor: 'var(--ghost-white)'}}>
           <div className="space-y-2 lg:space-y-3 w-full p-2">
             {steps.map((step, index) => {
               const isRevealed = revealedSteps.includes(index)
@@ -147,11 +155,13 @@ export default function GameStepsSection() {
                     ease: "easeOut"
                   }}
                 >
-                  <div className={`flex items-center gap-4 lg:gap-6 p-4 lg:p-6 rounded-2xl backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 max-w-full ${
-                  isActive ? 'bg-white/95 border-2 border-gray-200' : 'bg-white/80'
-                  }`}>
+                  <div className="flex items-center gap-4 lg:gap-6 p-4 lg:p-6 rounded-2xl backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 max-w-full" style={{
+                    backgroundColor: isActive ? 'var(--ghost-white-950)' : 'var(--ghost-white-800)',
+                    border: isActive ? '2px solid var(--caf-noir-200)' : '1px solid transparent'
+                  }}>
                     <motion.div 
-                      className={`w-12 h-12 lg:w-16 lg:h-16 rounded-full ${step.color} flex items-center justify-center shadow-lg transition-transform duration-300`}
+                      className="w-12 h-12 lg:w-16 lg:h-16 rounded-full flex items-center justify-center shadow-lg transition-transform duration-300"
+                      style={{backgroundColor: step.bgColor, color: step.iconColor}}
                       animate={{
                         scale: isActive ? 1.05 : 1
                       }}
@@ -161,14 +171,14 @@ export default function GameStepsSection() {
                     </motion.div>
                     <div className="text-left">
                       <div className="flex items-center gap-3 mb-2">
-                        <Badge className={`${step.color} text-xs lg:text-sm font-bold px-2 lg:px-3 py-1`}>
+                        <Badge className="text-xs lg:text-sm font-bold px-2 lg:px-3 py-1" style={{backgroundColor: step.bgColor, color: step.iconColor}}>
                           Step {index + 1}
                         </Badge>
                       </div>
                       <motion.h3 
                         className="text-lg lg:text-2xl font-bold transition-colors duration-300"
                         animate={{
-                          color: isActive ? '#7c3aed' : '#374151' // purple-600 : gray-700
+                          color: isActive ? 'var(--yinmn-blue)' : 'var(--text-secondary)'
                         }}
                         transition={{ duration: 0.3 }}
                       >
@@ -186,8 +196,10 @@ export default function GameStepsSection() {
         {steps.map((step, index) => (
           <motion.div
             key={`node-${index}`}
-            className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-white border-1 border-gray-300 shadow-lg z-40"
+            className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-1 shadow-lg z-40"
             style={{ 
+              backgroundColor: 'var(--pure-white)', 
+              borderColor: 'var(--soft-gray-300)',
               top: `${18 + (index * 99)}vh` // Distribute nodes along the timeline
             }}
             initial={{ scale: 0 }}
@@ -195,7 +207,7 @@ export default function GameStepsSection() {
             transition={{ duration: 0.5, delay: 0.8 + (index * 0.2) }}
             viewport={{ once: true }}
           >
-            <div className={`w-full h-full rounded-full ${step.color} flex items-center justify-center opacity-90`}>
+            <div className="w-full h-full rounded-full flex items-center justify-center opacity-90" style={{backgroundColor: step.bgColor, color: step.iconColor}}>
               <step.icon className="h-3 w-3" />
             </div>
           </motion.div>
@@ -206,7 +218,8 @@ export default function GameStepsSection() {
           {steps.map((step, index) => (
             <section 
               key={index}
-              className="min-h-screen bg-blue-50 flex items-center justify-center pl-8 lg:pl-12 pr-4 lg:pr-16 relative"
+              className="min-h-screen flex items-center justify-center pl-8 lg:pl-12 pr-4 lg:pr-16 relative"
+              style={{backgroundColor: 'var(--ghost-white)'}}
               data-step-section={index}
             >
               {/* Active step tracker */}
@@ -243,31 +256,32 @@ export default function GameStepsSection() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true, margin: "-100px" }}
               >
-                <Card className={`border-0 shadow-2xl ${step.bgColor} hover:shadow-3xl transition-all duration-300 max-w-full`}>
+                <Card className="border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 max-w-full" style={{backgroundColor: step.cardBgColor}}>
                   <CardContent className="p-6 lg:p-8">
                     <div className="text-center mb-6 lg:mb-8">
-                      <div className={`inline-flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-full ${step.color} mb-4 lg:mb-6`}>
+                      <div className="inline-flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-full mb-4 lg:mb-6" style={{backgroundColor: step.bgColor, color: step.iconColor}}>
                         <step.icon className="h-8 w-8 lg:h-10 lg:w-10" />
                       </div>
-                      <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3 lg:mb-4">{step.title}</h3>
-                      <p className="text-base lg:text-lg text-gray-600 leading-relaxed">
+                      <h3 className="text-2xl lg:text-3xl font-bold mb-3 lg:mb-4" style={{color: 'var(--text-primary)'}}>{step.title}</h3>
+                      <p className="text-base lg:text-lg leading-relaxed" style={{color: 'var(--text-body)'}}>
                         {step.description}
                       </p>
                     </div>
                     
                     <div className="space-y-3 lg:space-y-4">
-                      <h4 className="text-lg lg:text-xl font-semibold text-gray-900 mb-3 lg:mb-4">Key Points:</h4>
+                      <h4 className="text-lg lg:text-xl font-semibold mb-3 lg:mb-4" style={{color: 'var(--text-primary)'}}>Key Points:</h4>
                       {step.details.map((detail: string, i: number) => (
                         <motion.div
                           key={i}
-                          className="flex items-start gap-3 lg:gap-4 p-3 lg:p-4 bg-white rounded-xl shadow-sm"
+                          className="flex items-start gap-3 lg:gap-4 p-3 lg:p-4 rounded-xl shadow-sm"
+                          style={{backgroundColor: 'var(--ghost-white)'}}
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5, delay: 0.6 + (i * 0.1) }}
                           viewport={{ once: true }}
                         >
-                          <CheckCircle className="h-5 w-5 lg:h-6 lg:w-6 text-green-500 mt-0.5 flex-shrink-0" />
-                          <p className="text-sm lg:text-base text-gray-700 leading-relaxed">{detail}</p>
+                          <CheckCircle className="h-5 w-5 lg:h-6 lg:w-6 mt-0.5 flex-shrink-0" style={{color: 'var(--forest-green)'}} />
+                          <p className="text-sm lg:text-base leading-relaxed" style={{color: 'var(--text-body)'}}>{detail}</p>
                         </motion.div>
                       ))}
                     </div>
@@ -288,18 +302,20 @@ type Step = {
   title: string;
   description: string;
   details: string[];
-  color: string;
+  iconColor: string;
   bgColor: string;
+  cardBgColor: string;
 }
 
 // Mobile-optimized component
 function MobileGameStepsSection({ steps }: { steps: Step[] }) {
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-blue-50 relative overflow-hidden w-full">
+    <div className="relative overflow-hidden w-full" style={{backgroundColor: 'var(--ghost-white)'}}>
       {/* Mobile Continuous Timeline - Behind content */}
       <motion.div 
-        className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-200 via-blue-900 to-black z-0 "
-        style={{ 
+        className="absolute left-1/2 transform -translate-x-1/2 w-1 z-0"
+        style={{
+          background: 'var(--primary-blue)',
           top: '60vh', // Start after title section
           height: 'calc(100% - 60vh)' // Extend to bottom
         }}
@@ -313,19 +329,21 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
       <section id="how-it-works" className="min-h-screen flex items-center justify-center px-4 py-12 relative z-10">
         <div className="text-center max-w-2xl mx-auto">
           <motion.h2 
-            className="text-3xl font-bold text-gray-900 mb-6"
+            className="text-3xl font-bold mb-6"
+            style={{color: 'var(--text-primary)'}}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             How the Mystery{' '}
-            <span className="bg-gradient-to-r from-blue-900 to-purple-600 bg-clip-text text-transparent">
+            <span style={{color: 'var(--primary-blue)'}}>
               Unfolds
             </span>
           </motion.h2>
           <motion.p 
-            className="text-lg text-gray-600 leading-relaxed mb-8"
+            className="text-lg leading-relaxed mb-8"
+            style={{color: 'var(--text-body)'}}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -336,14 +354,16 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
           
           {/* Mobile-friendly scroll indicator */}
           <motion.div
-            className="w-16 h-8 mx-auto border-2 border-blue-100 rounded-full flex items-center justify-center"
+            className="w-16 h-8 mx-auto border-2 rounded-full flex items-center justify-center"
+            style={{borderColor: 'var(--primary-blue-200)'}}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
           >
             <motion.div
-              className="w-2 h-2 bg-blue-500 rounded-full"
+              className="w-2 h-2 rounded-full"
+              style={{backgroundColor: 'var(--primary-blue)'}}
               animate={{ y: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             />
@@ -358,13 +378,14 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
             <div key={index} className="relative">
               {/* Timeline Node for each step */}
               <motion.div
-                className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-white border-1 border-gray-300 shadow-lg z-30 -top-4"
+                className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-1 shadow-lg z-30 -top-4"
+                style={{backgroundColor: 'var(--pure-white)', borderColor: 'var(--soft-gray-300)'}}
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
                 viewport={{ once: true, margin: "-50px" }}
               >
-                <div className={`w-full h-full rounded-full ${step.color} flex items-center justify-center opacity-90`}>
+                <div className="w-full h-full rounded-full flex items-center justify-center opacity-90" style={{backgroundColor: step.bgColor, color: step.iconColor}}>
                   <step.icon className="h-3 w-3" />
                 </div>
               </motion.div>
@@ -375,40 +396,41 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true, margin: "-50px" }}
               >
-                <Card className={`border-0 shadow-xl ${step.bgColor} hover:shadow-2xl transition-all duration-300 overflow-hidden relative z-10 max-w-full`}>
+                <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden relative z-10 max-w-full" style={{backgroundColor: step.cardBgColor}}>
                   <CardContent className="p-6">
                     {/* Step header */}
                     <div className="flex items-center gap-4 mb-6">
-                      <div className={`w-16 h-16 rounded-full ${step.color} flex items-center justify-center shadow-lg`}>
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg" style={{backgroundColor: step.bgColor, color: step.iconColor}}>
                         <step.icon className="h-8 w-8" />
                       </div>
                       <div className="flex-1">
-                        <Badge className={`${step.color} text-sm font-bold px-3 py-1 mb-2`}>
+                        <Badge className="text-sm font-bold px-3 py-1 mb-2" style={{backgroundColor: step.bgColor, color: step.iconColor}}>
                           Step {index + 1}
                         </Badge>
-                        <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
+                        <h3 className="text-xl font-bold" style={{color: 'var(--text-primary)'}}>{step.title}</h3>
                       </div>
                     </div>
                     
                     {/* Step description */}
-                    <p className="text-gray-600 leading-relaxed mb-6 text-base">
+                    <p className="leading-relaxed mb-6 text-base" style={{color: 'var(--caf-noir-600)'}}>
                       {step.description}
                     </p>
                     
                     {/* Key points */}
                     <div className="space-y-3">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">Key Points:</h4>
+                      <h4 className="text-lg font-semibold mb-3" style={{color: 'var(--text-primary)'}}>Key Points:</h4>
                       {step.details.map((detail: string, i: number) => (
                         <motion.div
                           key={i}
-                          className="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm"
+                          className="flex items-start gap-3 p-3 rounded-lg shadow-sm"
+                          style={{backgroundColor: 'var(--ghost-white)'}}
                           initial={{ opacity: 0, x: -20 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           transition={{ duration: 0.4, delay: 0.3 + (i * 0.1) }}
                           viewport={{ once: true }}
                         >
-                          <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                          <p className="text-gray-700 text-sm leading-relaxed">{detail}</p>
+                          <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" style={{color: 'var(--forest-green)'}} />
+                          <p className="text-sm leading-relaxed" style={{color: 'var(--text-body)'}}>{detail}</p>
                         </motion.div>
                       ))}
                     </div>

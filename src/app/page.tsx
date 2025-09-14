@@ -8,7 +8,7 @@ import SectionScrollContainer from '@/components/sections/section-scroll-contain
 
 export default function Home() {
   return (
-    <main>
+    <main id="main-content">
       <SectionScrollContainer>
         <HeroSection />
         <HowItWorks />

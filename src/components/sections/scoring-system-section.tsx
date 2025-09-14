@@ -35,7 +35,7 @@ export default function ScoringSystemSection() {
   }
 
   return (
-    <section id="mystery-cta" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black py-20">
+    <section id="mystery-cta" className="relative min-h-screen flex items-center justify-center overflow-hidden py-20" style={{backgroundColor: 'var(--eerie-black)'}}>
       {/* Dark Lava Lamp Background */}
       <div className="absolute inset-0 dark-lava-lamp-bg" />
       
@@ -59,7 +59,8 @@ export default function ScoringSystemSection() {
         >
           {/* Section Title */}
           <motion.h1 
-            className="text-5xl md:text-7xl font-bold text-white mb-8"
+            className="text-5xl md:text-7xl font-bold mb-8"
+            style={{color: 'var(--text-on-dark)'}}
             variants={itemVariants}
           >
             Scoring System
@@ -67,11 +68,12 @@ export default function ScoringSystemSection() {
 
           {/* Main Headline */}
           <motion.h2 
-            className="text-md md:text-lg text-gray-400 mb-6 leading-tight"
+            className="text-md md:text-lg mb-6 leading-tight"
+            style={{color: 'var(--pure-white)', opacity: 0.85}}
             variants={itemVariants}
           >
             So you want to know{' '}
-            <span className="text-orange-400">
+            <span style={{color: 'var(--highlight-gold)'}}>
               everything
             </span>{' '}
             now?
@@ -85,7 +87,7 @@ export default function ScoringSystemSection() {
             transition={{ duration: 0.3 }}
           >
             <div className="inline-flex items-center justify-center w-24 h-24 rounded-full  shadow-2xl">
-              <Lock className="h-12 w-12 text-white" />
+              <Lock className="h-12 w-12" style={{color: 'var(--text-on-dark)'}} />
             </div>
           </motion.div>
 
@@ -93,23 +95,27 @@ export default function ScoringSystemSection() {
 
           {/* Subheadline */}
           <motion.p 
-            className="text-3xl md:text-4xl font-bold text-gray-200 mb-4 max-w-3xl mx-auto leading-relaxed"
+            className="text-3xl md:text-4xl font-bold mb-4 max-w-3xl mx-auto leading-relaxed"
+            style={{color: 'var(--text-on-dark)'}}
             variants={itemVariants}
           >
             Where&apos;s the{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text text-transparent font-semibold">mystery</span>{' '}
+            <span style={{color: 'var(--highlight-gold)', fontWeight: 'bold'}}>
+              mystery
+            </span>{' '}
             in that?
           </motion.p>
 
           {/* CTA Description */}
           <motion.p 
-            className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto"
+            className="text-lg mb-12 max-w-2xl mx-auto"
+            style={{color: 'var(--pure-white)', opacity: 0.9}}
             variants={itemVariants}
           >
             Contact us and we can discuss everything from{' '}
-            <span className="text-yellow-400 font-semibold">prizes</span>,{' '}
-            <span className="text-green-400 font-semibold">prices</span>, and{' '}
-            <span className="text-blue-400 font-semibold">points</span>.
+            <span className="font-semibold" style={{color: 'var(--highlight-gold)'}}>prizes</span>,{' '}
+            <span className="font-semibold" style={{color: 'var(--accent-orange)'}}>prices</span>, and{' '}
+            <span className="font-semibold" style={{color: 'var(--primary-blue)'}}>points</span>.
           </motion.p>
 
           {/* Main Contact Form CTA */}
@@ -123,7 +129,7 @@ export default function ScoringSystemSection() {
               <Button 
                 onClick={scrollToContact}
                 size="lg" 
-                className="bg-gradient-to-r from-blue-300 to-blue-700 hover:border-0.5 hover:border-blue-300 text-black font-bold px-12 py-6 text-xl rounded-full shadow-2xl transform transition-all duration-150 cursor-pointer"
+                className="cta-button font-bold px-12 py-6 text-xl rounded-full shadow-2xl transform transition-all duration-150 cursor-pointer"
               >
                 <Mail className="h-6 w-6 mr-3" />
                 Contact Us
@@ -133,12 +139,17 @@ export default function ScoringSystemSection() {
 
           {/* Bottom Teaser */}
           <motion.div 
-            className="mt-16 inline-flex items-center gap-3 bg-gradient-to-r from-blue-600/20 to-blue-600/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 px-6 py-3 rounded-full"
+            className="mt-16 inline-flex items-center gap-3 backdrop-blur-sm border px-6 py-3 rounded-full"
+            style={{
+              backgroundColor: 'var(--pure-white-200)',
+              borderColor: 'var(--pure-white-400)',
+              color: 'var(--safe-black)'
+            }}
             variants={itemVariants}
           >
             <Eye className="h-5 w-5" />
             <span className="text-sm">The real mystery begins when you contact us...</span>
-            <Trophy className="h-5 w-5 text-yellow-400" />
+            <Trophy className="h-5 w-5" style={{color: 'var(--highlight-gold)'}} />
           </motion.div>
         </motion.div>
       </div>

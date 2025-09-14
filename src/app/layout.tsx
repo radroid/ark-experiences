@@ -203,6 +203,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
+        {/* Skip link for accessibility */}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <PerformanceOptimizer />
         <ScrollBehaviorHandler />
         <Navbar />
