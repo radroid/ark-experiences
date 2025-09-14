@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, easeOut } from 'framer-motion'
-import { X, ChevronLeft, ChevronRight, Play, Pause, Volume2, VolumeX, Camera, Video, Users, MapPin } from 'lucide-react'
+import { Camera, Video, Users, MapPin, Play } from 'lucide-react'
 import Image from 'next/image'
+import MobileGalleryModal from '@/components/mobile-gallery-modal'
 
 interface GalleryItem {
   id: number
@@ -22,10 +23,7 @@ interface GalleryItem {
 export default function GallerySection() {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'event' | 'clue' | 'celebration'>('all')
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
   const [hoveredVideoId, setHoveredVideoId] = useState<number | null>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
   const hoverVideoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({})
   const [isTouchDevice, setIsTouchDevice] = useState(false)
 
@@ -238,7 +236,6 @@ export default function GallerySection() {
     const currentIndex = filteredItems.findIndex(item => item.id === selectedItem.id)
     const nextIndex = (currentIndex + 1) % filteredItems.length
     setSelectedItem(filteredItems[nextIndex])
-    setIsPlaying(false)
   }
 
   const prevItem = () => {
@@ -246,26 +243,8 @@ export default function GallerySection() {
     const currentIndex = filteredItems.findIndex(item => item.id === selectedItem.id)
     const prevIndex = (currentIndex - 1 + filteredItems.length) % filteredItems.length
     setSelectedItem(filteredItems[prevIndex])
-    setIsPlaying(false)
   }
 
-  const togglePlay = () => {
-    if (selectedItem?.type === 'video' && videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause()
-      } else {
-        videoRef.current.play()
-      }
-      setIsPlaying(!isPlaying)
-    }
-  }
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted
-      setIsMuted(!isMuted)
-    }
-  }
 
   const handleVideoHover = (itemId: number) => {
     setHoveredVideoId(itemId)
@@ -300,34 +279,11 @@ export default function GallerySection() {
     }
   }, [selectedItem])
 
-  // Handle item click with mobile-friendly behavior
+  // Handle item click - always open full-screen modal
   const handleItemClick = (item: GalleryItem) => {
-    if (isTouchDevice && item.type === 'video') {
-      const isPreviewActive = hoveredVideoId === item.id
-      if (!isPreviewActive) {
-        setHoveredVideoId(item.id)
-        const video = hoverVideoRefs.current[item.id]
-        if (video) {
-          video.currentTime = 0
-          video.play().catch(() => {
-            // Ignore play promise rejections
-          })
-        }
-        return
-      }
-    }
     setSelectedItem(item)
   }
 
-  useEffect(() => {
-    if (selectedItem?.type === 'video' && videoRef.current) {
-      const video = videoRef.current
-      video.addEventListener('ended', () => setIsPlaying(false))
-      return () => {
-        video.removeEventListener('ended', () => setIsPlaying(false))
-      }
-    }
-  }, [selectedItem])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -505,97 +461,15 @@ export default function GallerySection() {
         </motion.div>
       </div>
 
-      {/* Enhanced Lightbox Modal */}
-      <AnimatePresence>
-        {selectedItem && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedItem(null)}
-          >
-            <motion.div
-              className="relative max-w-6xl max-h-[90vh] bg-white rounded-lg overflow-hidden"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                className="absolute top-4 right-4 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
-                onClick={() => setSelectedItem(null)}
-              >
-                <X className="h-6 w-6" />
-              </button>
+      {/* Full-Screen Gallery Modal - All Devices */}
+      <MobileGalleryModal
+        items={filteredItems}
+        selectedItem={selectedItem}
+        onClose={() => setSelectedItem(null)}
+        onNext={nextItem}
+        onPrev={prevItem}
+      />
 
-              <button
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
-                onClick={prevItem}
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-
-              <button
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
-                onClick={nextItem}
-              >
-                <ChevronRight className="h-6 w-6" />
-              </button>
-
-              {/* Media Display */}
-              <div className="relative">
-                {selectedItem.type === 'video' ? (
-                  <div className="relative bg-black">
-                    <video
-                      ref={videoRef}
-                      src={selectedItem.src}
-                      className="w-full h-auto max-h-[70vh] object-contain"
-                      poster={selectedItem.thumbnail}
-                      playsInline
-                      onClick={togglePlay}
-                    />
-                    
-                    {/* Video Controls Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={togglePlay}
-                          className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
-                        >
-                          {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
-                        </button>
-                        <button
-                          onClick={toggleMute}
-                          className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
-                        >
-                          {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="relative">
-                    <Image
-                      src={selectedItem.src}
-                      alt={selectedItem.alt}
-                      width={selectedItem.width || 800}
-                      height={selectedItem.height || 600}
-                      className="w-full h-auto max-h-[70vh] object-contain"
-                      priority
-                    />
-                  </div>
-                )}
-              </div>
-
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{selectedItem.title}</h3>
-                <p className="text-gray-600">{selectedItem.description}</p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   )
 } 
