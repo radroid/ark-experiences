@@ -5,6 +5,7 @@ import Navbar from '@/components/ui/navbar'
 import FloatingBlogButton from '@/components/floating-blog-button'
 import FloatingContactButton from '@/components/floating-contact-button'
 import ScrollBehaviorHandler from '@/components/scroll-behavior-handler'
+import PerformanceOptimizer from '@/components/performance-optimizer'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
@@ -202,6 +203,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
+        <PerformanceOptimizer />
         <ScrollBehaviorHandler />
         <Navbar />
         <FloatingContactButton />

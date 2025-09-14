@@ -23,55 +23,37 @@ export default function Navbar() {
   ]
 
 
-  // Custom hook to detect when navigation items are too compressed
+  // Simplified responsive logic using viewport width breakpoints
   useEffect(() => {
     const checkNavLayout = () => {
-      if (navRef.current) {
-        const navElement = navRef.current
-        const navItems = navElement.querySelectorAll('[data-nav-item]')
-        let shouldUseMobileLayout = false
-
-        // Check if items are too compressed (less than 5px gap)
-        const items = Array.from(navItems)
-        for (let i = 0; i < items.length - 1; i++) {
-          const currentItem = items[i].getBoundingClientRect()
-          const nextItem = items[i + 1].getBoundingClientRect()
-          const gap = nextItem.left - currentItem.right
-          
-          if (gap < 5) {
-            shouldUseMobileLayout = true
-            break
-          }
-        }
-
-        // Also check if the capsule itself is too narrow for content
-        if (navElement.offsetWidth < 480) {
-          shouldUseMobileLayout = true
-        }
-
-        setIsMobileLayout(shouldUseMobileLayout)
-      }
+      // Simple breakpoint-based logic - much more performant
+      const viewportWidth = window.innerWidth
+      
+      // Use hamburger menu below 768px or if viewport is very narrow
+      const shouldUseMobileLayout = viewportWidth < 768
+      
+      setIsMobileLayout(shouldUseMobileLayout)
     }
 
-    // Check on mount and resize
+    // Check on mount
     checkNavLayout()
     
-    // Debounced resize handler
-    let resizeTimer: NodeJS.Timeout
+    // Throttled resize handler for better performance
+    let ticking = false
     const handleResize = () => {
-      clearTimeout(resizeTimer)
-      resizeTimer = setTimeout(checkNavLayout, 100)
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          checkNavLayout()
+          ticking = false
+        })
+        ticking = true
+      }
     }
     
-    window.addEventListener('resize', handleResize)
-    
-    // Check after a short delay to ensure fonts are loaded
-    const timer = setTimeout(checkNavLayout, 100)
+    window.addEventListener('resize', handleResize, { passive: true })
 
     return () => {
       window.removeEventListener('resize', handleResize)
-      clearTimeout(timer)
-      clearTimeout(resizeTimer)
     }
   }, [])
 
@@ -93,21 +75,21 @@ export default function Navbar() {
         />
       </Link>
       
-      {/* Desktop Navigation - always rendered but conditionally visible */}
+      {/* Desktop Navigation - hardware accelerated transitions */}
       <div 
         ref={navRef}
-        className={`${isMobileLayout ? 'invisible' : 'visible'} absolute left-1/2 transform -translate-x-1/2`}
+        className={`navbar-desktop ${isMobileLayout ? 'navbar-hidden' : 'navbar-visible'} absolute left-1/2 -translate-x-1/2`}
         style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
       >
         <div className="w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full glass shadow-lg backdrop-blur-xl bg-white/40 border border-white/30 px-4" style={{boxShadow: '0 8px 32px 0 rgba(31,38,135,0.25)'}}>
           <NavigationMenu className="w-full">
-            <NavigationMenuList className="flex items-center justify-center w-full" style={{ gap: 'clamp(5px, 2vw, 3rem)' }}>
+            <NavigationMenuList className="flex items-center justify-center w-full gap-6 md:gap-8 lg:gap-12">
               {navItems.map((item) => (
                 <NavigationMenuItem key={item.href}>
                   <Link 
                     href={item.href} 
                     data-nav-item
-                    className="font-semibold text-lg text-black hover:text-white hover:bg-[#1b6cfd] transition-all duration-200 cursor-pointer px-3 py-2 rounded-lg whitespace-nowrap flex-shrink-0"
+                    className="font-semibold text-lg text-black hover:text-white hover:bg-[#1b6cfd] transition-colors duration-200 cursor-pointer px-3 py-2 rounded-lg whitespace-nowrap flex-shrink-0"
                   >
                     {item.label}
                   </Link>
@@ -118,14 +100,14 @@ export default function Navbar() {
         </div>
       </div>
       
-      {/* Mobile Navigation - shown when desktop nav wraps or is too narrow */}
-      <div className={isMobileLayout ? 'block' : 'hidden'}>
+      {/* Mobile Navigation - hardware accelerated transitions */}
+      <div className={`navbar-mobile ${isMobileLayout ? 'navbar-mobile-visible' : 'navbar-mobile-hidden'}`}>
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>
             <Button 
               variant="ghost" 
               size="icon" 
-              className="h-14 w-14 rounded-full glass shadow-lg backdrop-blur-xl bg-white/40 border border-white/30 hover:bg-white/60 transition-all duration-200"
+              className="h-14 w-14 rounded-full glass shadow-lg backdrop-blur-xl bg-white/40 border border-white/30 hover:bg-white/60 transition-colors duration-200"
               aria-label="Open navigation menu"
             >
               <Menu className="h-7 w-7 text-black" />

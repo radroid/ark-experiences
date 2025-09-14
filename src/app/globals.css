@@ -871,7 +871,7 @@ html.blog-page body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-gap: 15px;
+  gap: 15px;
 }
 
 /* Floating buttons positioning */
@@ -913,6 +913,39 @@ html.blog-page body {
   box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.15), 0 15px 15px -5px rgba(0, 0, 0, 0.06);
 }
 
+/* Navbar performance optimizations */
+.navbar-desktop {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.navbar-visible {
+  transform: translateX(-50%) translateY(0) scale(1);
+  opacity: 1;
+}
+
+.navbar-hidden {
+  transform: translateX(-50%) translateY(-10px) scale(0.95);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navbar-mobile {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  will-change: transform, opacity;
+}
+
+.navbar-mobile-visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.navbar-mobile-hidden {
+  transform: scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Contact form enhancements */
 .contact-form-field {
   transition: all 0.2s ease-in-out;
@@ -937,12 +970,66 @@ html.blog-page body {
 
 /* Date picker button styling */
 .date-picker-button {
-  transition: all 0.2s ease-in-out;
+  transition: all var(--transition-duration, 0.2s) ease-in-out;
 }
 
 .date-picker-button:hover {
   border-color: #60a5fa;
   background-color: rgba(59, 130, 246, 0.02);
+}
+
+/* Performance optimizations based on device capabilities */
+:root {
+  --animation-duration: 30ms;
+  --transition-duration: 20ms;
+}
+
+/* Reduced motion for low-performance devices */
+.reduce-motion * {
+  animation-duration: 0ms !important;
+  transition-duration: 0ms !important;
+}
+
+.reduce-motion-partial * {
+  animation-duration: calc(var(--animation-duration) * 0.5) !important;
+  transition-duration: calc(var(--transition-duration) * 0.5) !important;
+}
+
+/* Reduced blur effects for low-performance devices */
+.reduce-blur .glass,
+.reduce-blur .glass-card,
+.reduce-blur .glass-button {
+  backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+.reduce-blur .floating-circle,
+.reduce-blur .floating-circle-small,
+.reduce-blur .dark-floating-circle,
+.reduce-blur .dark-floating-circle-small {
+  filter: none !important;
+  opacity: 0.1 !important;
+}
+
+/* Data saving optimizations */
+.save-data .lava-lamp-bg::before,
+.save-data .lava-lamp-bg::after,
+.save-data .floating-circle,
+.save-data .floating-circle-small {
+  display: none !important;
+}
+
+/* Enhanced navbar transitions with performance considerations */
+.navbar-desktop {
+  transition: transform var(--transition-duration, 0.3s) cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity var(--transition-duration, 0.3s) ease;
+  will-change: transform, opacity;
+}
+
+.navbar-mobile {
+  transition: transform var(--transition-duration, 0.2s) cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity var(--transition-duration, 0.2s) ease;
+  will-change: transform, opacity;
 }
 
 /* Responsive breakpoints for navbar and floating buttons */
