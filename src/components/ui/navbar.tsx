@@ -78,7 +78,7 @@ export default function Navbar() {
       {/* Desktop Navigation - hardware accelerated transitions */}
       <div 
         ref={navRef}
-        className={`navbar-desktop ${isMobileLayout ? 'navbar-hidden' : 'navbar-visible'} absolute left-1/2 -translate-x-1/2`}
+        className={`navbar-desktop ${isMobileLayout ? 'navbar-hidden' : 'navbar-visible'} absolute left-1/2 transform -translate-x-1/2`}
         style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
       >
         <div className="w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full glass shadow-lg backdrop-blur-xl bg-white/40 border border-white/30 px-4" style={{boxShadow: '0 8px 32px 0 rgba(31,38,135,0.25)'}}>
@@ -100,8 +100,8 @@ export default function Navbar() {
         </div>
       </div>
       
-      {/* Mobile Navigation - hardware accelerated transitions */}
-      <div className={`navbar-mobile ${isMobileLayout ? 'navbar-mobile-visible' : 'navbar-mobile-hidden'}`}>
+      {/* Mobile Navigation - shown when desktop nav is hidden */}
+      <div className={isMobileLayout ? 'block' : 'hidden'}>
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>
             <Button 
