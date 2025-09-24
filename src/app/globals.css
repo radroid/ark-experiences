@@ -61,6 +61,7 @@
   --accent-orange: #BD2E00;     /* 8.7:1 on white, 7.3:1 on blue */
   --highlight-gold: #A28300;    /* 9.1:1 on black (dark backgrounds only) */
   --soft-gray: #C7C7C7;         /* Dividers, not for text */
+  --soft-green: #008000;        /* Dividers, not for text */
   --safe-black: #181818;        /* Always safe text color */
   --pure-white: #FFFFFF;        /* Always safe background */
   
@@ -302,11 +303,18 @@
     background-color: var(--eerie-black);
   }
   
-  /* Glass morphism effects */
+  /* Glass morphism effects - No stacking context creation */
   .glass {
+    background: var(--ghost-white-300);
+    border: 1px solid var(--ghost-white-400);
+  }
+  
+  /* Only apply backdrop-filter when isolation is not needed */
+  .glass-with-blur {
     background: var(--ghost-white-300);
     backdrop-filter: blur(10px);
     border: 1px solid var(--ghost-white-400);
+    isolation: isolate;
   }
 
   /* Primary CTA Button - Solid color with gradient on hover */
@@ -374,15 +382,28 @@
   
   .glass-dark {
     background: var(--safe-black-50);
+    border: 1px solid var(--eerie-black-100);
+  }
+  
+  .glass-dark-with-blur {
+    background: var(--safe-black-50);
     backdrop-filter: blur(10px);
     border: 1px solid var(--eerie-black-100);
+    isolation: isolate;
   }
   
   .glass-card {
     background: var(--ghost-white-400);
+    border: 1px solid var(--ghost-white-300);
+    box-shadow: 0 8px 32px 0 var(--eerie-black-100);
+  }
+  
+  .glass-card-with-blur {
+    background: var(--ghost-white-400);
     backdrop-filter: blur(16px);
     border: 1px solid var(--ghost-white-300);
     box-shadow: 0 8px 32px 0 var(--eerie-black-100);
+    isolation: isolate;
   }
   
   /* Animated gradient backgrounds */
@@ -403,6 +424,8 @@
     border-radius: 50%;
     filter: blur(25px);
     opacity: 0.7;
+    /* Explicitly set z-index to avoid stacking issues */
+    z-index: -1;
   }
   
   .lava-lamp-bg::before {
@@ -429,6 +452,17 @@
     border-radius: 50%;
     filter: blur(20px);
     opacity: 0.6;
+    /* Keep floating elements behind content */
+    z-index: -2;
+  }
+  
+  /* Opacity utilities without stacking context creation */
+  .opacity-15 {
+    opacity: 0.15;
+  }
+  
+  .opacity-90 {
+    opacity: 0.9;
   }
   
   .floating-circle:nth-child(1) {
@@ -467,6 +501,8 @@
     border-radius: 50%;
     filter: blur(15px);
     opacity: 0.5;
+    /* Keep floating elements behind content */
+    z-index: -2;
   }
   
   .floating-circle-small:nth-child(4) {
@@ -512,6 +548,8 @@
     border-radius: 50%;
     filter: blur(35px);
     opacity: 0.8;
+    /* Explicitly set z-index to avoid stacking issues */
+    z-index: -1;
   }
   
   .dark-lava-lamp-bg::before {
@@ -538,6 +576,8 @@
     border-radius: 50%;
     filter: blur(25px);
     opacity: 0.7;
+    /* Keep floating elements behind content */
+    z-index: -2;
   }
   
   .dark-floating-circle:nth-child(1) {
@@ -576,6 +616,8 @@
     border-radius: 50%;
     filter: blur(20px);
     opacity: 0.6;
+    /* Keep floating elements behind content */
+    z-index: -2;
   }
   
   .dark-floating-circle-small:nth-child(4) {
@@ -1054,9 +1096,8 @@ html.blog-page body {
   body {
     /* Prevent overscroll bounce effects that can feel jarring */
     overscroll-behavior-y: contain;
-    /* Enable hardware acceleration for smoother scrolling */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    /* Enable hardware acceleration for smoother scrolling without creating stacking context */
+    will-change: scroll-position;
   }
   
   /* Hide custom scrollbars on mobile for cleaner look */
@@ -1082,12 +1123,12 @@ html.blog-page body {
   gap: 15px;
 }
 
-/* Floating buttons positioning */
+/* Floating buttons positioning - Proper z-index hierarchy */
 .floating-blog-btn {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  z-index: 50;
+  z-index: 60;
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
@@ -1106,7 +1147,7 @@ html.blog-page body {
   position: fixed;
   bottom: 1.5rem;
   right: 6rem; /* Positioned to the left of blog button */
-  z-index: 50;
+  z-index: 60;
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
@@ -1121,10 +1162,10 @@ html.blog-page body {
   box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.15), 0 15px 15px -5px rgba(0, 0, 0, 0.06);
 }
 
-/* Navbar performance optimizations */
+/* Navbar performance optimizations - Avoid stacking context issues */
 .navbar-desktop {
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity;
+  /* Removed will-change to prevent stacking context creation */
 }
 
 .navbar-visible {
@@ -1138,7 +1179,7 @@ html.blog-page body {
 
 .navbar-mobile {
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
-  will-change: transform, opacity;
+  /* Removed will-change to prevent stacking context creation */
 }
 
 .navbar-mobile-visible {
@@ -1268,7 +1309,7 @@ html.blog-page body {
   padding: 8px;
   text-decoration: none;
   border-radius: 4px;
-  z-index: 100;
+  z-index: 9999;
 }
 
 .skip-link:focus {
@@ -1295,7 +1336,10 @@ html.blog-page body {
 /* Reduced blur effects for low-performance devices */
 .reduce-blur .glass,
 .reduce-blur .glass-card,
-.reduce-blur .glass-button {
+.reduce-blur .glass-button,
+.reduce-blur .glass-with-blur,
+.reduce-blur .glass-card-with-blur,
+.reduce-blur .glass-dark-with-blur {
   backdrop-filter: none !important;
   background: rgba(255, 255, 255, 0.9) !important;
 }
@@ -1316,7 +1360,7 @@ html.blog-page body {
   display: none !important;
 }
 
-/* Apple-Style Glass Navbar */
+/* Apple-Style Glass Navbar - Isolated stacking context */
 .liquid-glass-navbar {
   /* Simple blurred translucent navbar */
   background: rgba(255, 255, 255, 0.6);
@@ -1324,6 +1368,9 @@ html.blog-page body {
   -webkit-backdrop-filter: blur(28px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  /* Ensure navbar has its own isolated stacking context */
+  isolation: isolate;
+  z-index: 50;
 }
 
 /* Scrolled state for enhanced blur */
@@ -1332,6 +1379,9 @@ html.blog-page body {
   backdrop-filter: blur(30px) saturate(180%);
   -webkit-backdrop-filter: blur(30px) saturate(180%);
   border-color: rgba(0, 0, 0, 0.06);
+  /* Maintain isolation in scrolled state */
+  isolation: isolate;
+  z-index: 50;
 }
 
 /* Dark mode support */
@@ -1400,6 +1450,9 @@ html.blog-page body {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 0.5px solid rgba(0, 0, 0, 0.04);
   border-radius: 50%;
+  /* Isolate mobile trigger stacking context */
+  isolation: isolate;
+  z-index: 50;
   color: #1d1d1f;
   transition: all 0.15s ease-out;
   box-shadow: 
@@ -1437,6 +1490,9 @@ html.blog-page body {
   backdrop-filter: blur(40px) saturate(180%);
   -webkit-backdrop-filter: blur(40px) saturate(180%);
   border-right: 0.5px solid rgba(0, 0, 0, 0.06);
+  /* Isolate mobile menu stacking context */
+  isolation: isolate;
+  z-index: 60;
   box-shadow: 
     0 25px 50px -12px rgba(0, 0, 0, 0.25),
     0 0 0 0.5px rgba(255, 255, 255, 0.05);
@@ -1526,17 +1582,17 @@ html.blog-page body {
   transition: all 0.1s ease-out;
 }
 
-/* Enhanced navbar transitions with performance considerations */
+/* Enhanced navbar transitions with performance considerations - No stacking contexts */
 .navbar-desktop {
   transition: transform var(--transition-duration, 0.3s) cubic-bezier(0.4, 0, 0.2, 1), 
               opacity var(--transition-duration, 0.3s) ease;
-  will-change: transform, opacity;
+  /* Removed will-change to prevent stacking context creation */
 }
 
 .navbar-mobile {
   transition: transform var(--transition-duration, 0.2s) cubic-bezier(0.4, 0, 0.2, 1), 
               opacity var(--transition-duration, 0.2s) ease;
-  will-change: transform, opacity;
+  /* Removed will-change to prevent stacking context creation */
 }
 
 /* Responsive breakpoints for navbar and floating buttons */

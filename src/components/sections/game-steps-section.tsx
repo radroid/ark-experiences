@@ -42,7 +42,7 @@ export default function GameStepsSection() {
       description: 'Form teams of 2-5 players each. Every team gets a unique starting location.',
       details: ['Equal team sizes', 'Unique starting points'],
       iconColor: 'var(--primary-blue)',
-      bgColor: 'var(--primary-blue-100)',
+      bgColor: 'var(--primary-blue-20)',
       cardBgColor: 'var(--primary-blue-50)'
     },
     {
@@ -68,9 +68,9 @@ export default function GameStepsSection() {
       title: 'Piece Together',
       description: 'Collect evidence to determine the weapon, person, and motive behind the murder.',
       details: ['Weapon identification', 'Suspect analysis', 'Motive discovery'],
-      iconColor: 'var(--soft-gray)',
-      bgColor: 'var(--soft-gray-300)',
-      cardBgColor: 'var(--soft-gray-100)'
+      iconColor: 'var(--soft-green)',
+      bgColor: 'var(--soft-green-300)',
+      cardBgColor: 'var(--soft-green-100)'
     },
     {
       icon: Trophy,
@@ -91,17 +91,14 @@ export default function GameStepsSection() {
   return (
     <div ref={containerRef} className="relative">
       {/* Continuous Timeline - Spans entire section height, above backgrounds but below content */}
-      <motion.div 
-        className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-1 z-30"
+      <div 
+        className="hidden lg:block absolute w-1 z-0"
         style={{ 
           background: 'var(--primary-blue)',
           top: '60vh', // Start from title area
-          height: 'calc(100% - 60vh)' // Extend to bottom with some padding
+          height: 'calc(100% - 60vh)', // Extend to bottom with some padding
+          left: 'calc(50% - 0.125rem)' // Center without transform
         }}
-        initial={{ scaleY: 0, transformOrigin: 'top' }}
-        whileInView={{ scaleY: 1 }}
-        transition={{ duration: 2, delay: 0.5 }}
-        viewport={{ once: true }}
       />
 
       {/* Title Section */}
@@ -210,23 +207,20 @@ export default function GameStepsSection() {
 
         {/* Timeline Nodes - positioned over the background timeline */}
         {steps.map((step, index) => (
-          <motion.div
+          <div
             key={`node-${index}`}
-            className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-1 shadow-lg z-40"
+            className="hidden lg:block absolute w-6 h-6 rounded-full border-1 shadow-lg z-20"
             style={{ 
               backgroundColor: 'var(--pure-white)', 
               borderColor: 'var(--soft-gray-300)',
-              top: `${18 + (index * 99)}vh` // Distribute nodes along the timeline
+              top: `${18 + (index * 99)}vh`, // Distribute nodes along the timeline
+              left: 'calc(50% - 0.75rem)' // Center without transform
             }}
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.8 + (index * 0.2) }}
-            viewport={{ once: true }}
           >
             <div className="w-full h-full rounded-full flex items-center justify-center opacity-90" style={{backgroundColor: step.bgColor, color: step.iconColor}}>
               <step.icon className="h-3 w-3" />
             </div>
-          </motion.div>
+          </div>
         ))}
 
         {/* Scrollable Right Side - Step Details */}
@@ -328,21 +322,18 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
   return (
     <div className="relative overflow-hidden w-full" style={{backgroundColor: 'var(--ghost-white)'}}>
       {/* Mobile Continuous Timeline - Behind content */}
-      <motion.div 
-        className="absolute left-1/2 transform -translate-x-1/2 w-1 z-0"
+      {/* <div 
+        className="absolute w-1 z-0"
         style={{
           background: 'var(--primary-blue)',
           top: '60vh', // Start after title section
-          height: 'calc(100% - 60vh)' // Extend to bottom
+          height: 'calc(100% - 60vh)', // Extend to bottom
+          left: 'calc(50% - 0.125rem)' // Center without transform
         }}
-        initial={{ scaleY: 0, transformOrigin: 'top' }}
-        whileInView={{ scaleY: 1 }}
-        transition={{ duration: 2, delay: 0.5 }}
-        viewport={{ once: true }}
-      />
+      /> */}
 
       {/* Mobile Title Section */}
-      <section id="how-it-works" className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden">
+      <section id="how-it-works" className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden z-20">
         {/* Light Lava Lamp Background */}
         <div className="absolute inset-0 lava-lamp-bg" />
         
@@ -356,8 +347,8 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
           <div className="floating-circle-small"></div>
         </div>
         
-        {/* Subtle Overlay for better text readability */}
-        <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.15}} />
+        {/* Subtle Overlay for better text readability - No stacking context */}
+        <div className="absolute inset-0 opacity-15" style={{backgroundColor: 'var(--pure-white)'}} />
 
         <div className="text-center max-w-2xl mx-auto relative z-10">
           <motion.h2 
@@ -404,23 +395,23 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
       </section>
 
       {/* Mobile Steps - Single Column Layout */}
-      <div className="px-4 pb-12 relative z-20 w-full overflow-x-hidden">
+      <div className="px-4 pb-12 relative w-full z-20 overflow-x-hidden">
         <div className="max-w-lg mx-auto space-y-8">
           {steps.map((step, index) => (
             <div key={index} className="relative">
               {/* Timeline Node for each step */}
-              <motion.div
-                className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-1 shadow-lg z-30 -top-4"
-                style={{backgroundColor: 'var(--pure-white)', borderColor: 'var(--soft-gray-300)'}}
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
-                viewport={{ once: true, margin: "-50px" }}
+              <div
+                className="absolute w-6 h-6 rounded-full border-1 shadow-lg z-20 -top-4"
+                style={{
+                  backgroundColor: 'var(--pure-white)', 
+                  borderColor: 'var(--soft-gray-300)',
+                  left: 'calc(50% - 0.75rem)' // Center without transform
+                }}
               >
                 <div className="w-full h-full rounded-full flex items-center justify-center opacity-90" style={{backgroundColor: step.bgColor, color: step.iconColor}}>
                   <step.icon className="h-3 w-3" />
                 </div>
-              </motion.div>
+              </div>
               
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -428,7 +419,7 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true, margin: "-50px" }}
               >
-                <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden relative z-10 max-w-full" style={{backgroundColor: step.cardBgColor}}>
+                <Card className="border-0 space-y-3 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden relative z-30 max-w-full" style={{backgroundColor: step.cardBgColor}}>
                   <CardContent className="p-6">
                     {/* Step header */}
                     <div className="flex items-center gap-4 mb-6">
