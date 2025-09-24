@@ -125,7 +125,7 @@ export default function ContactForm() {
       </div>
       
       {/* Subtle Overlay for better text readability */}
-      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.15}} />
+      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.05}} />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -140,11 +140,26 @@ export default function ContactForm() {
             style={{color: 'var(--text-primary)'}}
             variants={itemVariants}
           >
-            Ready to Start Your{' '}
+            Ready to Join the{' '}
             <span style={{color: 'var(--primary-blue)'}}>
-              Adventure?
+              Amazing Race?
             </span>
           </motion.h2>
+          <motion.div 
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full mb-4"
+            style={{backgroundColor: 'var(--accent-orange-100)', color: 'var(--accent-orange)'}}
+            variants={itemVariants}
+          >
+            <span className="text-xl font-bold">$30 CAD</span>
+            <span className="text-sm">per person</span>
+          </motion.div>
+          <motion.p 
+            className="text-lg max-w-2xl mx-auto"
+            style={{color: 'var(--text-body)'}}
+            variants={itemVariants}
+          >
+            Pop-up events during summer months • Teams of 2-4 players • Up to 5 teams racing simultaneously
+          </motion.p>
         </motion.div>
 
         <motion.div
@@ -156,9 +171,9 @@ export default function ContactForm() {
           <Card className="glass-card border-0 shadow-2xl max-w-3xl mx-auto overflow-hidden">
             <CardHeader className="text-center pb-6">
               <CardTitle className="text-3xl font-bold" style={{color: 'var(--text-primary)'}}>
-                Contact Us
+                Book Your Amazing Race
               </CardTitle>
-              <p className="mt-2" style={{color: 'var(--text-body)'}}>Let&apos;s plan your adventure together!</p>
+              <p className="mt-2" style={{color: 'var(--text-body)'}}>Contact us to register your team and secure your spot!</p>
             </CardHeader>
             <CardContent>
               {submitStatus === 'success' ? (
@@ -169,9 +184,9 @@ export default function ContactForm() {
                   transition={{ duration: 0.5 }}
                 >
                   <CheckCircle className="h-16 w-16 mx-auto mb-4" style={{color: 'var(--highlight-gold)'}} />
-                  <h3 className="text-xl font-semibold mb-2" style={{color: 'var(--text-primary)'}}>Message Sent!</h3>
+                  <h3 className="text-xl font-semibold mb-2" style={{color: 'var(--text-primary)'}}>Registration Request Sent!</h3>
                   <p className="mb-6" style={{color: 'var(--text-body)'}}>
-                    Thank you for reaching out. We&apos;ll get back to you within 24 hours to plan your adventure.
+                    Thank you for your interest in our Amazing Race! We&apos;ll get back to you within 24 hours with available dates and registration details.
                   </p>
                   <Button
                     onClick={() => setSubmitStatus('idle')}
@@ -325,7 +340,7 @@ export default function ContactForm() {
                           <FormLabel className="font-medium" style={{color: 'var(--text-secondary)'}}>Message *</FormLabel>
                           <FormControl>
                             <Textarea
-                              placeholder="Tell us about your team and any special requirements..."
+                              placeholder="Tell us about your team, preferred dates, and any special requirements for the Amazing Race..."
                               className="transition-colors min-h-[120px] resize-none"
                               style={{
                                 backgroundColor: 'var(--ghost-white-800)',
@@ -371,7 +386,7 @@ export default function ContactForm() {
                         </>
                       ) : (
                         <>
-                          Send Message
+                          Register for Amazing Race
                           <Send className="ml-2 h-5 w-5" />
                         </>
                       )}

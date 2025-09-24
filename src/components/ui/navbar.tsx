@@ -103,13 +103,13 @@ export default function Navbar() {
       >
         <div className={`w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full liquid-glass-navbar px-4 ${isScrolled ? 'scrolled' : ''}`}>
           <NavigationMenu className="w-full">
-            <NavigationMenuList className="flex items-center justify-center w-full gap-6 md:gap-8 lg:gap-12">
+            <NavigationMenuList className="flex items-center justify-center w-full gap-6 md:gap-8 lg:gap-12 hover:bg-forest-green">
               {navItems.map((item) => (
                 <NavigationMenuItem key={item.href}>
                   <Link 
                     href={item.href} 
                     data-nav-item
-                    className="liquid-glass-button cursor-pointer px-4 py-2 whitespace-nowrap flex-shrink-0 text-lg"
+                    className="liquid-glass-button cursor-pointer px-4 py-2 whitespace-nowrap flex-shrink-0 text-lg hover:bg-forest-green"
                   >
                     {item.label}
                   </Link>

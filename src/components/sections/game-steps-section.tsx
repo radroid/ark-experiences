@@ -39,44 +39,44 @@ export default function GameStepsSection() {
     {
       icon: Users,
       title: 'Form Your Team',
-      description: 'Form teams of 2-5 players each. Every team gets a unique starting location.',
-      details: ['Equal team sizes', 'Unique starting points'],
+      description: 'Assemble your team of 2-4 players. Up to 5 teams can compete simultaneously for the ultimate race experience.',
+      details: ['2-4 players per team', 'Up to 5 teams racing', 'Team collaboration essential'],
       iconColor: 'var(--primary-blue)',
       bgColor: 'var(--primary-blue-20)',
       cardBgColor: 'var(--primary-blue-50)'
     },
     {
       icon: Search,
-      title: 'Solve Clues',
-      description: 'Find hidden clues at each location. Some lead to the next spot, others reveal murder details.',
-      details: ['Location clues', 'Murder mystery clues', 'Photo evidence required'],
+      title: 'Receive Your First Clue',
+      description: 'Get your starting point and first clue at the designated meeting location. The race begins now!',
+      details: ['Secret starting location', 'First clue provided', 'Race clock starts'],
       iconColor: 'var(--accent-orange)',
       bgColor: 'var(--accent-orange-100)',
       cardBgColor: 'var(--accent-orange-50)'
     },
     {
       icon: MapPin,
-      title: 'Navigate Toronto',
-      description: 'Visit 9 iconic Toronto locations, each holding clues to the next destination.',
-      details: ['9 unique locations', 'Toronto landmarks', 'GPS coordinates provided'],
+      title: 'Navigate 5 Secret Locations',
+      description: 'Travel through downtown Toronto to 5 secret locations, each holding unique challenges and clues.',
+      details: ['5 secret locations', 'Downtown Toronto area', 'GPS coordinates provided'],
       iconColor: 'var(--highlight-gold)',
       bgColor: 'var(--highlight-gold-100)',
       cardBgColor: 'var(--highlight-gold-50)'
     },
     {
       icon: Puzzle,
-      title: 'Piece Together',
-      description: 'Collect evidence to determine the weapon, person, and motive behind the murder.',
-      details: ['Weapon identification', 'Suspect analysis', 'Motive discovery'],
+      title: 'Complete Challenges',
+      description: 'At each location, complete unique tasks to unlock the clue leading to your next destination.',
+      details: ['Unique challenges per location', 'Problem-solving skills required', 'Teamwork essential'],
       iconColor: 'var(--soft-green)',
       bgColor: 'var(--soft-green-300)',
       cardBgColor: 'var(--soft-green-100)'
     },
     {
       icon: Trophy,
-      title: 'Win the Game',
-      description: 'First team to solve the murder correctly wins the grand prize!',
-      details: ['Speed matters', 'Accuracy counts', 'Team collaboration wins'],
+      title: 'Race to Victory',
+      description: 'First team to complete all 5 locations and reach the final destination wins the Amazing Race!',
+      details: ['Speed and accuracy matter', 'Final destination challenge', 'Ultimate team victory'],
       iconColor: 'var(--accent-orange)',
       bgColor: 'var(--accent-orange-200)',
       cardBgColor: 'var(--accent-orange-100)'
@@ -102,7 +102,7 @@ export default function GameStepsSection() {
       />
 
       {/* Title Section */}
-      <section id="how-it-works" className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden" style={{backgroundColor: 'var(--ghost-white)'}}>
+      <section id="how-it-works" className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
         {/* Light Lava Lamp Background */}
         <div className="absolute inset-0 lava-lamp-bg" />
         
@@ -117,7 +117,7 @@ export default function GameStepsSection() {
         </div>
         
         {/* Subtle Overlay for better text readability */}
-        <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.15}} />
+        <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.05}} />
 
         <div className="text-center max-w-4xl mx-auto relative z-10">
           <motion.h2 
@@ -128,9 +128,9 @@ export default function GameStepsSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            How the Mystery{' '}
+            How the Amazing{' '}
             <span style={{color: 'var(--primary-blue)'}}>
-              Unfolds
+              Race Works
             </span>
           </motion.h2>
           <motion.p 
@@ -141,7 +141,7 @@ export default function GameStepsSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            A thrilling journey through Toronto where teams race against time to solve a Cluedo-style murder mystery
+            A thrilling race through downtown Toronto where teams compete to complete challenges and unlock clues across 5 secret locations
           </motion.p>
         </div>
       </section>
@@ -149,7 +149,7 @@ export default function GameStepsSection() {
       {/* Desktop/Tablet Layout */}
       <div className="relative flex min-h-screen">
         {/* Sticky Left Side - Stacking Steps */}
-        <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-center pl-4 lg:pl-10 pr-8 lg:pr-12 overflow-hidden self-start z-20" style={{backgroundColor: 'var(--ghost-white)'}}>
+        <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-center pl-4 lg:pl-10 pr-8 lg:pr-12 overflow-hidden self-start z-20">
           <div className="space-y-2 lg:space-y-3 w-full p-2">
             {steps.map((step, index) => {
               const isRevealed = revealedSteps.includes(index)
@@ -169,7 +169,6 @@ export default function GameStepsSection() {
                   }}
                 >
                   <div className="flex items-center gap-4 lg:gap-6 p-4 lg:p-6 rounded-2xl backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 max-w-full" style={{
-                    backgroundColor: isActive ? 'var(--ghost-white-950)' : 'var(--ghost-white-800)',
                     border: isActive ? '2px solid var(--caf-noir-200)' : '1px solid transparent'
                   }}>
                     <motion.div 
@@ -229,7 +228,6 @@ export default function GameStepsSection() {
             <section 
               key={index}
               className="min-h-screen flex items-center justify-center pl-8 lg:pl-12 pr-4 lg:pr-16 relative"
-              style={{backgroundColor: 'var(--ghost-white)'}}
               data-step-section={index}
             >
               {/* Active step tracker */}
@@ -320,7 +318,7 @@ type Step = {
 // Mobile-optimized component
 function MobileGameStepsSection({ steps }: { steps: Step[] }) {
   return (
-    <div className="relative overflow-hidden w-full" style={{backgroundColor: 'var(--ghost-white)'}}>
+    <div className="relative overflow-hidden w-full">
       {/* Mobile Continuous Timeline - Behind content */}
       {/* <div 
         className="absolute w-1 z-0"
@@ -334,22 +332,6 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
 
       {/* Mobile Title Section */}
       <section id="how-it-works" className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden z-20">
-        {/* Light Lava Lamp Background */}
-        <div className="absolute inset-0 lava-lamp-bg" />
-        
-        {/* Additional Floating Circles */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="floating-circle"></div>
-          <div className="floating-circle"></div>
-          <div className="floating-circle"></div>
-          <div className="floating-circle-small"></div>
-          <div className="floating-circle-small"></div>
-          <div className="floating-circle-small"></div>
-        </div>
-        
-        {/* Subtle Overlay for better text readability - No stacking context */}
-        <div className="absolute inset-0 opacity-15" style={{backgroundColor: 'var(--pure-white)'}} />
-
         <div className="text-center max-w-2xl mx-auto relative z-10">
           <motion.h2 
             className="text-3xl font-bold mb-6"
@@ -359,9 +341,9 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            How the Mystery{' '}
+            How the Amazing{' '}
             <span style={{color: 'var(--primary-blue)'}}>
-              Unfolds
+              Race Works
             </span>
           </motion.h2>
           <motion.p 
@@ -372,7 +354,7 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            A thrilling journey through Toronto where teams race against time to solve a Cluedo-style murder mystery
+            A thrilling race through downtown Toronto where teams compete to complete challenges and unlock clues across 5 secret locations
           </motion.p>
           
           {/* Mobile-friendly scroll indicator */}

@@ -76,8 +76,21 @@ export default function Footer() {
   ]
 
   return (
-    <footer style={{backgroundColor: 'var(--eerie-black)', color: 'var(--text-on-dark)'}}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <footer className="relative overflow-hidden" style={{backgroundColor: 'var(--eerie-black)', color: 'var(--text-on-dark)'}}>
+      {/* Dark Lava Lamp Background */}
+      <div className="absolute inset-0 dark-lava-lamp-bg" />
+      
+      {/* Additional Floating Circles */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="dark-floating-circle"></div>
+        <div className="dark-floating-circle"></div>
+        <div className="dark-floating-circle"></div>
+        <div className="dark-floating-circle-small"></div>
+        <div className="dark-floating-circle-small"></div>
+        <div className="dark-floating-circle-small"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>
@@ -124,12 +137,12 @@ export default function Footer() {
                     <info.icon className="h-4 w-4" style={{color: 'var(--yinmn-blue-400)'}} />
                   </div>
                   <div>
-                    <p className="text-sm font-medium" style={{color: 'var(--text-on-dark)'}}>{info.title}</p>
+                    <p className="text-sm font-medium" style={{color: 'var(--pure-white-700)'}}>{info.title}</p>
                      {info.href ? (
                        <a
                          href={info.href}
                          className="text-sm hover:underline underline-offset-2 break-all"
-                         style={{color: 'var(--primary-blue)'}}
+                         style={{color: 'var(--pure-white)'}}
                        >
                          {info.details}
                        </a>
@@ -189,7 +202,7 @@ export default function Footer() {
                   WebkitMaskComposite: 'source-in'
                 }}
               >
-                🔍 SECRET CODE: ARK25OFF 🔍
+                🔍 SECRET CODE: ARK30OFF 🔍
               </div>
 
               {/* UV Light Effect */}

@@ -122,8 +122,24 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <section id="testimonials" className="pt-40 py-24" style={{backgroundColor: 'var(--ghost-white)'}}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials" className="relative pt-40 py-24 overflow-hidden" style={{backgroundColor: 'var(--ghost-white)'}}>
+      {/* Light Lava Lamp Background */}
+      <div className="absolute inset-0 lava-lamp-bg" />
+      
+      {/* Additional Floating Circles */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="floating-circle"></div>
+        <div className="floating-circle"></div>
+        <div className="floating-circle"></div>
+        <div className="floating-circle-small"></div>
+        <div className="floating-circle-small"></div>
+        <div className="floating-circle-small"></div>
+      </div>
+      
+      {/* Subtle Overlay for better text readability */}
+      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.05}} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           className="text-center mb-16"

@@ -6,25 +6,25 @@ import { Users2, UserCheck } from 'lucide-react'
 export default function GameModesSection() {
   const gameModes = [
     {
-      mode: 'Collaborative Mode',
+      mode: 'Team Formation',
       icon: Users2,
       iconColor: 'var(--highlight-gold)',
       bgColor: 'var(--highlight-gold-100)',
       details: [
-        { label: 'Objective', value: 'Work together to solve the mystery' },
-        { label: 'Teams', value: '1 active team playing' },
-        { label: 'Players', value: '2-5 players' }
+        { label: 'Team Size', value: '2-4 players per team' },
+        { label: 'Capacity', value: 'Up to 5 teams (20 players total)' },
+        { label: 'Format', value: 'Competitive race format' }
       ]
     },
     {
-      mode: 'Competitive Mode',
+      mode: 'Race Experience',
       icon: UserCheck,
       iconColor: 'var(--accent-orange)',
       bgColor: 'var(--accent-orange-100)',
       details: [
-        { label: 'Objective', value: 'Race against other teams to solve first' },
-        { label: 'Teams', value: 'Up to 3 active teams playing' },
-        { label: 'Players', value: '6-15 players (2-5 in a team)' }
+        { label: 'Duration', value: '3-4 hours of racing' },
+        { label: 'Locations', value: '5 secret downtown Toronto spots' },
+        { label: 'Challenge', value: 'Complete tasks to unlock next clue' }
       ]
     }
   ]
@@ -50,7 +50,7 @@ export default function GameModesSection() {
   }
 
   return (
-    <section id="game-modes" className="relative min-h-screen flex items-center justify-center py-15 overflow-hidden" style={{backgroundColor: 'var(--ghost-white)'}}>
+    <section id="game-modes" className="relative min-h-screen flex items-center justify-center py-15 overflow-hidden">
       {/* Light Lava Lamp Background */}
       <div className="absolute inset-0 lava-lamp-bg" />
       
@@ -65,7 +65,7 @@ export default function GameModesSection() {
       </div>
       
       {/* Subtle Overlay for better text readability */}
-      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.2}} />
+      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.1}} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col items-center justify-center min-h-screen">
@@ -81,9 +81,9 @@ export default function GameModesSection() {
               style={{color: 'var(--text-primary)'}}
               variants={itemVariants}
             >
-              Choose Your{' '}
+              Amazing Race{' '}
               <span style={{color: 'var(--accent-orange)'}}>
-                Game Mode
+                Details
               </span>
             </motion.h2>
             <motion.p 
@@ -91,7 +91,7 @@ export default function GameModesSection() {
               style={{color: 'var(--text-body)'}}
               variants={itemVariants}
             >
-              It is fun both ways!
+              Everything you need to know about our thrilling race experience!
             </motion.p>
           </motion.div>
 

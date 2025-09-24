@@ -26,10 +26,10 @@ export default function HeroSection() {
   }
 
   const stats = [
-    { icon: MapPin, label: '9 Locations', description: 'Across Toronto' },
-    { icon: Users, label: '2-5 Players', description: 'Team size' },
-    { icon: Clock, label: '4 Hours', description: 'Duration' },
-    // { icon: DollarSign, label: 'Approx. $70 CAD', description: 'Cost per person' }
+    { icon: MapPin, label: '5 Secret Locations', description: 'Across Downtown Toronto' },
+    { icon: Users, label: '2-4 Players', description: 'Per team' },
+    { icon: Clock, label: '2 Hours', description: 'Duration' },
+    // { icon: DollarSign, label: '$30 CAD', description: 'Cost per person' }
   ]
 
   const scrollToContact = () => {
@@ -38,7 +38,7 @@ export default function HeroSection() {
 
 
   return (
-    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10" style={{backgroundColor: 'var(--pure-white)'}}>
+    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
       {/* Subtle floating elements for visual interest */}
       <div className="absolute inset-0 lava-lamp-bg" />
       
@@ -53,7 +53,7 @@ export default function HeroSection() {
       </div>
       
       {/* Subtle Overlay for better text readability */}
-      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.15}} />
+      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.05}} />
 
       {/* Main Content */}
       <motion.div
@@ -71,14 +71,14 @@ export default function HeroSection() {
             style={{color: 'var(--text-primary)'}}
             variants={itemVariants}
           >
-            Solve the{' '}
+            Race Through{' '}
             <span style={{color: 'var(--primary-blue)'}}>
-              Mystery
+              Downtown
             </span>
             <br />
-            Around the{' '}
+            Toronto's{' '}
             <span style={{color: 'var(--accent-orange)'}}>
-              City
+              Amazing Race
             </span>
           </motion.h1>
 
@@ -87,10 +87,10 @@ export default function HeroSection() {
             style={{color: 'var(--text-body)'}}
             variants={itemVariants}
           >
-            Are you ready for an epic adventure?
+            Ready for the ultimate adventure?
             <br />
             <br />
-            Experience Toronto with our immersive <u>Cluedo-themed Scavenger Hunt</u>.
+            Gather your team of 2-4 players and compete in our thrilling <u>Amazing Race-inspired scavenger hunt</u> through downtown Toronto. Complete tasks at 5 secret locations to unlock clues and race to victory!
             <br />
           </motion.p>
 
@@ -103,7 +103,7 @@ export default function HeroSection() {
               className="cta-button px-8 py-4 text-lg font-semibold cursor-pointer"
               onClick={scrollToContact}
             >
-              Plan Your Adventure
+              Join the Race
             </Button>
             
             <Button 
