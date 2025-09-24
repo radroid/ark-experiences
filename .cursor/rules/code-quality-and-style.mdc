@@ -1,0 +1,17 @@
+---
+globs: *.ts,*.tsx
+---
+
+## Code Quality & Style
+
+- Use strict TypeScript everywhere. Avoid `any` and unsafe casts.
+- Embrace functional, declarative programming; avoid classes and OOP patterns.
+- Limit files to ≤150 lines. If exceeded, refactor into smaller modules.
+- Prefer iteration and composition over duplication. Be DRY.
+- Use descriptive, semantic names with auxiliaries: `isLoading`, `hasError`, `shouldRender`.
+- Directories and files use lowercase-dash naming: `components/auth-wizard`.
+- Favor named exports for components and utilities.
+- Use RORO: functions receive one object and return one object.
+- Keep components small and focused. Extract hooks and utilities when logic grows.
+- Optimize Web Vitals (LCP, CLS, FID). Budget images, defer non-critical JS, prefetch where appropriate.
+- Run regular refactors and code reviews to enforce consistency.

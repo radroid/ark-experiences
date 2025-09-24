@@ -1,0 +1,28 @@
+---
+description: Rules for Next.js (App Router, RSC/SSR), state, and PWA
+---
+
+## Next.js & React Conventions
+
+- Target Next.js 15+ using the App Router. Prefer Server Components.
+- Minimize `use client`. Client components only when necessary (interactivity, browser-only APIs).
+- Prefer server actions, Route Handlers, and edge/runtime configs where beneficial.
+- Co-locate server logic in RSC and route handlers; keep client components presentational.
+- Use Suspense/streaming for data-heavy UI; avoid waterfalls.
+
+## State Management
+
+- Prefer server-derived state. Use Zustand only for ephemeral client UI state.
+- Keep Zustand stores small, with selector-based subscriptions and no classes.
+
+## Shadcn UI
+
+- Add components via `npx shadcn@latest add` per app. Do not fork core styles arbitrarily.
+- Keep design mobile-first and responsive. Use CSS variables and tokens.
+
+## PWA Structure
+
+- Provide `manifest.json/ts`, icons, and service worker per app.
+- Cache strategy: pre-cache shell, runtime cache for API/media with sane TTLs.
+- Ensure installability: correct scope, start_url, display, and theme.
+- Test offline flows and graceful degradation.

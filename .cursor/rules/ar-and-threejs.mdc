@@ -1,0 +1,32 @@
+---
+description: Conventions for AR and Three.js integration in the PWA app
+---
+
+## Scope
+
+- AR and Three.js live in the PWA app only (not the landing page).
+- Keep rendering/client-only logic isolated behind client components and feature flags.
+
+## Libraries
+
+- Prefer `three` and `@react-three/fiber` with `@react-three/drei` for helpers.
+- For WebXR/AR: use the WebXR Device API or vetted libs (e.g., `react-xr`). Avoid custom low-level polyfills unless necessary.
+
+## Structure
+
+- Organize AR features under `apps/pwa/src/features/ar-*` with lowercase-dash naming.
+- Keep scene setup minimal; extract reusable primitives into `packages/ui-3d` if shared.
+- Use named exports and RORO for utilities, materials, and hooks.
+
+## Performance
+
+- Lazy-load 3D code paths using dynamic imports; do not ship three.js to non-AR routes.
+- Use suspense and route-level code splitting for scenes.
+- Optimize assets: Draco/KTX2 compression, texture atlases, and appropriate pixel ratios.
+- Cap frame logic; avoid unbounded allocations inside render loops.
+
+## UX & Safety
+
+- Provide fallbacks for unsupported devices and permissions.
+- Respect user motion/contrast preferences; expose settings.
+- Test on target devices; collect Web Vitals and fps metrics where allowed.
