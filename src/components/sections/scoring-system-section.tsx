@@ -35,7 +35,7 @@ export default function ScoringSystemSection() {
   }
 
   return (
-    <section id="mystery-cta" className="relative min-h-screen flex items-center justify-center overflow-hidden py-20" style={{backgroundColor: 'var(--eerie-black)'}}>
+    <section id="mystery-cta" className="relative min-h-screen flex items-center justify-center overflow-hidden py-20" style={{backgroundColor: 'var(--safe-black)'}}>
       {/* Dark Lava Lamp Background */}
       <div className="absolute inset-0 dark-lava-lamp-bg" />
       

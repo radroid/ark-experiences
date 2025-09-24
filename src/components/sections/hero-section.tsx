@@ -38,7 +38,7 @@ export default function HeroSection() {
 
 
   return (
-    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10" style={{backgroundColor: 'var(--ghost-white)'}}>
+    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10" style={{backgroundColor: 'var(--pure-white)'}}>
       {/* Subtle floating elements for visual interest */}
       <div className="absolute inset-0 lava-lamp-bg" />
       
@@ -53,7 +53,7 @@ export default function HeroSection() {
       </div>
       
       {/* Subtle Overlay for better text readability */}
-      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.9}} />
+      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.15}} />
 
       {/* Main Content */}
       <motion.div
@@ -133,8 +133,8 @@ export default function HeroSection() {
               }}
             >
               <div className="flex justify-center mb-4">
-                <div className="p-3 rounded-full" style={{backgroundColor: 'var(--eerie-black-100)'}}>
-                  <stat.icon className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" style={{color: 'var(--eerie-black)'}} />
+                <div className="p-3 rounded-full" style={{backgroundColor: 'var(--safe-black-100)'}}>
+                  <stat.icon className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" style={{color: 'var(--safe-black)'}} />
                 </div>
               </div>
               <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
@@ -150,8 +150,8 @@ export default function HeroSection() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className="w-6 h-10 border-2 rounded-full flex justify-center" style={{borderColor: 'var(--eerie-black-500)'}}>
-            <div className="w-1 h-3 rounded-full mt-2" style={{backgroundColor: 'var(--eerie-black-700)'}} />
+          <div className="w-6 h-10 border-2 rounded-full flex justify-center" style={{borderColor: 'var(--safe-black-500)'}}>
+            <div className="w-1 h-3 rounded-full mt-2" style={{backgroundColor: 'var(--safe-black-700)'}} />
           </div>
         </motion.div>
     </section>

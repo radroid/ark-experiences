@@ -306,8 +306,21 @@ export default function GallerySection() {
   }
 
   return (
-    <section id="gallery" className="pt-40 py-24" style={{backgroundColor: 'var(--eerie-black)'}}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="gallery" className="relative pt-40 py-24 overflow-hidden" style={{backgroundColor: 'var(--eerie-black)'}}>
+      {/* Dark Lava Lamp Background */}
+      <div className="absolute inset-0 dark-lava-lamp-bg" />
+      
+      {/* Additional Floating Circles */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="dark-floating-circle"></div>
+        <div className="dark-floating-circle"></div>
+        <div className="dark-floating-circle"></div>
+        <div className="dark-floating-circle-small"></div>
+        <div className="dark-floating-circle-small"></div>
+        <div className="dark-floating-circle-small"></div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
           variants={containerVariants}

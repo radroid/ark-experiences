@@ -15,7 +15,7 @@ export default function FloatingContactButton() {
   return (
     <Link
       href="#contact"
-      className="fixed bottom-6 right-24 z-50 w-16 h-16 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group transform hover:scale-110"
+      className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group transform hover:scale-110"
       style={{
         backgroundColor: 'var(--accent-orange)',
         color: 'var(--pure-white)'

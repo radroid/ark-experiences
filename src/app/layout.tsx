@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from '@/components/ui/navbar'
-import FloatingBlogButton from '@/components/floating-blog-button'
 import FloatingContactButton from '@/components/floating-contact-button'
 import ScrollBehaviorHandler from '@/components/scroll-behavior-handler'
 import PerformanceOptimizer from '@/components/performance-optimizer'
@@ -211,7 +210,6 @@ export default function RootLayout({
         <ScrollBehaviorHandler />
         <Navbar />
         <FloatingContactButton />
-        <FloatingBlogButton />
         {children}
         <SpeedInsights />
         <Analytics />
