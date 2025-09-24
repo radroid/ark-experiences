@@ -12,6 +12,7 @@ import { Menu, Home, Info, Image as ImageIcon, MessageCircle, Mail, BookOpen } f
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isMobileLayout, setIsMobileLayout] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
@@ -23,37 +24,54 @@ export default function Navbar() {
   ]
 
 
-  // Simplified responsive logic using viewport width breakpoints
+  // Enhanced responsive logic with scroll detection
   useEffect(() => {
     const checkNavLayout = () => {
-      // Simple breakpoint-based logic - much more performant
       const viewportWidth = window.innerWidth
-      
-      // Use hamburger menu below 768px or if viewport is very narrow
       const shouldUseMobileLayout = viewportWidth < 768
-      
       setIsMobileLayout(shouldUseMobileLayout)
+    }
+
+    // Scroll detection for dynamic blur effects
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 50
+      setIsScrolled(scrolled)
     }
 
     // Check on mount
     checkNavLayout()
+    handleScroll()
     
-    // Throttled resize handler for better performance
-    let ticking = false
-    const handleResize = () => {
-      if (!ticking) {
+    // Throttled handlers for better performance
+    let resizeTicking = false
+    let scrollTicking = false
+    
+    const throttledResize = () => {
+      if (!resizeTicking) {
         requestAnimationFrame(() => {
           checkNavLayout()
-          ticking = false
+          resizeTicking = false
         })
-        ticking = true
+        resizeTicking = true
       }
     }
     
-    window.addEventListener('resize', handleResize, { passive: true })
+    const throttledScroll = () => {
+      if (!scrollTicking) {
+        requestAnimationFrame(() => {
+          handleScroll()
+          scrollTicking = false
+        })
+        scrollTicking = true
+      }
+    }
+    
+    window.addEventListener('resize', throttledResize, { passive: true })
+    window.addEventListener('scroll', throttledScroll, { passive: true })
 
     return () => {
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('resize', throttledResize)
+      window.removeEventListener('scroll', throttledScroll)
     }
   }, [])
 
@@ -63,17 +81,19 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed top-5 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8">
-      {/* Logo - responsive sizing */}
-      <Link href="#hero-section" className="flex-shrink-0">
-        <Image 
-          src="/ark-logo.png" 
-          alt="ARK Experience Logo" 
-          width={90} 
-          height={90} 
-          className="w-16 h-16 md:w-[90px] md:h-[90px] drop-shadow-xl hover:scale-105 transition-transform duration-200" 
-        />
-      </Link>
+    <>
+      
+      <nav className="fixed top-5 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8">
+        {/* Logo - responsive sizing */}
+        <Link href="#hero-section" className="flex-shrink-0">
+          <Image 
+            src="/ark-logo.png" 
+            alt="ARK Experience Logo" 
+            width={90} 
+            height={90} 
+            className="w-16 h-16 md:w-[90px] md:h-[90px] drop-shadow-xl hover:scale-105 transition-transform duration-200" 
+          />
+        </Link>
       
       {/* Desktop Navigation - hardware accelerated transitions */}
       <div 
@@ -81,7 +101,7 @@ export default function Navbar() {
         className={`navbar-desktop ${isMobileLayout ? 'navbar-hidden' : 'navbar-visible'} absolute left-1/2 transform -translate-x-1/2`}
         style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
       >
-        <div className="w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full glass shadow-lg backdrop-blur-xl px-4" style={{boxShadow: '0 8px 32px 0 var(--safe-black-300)'}}>
+        <div className={`w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full liquid-glass-navbar px-4 ${isScrolled ? 'scrolled' : ''}`}>
           <NavigationMenu className="w-full">
             <NavigationMenuList className="flex items-center justify-center w-full gap-6 md:gap-8 lg:gap-12">
               {navItems.map((item) => (
@@ -89,8 +109,7 @@ export default function Navbar() {
                   <Link 
                     href={item.href} 
                     data-nav-item
-                    className="font-semibold text-lg text-foreground hover:text-primary-foreground hover:bg-primary transition-colors duration-200 cursor-pointer px-3 py-2 rounded-lg whitespace-nowrap flex-shrink-0"
-                    style={{color: 'var(--safe-black)'} as React.CSSProperties}
+                    className="liquid-glass-button cursor-pointer px-4 py-2 whitespace-nowrap flex-shrink-0 text-lg"
                   >
                     {item.label}
                   </Link>
@@ -108,16 +127,15 @@ export default function Navbar() {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="h-14 w-14 rounded-full glass shadow-lg backdrop-blur-xl transition-colors duration-200"
+              className="h-14 w-14 liquid-glass-mobile-trigger"
               aria-label="Open navigation menu"
             >
-              <Menu className="h-7 w-7" style={{color: 'var(--safe-black)'}} />
+              <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
           <SheetContent 
             side="left" 
-            className="w-[280px] sm:w-[320px] backdrop-blur-xl p-0"
-            style={{background: 'var(--pure-white-900)', borderRight: '1px solid var(--soft-gray-300)'}}
+            className="w-[280px] sm:w-[320px] liquid-glass-mobile-menu p-0"
           >
             <div className="flex flex-col h-full">
               {/* Header with SheetTitle for accessibility */}
@@ -142,8 +160,7 @@ export default function Navbar() {
                 <Link
                   href="#hero-section"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-semibold transition-all duration-200 group"
-                  style={{color: 'var(--safe-black)'}}
+                  className="liquid-glass-mobile-link flex items-center space-x-4 px-4 py-4 text-lg font-semibold group"
                 >
                   <Home className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                   <span>Home</span>
@@ -157,8 +174,7 @@ export default function Navbar() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-semibold transition-all duration-200 group"
-                      style={{color: 'var(--safe-black)'}}
+                      className="liquid-glass-mobile-link flex items-center space-x-4 px-4 py-4 text-lg font-semibold group"
                     >
                       <IconComponent className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                       <span>{item.label}</span>
@@ -166,12 +182,11 @@ export default function Navbar() {
                   )
                 })}
                 
-                {/* Blog Link for Mobile - Simple version */}
+                {/* Blog Link for Mobile - Liquid Glass version */}
                 <Link
                   href="/blog"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-bold transition-all duration-200 group shadow-lg"
-                  style={{color: 'var(--pure-white)', backgroundColor: 'var(--primary-blue)'}}
+                  className="liquid-glass-blog-button flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-bold group"
                 >
                   <BookOpen className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                   <span>📝 Blog</span>
@@ -191,7 +206,8 @@ export default function Navbar() {
       </div>
       
       {/* Invisible spacer to maintain layout balance on desktop */}
-      <div className={`${isMobileLayout ? 'hidden' : 'block'} w-[90px] h-[90px] flex-shrink-0`}></div>
-    </nav>
+      <div className={`${isMobileLayout ? 'hidden' : 'block'} w-[90px] h-[90px] flex-shrink-0`}>      </div>
+      </nav>
+    </>
   )
 } 
