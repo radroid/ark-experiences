@@ -426,6 +426,18 @@
     box-shadow: 0 12px 30px var(--primary-blue-400);
   }
 
+  /* Gold override variant for CTA button (scoped opt-in) */
+  .cta-button--gold {
+    background: var(--highlight-gold);
+    color: var(--pure-white);
+    box-shadow: 0 6px 20px var(--highlight-gold-300);
+  }
+
+  .cta-button--gold:hover {
+    background: linear-gradient(135deg, var(--highlight-gold) 0%, var(--accent-orange) 100%);
+    box-shadow: 0 12px 30px var(--highlight-gold-400);
+  }
+
   /* Regular Button - WCAG Compliant */
   .glass-button {
     background: var(--primary-blue);
