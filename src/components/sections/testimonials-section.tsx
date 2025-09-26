@@ -1,10 +1,9 @@
 'use client'
 
 import { motion, easeOut } from 'framer-motion'
-import { Card, CardContent } from '@/components/ui/card'
-
 import { Button } from '@/components/ui/button-2'
-import { Star, Quote, Building2, Users, MapPin, Calendar } from 'lucide-react'
+import { Star, Calendar } from 'lucide-react'
+import { TestimonialsColumn } from '@/components/blocks/testimonials-columns-1'
 
 interface Testimonial {
   id: number
@@ -121,6 +120,14 @@ export default function TestimonialsSection() {
     }
   }
 
+  // Simplified testimonials for the columns layout
+  const testimonialsSimple = testimonials.map(t => ({
+    text: t.text,
+    image: '/ark-logo.png',
+    name: t.name,
+    role: t.role
+  }))
+
   return (
     <section id="testimonials" className="relative pt-40 py-24 overflow-hidden" style={{backgroundColor: 'var(--eerie-black)'}}>
       {/* Dark Lava Lamp Background */}
@@ -192,69 +199,23 @@ export default function TestimonialsSection() {
           ))}
         </motion.div>
 
-        {/* Testimonials Grid */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+        {/* Testimonials Columns Layout */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {testimonials.map((testimonial) => (
-            <motion.div
-              key={testimonial.id}
-              variants={itemVariants}
-              whileHover={{ y: -10 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Card className="h-full hover:shadow-xl transition-all duration-300 border" style={{borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.04)'}}>
-                <CardContent className="p-6">
-                  {/* Quote Icon */}
-                  <div className="flex justify-between items-start mb-4">
-                    <Quote className="h-8 w-8 opacity-80" style={{color: 'var(--primary-blue)'}} />
-                    <div className="flex gap-1">
-                      {renderStars(testimonial.rating)}
-                    </div>
-                  </div>
-
-                  {/* Testimonial Text */}
-                  <p className="leading-relaxed mb-6 italic" style={{color: 'var(--pure-white)', opacity: 0.9}}>
-                    &ldquo;{testimonial.text}&rdquo;
-                  </p>
-
-                  {/* Author Info */}
-                  <div className="pt-4" style={{borderTop: '1px solid rgba(255,255,255,0.08)'}}>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full flex items-center justify-center font-semibold" style={{backgroundColor: 'var(--primary-blue)', color: 'var(--pure-white)'}}>
-                        {testimonial.name.split(' ').map(n => n[0]).join('')}
-                      </div>
-                      <div>
-                        <div className="font-semibold" style={{color: 'var(--pure-white)'}}>{testimonial.name}</div>
-                        <div className="text-sm" style={{color: 'var(--text-muted)'}}>{testimonial.role}</div>
-                      </div>
-                    </div>
-                    
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-sm" style={{color: 'var(--text-muted)'}}>
-                          <Building2 className="h-4 w-4" />
-                          {testimonial.company}
-                        </div>
-                        <div className="flex items-center gap-4 text-sm">
-                          <div className="flex items-center gap-1" style={{color: 'var(--text-muted)'}}>
-                            <Users className="h-4 w-4" />
-                            {testimonial.teamSize}
-                          </div>
-                          <div className="flex items-center gap-1" style={{color: 'var(--text-muted)'}}>
-                            <MapPin className="h-4 w-4" />
-                            {testimonial.location}
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+          <motion.div variants={itemVariants}>
+            <TestimonialsColumn testimonials={testimonialsSimple} duration={18} />
+          </motion.div>
+          <motion.div className="hidden md:block" variants={itemVariants}>
+            <TestimonialsColumn testimonials={testimonialsSimple} duration={20} />
+          </motion.div>
+          <motion.div className="hidden lg:block" variants={itemVariants}>
+            <TestimonialsColumn testimonials={testimonialsSimple} duration={22} />
+          </motion.div>
         </motion.div>
 
         {/* CTA Section */}
@@ -271,7 +232,7 @@ export default function TestimonialsSection() {
                 Ready to Create Your Own Success Story?
               </h3>
               <p className="text-xl mb-8" style={{color: 'var(--pure-white)', opacity: 0.9}}>
-                Join hundreds of teams who&apos;ve already discovered the power of mystery-solving team building
+                Join the teams who&apos;ve already discovered the power of mystery-solving team building
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
