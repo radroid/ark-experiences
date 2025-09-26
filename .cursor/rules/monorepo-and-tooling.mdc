@@ -1,0 +1,16 @@
+---
+alwaysApply: true
+---
+
+## Monorepo and Tooling Rules
+
+- Use a monorepo with `apps/` for applications and `packages/` for shared libraries.
+- Keep framework-specific deps (Next.js, Tailwind) in each app; place cross-cutting tools (ESLint, Prettier, Jest) at the repo root.
+- Prefer pnpm. Use workspace ranges for shared packages. Align versions with `pnpm.overrides` when necessary.
+- Use Turborepo task pipelines for build, lint, test, type-check. Configure caching and remote cache if available.
+- Define developer commands in `Taskfile.yml` (or package.json scripts as fallback). Tasks must be non-interactive and CI-friendly.
+- Target Next.js 15+ with App Router and React Server Components. Emphasize server-first code.
+- Maintain proper Shadcn UI via `npx shadcn@latest add` in each app as needed; never copy raw component code across apps.
+- Structure PWA (service worker, manifest, offline routes) inside each app that needs it.
+- Keep env vars in `.env*` files; never hardcode secrets. Use `process.env` in server code and `NEXT_PUBLIC_` for safe client exposure.
+- CI should run split pipelines: lint → type-check → test → build → deploy, per app and changed packages only.

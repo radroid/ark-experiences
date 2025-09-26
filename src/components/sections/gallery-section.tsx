@@ -308,10 +308,10 @@ export default function GallerySection() {
   return (
     <section id="gallery" className="relative pt-40 py-24 overflow-hidden" style={{backgroundColor: 'var(--eerie-black)'}}>
       {/* Dark Lava Lamp Background */}
-      <div className="absolute inset-0 dark-lava-lamp-bg" />
+      <div className="absolute inset-0 dark-lava-lamp-bg z-10" />
       
       {/* Additional Floating Circles */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-10">
         <div className="dark-floating-circle"></div>
         <div className="dark-floating-circle"></div>
         <div className="dark-floating-circle"></div>

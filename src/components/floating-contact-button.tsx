@@ -1,11 +1,15 @@
+// TODO: open the email drawer when the button is clicked
 'use client';
 
 import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import EmailDrawer from './email-drawer';
+import { useState } from 'react';
 
 export default function FloatingContactButton() {
   const pathname = usePathname();
+  const [isOpenEmailDrawer, setIsOpenEmailDrawer] = useState(false)
 
   // Don't show on blog pages
   if (pathname?.startsWith('/blog')) {
@@ -13,11 +17,14 @@ export default function FloatingContactButton() {
   }
 
   return (
-    <Link
-      href="#contact"
-      className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group transform hover:scale-110"
+    <div>
+    <button
+      onClick={() => {
+        setIsOpenEmailDrawer(true)
+      }}
+      className="pointer-events-auto fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group transform hover:scale-110"
       style={{
-        backgroundColor: 'var(--accent-orange)',
+        backgroundColor: 'var(--primary-blue)',
         color: 'var(--pure-white)'
       }}
       aria-label="Contact Us"
@@ -38,6 +45,9 @@ export default function FloatingContactButton() {
           style={{borderTopColor: 'var(--eerie-black-800)'}}
         ></div>
       </div>
-    </Link>
+    </button>
+
+    <EmailDrawer isOpen={isOpenEmailDrawer} onClose={() => setIsOpenEmailDrawer(false)} />
+    </div>
   );
 }

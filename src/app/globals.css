@@ -2,12 +2,13 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant dark-bg (&:is(.dark-bg *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-montserrat);
+  --font-mono: var(--font-montserrat);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -41,6 +42,71 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --animate-grid: grid 15s linear infinite;
+  /* ---break---
+   */
+  @keyframes grid {
+    0% {
+      transform: translateY(-50%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes grid {
+  0% {
+    transform: translateY(-50%);
+    }
+  100% {
+    transform: translateY(0);
+    }
+  }
+  --animate-star-movement-bottom: star-movement-bottom linear infinite alternate;
+  --animate-star-movement-top: star-movement-top linear infinite alternate;
+  /* ---break---
+   */
+  @keyframes star-movement-bottom {
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-100%, 0%);
+      opacity: 0;
+    }
+  }
+  /* ---break---
+   */
+  @keyframes star-movement-top {
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(100%, 0%);
+      opacity: 0;
+    }
+  }
+  @keyframes star-movement-bottom {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+    }
+  100% {
+    transform: translate(-100%, 0%);
+    opacity: 0;
+    }
+  }
+  @keyframes star-movement-top {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+    }
+  100% {
+    transform: translate(100%, 0%);
+    opacity: 0;
+    }
+  }
 }
 
 :root {
@@ -60,11 +126,12 @@
   --primary-blue: #0941B3;      /* 14.6:1 contrast on white */
   --accent-orange: #BD2E00;     /* 8.7:1 on white, 7.3:1 on blue */
   --highlight-gold: #A28300;    /* 9.1:1 on black (dark backgrounds only) */
-  --soft-gray: #C7C7C7;         /* Dividers, not for text */
+  --soft-gray: #7f7f7f;         /* Dividers, not for text */
   --soft-green: #008000;        /* Dividers, not for text */
+  --forest-green: #228B22;      /* Forest green for success indicators */
   --safe-black: #181818;        /* Always safe text color */
   --pure-white: #FFFFFF;        /* Always safe background */
-  
+
   /* WCAG-Compliant Color Variations */
   --primary-blue-50: rgba(9, 65, 179, 0.05);
   --primary-blue-100: rgba(9, 65, 179, 0.1);
@@ -77,7 +144,7 @@
   --primary-blue-700: rgba(9, 65, 179, 0.7);
   --primary-blue-800: rgba(9, 65, 179, 0.8);
   --primary-blue-900: rgba(9, 65, 179, 0.9);
-  
+
   --accent-orange-50: rgba(189, 46, 0, 0.05);
   --accent-orange-100: rgba(189, 46, 0, 0.1);
   --accent-orange-200: rgba(189, 46, 0, 0.2);
@@ -88,7 +155,7 @@
   --accent-orange-700: rgba(189, 46, 0, 0.7);
   --accent-orange-800: rgba(189, 46, 0, 0.8);
   --accent-orange-900: rgba(189, 46, 0, 0.9);
-  
+
   --highlight-gold-50: rgba(162, 131, 0, 0.05);
   --highlight-gold-100: rgba(162, 131, 0, 0.1);
   --highlight-gold-200: rgba(162, 131, 0, 0.2);
@@ -99,7 +166,7 @@
   --highlight-gold-700: rgba(162, 131, 0, 0.7);
   --highlight-gold-800: rgba(162, 131, 0, 0.8);
   --highlight-gold-900: rgba(162, 131, 0, 0.9);
-  
+
   --soft-gray-50: rgba(199, 199, 199, 0.05);
   --soft-gray-100: rgba(199, 199, 199, 0.1);
   --soft-gray-200: rgba(199, 199, 199, 0.2);
@@ -110,7 +177,7 @@
   --soft-gray-700: rgba(199, 199, 199, 0.7);
   --soft-gray-800: rgba(199, 199, 199, 0.8);
   --soft-gray-900: rgba(199, 199, 199, 0.9);
-  
+
   --safe-black-50: rgba(24, 24, 24, 0.05);
   --safe-black-100: rgba(24, 24, 24, 0.1);
   --safe-black-200: rgba(24, 24, 24, 0.2);
@@ -121,7 +188,7 @@
   --safe-black-700: rgba(24, 24, 24, 0.7);
   --safe-black-800: rgba(24, 24, 24, 0.8);
   --safe-black-900: rgba(24, 24, 24, 0.9);
-  
+
   --pure-white-50: rgba(255, 255, 255, 0.05);
   --pure-white-100: rgba(255, 255, 255, 0.1);
   --pure-white-200: rgba(255, 255, 255, 0.2);
@@ -140,7 +207,7 @@
   --ghost-white-300: var(--pure-white-300);
   --ghost-white-400: var(--pure-white-400);
   --ghost-white-500: var(--pure-white-500);
-  
+
   --eerie-black: var(--safe-black);
   --eerie-black-100: var(--safe-black-100);
   --eerie-black-200: var(--safe-black-200);
@@ -151,12 +218,20 @@
   --eerie-black-700: var(--safe-black-700);
   --eerie-black-800: var(--safe-black-800);
   --eerie-black-900: var(--safe-black-900);
-  
+
   /* Dark theme colors for lava lamp */
   --byzantine-blue: #6366F1;        /* Brighter indigo-blue for dark sections */
   --tangelo: #FB923C;               /* More vibrant orange */
   --saffron: #FBBF24;               /* Brighter golden yellow */
-  
+
+  /* Dynamic lava lamp colors - similar to splash cursor */
+  --lava-color-1: #4A90E2;          /* Soft blue */
+  --lava-color-2: #E24A90;          /* Soft pink */
+  --lava-color-3: #90E24A;          /* Soft green */
+  --lava-color-4: #E2904A;          /* Soft orange */
+  --lava-color-5: #904AE2;          /* Soft purple */
+  --lava-color-6: #4AE290;          /* Soft cyan */
+
   /* Calendar and UI colors */
   --yinmn-blue: var(--primary-blue);
   --yinmn-blue-300: var(--primary-blue-300);
@@ -171,7 +246,7 @@
   --caf-noir-700: rgba(74, 74, 74, 0.7);
   --caf-noir-800: rgba(74, 74, 74, 0.8);
   --caf-noir-900: rgba(74, 74, 74, 0.9);
-  
+
   /* Gradient colors */
   --cocoa-brown-300: rgba(139, 69, 19, 0.3);  /* Brown tone */
 
@@ -191,7 +266,7 @@
   --text-on-dark: var(--pure-white);            /* High contrast on dark backgrounds */
   --text-on-primary: var(--pure-white);         /* High contrast on primary color */
   --text-on-accent: var(--pure-white);          /* High contrast on accent colors */
-  
+
   /* WCAG-Compliant Background Colors */
   --bg-primary: var(--pure-white);              /* Main background - always safe */
   --bg-secondary: var(--soft-gray-100);         /* Section backgrounds */
@@ -282,33 +357,33 @@
   .gradient-hero {
     background: var(--gradient-hero);
   }
-  
+
   .gradient-section {
     background: var(--gradient-section);
   }
-  
+
   .gradient-cluedo {
     background: var(--gradient-cluedo);
   }
-  
+
   .gradient-mystery {
     background: var(--gradient-mystery);
   }
-  
+
   .bg-clean {
     background-color: var(--ghost-white);
   }
-  
+
   .bg-dark-clean {
     background-color: var(--eerie-black);
   }
-  
+
   /* Glass morphism effects - No stacking context creation */
   .glass {
     background: var(--ghost-white-300);
     border: 1px solid var(--ghost-white-400);
   }
-  
+
   /* Only apply backdrop-filter when isolation is not needed */
   .glass-with-blur {
     background: var(--ghost-white-300);
@@ -351,6 +426,18 @@
     box-shadow: 0 12px 30px var(--primary-blue-400);
   }
 
+  /* Gold override variant for CTA button (scoped opt-in) */
+  .cta-button--gold {
+    background: var(--highlight-gold);
+    color: var(--pure-white);
+    box-shadow: 0 6px 20px var(--highlight-gold-300);
+  }
+
+  .cta-button--gold:hover {
+    background: linear-gradient(135deg, var(--highlight-gold) 0%, var(--accent-orange) 100%);
+    box-shadow: 0 12px 30px var(--highlight-gold-400);
+  }
+
   /* Regular Button - WCAG Compliant */
   .glass-button {
     background: var(--primary-blue);
@@ -363,7 +450,7 @@
     background: var(--primary-blue-800);
     border-color: var(--primary-blue-800);
   }
-  
+
   /* Secondary Button - WCAG Compliant */
   .secondary-button {
     background: var(--pure-white);
@@ -372,32 +459,32 @@
     transition: all 0.3s ease;
     font-weight: 600;
   }
-  
+
   .secondary-button:hover {
     background: var(--primary-blue);
     color: var(--pure-white);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px var(--primary-blue-300);
   }
-  
+
   .glass-dark {
     background: var(--safe-black-50);
     border: 1px solid var(--eerie-black-100);
   }
-  
+
   .glass-dark-with-blur {
     background: var(--safe-black-50);
     backdrop-filter: blur(10px);
     border: 1px solid var(--eerie-black-100);
     isolation: isolate;
   }
-  
+
   .glass-card {
     background: var(--ghost-white-400);
     border: 1px solid var(--ghost-white-300);
     box-shadow: 0 8px 32px 0 var(--eerie-black-100);
   }
-  
+
   .glass-card-with-blur {
     background: var(--ghost-white-400);
     backdrop-filter: blur(16px);
@@ -405,18 +492,18 @@
     box-shadow: 0 8px 32px 0 var(--eerie-black-100);
     isolation: isolate;
   }
-  
+
   /* Animated gradient backgrounds */
   .animated-gradient {
     background: var(--gradient-hero);
   }
-  
+
   /* Lava lamp floating circles */
   .lava-lamp-bg {
     position: relative;
     overflow: hidden;
   }
-  
+
   .lava-lamp-bg::before,
   .lava-lamp-bg::after {
     content: '';
@@ -427,25 +514,25 @@
     /* Explicitly set z-index to avoid stacking issues */
     z-index: -1;
   }
-  
+
   .lava-lamp-bg::before {
     width: 300px;
     height: 300px;
-    background: var(--primary-blue);
+    background: var(--lava-color-1);
     top: 15%;
     left: 5%;
-    animation: float 8s ease-in-out infinite;
+    animation: float 8s ease-in-out infinite, colorShift1 15s ease-in-out infinite;
   }
-  
+
   .lava-lamp-bg::after {
     width: 250px;
     height: 250px;
-    background: var(--accent-orange);
+    background: var(--lava-color-2);
     top: 75%;
     right: 5%;
-    animation: float-reverse 10s ease-in-out infinite;
+    animation: float-reverse 10s ease-in-out infinite, colorShift2 18s ease-in-out infinite;
   }
-  
+
   /* Additional floating circles */
   .floating-circle {
     position: absolute;
@@ -455,46 +542,46 @@
     /* Keep floating elements behind content */
     z-index: -2;
   }
-  
+
   /* Opacity utilities without stacking context creation */
   .opacity-15 {
     opacity: 0.15;
   }
-  
+
   .opacity-90 {
     opacity: 0.9;
   }
-  
+
   .floating-circle:nth-child(1) {
     width: 200px;
     height: 200px;
-    background: var(--primary-blue);
+    background: var(--lava-color-3);
     top: 75%;
     left: 80%;
-    animation: float-diagonal 12s ease-in-out infinite;
+    animation: float-diagonal 12s ease-in-out infinite, colorShift3 20s ease-in-out infinite;
     animation-delay: 2s;
   }
-  
+
   .floating-circle:nth-child(2) {
     width: 180px;
     height: 180px;
-    background: var(--accent-orange);
+    background: var(--lava-color-4);
     top: 85%;
     left: 15%;
-    animation: float 9s ease-in-out infinite;
+    animation: float 9s ease-in-out infinite, colorShift4 16s ease-in-out infinite;
     animation-delay: 4s;
   }
-  
+
   .floating-circle:nth-child(3) {
     width: 150px;
     height: 150px;
-    background: var(--highlight-gold);
+    background: var(--lava-color-5);
     top: 5%;
     right: 20%;
-    animation: float-reverse 11s ease-in-out infinite;
+    animation: float-reverse 11s ease-in-out infinite, colorShift5 22s ease-in-out infinite;
     animation-delay: 6s;
   }
-  
+
   /* Smaller floating circles for more variety */
   .floating-circle-small {
     position: absolute;
@@ -504,34 +591,34 @@
     /* Keep floating elements behind content */
     z-index: -2;
   }
-  
+
   .floating-circle-small:nth-child(4) {
     width: 100px;
     height: 100px;
-    background: var(--accent-orange);
+    background: var(--lava-color-6);
     top: 35%;
     left: 75%;
-    animation: float-wide 15s ease-in-out infinite;
+    animation: float-wide 15s ease-in-out infinite, colorShift6 14s ease-in-out infinite;
     animation-delay: 5s;
   }
-  
+
   .floating-circle-small:nth-child(5) {
     width: 80px;
     height: 80px;
-    background: var(--primary-blue);
+    background: var(--lava-color-1);
     top: 65%;
     right: 35%;
-    animation: float-diagonal 8s ease-in-out infinite;
+    animation: float-diagonal 8s ease-in-out infinite, colorShift1 17s ease-in-out infinite;
     animation-delay: 3s;
   }
-  
+
   .floating-circle-small:nth-child(6) {
     width: 120px;
     height: 120px;
-    background: var(--highlight-gold);
+    background: var(--lava-color-2);
     top: 45%;
     left: 10%;
-    animation: float-reverse 9s ease-in-out infinite;
+    animation: float-reverse 9s ease-in-out infinite, colorShift2 19s ease-in-out infinite;
     animation-delay: 5s;
   }
 
@@ -540,7 +627,7 @@
     position: relative;
     overflow: hidden;
   }
-  
+
   .dark-lava-lamp-bg::before,
   .dark-lava-lamp-bg::after {
     content: '';
@@ -551,7 +638,7 @@
     /* Explicitly set z-index to avoid stacking issues */
     z-index: -1;
   }
-  
+
   .dark-lava-lamp-bg::before {
     width: 300px;
     height: 300px;
@@ -560,7 +647,7 @@
     left: 5%;
     animation: float 8s ease-in-out infinite;
   }
-  
+
   .dark-lava-lamp-bg::after {
     width: 250px;
     height: 250px;
@@ -569,7 +656,7 @@
     right: 5%;
     animation: float-reverse 10s ease-in-out infinite;
   }
-  
+
   /* Dark floating circles */
   .dark-floating-circle {
     position: absolute;
@@ -579,7 +666,7 @@
     /* Keep floating elements behind content */
     z-index: -2;
   }
-  
+
   .dark-floating-circle:nth-child(1) {
     width: 200px;
     height: 200px;
@@ -589,7 +676,7 @@
     animation: float-diagonal 12s ease-in-out infinite;
     animation-delay: 2s;
   }
-  
+
   .dark-floating-circle:nth-child(2) {
     width: 180px;
     height: 180px;
@@ -599,7 +686,7 @@
     animation: float 9s ease-in-out infinite;
     animation-delay: 4s;
   }
-  
+
   .dark-floating-circle:nth-child(3) {
     width: 150px;
     height: 150px;
@@ -609,7 +696,7 @@
     animation: float-reverse 11s ease-in-out infinite;
     animation-delay: 6s;
   }
-  
+
   /* Dark smaller floating circles */
   .dark-floating-circle-small {
     position: absolute;
@@ -619,7 +706,7 @@
     /* Keep floating elements behind content */
     z-index: -2;
   }
-  
+
   .dark-floating-circle-small:nth-child(4) {
     width: 100px;
     height: 100px;
@@ -629,7 +716,7 @@
     animation: float-wide 15s ease-in-out infinite;
     animation-delay: 5s;
   }
-  
+
   .dark-floating-circle-small:nth-child(5) {
     width: 80px;
     height: 80px;
@@ -639,7 +726,7 @@
     animation: float-diagonal 8s ease-in-out infinite;
     animation-delay: 3s;
   }
-  
+
   .dark-floating-circle-small:nth-child(6) {
     width: 120px;
     height: 120px;
@@ -649,7 +736,7 @@
     animation: float-reverse 9s ease-in-out infinite;
     animation-delay: 5s;
   }
-  
+
   @keyframes float {
     0% {
       transform: translate(0px, 0px) scale(1);
@@ -667,7 +754,7 @@
       transform: translate(0px, 0px) scale(1);
     }
   }
-  
+
   @keyframes float-reverse {
     0% {
       transform: translate(0px, 0px) scale(1);
@@ -685,7 +772,7 @@
       transform: translate(0px, 0px) scale(1);
     }
   }
-  
+
   @keyframes float-diagonal {
     0% {
       transform: translate(0px, 0px) scale(1);
@@ -700,7 +787,7 @@
       transform: translate(0px, 0px) scale(1);
     }
   }
-  
+
   @keyframes float-wide {
     0% {
       transform: translate(0px, 0px) scale(1);
@@ -721,7 +808,7 @@
       transform: translate(0px, 0px) scale(1);
     }
   }
-  
+
   .clue-gradient {
     background: linear-gradient(135deg, var(--cocoa-brown-300) 0%, var(--yinmn-blue) 100%);
     animation: clue-shift 8s ease-in-out infinite;
@@ -756,7 +843,7 @@
     transform: translateY(50px);
     transition: all 0.6s ease-out;
   }
-  
+
   .reveal.active {
     opacity: 1;
     transform: translateY(0);
@@ -997,12 +1084,12 @@ html {
   overflow-y: auto;
   scroll-behavior: smooth;
   /* Remove scrollbar hiding to show custom scrollbar */
-  
+
   /* Desktop: Enable scroll snapping for precise section navigation */
   @media (min-width: 1024px) {
     scroll-snap-type: y mandatory;
   }
-  
+
   /* Mobile: Disable scroll snapping for natural social media-like scrolling */
   @media (max-width: 1023px) {
     scroll-snap-type: none;
@@ -1042,13 +1129,13 @@ html {
   display: flex;
   flex-direction: column;
   position: relative;
-  
+
   /* Desktop: Enable scroll snapping for precise section navigation */
   @media (min-width: 1024px) {
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
-  
+
   /* Mobile: Allow natural scrolling without snap stops */
   @media (max-width: 1023px) {
     scroll-snap-align: none;
@@ -1059,12 +1146,12 @@ html {
 /* Allow footer to be its natural height */
 .fullscreen-section:last-child {
   min-height: auto;
-  
+
   /* Desktop: Keep scroll snap for footer */
   @media (min-width: 1024px) {
     scroll-snap-align: start;
   }
-  
+
   /* Mobile: No snap alignment for footer */
   @media (max-width: 1023px) {
     scroll-snap-align: none;
@@ -1092,21 +1179,21 @@ html.blog-page body {
     /* Allow natural momentum scrolling on mobile */
     scroll-behavior: auto;
   }
-  
+
   body {
     /* Prevent overscroll bounce effects that can feel jarring */
     overscroll-behavior-y: contain;
     /* Enable hardware acceleration for smoother scrolling without creating stacking context */
     will-change: scroll-position;
   }
-  
+
   /* Hide custom scrollbars on mobile for cleaner look */
   .fullscreen-scroll-container::-webkit-scrollbar {
     display: none;
     width: 0px;
     background: transparent;
   }
-  
+
   /* Ensure touch-friendly scrolling */
   .fullscreen-scroll-container {
     /* Better touch responsiveness */
@@ -1364,7 +1451,7 @@ html.blog-page body {
 .liquid-glass-navbar {
   /* Simple blurred translucent navbar */
   background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(28px);
+  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(28px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
@@ -1376,7 +1463,7 @@ html.blog-page body {
 /* Scrolled state for enhanced blur */
 .liquid-glass-navbar.scrolled {
   background: rgba(242, 242, 247, 0.9);
-  backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(5px) saturate(180%);
   -webkit-backdrop-filter: blur(30px) saturate(180%);
   border-color: rgba(0, 0, 0, 0.06);
   /* Maintain isolation in scrolled state */
@@ -1390,7 +1477,7 @@ html.blog-page body {
     background: rgba(18, 18, 18, 0.6);
     border-color: rgba(255, 255, 255, 0.15);
   }
-  
+
   .liquid-glass-navbar.scrolled {
     background: rgba(28, 28, 30, 0.9);
     border-color: rgba(255, 255, 255, 0.1);
@@ -1403,7 +1490,7 @@ html.blog-page body {
   border: none;
   border-radius: 8px;
   color: #1d1d1f;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-montserrat), -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
   font-size: 17px;
   font-weight: 700;
   line-height: 1.235;
@@ -1416,7 +1503,7 @@ html.blog-page body {
 }
 
 .liquid-glass-button:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--highlight-gold-700);
   color: #1d1d1f;
   transform: none;
 }
@@ -1432,12 +1519,12 @@ html.blog-page body {
   .liquid-glass-button {
     color: #f5f5f7;
   }
-  
+
   .liquid-glass-button:hover {
     background: rgba(0, 0, 0, 0.8);
     color: #f5f5f7;
   }
-  
+
   .liquid-glass-button:active {
     background: rgba(0, 0, 0, 0.9);
   }
@@ -1478,7 +1565,7 @@ html.blog-page body {
     border-color: rgba(255, 255, 255, 0.08);
     color: #f5f5f7;
   }
-  
+
   .liquid-glass-mobile-trigger:hover {
     background: rgba(28, 28, 30, 0.9);
   }
@@ -1504,7 +1591,7 @@ html.blog-page body {
   border: none;
   border-radius: 12px;
   color: #1d1d1f;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-montserrat), -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
   font-size: 17px;
   font-weight: 400;
   line-height: 1.235;
@@ -1531,16 +1618,16 @@ html.blog-page body {
     background: rgba(28, 28, 30, 0.9);
     border-right-color: rgba(255, 255, 255, 0.1);
   }
-  
+
   .liquid-glass-mobile-link {
     color: #f5f5f7;
   }
-  
+
   .liquid-glass-mobile-link:hover {
     background: rgba(255, 255, 255, 0.08);
     color: #007aff;
   }
-  
+
   .liquid-glass-mobile-link:active {
     background: rgba(255, 255, 255, 0.12);
   }
@@ -1557,7 +1644,7 @@ html.blog-page body {
   border: none;
   border-radius: 12px;
   color: white;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-montserrat), -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
   font-size: 17px;
   font-weight: 500;
   line-height: 1.235;
@@ -1604,7 +1691,7 @@ html.blog-page body {
     bottom: 1rem;
     right: 1rem;
   }
-  
+
   .floating-contact-btn {
     width: 3.5rem;
     height: 3.5rem;
@@ -1619,7 +1706,7 @@ html.blog-page body {
     bottom: 1rem;
     right: 1rem;
   }
-  
+
   .floating-contact-btn {
     bottom: 5.5rem;
     right: 1rem;
@@ -1669,4 +1756,109 @@ main:not(.blog-page) {
   scroll-snap-align: none !important;
 }
 
+/* Custom Giant Hand Cursor - Similar to Figma */
+.hero-cursor-section,
+.contact-cursor-section {
+  cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2h2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-2v2c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V8zm2 0v12h4v-2c0-1.1.9-2 2-2h2V10h-2c-1.1 0-2-.9-2-2V8zm6 4h2v2h-2v-2z' fill='%23000' stroke='%23fff' stroke-width='0.5'/%3E%3C/svg%3E") 16 16, auto;
+}
 
+/* Performance optimization classes */
+.reduce-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+.reduce-motion-partial * {
+  animation-duration: 0.15s !important;
+  transition-duration: 0.15s !important;
+}
+
+.reduce-blur * {
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.reduce-blur-partial * {
+  filter: blur(2px) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+.reduce-shadows * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.reduce-gradients * {
+  background: var(--pure-white) !important;
+  background-image: none !important;
+}
+
+.save-data * {
+  background-image: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Optimized scroll performance */
+.optimized-scroll {
+  will-change: scroll-position;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Color shift animations for lava lamp balls - similar to splash cursor colors */
+@keyframes colorShift1 {
+  0%, 100% { background: var(--lava-color-1); }
+  16.66% { background: var(--lava-color-2); }
+  33.33% { background: var(--lava-color-3); }
+  50% { background: var(--lava-color-4); }
+  66.66% { background: var(--lava-color-5); }
+  83.33% { background: var(--lava-color-6); }
+}
+
+@keyframes colorShift2 {
+  0%, 100% { background: var(--lava-color-2); }
+  16.66% { background: var(--lava-color-3); }
+  33.33% { background: var(--lava-color-4); }
+  50% { background: var(--lava-color-5); }
+  66.66% { background: var(--lava-color-6); }
+  83.33% { background: var(--lava-color-1); }
+}
+
+@keyframes colorShift3 {
+  0%, 100% { background: var(--lava-color-3); }
+  16.66% { background: var(--lava-color-4); }
+  33.33% { background: var(--lava-color-5); }
+  50% { background: var(--lava-color-6); }
+  66.66% { background: var(--lava-color-1); }
+  83.33% { background: var(--lava-color-2); }
+}
+
+@keyframes colorShift4 {
+  0%, 100% { background: var(--lava-color-4); }
+  16.66% { background: var(--lava-color-5); }
+  33.33% { background: var(--lava-color-6); }
+  50% { background: var(--lava-color-1); }
+  66.66% { background: var(--lava-color-2); }
+  83.33% { background: var(--lava-color-3); }
+}
+
+@keyframes colorShift5 {
+  0%, 100% { background: var(--lava-color-5); }
+  16.66% { background: var(--lava-color-6); }
+  33.33% { background: var(--lava-color-1); }
+  50% { background: var(--lava-color-2); }
+  66.66% { background: var(--lava-color-3); }
+  83.33% { background: var(--lava-color-4); }
+}
+
+@keyframes colorShift6 {
+  0%, 100% { background: var(--lava-color-6); }
+  16.66% { background: var(--lava-color-1); }
+  33.33% { background: var(--lava-color-2); }
+  50% { background: var(--lava-color-3); }
+  66.66% { background: var(--lava-color-4); }
+  83.33% { background: var(--lava-color-5); }
+}

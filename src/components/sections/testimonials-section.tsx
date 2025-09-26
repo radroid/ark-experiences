@@ -94,8 +94,8 @@ export default function TestimonialsSection() {
         key={i}
         className="h-4 w-4"
         style={{
-          color: i < rating ? 'var(--cocoa-brown-400)' : 'var(--caf-noir-300)',
-          fill: i < rating ? 'var(--cocoa-brown-400)' : 'var(--caf-noir-300)'
+          color: i < rating ? 'var(--yinmn-blue)' : 'var(--text-muted)',
+          fill: i < rating ? 'var(--yinmn-blue)' : 'transparent'
         }}
       />
     ))
@@ -122,8 +122,24 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <section id="testimonials" className="pt-40 py-24" style={{backgroundColor: 'var(--ghost-white)'}}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials" className="relative pt-40 py-24 overflow-hidden" style={{backgroundColor: 'var(--eerie-black)'}}>
+      {/* Dark Lava Lamp Background */}
+      <div className="absolute inset-0 dark-lava-lamp-bg" />
+      
+      {/* Additional Floating Circles */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="floating-circle"></div>
+        <div className="floating-circle"></div>
+        <div className="floating-circle"></div>
+        <div className="floating-circle-small"></div>
+        <div className="floating-circle-small"></div>
+        <div className="floating-circle-small"></div>
+      </div>
+      
+      {/* Subtle Overlay for better text readability */}
+      <div className="absolute inset-0" style={{backgroundColor: 'var(--eerie-black)', opacity: 0.1}} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           className="text-center mb-16"
@@ -133,8 +149,8 @@ export default function TestimonialsSection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold mb-6"
-            style={{color: 'var(--text-primary)'}}
+            className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight"
+            style={{color: 'var(--pure-white)'}}
             variants={itemVariants}
           >
             What Teams Are{' '}
@@ -144,7 +160,7 @@ export default function TestimonialsSection() {
           </motion.h2>
           <motion.p 
             className="text-xl max-w-3xl mx-auto"
-            style={{color: 'var(--text-body)'}}
+            style={{color: 'var(--text-muted)'}}
             variants={itemVariants}
           >
             Don&apos;t just take our word for it - hear from teams who&apos;ve experienced the thrill of solving mysteries together
@@ -167,10 +183,10 @@ export default function TestimonialsSection() {
               whileHover={{ y: -5 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-4" style={{backgroundColor: 'var(--primary-blue-100)'}}>
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-4" style={{backgroundColor: 'rgba(255,255,255,0.06)'}}>
                 <stat.icon className="h-12 w-12" style={{color: 'var(--primary-blue)'}} />
               </div>
-              <div className="text-3xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.value}</div>
+              <div className="text-3xl font-bold mb-1" style={{color: 'var(--pure-white)'}}>{stat.value}</div>
               <div style={{color: 'var(--text-muted)'}}>{stat.label}</div>
             </motion.div>
           ))}
@@ -191,29 +207,29 @@ export default function TestimonialsSection() {
               whileHover={{ y: -10 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="h-full hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 border" style={{borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.04)'}}>
                 <CardContent className="p-6">
                   {/* Quote Icon */}
                   <div className="flex justify-between items-start mb-4">
-                    <Quote className="h-8 w-8 opacity-60" style={{color: 'var(--yinmn-blue)'}} />
+                    <Quote className="h-8 w-8 opacity-80" style={{color: 'var(--primary-blue)'}} />
                     <div className="flex gap-1">
                       {renderStars(testimonial.rating)}
                     </div>
                   </div>
 
                   {/* Testimonial Text */}
-                  <p className="leading-relaxed mb-6 italic" style={{color: 'var(--text-body)'}}>
+                  <p className="leading-relaxed mb-6 italic" style={{color: 'var(--pure-white)', opacity: 0.9}}>
                     &ldquo;{testimonial.text}&rdquo;
                   </p>
 
                   {/* Author Info */}
-                  <div className="border-t pt-4">
+                  <div className="pt-4" style={{borderTop: '1px solid rgba(255,255,255,0.08)'}}>
                     <div className="flex items-center gap-3 mb-3">
                       <div className="w-10 h-10 rounded-full flex items-center justify-center font-semibold" style={{backgroundColor: 'var(--primary-blue)', color: 'var(--pure-white)'}}>
                         {testimonial.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <div className="font-semibold" style={{color: 'var(--text-primary)'}}>{testimonial.name}</div>
+                        <div className="font-semibold" style={{color: 'var(--pure-white)'}}>{testimonial.name}</div>
                         <div className="text-sm" style={{color: 'var(--text-muted)'}}>{testimonial.role}</div>
                       </div>
                     </div>

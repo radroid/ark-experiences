@@ -2,9 +2,17 @@
 
 import { motion, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button-2'
-import { MapPin, Users, Clock } from 'lucide-react'
+import { MapPin } from 'lucide-react'
+// Pin image will be referenced directly in the component
+import { SplashCursor } from "@/components/ui/splash-cursor"
+import { RetroGrid } from "@/components/ui/retro-grid"
+import { useRef } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function HeroSection() {
+  const heroRef = useRef<HTMLElement>(null);
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -25,11 +33,35 @@ export default function HeroSection() {
     }
   }
 
+  const PinIcon = () => (
+    <img 
+      src="/pin.gif" 
+      alt="Location pin" 
+      className="h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" 
+    />
+  )
+
+  const CooperationIcon = () => (
+    <img 
+      src="/cooperation.gif" 
+      alt="Team cooperation" 
+      className="h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" 
+    />
+  )
+
+  const HourglassIcon = () => (
+    <img 
+      src="/hourglass.gif" 
+      alt="Time duration" 
+      className="h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" 
+    />
+  )
+
   const stats = [
-    { icon: MapPin, label: '9 Locations', description: 'Across Toronto' },
-    { icon: Users, label: '2-5 Players', description: 'Team size' },
-    { icon: Clock, label: '4 Hours', description: 'Duration' },
-    // { icon: DollarSign, label: 'Approx. $70 CAD', description: 'Cost per person' }
+    { icon: PinIcon, label: '5 Secret Locations', description: 'Across Downtown Toronto' },
+    { icon: CooperationIcon, label: '2-4 Players', description: 'Per team' },
+    { icon: HourglassIcon, label: '2 Hours', description: 'Duration' },
+    // { icon: DollarSign, label: '$30 CAD', description: 'Cost per person' }
   ]
 
   const scrollToContact = () => {
@@ -38,107 +70,92 @@ export default function HeroSection() {
 
 
   return (
-    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10" style={{backgroundColor: 'var(--pure-white)'}}>
-      {/* Subtle floating elements for visual interest */}
-      <div className="absolute inset-0 lava-lamp-bg" />
-      
-      {/* Additional Floating Circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="floating-circle"></div>
-        <div className="floating-circle"></div>
-        <div className="floating-circle"></div>
-        <div className="floating-circle-small"></div>
-        <div className="floating-circle-small"></div>
-        <div className="floating-circle-small"></div>
-      </div>
-      
-      {/* Subtle Overlay for better text readability */}
-      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.15}} />
-
+    <section ref={heroRef} id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
+      {/* Retro Grid Background */}
+      <RetroGrid className="absolute inset-0" />
+      <SplashCursor containerRef={heroRef} />
       {/* Main Content */}
       <motion.div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20"
+        className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         <motion.div
-          className="space-y-8"
+          className="space-y-6"
           variants={itemVariants}
         >
           <motion.h1 
-            className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight"
             style={{color: 'var(--text-primary)'}}
             variants={itemVariants}
           >
-            Solve the{' '}
+            Race Through{' '}
             <span style={{color: 'var(--primary-blue)'}}>
-              Mystery
+              Downtown
             </span>
             <br />
-            Around the{' '}
+            Toronto's{' '}
             <span style={{color: 'var(--accent-orange)'}}>
-              City
+              Amazing Race
             </span>
           </motion.h1>
-
+{/* 
           <motion.p 
             className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
             style={{color: 'var(--text-body)'}}
             variants={itemVariants}
           >
-            Are you ready for an epic adventure?
+            Ready for the ultimate adventure?
             <br />
             <br />
-            Experience Toronto with our immersive <u>Cluedo-themed Scavenger Hunt</u>.
+            Gather your team of 2-4 players and compete in our thrilling <u>Amazing Race-inspired scavenger hunt</u> through downtown Toronto. Complete tasks at 5 secret locations to unlock clues and race to victory!
             <br />
-          </motion.p>
+          </motion.p> */}
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col pt-7 sm:flex-row gap-4 justify-center items-center"
             variants={itemVariants}
           >
             <Button 
               size="lg" 
-              className="cta-button px-8 py-4 text-lg font-semibold cursor-pointer"
+              className="cta-button px-37 py-7 text-lg font-semibold cursor-pointer"   
               onClick={scrollToContact}
             >
-              Plan Your Adventure
+              Join the Race
             </Button>
-            
+{/*             
             <Button 
               variant="outline" 
               size="lg" 
-              className="secondary-button px-8 py-4 text-lg cursor-help"
+              className="secondary-button px-37 py-7 text-lg cursor-help"
               onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
             >
               How It Works
-            </Button>
+            </Button> */}
           </motion.div>
         </motion.div>
 
         {/* Stats Section */}
         <motion.div 
-          className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+          className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto"
           variants={containerVariants}
         >
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              className="glass-card rounded-xl p-6 text-center"
+              className="glass-card rounded-xl p-4 text-center"
               variants={itemVariants}
               whileHover={{ 
                 scale: 1.05, 
                 transition: { duration: 0.2 } 
               }}
             >
-              <div className="flex justify-center mb-4">
-                <div className="p-3 rounded-full" style={{backgroundColor: 'var(--safe-black-100)'}}>
-                  <stat.icon className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" style={{color: 'var(--safe-black)'}} />
-                </div>
+              <div className="flex justify-center mb-3">
+                <stat.icon />
               </div>
-              <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
-              <p className="text-sm md:text-base lg:text-lg" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
+              <h3 className="text-base md:text-lg lg:text-xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
+              <p className="text-xs md:text-sm lg:text-base" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
             </motion.div>
           ))}
         </motion.div>

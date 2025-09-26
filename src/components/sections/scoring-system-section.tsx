@@ -37,10 +37,10 @@ export default function ScoringSystemSection() {
   return (
     <section id="mystery-cta" className="relative min-h-screen flex items-center justify-center overflow-hidden py-20" style={{backgroundColor: 'var(--safe-black)'}}>
       {/* Dark Lava Lamp Background */}
-      <div className="absolute inset-0 dark-lava-lamp-bg" />
+      <div className="absolute inset-0 dark-lava-lamp-bg z-10" />
       
       {/* Additional Floating Circles */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-10">
         <div className="dark-floating-circle"></div>
         <div className="dark-floating-circle"></div>
         <div className="dark-floating-circle"></div>
@@ -49,7 +49,7 @@ export default function ScoringSystemSection() {
         <div className="dark-floating-circle-small"></div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-40 relative z-10">
         <motion.div
           className="text-center"
           variants={containerVariants}

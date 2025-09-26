@@ -1,0 +1,12 @@
+---
+alwaysApply: true
+---
+
+## Project Docs: Build Notes & Contexts
+
+- Build Notes live in `/ProjectDocs/Build_Notes/`. Naming: `build-title_phase-#_task-group-name.md`.
+- Notes must include: Task Objective, Current State Assessment, Future State Goal, Implementation Plan (with checklists). Append-only; never delete plan items.
+- Update notes at task start, during execution (changes/difficulties), and completion (summary).
+- On completion move notes to `/ProjectDocs/Build_Notes/completed/`; if deprecated, to `/ProjectDocs/Build_Notes/archived/`.
+- Master context `projectContext.md` lives in `/ProjectDocs/contexts/`. Stable, updated only for significant scope changes.
+- Additional contexts (`uiContext.md`, `feature-*.md`) are stable references. Record any context changes inside relevant Build Notes for traceability.
