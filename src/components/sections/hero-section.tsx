@@ -7,6 +7,8 @@ import { MapPin } from 'lucide-react'
 import { SplashCursor } from "@/components/ui/splash-cursor"
 import { RetroGrid } from "@/components/ui/retro-grid"
 import { useRef } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
@@ -74,17 +76,17 @@ export default function HeroSection() {
       <SplashCursor containerRef={heroRef} />
       {/* Main Content */}
       <motion.div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20"
+        className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         <motion.div
-          className="space-y-8"
+          className="space-y-6"
           variants={itemVariants}
         >
           <motion.h1 
-            className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight"
             style={{color: 'var(--text-primary)'}}
             variants={itemVariants}
           >
@@ -122,7 +124,7 @@ export default function HeroSection() {
             >
               Join the Race
             </Button>
-            
+{/*             
             <Button 
               variant="outline" 
               size="lg" 
@@ -130,30 +132,30 @@ export default function HeroSection() {
               onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
             >
               How It Works
-            </Button>
+            </Button> */}
           </motion.div>
         </motion.div>
 
         {/* Stats Section */}
         <motion.div 
-          className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+          className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto"
           variants={containerVariants}
         >
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              className="glass-card rounded-xl p-6 text-center"
+              className="glass-card rounded-xl p-4 text-center"
               variants={itemVariants}
               whileHover={{ 
                 scale: 1.05, 
                 transition: { duration: 0.2 } 
               }}
             >
-              <div className="flex justify-center mb-4">
+              <div className="flex justify-center mb-3">
                 <stat.icon />
               </div>
-              <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
-              <p className="text-sm md:text-base lg:text-lg" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
+              <h3 className="text-base md:text-lg lg:text-xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
+              <p className="text-xs md:text-sm lg:text-base" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
             </motion.div>
           ))}
         </motion.div>

@@ -14,7 +14,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isMobileLayout, setIsMobileLayout] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [activeTab, setActiveTab] = useState('#how-it-works')
+  const [activeTab, setActiveTab] = useState('')
   const navRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
@@ -22,6 +22,7 @@ export default function Navbar() {
     { href: '#how-it-works', label: 'How It Works', icon: 'Info' },
     { href: '#gallery', label: 'Gallery', icon: 'ImageIcon' },
     { href: '#testimonials', label: 'Testimonials', icon: 'MessageCircle' },
+    { href: '#coming-soon', label: 'Coming Soon', icon: 'BookOpen' },
     { href: '#contact', label: 'Contact', icon: 'Mail' }
   ]
 
@@ -63,7 +64,12 @@ export default function Navbar() {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const section = entry.target as HTMLElement
-              const sectionId = section.querySelector('section')?.id
+              // Look for section ID in the container itself or nested sections
+              let sectionId = section.id
+              if (!sectionId) {
+                const nestedSection = section.querySelector('section[id]') as HTMLElement
+                sectionId = nestedSection?.id
+              }
               if (sectionId) {
                 setActiveTab(`#${sectionId}`)
               }
@@ -138,7 +144,6 @@ export default function Navbar() {
 
   return (
     <>
-      
       <nav className="fixed top-5 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8">
         {/* Logo - responsive sizing */}
         <Link href="#hero-section" className="flex-shrink-0">
@@ -157,7 +162,7 @@ export default function Navbar() {
         className={`navbar-desktop ${isMobileLayout ? 'navbar-hidden' : 'navbar-visible'} absolute left-1/2 transform -translate-x-1/2`}
         style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
       >
-        <div className="relative flex items-center gap-1 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg max-w-fit">
+        <div className="relative flex items-center gap-1 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
           {/* Tubelight glow effect */}
           <div className="absolute inset-0 rounded-full" style={{ 
             background: 'linear-gradient(180deg, var(--pure-white) 0%, transparent 100%)',
@@ -182,7 +187,7 @@ export default function Navbar() {
                 href={item.href}
                 onClick={() => setActiveTab(item.href)}
                 className={cn(
-                  "relative cursor-pointer text-lg font-semibold lg:px-10 lg:py-4 md:px-6 md:py-2 px-2 py-1 rounded-full transition-colors",
+                  "relative cursor-pointer text-lg font-semibold lg:px-6 lg:py-3 md:px-4 md:py-2 px-2 py-1 rounded-full transition-colors whitespace-nowrap",
                   "text-foreground/80",
                   "hover:text-[var(--primary-blue)]",
                   "dark-bg:text-[var(--soft-gray)] dark-bg:hover:text-[var(--primary-blue)]",

@@ -39,10 +39,23 @@ export default function ComingSoonSection() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden">
+    <section id="coming-soon" className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden" style={{backgroundColor: 'var(--eerie-black)'}}>
+      
+      {/* Dark Lava Lamp Background */}
+      <div className="absolute inset-0 dark-lava-lamp-bg" />
+      
+      {/* Additional Floating Circles */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="floating-circle"></div>
+        <div className="floating-circle"></div>
+        <div className="floating-circle"></div>
+        <div className="floating-circle-small"></div>
+        <div className="floating-circle-small"></div>
+        <div className="floating-circle-small"></div>
+      </div>
       
       {/* Subtle Overlay for better text readability */}
-      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.05}} />
+      <div className="absolute inset-0" style={{backgroundColor: 'var(--eerie-black)', opacity: 0.1}} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 w-full">
         <motion.div
@@ -53,8 +66,8 @@ export default function ComingSoonSection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
-            style={{color: 'var(--text-primary)'}}
+            className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 tracking-tight"
+            style={{color: 'var(--pure-white)'}}
             variants={itemVariants}
           >
             Coming{' '}
@@ -77,18 +90,18 @@ export default function ComingSoonSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <Card className="border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 max-w-4xl mx-auto" style={{backgroundColor: 'var(--primary-blue-50)'}}>
+          <Card className="border transition-all duration-300 max-w-4xl mx-auto" style={{backgroundColor: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)'}}>
             <CardContent className="p-8 lg:p-12">
 
               {/* Main Content */}
               <motion.div className="text-center mb-8" variants={itemVariants}>
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4" style={{color: 'var(--text-primary)'}}>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-4" style={{color: 'var(--pure-white)'}}>
                   Clue-Themed{' '}
                   <span style={{color: 'var(--accent-orange)'}}>
                     Scavenger Hunt
                   </span>
                 </h3>
-                <p className="text-lg lg:text-xl leading-relaxed mb-6" style={{color: 'var(--text-body)'}}>
+                <p className="text-lg lg:text-xl leading-relaxed mb-6" style={{color: 'var(--text-muted)'}}>
                   Step into a world of mystery and intrigue! Our upcoming clue-themed scavenger hunt will challenge your detective skills as you solve puzzles and uncover secrets throughout Toronto.
                 </p>
               </motion.div>
@@ -96,27 +109,27 @@ export default function ComingSoonSection() {
               {/* Feature Highlights */}
               <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" variants={containerVariants}>
                 <motion.div className="text-center" variants={itemVariants}>
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: 'var(--primary-blue-100)', color: 'var(--primary-blue)'}}>
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: 'rgba(255,255,255,0.06)', color: 'var(--primary-blue)'}}>
                     <MapPin className="h-8 w-8" />
                   </div>
-                  <h4 className="text-lg font-semibold mb-2" style={{color: 'var(--text-primary)'}}>Mystery Locations</h4>
-                  <p className="text-sm" style={{color: 'var(--text-body)'}}>Hidden spots across Toronto waiting to be discovered</p>
+                  <h4 className="text-lg font-semibold mb-2" style={{color: 'var(--pure-white)'}}>Mystery Locations</h4>
+                  <p className="text-sm" style={{color: 'var(--text-muted)'}}>Hidden spots across Toronto waiting to be discovered</p>
                 </motion.div>
 
                 <motion.div className="text-center" variants={itemVariants}>
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: 'var(--accent-orange-100)', color: 'var(--accent-orange)'}}>
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: 'rgba(255,255,255,0.06)', color: 'var(--accent-orange)'}}>
                     <Puzzle className="h-8 w-8" />
                   </div>
-                  <h4 className="text-lg font-semibold mb-2" style={{color: 'var(--text-primary)'}}>Detective Puzzles</h4>
-                  <p className="text-sm" style={{color: 'var(--text-body)'}}>Challenge your problem-solving and deduction skills</p>
+                  <h4 className="text-lg font-semibold mb-2" style={{color: 'var(--pure-white)'}}>Detective Puzzles</h4>
+                  <p className="text-sm" style={{color: 'var(--text-muted)'}}>Challenge your problem-solving and deduction skills</p>
                 </motion.div>
 
                 <motion.div className="text-center" variants={itemVariants}>
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: 'var(--soft-green-100)', color: 'var(--soft-green)'}}>
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: 'rgba(255,255,255,0.06)', color: 'var(--soft-green)'}}>
                     <Users className="h-8 w-8" />
                   </div>
-                  <h4 className="text-lg font-semibold mb-2" style={{color: 'var(--text-primary)'}}>Team Mystery</h4>
-                  <p className="text-sm" style={{color: 'var(--text-body)'}}>Collaborate to piece together the ultimate mystery</p>
+                  <h4 className="text-lg font-semibold mb-2" style={{color: 'var(--pure-white)'}}>Team Mystery</h4>
+                  <p className="text-sm" style={{color: 'var(--text-muted)'}}>Collaborate to piece together the ultimate mystery</p>
                 </motion.div>
               </motion.div>
 

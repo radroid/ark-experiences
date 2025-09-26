@@ -9,7 +9,7 @@ export default function HowItWorks() {
     <>
       {/* <GameModesSection /> */}
       <GameStepsSection />
-      <ScoringSystemSection />
+      {/* <ScoringSystemSection /> */}
     </>
   )
 } 
