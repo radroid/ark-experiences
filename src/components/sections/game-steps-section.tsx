@@ -103,22 +103,6 @@ export default function GameStepsSection() {
 
       {/* Title Section */}
       <section id="how-it-works" className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
-        {/* Light Lava Lamp Background */}
-        <div className="absolute inset-0 lava-lamp-bg" />
-        
-        {/* Additional Floating Circles */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="floating-circle"></div>
-          <div className="floating-circle"></div>
-          <div className="floating-circle"></div>
-          <div className="floating-circle-small"></div>
-          <div className="floating-circle-small"></div>
-          <div className="floating-circle-small"></div>
-        </div>
-        
-        {/* Subtle Overlay for better text readability */}
-        <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.05}} />
-
         <div className="text-center max-w-4xl mx-auto relative z-10">
           <motion.h2 
             className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 lg:mb-8"

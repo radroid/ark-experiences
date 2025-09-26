@@ -44,22 +44,6 @@ export default function HeroSection() {
   return (
     <section ref={heroRef} id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
       <SplashCursor containerRef={heroRef} />
-      {/* Subtle floating elements for visual interest */}
-      <div className="absolute inset-0 lava-lamp-bg" />
-      
-      {/* Additional Floating Circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="floating-circle"></div>
-        <div className="floating-circle"></div>
-        <div className="floating-circle"></div>
-        <div className="floating-circle-small"></div>
-        <div className="floating-circle-small"></div>
-        <div className="floating-circle-small"></div>
-      </div>
-      
-      {/* Subtle Overlay for better text readability */}
-      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.05}} />
-
       {/* Main Content */}
       <motion.div
         className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20"
