@@ -4,27 +4,43 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
+import { motion } from 'framer-motion'
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button-2'
 import { Menu, Home, Info, Image as ImageIcon, MessageCircle, Mail, BookOpen } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isMobileLayout, setIsMobileLayout] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [activeTab, setActiveTab] = useState('#how-it-works')
   const navRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
   const navItems = [
-    { href: '#how-it-works', label: 'How It Works', icon: Info },
-    { href: '#gallery', label: 'Gallery', icon: ImageIcon },
-    { href: '#testimonials', label: 'Testimonials', icon: MessageCircle },
-    { href: '#contact', label: 'Contact', icon: Mail }
+    { href: '#how-it-works', label: 'How It Works', icon: 'Info' },
+    { href: '#gallery', label: 'Gallery', icon: 'ImageIcon' },
+    { href: '#testimonials', label: 'Testimonials', icon: 'MessageCircle' },
+    { href: '#contact', label: 'Contact', icon: 'Mail' }
   ]
 
+  // Icon mapping function to avoid passing components as props
+  const getIconComponent = (iconName: string) => {
+    const iconMap = {
+      'Info': Info,
+      'ImageIcon': ImageIcon,
+      'MessageCircle': MessageCircle,
+      'Mail': Mail,
+      'Home': Home,
+      'BookOpen': BookOpen
+    }
+    return iconMap[iconName as keyof typeof iconMap] || Info
+  }
 
-  // Enhanced responsive logic with scroll detection
+
+  // Enhanced responsive logic with scroll detection and section tracking
   useEffect(() => {
     const checkNavLayout = () => {
       const viewportWidth = window.innerWidth
@@ -38,9 +54,49 @@ export default function Navbar() {
       setIsScrolled(scrolled)
     }
 
+    // Section detection using Intersection Observer for better performance
+    const setupSectionObserver = () => {
+      const sections = document.querySelectorAll('.fullscreen-section')
+      if (sections.length === 0) return
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const section = entry.target as HTMLElement
+              const sectionId = section.querySelector('section')?.id
+              if (sectionId) {
+                setActiveTab(`#${sectionId}`)
+              }
+            }
+          })
+        },
+        {
+          root: null,
+          rootMargin: '-20% 0px -20% 0px', // Trigger when section is 20% visible
+          threshold: 0.1
+        }
+      )
+
+      sections.forEach((section) => {
+        observer.observe(section)
+      })
+
+      return () => {
+        sections.forEach((section) => {
+          observer.unobserve(section)
+        })
+      }
+    }
+
     // Check on mount
     checkNavLayout()
     handleScroll()
+    
+    // Setup section observer with a small delay to ensure DOM is ready
+    const observerCleanup = setTimeout(() => {
+      setupSectionObserver()
+    }, 100)
     
     // Throttled handlers for better performance
     let resizeTicking = false
@@ -70,6 +126,7 @@ export default function Navbar() {
     window.addEventListener('scroll', throttledScroll, { passive: true })
 
     return () => {
+      clearTimeout(observerCleanup)
       window.removeEventListener('resize', throttledResize)
       window.removeEventListener('scroll', throttledScroll)
     }
@@ -95,28 +152,72 @@ export default function Navbar() {
           />
         </Link>
       
-      {/* Desktop Navigation - hardware accelerated transitions */}
+      {/* Desktop Navigation - Tubelight styling */}
       <div 
         ref={navRef}
         className={`navbar-desktop ${isMobileLayout ? 'navbar-hidden' : 'navbar-visible'} absolute left-1/2 transform -translate-x-1/2`}
         style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
       >
-        <div className={`w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full liquid-glass-navbar px-4 ${isScrolled ? 'scrolled' : ''}`}>
-          <NavigationMenu className="w-full">
-            <NavigationMenuList className="flex items-center justify-center w-full gap-6 md:gap-8 lg:gap-12 hover:bg-forest-green">
-              {navItems.map((item) => (
-                <NavigationMenuItem key={item.href}>
-                  <Link 
-                    href={item.href} 
-                    data-nav-item
-                    className="liquid-glass-button cursor-pointer px-4 py-2 whitespace-nowrap flex-shrink-0 text-lg hover:bg-forest-green"
+        <div className="relative flex items-center gap-3 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+          {/* Tubelight glow effect */}
+          <div className="absolute inset-0 rounded-full" style={{ 
+            background: 'linear-gradient(180deg, var(--pure-white) 0%, transparent 100%)',
+            opacity: 0.3,
+            filter: 'blur(16px)',
+            zIndex: -1
+          }} />
+          
+          {/* Inner glow effect */}
+          <div className="absolute inset-0 rounded-full" style={{ 
+            background: 'radial-gradient(circle at center, var(--pure-white) 0%, transparent 70%)',
+            opacity: 0.2,
+            filter: 'blur(4px)',
+            zIndex: -1
+          }} />
+          
+          {navItems.map((item) => {
+            const isActive = activeTab === item.href
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setActiveTab(item.href)}
+                className={cn(
+                  "relative cursor-pointer text-lg font-semibold px-10 py-4 rounded-full transition-colors",
+                  "text-foreground/80",
+                  "hover:text-[var(--primary-blue)]",
+                  "dark-bg:text-[var(--soft-gray)] dark-bg:hover:text-[var(--primary-blue)]",
+                  isActive && "bg-muted text-[var(--primary-blue)]"
+                )}
+              >
+                <span className="hidden md:inline">{item.label}</span>
+                <span className="md:hidden">
+                  {(() => {
+                    const IconComponent = getIconComponent(item.icon)
+                    return <IconComponent size={18} strokeWidth={2.5} />
+                  })()}
+                </span>
+                {isActive && (
+                  <motion.div
+                    layoutId="tubelight-lamp"
+                    className="absolute inset-0 w-full bg-primary/5 rounded-full -z-10"
+                    initial={false}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30,
+                    }}
                   >
-                    {item.label}
-                  </Link>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-20 h-1 rounded-t-full" style={{ backgroundColor: 'var(--highlight-gold)' }}>
+                      <div className="absolute w-24 h-6 rounded-full blur-md -top-2 -left-2" style={{ backgroundColor: 'var(--highlight-gold)', opacity: 0.2 }} />
+                      <div className="absolute w-10 h-6 rounded-full blur-md -top-1" style={{ backgroundColor: 'var(--highlight-gold)', opacity: 0.2 }} />
+                      <div className="absolute w-6 h-4 rounded-full blur-sm top-0 left-2" style={{ backgroundColor: 'var(--highlight-gold)', opacity: 0.2 }} />
+                    </div>
+                  </motion.div>
+                )}
+              </Link>
+            )
+          })}
         </div>
       </div>
       
@@ -168,7 +269,7 @@ export default function Navbar() {
                 
                 {/* Navigation items */}
                 {navItems.map((item) => {
-                  const IconComponent = item.icon
+                  const IconComponent = getIconComponent(item.icon)
                   return (
                     <Link
                       key={item.href}

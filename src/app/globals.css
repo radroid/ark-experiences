@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant dark-bg (&:is(.dark-bg *));
 
 @theme inline {
   --color-background: var(--background);
@@ -1682,6 +1683,52 @@ main:not(.blog-page) {
 .hero-cursor-section,
 .contact-cursor-section {
   cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2h2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-2v2c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V8zm2 0v12h4v-2c0-1.1.9-2 2-2h2V10h-2c-1.1 0-2-.9-2-2V8zm6 4h2v2h-2v-2z' fill='%23000' stroke='%23fff' stroke-width='0.5'/%3E%3C/svg%3E") 16 16, auto;
+}
+
+/* Performance optimization classes */
+.reduce-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+.reduce-motion-partial * {
+  animation-duration: 0.15s !important;
+  transition-duration: 0.15s !important;
+}
+
+.reduce-blur * {
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.reduce-blur-partial * {
+  filter: blur(2px) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+.reduce-shadows * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.reduce-gradients * {
+  background: var(--pure-white) !important;
+  background-image: none !important;
+}
+
+.save-data * {
+  background-image: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Optimized scroll performance */
+.optimized-scroll {
+  will-change: scroll-position;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* Color shift animations for lava lamp balls - similar to splash cursor colors */

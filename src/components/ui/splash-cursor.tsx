@@ -31,6 +31,34 @@ function SplashCursor({
   const lastFrameTimeRef = useRef(0);
   const frameCountRef = useRef(0);
   const fpsRef = useRef(60);
+  const performanceModeRef = useRef<'high' | 'medium' | 'low'>('high');
+
+  // Performance detection and optimization
+  const detectPerformanceMode = useCallback(() => {
+    const nav = navigator as any;
+    const deviceMemory = nav.deviceMemory || 4;
+    const hardwareConcurrency = nav.hardwareConcurrency || 4;
+    const connection = nav.connection || nav.mozConnection || nav.webkitConnection;
+    
+    let mode: 'high' | 'medium' | 'low' = 'high';
+    
+    if (deviceMemory < 4 || hardwareConcurrency < 4) {
+      mode = 'low';
+    } else if (deviceMemory < 8 || hardwareConcurrency < 8) {
+      mode = 'medium';
+    }
+    
+    if (connection) {
+      const effectiveType = connection.effectiveType;
+      if (effectiveType === 'slow-2g' || effectiveType === '2g') {
+        mode = 'low';
+      } else if (effectiveType === '3g' && mode === 'high') {
+        mode = 'medium';
+      }
+    }
+    
+    return mode;
+  }, []);
 
   // Page Visibility API to pause animation when tab is hidden
   const handleVisibilityChange = useCallback(() => {
@@ -51,6 +79,10 @@ function SplashCursor({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    // Detect performance mode and adjust settings
+    const perfMode = detectPerformanceMode();
+    performanceModeRef.current = perfMode;
 
     // Track active instances
     activeInstances++;
@@ -74,23 +106,51 @@ function SplashCursor({
       this.color = [0, 0, 0];
     }
 
-    let config = {
-      SIM_RESOLUTION,
-      DYE_RESOLUTION,
-      CAPTURE_RESOLUTION,
-      DENSITY_DISSIPATION,
-      VELOCITY_DISSIPATION,
-      PRESSURE,
-      PRESSURE_ITERATIONS,
-      CURL,
-      SPLAT_RADIUS,
-      SPLAT_FORCE,
-      SHADING,
-      COLOR_UPDATE_SPEED,
-      PAUSED: false,
-      BACK_COLOR,
-      TRANSPARENT,
+    // Adjust configuration based on performance mode
+    const getOptimizedConfig = () => {
+      const baseConfig = {
+        SIM_RESOLUTION,
+        DYE_RESOLUTION,
+        CAPTURE_RESOLUTION,
+        DENSITY_DISSIPATION,
+        VELOCITY_DISSIPATION,
+        PRESSURE,
+        PRESSURE_ITERATIONS,
+        CURL,
+        SPLAT_RADIUS,
+        SPLAT_FORCE,
+        SHADING,
+        COLOR_UPDATE_SPEED,
+        PAUSED: false,
+        BACK_COLOR,
+        TRANSPARENT,
+      };
+
+      if (perfMode === 'low') {
+        return {
+          ...baseConfig,
+          SIM_RESOLUTION: 32,
+          DYE_RESOLUTION: 256,
+          CAPTURE_RESOLUTION: 128,
+          PRESSURE_ITERATIONS: 4,
+          SHADING: false,
+          COLOR_UPDATE_SPEED: 5,
+        };
+      } else if (perfMode === 'medium') {
+        return {
+          ...baseConfig,
+          SIM_RESOLUTION: 48,
+          DYE_RESOLUTION: 512,
+          CAPTURE_RESOLUTION: 192,
+          PRESSURE_ITERATIONS: 6,
+          COLOR_UPDATE_SPEED: 7,
+        };
+      }
+
+      return baseConfig;
     };
+
+    let config = getOptimizedConfig();
 
     let pointers = [new pointerPrototype()];
 
