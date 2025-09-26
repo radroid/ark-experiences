@@ -36,7 +36,7 @@ export default function HeroSection() {
     <img 
       src="/pin.gif" 
       alt="Location pin" 
-      className="h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" 
+      className="h-20 w-20" 
     />
   )
 
@@ -44,7 +44,7 @@ export default function HeroSection() {
     <img 
       src="/cooperation.gif" 
       alt="Team cooperation" 
-      className="h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" 
+      className="h-20 w-20" 
     />
   )
 
@@ -52,7 +52,7 @@ export default function HeroSection() {
     <img 
       src="/hourglass.gif" 
       alt="Time duration" 
-      className="h-12 w-20 md:h-16 md:w-16 lg:h-20 lg:w-20" 
+      className="h-20 w-20" 
     />
   )
 
@@ -118,7 +118,7 @@ export default function HeroSection() {
           >
             <Button 
               size="lg" 
-              className="cta-button px-6 py-4 text-base sm:px-8 sm:py-5 sm:text-lg font-semibold cursor-pointer"   
+              className="cta-button px-37 py-7 sm:px-8 sm:py-5 sm:text-lg font-semibold cursor-pointer"   
               onClick={scrollToContact}
             >
               Join the Race
