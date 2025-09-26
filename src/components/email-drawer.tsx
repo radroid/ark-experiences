@@ -39,9 +39,10 @@ type EmailFormData = z.infer<typeof emailSchema>
 interface EmailDrawerProps {
   isOpen: boolean
   onClose: () => void
+  theme?: 'light' | 'dark'
 }
 
-export default function EmailDrawer({ isOpen, onClose }: EmailDrawerProps) {
+export default function EmailDrawer({ isOpen, onClose, theme = 'light' }: EmailDrawerProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
@@ -94,17 +95,17 @@ export default function EmailDrawer({ isOpen, onClose }: EmailDrawerProps) {
   }
 
   return (
-    <Drawer open={isOpen} onOpenChange={handleClose}>
+    <Drawer open={isOpen} onOpenChange={handleClose} theme={theme}>
       <DrawerContent className="max-w-xl mx-auto">
         <DrawerHeader className="text-center pt-10">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full" 
-               style={{ backgroundColor: 'var(--primary-blue-100)' }}>
+               style={{ backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'var(--primary-blue-100)' }}>
             <Mail className="h-10 w-10" style={{ color: 'var(--primary-blue)' }} />
           </div>
-          <DrawerTitle className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
+          <DrawerTitle className="text-xl font-bold" style={{ color: theme === 'dark' ? 'var(--pure-white)' : 'var(--text-primary)' }}>
             Stay Updated
           </DrawerTitle>
-          <DrawerDescription className="text-base" style={{ color: 'var(--text-body)' }}>
+          <DrawerDescription className="text-base" style={{ color: theme === 'dark' ? 'var(--text-muted)' : 'var(--text-body)' }}>
             Don't worry, only important emails!
           </DrawerDescription>
         </DrawerHeader>
@@ -118,10 +119,10 @@ export default function EmailDrawer({ isOpen, onClose }: EmailDrawerProps) {
               transition={{ duration: 0.5 }}
             >
               <CheckCircle className="h-12 w-12 mx-auto mb-4" style={{ color: 'var(--forest-green)' }} />
-              <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: theme === 'dark' ? 'var(--pure-white)' : 'var(--text-primary)' }}>
                 You're all set!
               </h3>
-              <p className="text-sm" style={{ color: 'var(--text-body)' }}>
+              <p className="text-sm" style={{ color: theme === 'dark' ? 'var(--text-muted)' : 'var(--text-body)' }}>
                 We'll send you updates about upcoming events.
               </p>
             </motion.div>
@@ -133,7 +134,7 @@ export default function EmailDrawer({ isOpen, onClose }: EmailDrawerProps) {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-medium pb-2 pl-1" style={{ color: 'var(--text-secondary)' }}>
+                      <FormLabel className="font-medium pb-2 pl-1" style={{ color: theme === 'dark' ? 'var(--pure-white)' : 'var(--text-secondary)' }}>
                         Email Address
                       </FormLabel>
                       <FormControl>
@@ -142,9 +143,9 @@ export default function EmailDrawer({ isOpen, onClose }: EmailDrawerProps) {
                           placeholder="your@email.com"
                           className="transition-colors"
                           style={{
-                            backgroundColor: 'var(--pure-white)',
-                            borderColor: 'var(--soft-gray-300)',
-                            color: 'var(--safe-black)'
+                            backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'var(--pure-white)',
+                            borderColor: theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'var(--soft-gray-300)',
+                            color: theme === 'dark' ? 'var(--pure-white)' : 'var(--safe-black)'
                           }}
                           {...field}
                         />

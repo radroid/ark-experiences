@@ -66,7 +66,7 @@ export default function ComingSoonSection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 tracking-tight"
+            className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight"
             style={{color: 'var(--pure-white)'}}
             variants={itemVariants}
           >
@@ -75,13 +75,6 @@ export default function ComingSoonSection() {
               Soon
             </span>
           </motion.h2>
-          <motion.p 
-            className="text-xl max-w-3xl mx-auto mb-8"
-            style={{color: 'var(--text-body)'}}
-            variants={itemVariants}
-          >
-            Get ready for our next thrilling adventure experience!
-          </motion.p>
         </motion.div>
 
         <motion.div
@@ -151,7 +144,7 @@ export default function ComingSoonSection() {
         </motion.div>
       </div>
 
-      <EmailDrawer isOpen={isOpenEmailDrawer} onClose={closeDrawer} />
+      <EmailDrawer isOpen={isOpenEmailDrawer} onClose={closeDrawer} theme="dark" />
     </section>
   )
 }
