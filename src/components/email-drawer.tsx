@@ -24,11 +24,11 @@ import {
   FormMessage 
 } from '@/components/ui/form'
 import { 
-  Mail, 
   CheckCircle,
   AlertCircle,
   Loader2
 } from 'lucide-react'
+import Image from 'next/image'
 
 const emailSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -97,10 +97,17 @@ export default function EmailDrawer({ isOpen, onClose, theme = 'light' }: EmailD
   return (
     <Drawer open={isOpen} onOpenChange={handleClose} theme={theme}>
       <DrawerContent className="max-w-xl mx-auto">
-        <DrawerHeader className="text-center pt-10">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full" 
+        <DrawerHeader className="text-center pt-5">
+          <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full" 
                style={{ backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'var(--primary-blue-100)' }}>
-            <Mail className="h-10 w-10" style={{ color: 'var(--primary-blue)' }} />
+            <Image
+              src="/mail-icon.png"
+              alt="Mail"
+              width={96}
+              height={96}
+              className="h-24 w-24"
+              priority={false}
+            />
           </div>
           <DrawerTitle className="text-xl font-bold" style={{ color: theme === 'dark' ? 'var(--pure-white)' : 'var(--text-primary)' }}>
             Stay Updated
@@ -141,10 +148,10 @@ export default function EmailDrawer({ isOpen, onClose, theme = 'light' }: EmailD
                         <Input
                           type="email"
                           placeholder="your@email.com"
-                          className="transition-colors"
+                          className="transition-colors py-7"
                           style={{
                             backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'var(--pure-white)',
-                            borderColor: theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'var(--soft-gray-300)',
+                            borderColor: theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'var(--soft-gray-700)',
                             color: theme === 'dark' ? 'var(--pure-white)' : 'var(--safe-black)'
                           }}
                           {...field}
@@ -175,7 +182,7 @@ export default function EmailDrawer({ isOpen, onClose, theme = 'light' }: EmailD
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex-1 cta-button"
+                    className="flex-1 cta-button py-7"
                   >
                     {isSubmitting ? (
                       <>
@@ -185,7 +192,6 @@ export default function EmailDrawer({ isOpen, onClose, theme = 'light' }: EmailD
                     ) : (
                       <>
                         Subscribe
-                        <Mail className="ml-2 h-4 w-4" />
                       </>
                     )}
                   </Button>

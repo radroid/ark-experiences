@@ -126,7 +126,7 @@
   --primary-blue: #0941B3;      /* 14.6:1 contrast on white */
   --accent-orange: #BD2E00;     /* 8.7:1 on white, 7.3:1 on blue */
   --highlight-gold: #A28300;    /* 9.1:1 on black (dark backgrounds only) */
-  --soft-gray: #C7C7C7;         /* Dividers, not for text */
+  --soft-gray: #7f7f7f;         /* Dividers, not for text */
   --soft-green: #008000;        /* Dividers, not for text */
   --forest-green: #228B22;      /* Forest green for success indicators */
   --safe-black: #181818;        /* Always safe text color */
