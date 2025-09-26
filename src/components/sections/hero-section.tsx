@@ -2,7 +2,7 @@
 
 import { motion, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button-2'
-import { MapPin, Users, Clock } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 // Pin image will be referenced directly in the component
 import { SplashCursor } from "@/components/ui/splash-cursor"
 import { RetroGrid } from "@/components/ui/retro-grid"
@@ -35,15 +35,30 @@ export default function HeroSection() {
     <img 
       src="/pin.gif" 
       alt="Location pin" 
-      className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" 
-      style={{color: 'var(--safe-black)'}}
+      className="h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" 
+    />
+  )
+
+  const CooperationIcon = () => (
+    <img 
+      src="/cooperation.gif" 
+      alt="Team cooperation" 
+      className="h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" 
+    />
+  )
+
+  const HourglassIcon = () => (
+    <img 
+      src="/hourglass.gif" 
+      alt="Time duration" 
+      className="h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" 
     />
   )
 
   const stats = [
     { icon: PinIcon, label: '5 Secret Locations', description: 'Across Downtown Toronto' },
-    { icon: Users, label: '2-4 Players', description: 'Per team' },
-    { icon: Clock, label: '2 Hours', description: 'Duration' },
+    { icon: CooperationIcon, label: '2-4 Players', description: 'Per team' },
+    { icon: HourglassIcon, label: '2 Hours', description: 'Duration' },
     // { icon: DollarSign, label: '$30 CAD', description: 'Cost per person' }
   ]
 
@@ -135,9 +150,7 @@ export default function HeroSection() {
               }}
             >
               <div className="flex justify-center mb-4">
-                <div className="p-3 rounded-full" style={{backgroundColor: 'var(--safe-black-100)'}}>
-                  <stat.icon className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" style={{color: 'var(--safe-black)'}} />
-                </div>
+                <stat.icon />
               </div>
               <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
               <p className="text-sm md:text-base lg:text-lg" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
