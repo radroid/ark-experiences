@@ -7,7 +7,7 @@ import ScoringSystemSection from './scoring-system-section'
 export default function HowItWorks() {
   return (
     <>
-      <GameModesSection />
+      {/* <GameModesSection /> */}
       <GameStepsSection />
       <ScoringSystemSection />
     </>
