@@ -1,15 +1,19 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
+
+// Global instance management to prevent multiple animations
+let globalAnimationId: number | null = null;
+let activeInstances = 0;
 
 function SplashCursor({
   // Add whatever props you like for customization
-  SIM_RESOLUTION = 128,
-  DYE_RESOLUTION = 1440,
-  CAPTURE_RESOLUTION = 512,
+  SIM_RESOLUTION = 64, // Reduced from 128 for better performance
+  DYE_RESOLUTION = 720, // Reduced from 1440 for better performance
+  CAPTURE_RESOLUTION = 256, // Reduced from 512
   DENSITY_DISSIPATION = 3.5,
   VELOCITY_DISSIPATION = 2,
   PRESSURE = 0.1,
-  PRESSURE_ITERATIONS = 20,
+  PRESSURE_ITERATIONS = 8, // Reduced from 20 for better performance
   CURL = 3,
   SPLAT_RADIUS = 0.2,
   SPLAT_FORCE = 6000,
@@ -20,10 +24,42 @@ function SplashCursor({
   containerRef = null as React.RefObject<HTMLElement | null> | null,
 }) {
   const canvasRef = useRef(null);
+  
+  // Performance monitoring and control
+  const animationIdRef = useRef<number | null>(null);
+  const isPageVisibleRef = useRef(true);
+  const lastFrameTimeRef = useRef(0);
+  const frameCountRef = useRef(0);
+  const fpsRef = useRef(60);
+
+  // Page Visibility API to pause animation when tab is hidden
+  const handleVisibilityChange = useCallback(() => {
+    isPageVisibleRef.current = !document.hidden;
+    if (!isPageVisibleRef.current && animationIdRef.current) {
+      cancelAnimationFrame(animationIdRef.current);
+      animationIdRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [handleVisibilityChange]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    // Track active instances
+    activeInstances++;
+    
+    // If there's already an animation running, stop it
+    if (globalAnimationId) {
+      cancelAnimationFrame(globalAnimationId);
+      globalAnimationId = null;
+    }
 
     function pointerPrototype() {
       this.id = -1;
@@ -794,13 +830,36 @@ function SplashCursor({
     let colorUpdateTimer = 0.0;
 
     function updateFrame() {
+      // Only run animation if page is visible
+      if (!isPageVisibleRef.current) {
+        animationIdRef.current = null;
+        return;
+      }
+
+      const now = performance.now();
       const dt = calcDeltaTime();
+      
+      // Throttle frame rate to 30fps for better performance
+      if (now - lastFrameTimeRef.current < 33) {
+        animationIdRef.current = requestAnimationFrame(updateFrame);
+        return;
+      }
+      
+      lastFrameTimeRef.current = now;
+      frameCountRef.current++;
+      
+      // Calculate FPS every 60 frames
+      if (frameCountRef.current % 60 === 0) {
+        fpsRef.current = Math.round(1000 / (now - lastFrameTimeRef.current));
+      }
+      
       if (resizeCanvas()) initFramebuffers();
       updateColors(dt);
       applyInputs();
       step(dt);
       render(null);
-      requestAnimationFrame(updateFrame);
+      
+      animationIdRef.current = requestAnimationFrame(updateFrame);
     }
 
     function calcDeltaTime() {
@@ -1201,15 +1260,25 @@ function SplashCursor({
       }
     );
 
-    container.addEventListener("mousemove", (e) => {
+    // Throttled mouse move handler for better performance
+    let mouseMoveThrottle = 0;
+    const handleMouseMove = (e: MouseEvent) => {
       // Only activate on non-touch devices to avoid conflicts
       if ('ontouchstart' in window) return;
+      
+      // Throttle mouse events to 60fps max
+      const now = performance.now();
+      if (now - mouseMoveThrottle < 16) return;
+      mouseMoveThrottle = now;
+      
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
       let color = pointer.color;
       updatePointerMoveData(pointer, posX, posY, color);
-    });
+    };
+
+    container.addEventListener("mousemove", handleMouseMove);
 
     container.addEventListener(
       "touchstart",
@@ -1258,7 +1327,41 @@ function SplashCursor({
       }
     });
 
-    updateFrame();
+    // Start animation only if page is visible
+    if (isPageVisibleRef.current) {
+      animationIdRef.current = requestAnimationFrame(updateFrame);
+      globalAnimationId = animationIdRef.current;
+    }
+
+    // Cleanup function
+    return () => {
+      // Decrement active instances
+      activeInstances--;
+      
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
+        animationIdRef.current = null;
+      }
+      
+      // Clear global animation if this was the active one
+      if (globalAnimationId === animationIdRef.current) {
+        globalAnimationId = null;
+      }
+      
+      // Clean up WebGL resources
+      if (gl) {
+        // Clean up framebuffers (dye, velocity, divergence, curl, pressure)
+        [dye, velocity, divergence, curl, pressure].forEach(fbo => {
+          if (fbo) {
+            if (fbo.read && fbo.read.texture) gl.deleteTexture(fbo.read.texture);
+            if (fbo.read && fbo.read.fbo) gl.deleteFramebuffer(fbo.read.fbo);
+            if (fbo.write && fbo.write.texture) gl.deleteTexture(fbo.write.texture);
+            if (fbo.write && fbo.write.fbo) gl.deleteFramebuffer(fbo.write.fbo);
+          }
+        });
+      }
+    };
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     SIM_RESOLUTION,
