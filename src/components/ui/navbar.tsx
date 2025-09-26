@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils'
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isMobileLayout, setIsMobileLayout] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
   const [activeTab, setActiveTab] = useState('')
   const navRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
@@ -48,11 +47,7 @@ export default function Navbar() {
       setIsMobileLayout(shouldUseMobileLayout)
     }
 
-    // Scroll detection for dynamic blur effects
-    const handleScroll = () => {
-      const scrolled = window.scrollY > 50
-      setIsScrolled(scrolled)
-    }
+    // Scroll detection removed (unused state)
 
     // Section detection using Intersection Observer for better performance
     const setupSectionObserver = () => {
@@ -96,7 +91,7 @@ export default function Navbar() {
 
     // Check on mount
     checkNavLayout()
-    handleScroll()
+    // initial scroll check removed
     
     // Setup section observer with a small delay to ensure DOM is ready
     const observerCleanup = setTimeout(() => {
@@ -105,7 +100,6 @@ export default function Navbar() {
     
     // Throttled handlers for better performance
     let resizeTicking = false
-    let scrollTicking = false
     
     const throttledResize = () => {
       if (!resizeTicking) {
@@ -117,23 +111,15 @@ export default function Navbar() {
       }
     }
     
-    const throttledScroll = () => {
-      if (!scrollTicking) {
-        requestAnimationFrame(() => {
-          handleScroll()
-          scrollTicking = false
-        })
-        scrollTicking = true
-      }
-    }
+    // Scroll listener removed (no dependent state)
     
     window.addEventListener('resize', throttledResize, { passive: true })
-    window.addEventListener('scroll', throttledScroll, { passive: true })
+    // window.addEventListener('scroll', throttledScroll, { passive: true })
 
     return () => {
       clearTimeout(observerCleanup)
       window.removeEventListener('resize', throttledResize)
-      window.removeEventListener('scroll', throttledScroll)
+      // window.removeEventListener('scroll', throttledScroll)
     }
   }, [])
 
