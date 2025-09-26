@@ -1670,4 +1670,11 @@ main:not(.blog-page) {
   scroll-snap-align: none !important;
 }
 
+/* Custom Giant Hand Cursor - Similar to Figma */
+.hero-cursor-section,
+.contact-cursor-section {
+  cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2h2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-2v2c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V8zm2 0v12h4v-2c0-1.1.9-2 2-2h2V10h-2c-1.1 0-2-.9-2-2V8zm6 4h2v2h-2v-2z' fill='%23000' stroke='%23fff' stroke-width='0.5'/%3E%3C/svg%3E") 16 16, auto;
+}
+
+
 

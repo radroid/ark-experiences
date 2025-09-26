@@ -3,8 +3,12 @@
 import { motion, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button-2'
 import { MapPin, Users, Clock } from 'lucide-react'
+import { SplashCursor } from "@/components/ui/splash-cursor"
+import { useRef } from 'react'
 
 export default function HeroSection() {
+  const heroRef = useRef<HTMLElement>(null);
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -38,7 +42,8 @@ export default function HeroSection() {
 
 
   return (
-    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
+    <section ref={heroRef} id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
+      <SplashCursor containerRef={heroRef} />
       {/* Subtle floating elements for visual interest */}
       <div className="absolute inset-0 lava-lamp-bg" />
       

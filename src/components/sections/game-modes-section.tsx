@@ -51,21 +51,6 @@ export default function GameModesSection() {
 
   return (
     <section id="game-modes" className="relative min-h-screen flex items-center justify-center py-15 overflow-hidden">
-      {/* Light Lava Lamp Background */}
-      <div className="absolute inset-0 lava-lamp-bg" />
-      
-      {/* Additional Floating Circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="floating-circle"></div>
-        <div className="floating-circle"></div>
-        <div className="floating-circle"></div>
-        <div className="floating-circle-small"></div>
-        <div className="floating-circle-small"></div>
-        <div className="floating-circle-small"></div>
-      </div>
-      
-      {/* Subtle Overlay for better text readability */}
-      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.1}} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col items-center justify-center min-h-screen">

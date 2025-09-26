@@ -24,6 +24,8 @@ import {
   CheckCircle,
   AlertCircle
 } from 'lucide-react'
+import { SplashCursor } from "@/components/ui/splash-cursor"
+import { useRef } from 'react'
 
 const contactFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -37,6 +39,7 @@ const contactFormSchema = z.object({
 type ContactFormData = z.infer<typeof contactFormSchema>
 
 export default function ContactForm() {
+  const contactRef = useRef<HTMLElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
@@ -110,23 +113,8 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="contact" className="relative py-30 overflow-hidden" style={{backgroundColor: 'var(--ghost-white)'}}>
-      {/* Subtle floating elements for visual interest */}
-      <div className="absolute inset-0 lava-lamp-bg" />
-      
-      {/* Additional Floating Circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="floating-circle"></div>
-        <div className="floating-circle"></div>
-        <div className="floating-circle"></div>
-        <div className="floating-circle-small"></div>
-        <div className="floating-circle-small"></div>
-        <div className="floating-circle-small"></div>
-      </div>
-      
-      {/* Subtle Overlay for better text readability */}
-      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.05}} />
-
+    <section ref={contactRef} id="contact" className="relative py-30 overflow-hidden">
+      <SplashCursor containerRef={contactRef} />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           className="text-center mb-12"
@@ -168,7 +156,7 @@ export default function ContactForm() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <Card className="glass-card border-0 shadow-2xl max-w-3xl mx-auto overflow-hidden">
+          <Card className="glass-card-with-blur border-0 shadow-2xl max-w-3xl mx-auto overflow-hidden">
             <CardHeader className="text-center pb-6">
               <CardTitle className="text-3xl font-bold" style={{color: 'var(--text-primary)'}}>
                 Book Your Amazing Race
