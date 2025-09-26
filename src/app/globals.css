@@ -158,6 +158,14 @@
   --tangelo: #FB923C;               /* More vibrant orange */
   --saffron: #FBBF24;               /* Brighter golden yellow */
   
+  /* Dynamic lava lamp colors - similar to splash cursor */
+  --lava-color-1: #4A90E2;          /* Soft blue */
+  --lava-color-2: #E24A90;          /* Soft pink */
+  --lava-color-3: #90E24A;          /* Soft green */
+  --lava-color-4: #E2904A;          /* Soft orange */
+  --lava-color-5: #904AE2;          /* Soft purple */
+  --lava-color-6: #4AE290;          /* Soft cyan */
+  
   /* Calendar and UI colors */
   --yinmn-blue: var(--primary-blue);
   --yinmn-blue-300: var(--primary-blue-300);
@@ -432,19 +440,19 @@
   .lava-lamp-bg::before {
     width: 300px;
     height: 300px;
-    background: var(--primary-blue);
+    background: var(--lava-color-1);
     top: 15%;
     left: 5%;
-    animation: float 8s ease-in-out infinite;
+    animation: float 8s ease-in-out infinite, colorShift1 15s ease-in-out infinite;
   }
   
   .lava-lamp-bg::after {
     width: 250px;
     height: 250px;
-    background: var(--accent-orange);
+    background: var(--lava-color-2);
     top: 75%;
     right: 5%;
-    animation: float-reverse 10s ease-in-out infinite;
+    animation: float-reverse 10s ease-in-out infinite, colorShift2 18s ease-in-out infinite;
   }
   
   /* Additional floating circles */
@@ -469,30 +477,30 @@
   .floating-circle:nth-child(1) {
     width: 200px;
     height: 200px;
-    background: var(--primary-blue);
+    background: var(--lava-color-3);
     top: 75%;
     left: 80%;
-    animation: float-diagonal 12s ease-in-out infinite;
+    animation: float-diagonal 12s ease-in-out infinite, colorShift3 20s ease-in-out infinite;
     animation-delay: 2s;
   }
   
   .floating-circle:nth-child(2) {
     width: 180px;
     height: 180px;
-    background: var(--accent-orange);
+    background: var(--lava-color-4);
     top: 85%;
     left: 15%;
-    animation: float 9s ease-in-out infinite;
+    animation: float 9s ease-in-out infinite, colorShift4 16s ease-in-out infinite;
     animation-delay: 4s;
   }
   
   .floating-circle:nth-child(3) {
     width: 150px;
     height: 150px;
-    background: var(--highlight-gold);
+    background: var(--lava-color-5);
     top: 5%;
     right: 20%;
-    animation: float-reverse 11s ease-in-out infinite;
+    animation: float-reverse 11s ease-in-out infinite, colorShift5 22s ease-in-out infinite;
     animation-delay: 6s;
   }
   
@@ -509,30 +517,30 @@
   .floating-circle-small:nth-child(4) {
     width: 100px;
     height: 100px;
-    background: var(--accent-orange);
+    background: var(--lava-color-6);
     top: 35%;
     left: 75%;
-    animation: float-wide 15s ease-in-out infinite;
+    animation: float-wide 15s ease-in-out infinite, colorShift6 14s ease-in-out infinite;
     animation-delay: 5s;
   }
   
   .floating-circle-small:nth-child(5) {
     width: 80px;
     height: 80px;
-    background: var(--primary-blue);
+    background: var(--lava-color-1);
     top: 65%;
     right: 35%;
-    animation: float-diagonal 8s ease-in-out infinite;
+    animation: float-diagonal 8s ease-in-out infinite, colorShift1 17s ease-in-out infinite;
     animation-delay: 3s;
   }
   
   .floating-circle-small:nth-child(6) {
     width: 120px;
     height: 120px;
-    background: var(--highlight-gold);
+    background: var(--lava-color-2);
     top: 45%;
     left: 10%;
-    animation: float-reverse 9s ease-in-out infinite;
+    animation: float-reverse 9s ease-in-out infinite, colorShift2 19s ease-in-out infinite;
     animation-delay: 5s;
   }
 
@@ -1676,5 +1684,59 @@ main:not(.blog-page) {
   cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2h2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-2v2c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V8zm2 0v12h4v-2c0-1.1.9-2 2-2h2V10h-2c-1.1 0-2-.9-2-2V8zm6 4h2v2h-2v-2z' fill='%23000' stroke='%23fff' stroke-width='0.5'/%3E%3C/svg%3E") 16 16, auto;
 }
 
+/* Color shift animations for lava lamp balls - similar to splash cursor colors */
+@keyframes colorShift1 {
+  0%, 100% { background: var(--lava-color-1); }
+  16.66% { background: var(--lava-color-2); }
+  33.33% { background: var(--lava-color-3); }
+  50% { background: var(--lava-color-4); }
+  66.66% { background: var(--lava-color-5); }
+  83.33% { background: var(--lava-color-6); }
+}
+
+@keyframes colorShift2 {
+  0%, 100% { background: var(--lava-color-2); }
+  16.66% { background: var(--lava-color-3); }
+  33.33% { background: var(--lava-color-4); }
+  50% { background: var(--lava-color-5); }
+  66.66% { background: var(--lava-color-6); }
+  83.33% { background: var(--lava-color-1); }
+}
+
+@keyframes colorShift3 {
+  0%, 100% { background: var(--lava-color-3); }
+  16.66% { background: var(--lava-color-4); }
+  33.33% { background: var(--lava-color-5); }
+  50% { background: var(--lava-color-6); }
+  66.66% { background: var(--lava-color-1); }
+  83.33% { background: var(--lava-color-2); }
+}
+
+@keyframes colorShift4 {
+  0%, 100% { background: var(--lava-color-4); }
+  16.66% { background: var(--lava-color-5); }
+  33.33% { background: var(--lava-color-6); }
+  50% { background: var(--lava-color-1); }
+  66.66% { background: var(--lava-color-2); }
+  83.33% { background: var(--lava-color-3); }
+}
+
+@keyframes colorShift5 {
+  0%, 100% { background: var(--lava-color-5); }
+  16.66% { background: var(--lava-color-6); }
+  33.33% { background: var(--lava-color-1); }
+  50% { background: var(--lava-color-2); }
+  66.66% { background: var(--lava-color-3); }
+  83.33% { background: var(--lava-color-4); }
+}
+
+@keyframes colorShift6 {
+  0%, 100% { background: var(--lava-color-6); }
+  16.66% { background: var(--lava-color-1); }
+  33.33% { background: var(--lava-color-2); }
+  50% { background: var(--lava-color-3); }
+  66.66% { background: var(--lava-color-4); }
+  83.33% { background: var(--lava-color-5); }
+}
 
 
