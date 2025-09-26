@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button-2'
 import { Menu, Home, Info, Image as ImageIcon, MessageCircle, Mail, BookOpen } from 'lucide-react'
@@ -158,7 +157,7 @@ export default function Navbar() {
         className={`navbar-desktop ${isMobileLayout ? 'navbar-hidden' : 'navbar-visible'} absolute left-1/2 transform -translate-x-1/2`}
         style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
       >
-        <div className="relative flex items-center gap-3 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+        <div className="relative flex items-center gap-1 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg max-w-fit">
           {/* Tubelight glow effect */}
           <div className="absolute inset-0 rounded-full" style={{ 
             background: 'linear-gradient(180deg, var(--pure-white) 0%, transparent 100%)',
@@ -183,15 +182,15 @@ export default function Navbar() {
                 href={item.href}
                 onClick={() => setActiveTab(item.href)}
                 className={cn(
-                  "relative cursor-pointer text-lg font-semibold px-10 py-4 rounded-full transition-colors",
+                  "relative cursor-pointer text-lg font-semibold lg:px-10 lg:py-4 md:px-6 md:py-2 px-2 py-1 rounded-full transition-colors",
                   "text-foreground/80",
                   "hover:text-[var(--primary-blue)]",
                   "dark-bg:text-[var(--soft-gray)] dark-bg:hover:text-[var(--primary-blue)]",
                   isActive && "bg-muted text-[var(--primary-blue)]"
                 )}
               >
-                <span className="hidden md:inline">{item.label}</span>
-                <span className="md:hidden">
+                <span className="hidden xl:inline">{item.label}</span>
+                <span className="xl:hidden">
                   {(() => {
                     const IconComponent = getIconComponent(item.icon)
                     return <IconComponent size={18} strokeWidth={2.5} />
