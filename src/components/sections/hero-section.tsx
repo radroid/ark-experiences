@@ -3,7 +3,9 @@
 import { motion, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button-2'
 import { MapPin, Users, Clock } from 'lucide-react'
+// Pin image will be referenced directly in the component
 import { SplashCursor } from "@/components/ui/splash-cursor"
+import { RetroGrid } from "@/components/ui/retro-grid"
 import { useRef } from 'react'
 
 export default function HeroSection() {
@@ -29,8 +31,17 @@ export default function HeroSection() {
     }
   }
 
+  const PinIcon = () => (
+    <img 
+      src="/pin.gif" 
+      alt="Location pin" 
+      className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" 
+      style={{color: 'var(--safe-black)'}}
+    />
+  )
+
   const stats = [
-    { icon: MapPin, label: '5 Secret Locations', description: 'Across Downtown Toronto' },
+    { icon: PinIcon, label: '5 Secret Locations', description: 'Across Downtown Toronto' },
     { icon: Users, label: '2-4 Players', description: 'Per team' },
     { icon: Clock, label: '2 Hours', description: 'Duration' },
     // { icon: DollarSign, label: '$30 CAD', description: 'Cost per person' }
@@ -43,6 +54,8 @@ export default function HeroSection() {
 
   return (
     <section ref={heroRef} id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
+      {/* Retro Grid Background */}
+      <RetroGrid className="absolute inset-0" />
       <SplashCursor containerRef={heroRef} />
       {/* Main Content */}
       <motion.div
@@ -70,7 +83,7 @@ export default function HeroSection() {
               Amazing Race
             </span>
           </motion.h1>
-
+{/* 
           <motion.p 
             className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
             style={{color: 'var(--text-body)'}}
@@ -81,15 +94,15 @@ export default function HeroSection() {
             <br />
             Gather your team of 2-4 players and compete in our thrilling <u>Amazing Race-inspired scavenger hunt</u> through downtown Toronto. Complete tasks at 5 secret locations to unlock clues and race to victory!
             <br />
-          </motion.p>
+          </motion.p> */}
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col pt-7 sm:flex-row gap-4 justify-center items-center"
             variants={itemVariants}
           >
             <Button 
               size="lg" 
-              className="cta-button px-8 py-4 text-lg font-semibold cursor-pointer"
+              className="cta-button px-37 py-7 text-lg font-semibold cursor-pointer"   
               onClick={scrollToContact}
             >
               Join the Race
@@ -98,7 +111,7 @@ export default function HeroSection() {
             <Button 
               variant="outline" 
               size="lg" 
-              className="secondary-button px-8 py-4 text-lg cursor-help"
+              className="secondary-button px-37 py-7 text-lg cursor-help"
               onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
             >
               How It Works
