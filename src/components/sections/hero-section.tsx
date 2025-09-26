@@ -52,7 +52,7 @@ export default function HeroSection() {
     <img 
       src="/hourglass.gif" 
       alt="Time duration" 
-      className="h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" 
+      className="h-12 w-20 md:h-16 md:w-16 lg:h-20 lg:w-20" 
     />
   )
 
@@ -69,13 +69,13 @@ export default function HeroSection() {
 
 
   return (
-    <section ref={heroRef} id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
+    <section ref={heroRef} id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-10 sm:px-6 md:px-10">
       {/* Retro Grid Background */}
       <RetroGrid className="absolute inset-0" />
       <SplashCursor containerRef={heroRef} />
       {/* Main Content */}
       <motion.div
-        className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20"
+        className="relative z-10 max-w-6xl mx-auto px-2 sm:px-4 lg:px-8 text-center pt-16 sm:pt-18 md:pt-20"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -85,7 +85,7 @@ export default function HeroSection() {
           variants={itemVariants}
         >
           <motion.h1 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight"
             style={{color: 'var(--text-primary)'}}
             variants={itemVariants}
           >
@@ -113,12 +113,12 @@ export default function HeroSection() {
           </motion.p> */}
 
           <motion.div
-            className="flex flex-col pt-7 sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col pt-6 sm:flex-row gap-4 justify-center items-center"
             variants={itemVariants}
           >
             <Button 
               size="lg" 
-              className="cta-button px-37 py-7 text-lg font-semibold cursor-pointer"   
+              className="cta-button px-6 py-4 text-base sm:px-8 sm:py-5 sm:text-lg font-semibold cursor-pointer"   
               onClick={scrollToContact}
             >
               Join the Race
@@ -137,13 +137,13 @@ export default function HeroSection() {
 
         {/* Stats Section */}
         <motion.div 
-          className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto"
+          className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-3xl mx-auto px-2"
           variants={containerVariants}
         >
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              className="glass-card rounded-xl p-4 text-center"
+              className="glass-card rounded-xl p-3 sm:p-4 text-center"
               variants={itemVariants}
               whileHover={{ 
                 scale: 1.05, 
@@ -153,8 +153,8 @@ export default function HeroSection() {
               <div className="flex justify-center mb-3">
                 <stat.icon />
               </div>
-              <h3 className="text-base md:text-lg lg:text-xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
-              <p className="text-xs md:text-sm lg:text-base" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
+              <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
+              <p className="text-xs sm:text-sm md:text-sm lg:text-base" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
             </motion.div>
           ))}
         </motion.div>
