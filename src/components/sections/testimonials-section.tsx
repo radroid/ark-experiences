@@ -87,18 +87,7 @@ export default function TestimonialsSection() {
     { value: 'Since 2024', label: 'Established', icon: Calendar }
   ]
 
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className="h-4 w-4"
-        style={{
-          color: i < rating ? 'var(--yinmn-blue)' : 'var(--text-muted)',
-          fill: i < rating ? 'var(--yinmn-blue)' : 'transparent'
-        }}
-      />
-    ))
-  }
+  // Removed old star renderer used by previous card grid layout
 
   const containerVariants = {
     hidden: { opacity: 0 },
