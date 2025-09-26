@@ -38,24 +38,29 @@ const flipAnimationBottomReverse = [
 ];
 
 export default function FlipGallery() {
-  const containerRef = useRef(null);
-  const uniteRef = useRef([]);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const uniteRef = useRef<NodeListOf<HTMLElement> | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const galleryWrapperStyle: React.CSSProperties & { ['--gallery-bg-color']?: string } = {
+    '--gallery-bg-color': 'rgba(255 255 255 / 0.075)'
+  };
 
   // initialise first image once
   useEffect(() => {
     if (!containerRef.current) return;
-    uniteRef.current = containerRef.current.querySelectorAll('.unite');
+    uniteRef.current = containerRef.current.querySelectorAll('.unite') as NodeListOf<HTMLElement>;
     defineFirstImg();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const defineFirstImg = () => {
+    if (!uniteRef.current) return;
     uniteRef.current.forEach(setActiveImage);
     setImageTitle();
   };
 
-  const setActiveImage = (el) => {
+  const setActiveImage = (el: HTMLElement) => {
     el.style.backgroundImage = `url('${images[currentIndex].url}')`;
   };
 
@@ -64,10 +69,10 @@ export default function FlipGallery() {
     if (!gallery) return;
     gallery.setAttribute('data-title', images[currentIndex].title);
     gallery.style.setProperty('--title-y', '0');
-    gallery.style.setProperty('--title-opacity', 1);
+    gallery.style.setProperty('--title-opacity', '1');
   };
 
-  const updateGallery = (nextIndex, isReverse = false) => {
+  const updateGallery = (nextIndex: number, isReverse = false) => {
     const gallery = containerRef.current;
     if (!gallery) return;
 
@@ -77,15 +82,18 @@ export default function FlipGallery() {
       ? flipAnimationBottomReverse
       : flipAnimationBottom;
 
-    gallery.querySelector('.overlay-top').animate(topAnim, flipTiming);
-    gallery.querySelector('.overlay-bottom').animate(bottomAnim, flipTiming);
+    const overlayTop = gallery.querySelector('.overlay-top') as HTMLElement | null;
+    const overlayBottom = gallery.querySelector('.overlay-bottom') as HTMLElement | null;
+    overlayTop?.animate(topAnim, flipTiming);
+    overlayBottom?.animate(bottomAnim, flipTiming);
 
     // hide title
     gallery.style.setProperty('--title-y', '-1rem');
-    gallery.style.setProperty('--title-opacity', 0);
+    gallery.style.setProperty('--title-opacity', '0');
     gallery.setAttribute('data-title', '');
 
     // update images with slight delay so animation looks continuous
+    if (!uniteRef.current) return;
     uniteRef.current.forEach((el, idx) => {
       const delay =
         (isReverse && (idx !== 1 && idx !== 2)) ||
@@ -100,7 +108,7 @@ export default function FlipGallery() {
     setTimeout(setImageTitle, FLIP_SPEED * 0.5);
   };
 
-  const updateIndex = (increment) => {
+  const updateIndex = (increment: number) => {
     const inc = Number(increment);
     const newIndex = (currentIndex + inc + images.length) % images.length;
     const isReverse = inc < 0;
@@ -112,7 +120,7 @@ export default function FlipGallery() {
     <div className='min-h-screen flex items-center justify-center bg-black font-sans'>
       <div
         className='relative bg-white/10 border border-white/25 p-2'
-        style={{ '--gallery-bg-color': 'rgba(255 255 255 / 0.075)' }}
+        style={galleryWrapperStyle}
       >
         {/* flip gallery */}
         <div

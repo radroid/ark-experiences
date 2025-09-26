@@ -113,7 +113,7 @@ export default function EmailDrawer({ isOpen, onClose, theme = 'light' }: EmailD
             Stay Updated
           </DrawerTitle>
           <DrawerDescription className="text-base" style={{ color: theme === 'dark' ? 'var(--text-muted)' : 'var(--text-body)' }}>
-            Don't worry, only important emails!
+            Don&#39;t worry, only important emails!
           </DrawerDescription>
         </DrawerHeader>
 
@@ -127,10 +127,10 @@ export default function EmailDrawer({ isOpen, onClose, theme = 'light' }: EmailD
             >
               <CheckCircle className="h-12 w-12 mx-auto mb-4" style={{ color: 'var(--forest-green)' }} />
               <h3 className="text-lg font-semibold mb-2" style={{ color: theme === 'dark' ? 'var(--pure-white)' : 'var(--text-primary)' }}>
-                You're all set!
+                You&#39;re all set!
               </h3>
               <p className="text-sm" style={{ color: theme === 'dark' ? 'var(--text-muted)' : 'var(--text-body)' }}>
-                We'll send you updates about upcoming events.
+                We&#39;ll send you updates about upcoming events.
               </p>
             </motion.div>
           ) : (

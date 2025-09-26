@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   const { email } = await request.json()
   console.log('Email signup:', email)
 
-  const { data, error } = await supabaseAdmin.from('email_signups').insert({ email })
+  const { error } = await supabaseAdmin.from('email_signups').insert({ email })
   if (error) {
     console.error('Error saving email:', error)
     return NextResponse.json({ error: 'Failed to save email' }, { status: 500 })

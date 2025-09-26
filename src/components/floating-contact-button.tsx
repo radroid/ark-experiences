@@ -1,7 +1,6 @@
 // TODO: open the email drawer when the button is clicked
 'use client';
 
-import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import EmailDrawer from './email-drawer';

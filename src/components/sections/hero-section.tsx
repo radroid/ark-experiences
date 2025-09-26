@@ -1,14 +1,13 @@
 'use client'
+/* eslint-disable @next/next/no-img-element */
 
 import { motion, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button-2'
-import { MapPin } from 'lucide-react'
 // Pin image will be referenced directly in the component
 import { SplashCursor } from "@/components/ui/splash-cursor"
 import { RetroGrid } from "@/components/ui/retro-grid"
 import { useRef } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
+ 
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
@@ -95,7 +94,7 @@ export default function HeroSection() {
               Downtown
             </span>
             <br />
-            Toronto's{' '}
+            Toronto&#39;s{' '}
             <span style={{color: 'var(--accent-orange)'}}>
               Amazing Race
             </span>
