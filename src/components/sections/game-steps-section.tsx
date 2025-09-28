@@ -222,13 +222,13 @@ export default function GameStepsSection() {
               />
               <motion.div
                 className="w-full max-w-lg lg:max-w-xl"
-                initial={{ opacity: 0, x: 50 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ 
                   opacity: 1, 
-                  x: 0,
+                  y: 0,
                   transition: {
-                    duration: 1.5,
-                    delay: 0.6,
+                    duration: 0.4,
+                    delay: 0.1,
                   }
                 }}
                 onViewportEnter={() => {
@@ -243,10 +243,10 @@ export default function GameStepsSection() {
                   })
                   setTimeout(() => {
                     setActiveStep(index)
-                  }, 300)
+                  }, 100)
                 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
               >
                 <Card className="border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 max-w-full" style={{backgroundColor: step.cardBgColor}}>
                   <CardContent className="p-4 lg:p-6">
@@ -267,9 +267,9 @@ export default function GameStepsSection() {
                           key={i}
                           className="flex items-start gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg shadow-sm"
                           style={{backgroundColor: 'var(--ghost-white)'}}
-                          initial={{ opacity: 0, y: 20 }}
+                          initial={{ opacity: 0, y: 10 }}
                           whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: 0.6 + (i * 0.1) }}
+                          transition={{ duration: 0.3, delay: 0.2 + (i * 0.05) }}
                           viewport={{ once: true }}
                         >
                           <CheckCircle className="h-4 w-4 lg:h-4 lg:w-4 mt-0.5 flex-shrink-0" style={{color: 'var(--forest-green)'}} />
@@ -396,10 +396,10 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
               </div>
               
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                viewport={{ once: true, margin: "-30px" }}
               >
                 <Card className="border-0 space-y-3 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden relative z-30 max-w-full" style={{backgroundColor: step.cardBgColor}}>
                   <CardContent className="p-6">
@@ -429,9 +429,9 @@ function MobileGameStepsSection({ steps }: { steps: Step[] }) {
                           key={i}
                           className="flex items-start gap-3 p-3 rounded-lg shadow-sm"
                           style={{backgroundColor: 'var(--ghost-white)'}}
-                          initial={{ opacity: 0, x: -20 }}
+                          initial={{ opacity: 0, x: -10 }}
                           whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.4, delay: 0.3 + (i * 0.1) }}
+                          transition={{ duration: 0.2, delay: 0.1 + (i * 0.05) }}
                           viewport={{ once: true }}
                         >
                           <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" style={{color: 'var(--forest-green)'}} />
