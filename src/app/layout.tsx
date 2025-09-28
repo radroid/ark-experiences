@@ -5,6 +5,8 @@ import Navbar from '@/components/ui/navbar'
 import FloatingContactButton from '@/components/floating-contact-button'
 import ScrollBehaviorHandler from '@/components/scroll-behavior-handler'
 import PerformanceOptimizer from '@/components/performance-optimizer'
+import PerformanceMonitor from '@/components/performance-monitor'
+import BrowserCompatibility from '@/components/browser-compatibility'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
@@ -202,7 +204,9 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        <BrowserCompatibility />
         <PerformanceOptimizer />
+        <PerformanceMonitor />
         <ScrollBehaviorHandler />
         <Navbar />
         <FloatingContactButton />

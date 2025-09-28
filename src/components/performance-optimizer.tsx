@@ -22,6 +22,10 @@ interface DeviceCapabilities {
   deviceMemory: number;
   hardwareConcurrency: number;
   saveData: boolean;
+  webglSupport: boolean;
+  backdropFilterSupport: boolean;
+  cssCustomPropertiesSupport: boolean;
+  intersectionObserverSupport: boolean;
 }
 
 export default function PerformanceOptimizer() {
@@ -58,12 +62,33 @@ export default function PerformanceOptimizer() {
       devicePerformance = 'medium';
     }
     
+    // Feature detection
+    const webglSupport = (() => {
+      try {
+        const canvas = document.createElement('canvas');
+        return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+      } catch {
+        return false;
+      }
+    })();
+
+    const backdropFilterSupport = CSS.supports('backdrop-filter', 'blur(10px)') || 
+                                 CSS.supports('-webkit-backdrop-filter', 'blur(10px)');
+
+    const cssCustomPropertiesSupport = CSS.supports('color', 'var(--test)');
+
+    const intersectionObserverSupport = 'IntersectionObserver' in window;
+
     return {
       connectionSpeed,
       devicePerformance,
       deviceMemory,
       hardwareConcurrency,
-      saveData: connection?.saveData || false
+      saveData: connection?.saveData || false,
+      webglSupport,
+      backdropFilterSupport,
+      cssCustomPropertiesSupport,
+      intersectionObserverSupport
     };
   }, []);
 
@@ -97,11 +122,69 @@ export default function PerformanceOptimizer() {
       root.classList.add('save-data');
     }
     
+    // WebGL support optimizations
+    if (!capabilities.webglSupport) {
+      root.classList.add('no-webgl');
+    }
+    
+    // Enhanced Safari detection and comprehensive fixes
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                     /Apple/.test(navigator.vendor) ||
+                     CSS.supports('-webkit-backdrop-filter', 'blur(1px)');
+    
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    
+    // Backdrop filter support with enhanced fallbacks
+    if (!capabilities.backdropFilterSupport || isSafari || isIOS) {
+      root.classList.add('no-backdrop-filter');
+      root.classList.add('use-solid-backgrounds');
+    }
+    
+    if (isSafari || isIOS) {
+      root.classList.add('safari-no-backdrop-filter');
+      root.classList.add('safari-no-custom-cursors');
+      root.classList.add('safari-simplified-mode');
+      root.classList.add('browser-safari');
+      
+      // Force disable all problematic effects
+      document.body.style.setProperty('--safari-mode', '1');
+      document.body.style.setProperty('--browser-safari', '1');
+      
+      // Enhanced overlay element cleanup
+      const overlays = document.querySelectorAll('[class*="overlay"], [class*="blur"], [class*="glass"], [class*="backdrop"]');
+      overlays.forEach(el => {
+        const element = el as HTMLElement;
+        element.style.setProperty('backdrop-filter', 'none', 'important');
+        element.style.setProperty('-webkit-backdrop-filter', 'none', 'important');
+        element.style.setProperty('filter', 'none', 'important');
+        element.style.setProperty('background', 'rgba(255, 255, 255, 0.9)', 'important');
+      });
+      
+      // Fix specific navbar issues
+      const navbarElements = document.querySelectorAll('.safari-backdrop-fix');
+      navbarElements.forEach(el => {
+        const element = el as HTMLElement;
+        element.style.setProperty('backdrop-filter', 'none', 'important');
+        element.style.setProperty('-webkit-backdrop-filter', 'none', 'important');
+        element.style.setProperty('background', 'rgba(255, 255, 255, 0.95)', 'important');
+        element.style.setProperty('border', '1px solid rgba(0, 0, 0, 0.1)', 'important');
+      });
+    }
+    
+    // Performance-based animation complexity
+    if (capabilities.devicePerformance === 'low' || capabilities.connectionSpeed === 'slow') {
+      root.classList.add('simplified-animations', 'performance-mode-low');
+    } else if (capabilities.devicePerformance === 'medium' || capabilities.connectionSpeed === 'medium') {
+      root.classList.add('performance-mode-medium');
+    }
+    
     // Set CSS custom properties for responsive optimizations
     root.style.setProperty('--device-performance', capabilities.devicePerformance);
     root.style.setProperty('--connection-speed', capabilities.connectionSpeed);
     root.style.setProperty('--device-memory', capabilities.deviceMemory.toString());
     root.style.setProperty('--hardware-concurrency', capabilities.hardwareConcurrency.toString());
+    root.style.setProperty('--webgl-support', capabilities.webglSupport ? '1' : '0');
+    root.style.setProperty('--backdrop-filter-support', capabilities.backdropFilterSupport ? '1' : '0');
   }, []);
 
   useEffect(() => {

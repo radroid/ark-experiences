@@ -148,7 +148,7 @@ export default function Navbar() {
         className={`navbar-desktop ${isMobileLayout ? 'navbar-hidden' : 'navbar-visible'} absolute left-1/2 transform -translate-x-1/2`}
         style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
       >
-        <div className="relative flex items-center gap-1 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+        <div className="relative flex items-center gap-1 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg safari-backdrop-fix">
           {/* Tubelight glow effect */}
           <div className="absolute inset-0 rounded-full" style={{ 
             background: 'linear-gradient(180deg, var(--pure-white) 0%, transparent 100%)',

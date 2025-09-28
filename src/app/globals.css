@@ -510,9 +510,14 @@
     position: absolute;
     border-radius: 50%;
     filter: blur(25px);
+    -webkit-filter: blur(25px);
     opacity: 0.7;
     /* Explicitly set z-index to avoid stacking issues */
     z-index: -1;
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .lava-lamp-bg::before {
@@ -538,9 +543,14 @@
     position: absolute;
     border-radius: 50%;
     filter: blur(20px);
+    -webkit-filter: blur(20px);
     opacity: 0.6;
     /* Keep floating elements behind content */
     z-index: -2;
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   /* Opacity utilities without stacking context creation */
@@ -634,9 +644,14 @@
     position: absolute;
     border-radius: 50%;
     filter: blur(35px);
+    -webkit-filter: blur(35px);
     opacity: 0.8;
     /* Explicitly set z-index to avoid stacking issues */
     z-index: -1;
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .dark-lava-lamp-bg::before {
@@ -662,9 +677,14 @@
     position: absolute;
     border-radius: 50%;
     filter: blur(25px);
+    -webkit-filter: blur(25px);
     opacity: 0.7;
     /* Keep floating elements behind content */
     z-index: -2;
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .dark-floating-circle:nth-child(1) {
@@ -1762,6 +1782,24 @@ main:not(.blog-page) {
   cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2h2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-2v2c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V8zm2 0v12h4v-2c0-1.1.9-2 2-2h2V10h-2c-1.1 0-2-.9-2-2V8zm6 4h2v2h-2v-2z' fill='%23000' stroke='%23fff' stroke-width='0.5'/%3E%3C/svg%3E") 16 16, auto;
 }
 
+/* Safari-specific cursor fixes - disable custom cursors */
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  .hero-cursor-section,
+  .contact-cursor-section,
+  * {
+    cursor: auto !important;
+  }
+  
+  /* Ensure standard cursor behavior for interactive elements */
+  a, button, [role="button"], input, textarea, select {
+    cursor: pointer !important;
+  }
+  
+  a:hover, button:hover, [role="button"]:hover {
+    cursor: pointer !important;
+  }
+}
+
 /* Performance optimization classes */
 .reduce-motion * {
   animation-duration: 0.01ms !important;
@@ -1777,11 +1815,13 @@ main:not(.blog-page) {
 .reduce-blur * {
   filter: none !important;
   backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .reduce-blur-partial * {
   filter: blur(2px) !important;
   backdrop-filter: blur(2px) !important;
+  -webkit-backdrop-filter: blur(2px) !important;
 }
 
 .reduce-shadows * {
@@ -1798,6 +1838,303 @@ main:not(.blog-page) {
   background-image: none !important;
   filter: none !important;
   backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Cross-browser compatibility optimizations */
+.no-webgl * {
+  background-image: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Enhanced fallbacks for browsers without backdrop-filter support */
+.no-backdrop-filter * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.use-solid-backgrounds .glass,
+.use-solid-backgrounds .glass-with-blur,
+.use-solid-backgrounds .glass-card,
+.use-solid-backgrounds .glass-card-with-blur,
+.use-solid-backgrounds .glass-dark,
+.use-solid-backgrounds .glass-dark-with-blur {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.use-solid-backgrounds .liquid-glass-navbar,
+.use-solid-backgrounds .liquid-glass-mobile-trigger,
+.use-solid-backgrounds .liquid-glass-mobile-menu {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Safari-specific backdrop-filter disable */
+.safari-no-backdrop-filter * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.safari-no-backdrop-filter .backdrop-blur-lg,
+.safari-no-backdrop-filter .backdrop-blur-sm,
+.safari-no-backdrop-filter .backdrop-blur {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Safari-specific custom cursor disable */
+.safari-no-custom-cursors * {
+  cursor: auto !important;
+}
+
+.safari-no-custom-cursors a,
+.safari-no-custom-cursors button,
+.safari-no-custom-cursors [role="button"],
+.safari-no-custom-cursors input,
+.safari-no-custom-cursors textarea,
+.safari-no-custom-cursors select {
+  cursor: pointer !important;
+}
+
+.safari-no-custom-cursors a:hover,
+.safari-no-custom-cursors button:hover,
+.safari-no-custom-cursors [role="button"]:hover {
+  cursor: pointer !important;
+}
+
+/* Safari simplified mode - disable all problematic effects */
+.safari-simplified-mode {
+  --safari-mode: 1;
+}
+
+.safari-simplified-mode * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+}
+
+.safari-simplified-mode .lava-lamp-bg,
+.safari-simplified-mode .floating-circle,
+.safari-simplified-mode .floating-circle-small,
+.safari-simplified-mode .dark-lava-lamp-bg,
+.safari-simplified-mode .dark-floating-circle,
+.safari-simplified-mode .dark-floating-circle-small,
+.safari-simplified-mode .retro-grid {
+  display: none !important;
+}
+
+.safari-simplified-mode .lava-lamp-bg::before,
+.safari-simplified-mode .lava-lamp-bg::after,
+.safari-simplified-mode .dark-lava-lamp-bg::before,
+.safari-simplified-mode .dark-lava-lamp-bg::after {
+  display: none !important;
+}
+
+.safari-simplified-mode body {
+  background: white !important;
+}
+
+/* Enhanced Safari and cross-browser compatibility fixes */
+.browser-safari {
+  --safari-mode: 1;
+}
+
+/* Safari-specific backdrop-filter complete disable */
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  .browser-safari * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Comprehensive Safari compatibility fixes */
+.safari-simplified-mode {
+  --safari-mode: 1;
+}
+
+.safari-simplified-mode *,
+.browser-safari * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+}
+
+/* Remove problematic pseudo-elements in Safari */
+.safari-simplified-mode body::before,
+.safari-simplified-mode body::after,
+.safari-simplified-mode html::before,
+.safari-simplified-mode html::after,
+.browser-safari body::before,
+.browser-safari body::after,
+.browser-safari html::before,
+.browser-safari html::after {
+  display: none !important;
+}
+
+/* Ensure no blur overlays exist in Safari */
+.safari-simplified-mode [class*="overlay"],
+.safari-simplified-mode [class*="blur"],
+.safari-simplified-mode [class*="glass"],
+.browser-safari [class*="overlay"],
+.browser-safari [class*="blur"],
+.browser-safari [class*="glass"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Enhanced navbar fixes for Safari */
+.safari-simplified-mode .navbar-desktop > div,
+.browser-safari .navbar-desktop > div,
+.safari-backdrop-fix {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Disable all glass effects in Safari */
+.safari-simplified-mode .glass-with-blur,
+.safari-simplified-mode .glass-card-with-blur,
+.safari-simplified-mode .glass-dark-with-blur,
+.safari-simplified-mode .liquid-glass-navbar,
+.safari-simplified-mode .liquid-glass-mobile-trigger,
+.safari-simplified-mode .liquid-glass-mobile-menu,
+.browser-safari .glass-with-blur,
+.browser-safari .glass-card-with-blur,
+.browser-safari .glass-dark-with-blur,
+.browser-safari .liquid-glass-navbar,
+.browser-safari .liquid-glass-mobile-trigger,
+.browser-safari .liquid-glass-mobile-menu {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Safari-optimized background animations - slow and smooth */
+.safari-simplified-mode .lava-lamp-bg,
+.safari-simplified-mode .floating-circle,
+.safari-simplified-mode .floating-circle-small,
+.safari-simplified-mode .dark-lava-lamp-bg,
+.safari-simplified-mode .dark-floating-circle,
+.safari-simplified-mode .dark-floating-circle-small,
+.browser-safari .lava-lamp-bg,
+.browser-safari .floating-circle,
+.browser-safari .floating-circle-small,
+.browser-safari .dark-lava-lamp-bg,
+.browser-safari .dark-floating-circle,
+.browser-safari .dark-floating-circle-small {
+  display: none !important;
+}
+
+/* Safari-friendly RetroGrid - much lighter lines to prevent flickering */
+.safari-simplified-mode .retro-grid,
+.browser-safari .retro-grid {
+  opacity: 0.15 !important; /* Much lighter than normal */
+  filter: contrast(0.1) brightness(0.5) !important; /* Reduce contrast, increase brightness */
+}
+
+/* Disable gentle animations in Safari since we use lighter RetroGrid */
+.safari-simplified-mode .safari-gentle-bg,
+.safari-simplified-mode .safari-gentle-float,
+.browser-safari .safari-gentle-bg,
+.browser-safari .safari-gentle-float {
+  display: none !important;
+}
+
+/* Disable all background pseudo-elements in Safari */
+.safari-simplified-mode .lava-lamp-bg::before,
+.safari-simplified-mode .lava-lamp-bg::after,
+.safari-simplified-mode .dark-lava-lamp-bg::before,
+.safari-simplified-mode .dark-lava-lamp-bg::after,
+.browser-safari .lava-lamp-bg::before,
+.browser-safari .lava-lamp-bg::after,
+.browser-safari .dark-lava-lamp-bg::before,
+.browser-safari .dark-lava-lamp-bg::after {
+  display: none !important;
+}
+
+/* Ensure clean backgrounds in Safari */
+.safari-simplified-mode body,
+.browser-safari body {
+  background: white !important;
+  isolation: isolate !important;
+}
+
+/* Enhanced mobile gallery fixes for Safari */
+.safari-simplified-mode .backdrop-blur-sm,
+.safari-simplified-mode .backdrop-blur,
+.safari-simplified-mode .backdrop-blur-lg,
+.browser-safari .backdrop-blur-sm,
+.browser-safari .backdrop-blur,
+.browser-safari .backdrop-blur-lg {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Performance-optimized animations */
+.performance-optimized {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduced animation complexity */
+.simplified-animations .floating-circle,
+.simplified-animations .floating-circle-small,
+.simplified-animations .dark-floating-circle,
+.simplified-animations .dark-floating-circle-small {
+  animation-duration: 20s !important;
+  animation-timing-function: linear !important;
+}
+
+.simplified-animations .lava-lamp-bg::before,
+.simplified-animations .lava-lamp-bg::after,
+.simplified-animations .dark-lava-lamp-bg::before,
+.simplified-animations .dark-lava-lamp-bg::after {
+  animation-duration: 25s !important;
+  animation-timing-function: linear !important;
+}
+
+/* Intersection Observer optimizations */
+.intersection-optimized .floating-circle,
+.intersection-optimized .floating-circle-small,
+.intersection-optimized .dark-floating-circle,
+.intersection-optimized .dark-floating-circle-small {
+  animation-play-state: paused;
+}
+
+.intersection-optimized.animation-active .floating-circle,
+.intersection-optimized.animation-active .floating-circle-small,
+.intersection-optimized.animation-active .dark-floating-circle,
+.intersection-optimized.animation-active .dark-floating-circle-small {
+  animation-play-state: running;
+}
+
+/* Reduce number of floating circles for better performance */
+.performance-mode-low .floating-circle:nth-child(n+4),
+.performance-mode-low .floating-circle-small:nth-child(n+4),
+.performance-mode-low .dark-floating-circle:nth-child(n+4),
+.performance-mode-low .dark-floating-circle-small:nth-child(n+4) {
+  display: none;
+}
+
+.performance-mode-medium .floating-circle:nth-child(n+5),
+.performance-mode-medium .floating-circle-small:nth-child(n+5),
+.performance-mode-medium .dark-floating-circle:nth-child(n+5),
+.performance-mode-medium .dark-floating-circle-small:nth-child(n+5) {
+  display: none;
 }
 
 /* Optimized scroll performance */
@@ -1861,4 +2198,46 @@ main:not(.blog-page) {
   50% { background: var(--lava-color-3); }
   66.66% { background: var(--lava-color-4); }
   83.33% { background: var(--lava-color-5); }
+}
+
+/* Safari-specific gentle animations */
+@keyframes safariGentleGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 25%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  75% {
+    background-position: 25% 75%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes safariGentleFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(20px, -15px) scale(1.1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-10px, -30px) scale(0.9);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translate(-15px, -10px) scale(1.05);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
 }

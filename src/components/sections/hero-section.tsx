@@ -6,31 +6,43 @@ import { Button } from '@/components/ui/button-2'
 // Pin image will be referenced directly in the component
 import { SplashCursor } from "@/components/ui/splash-cursor"
 import { RetroGrid } from "@/components/ui/retro-grid"
-import { useRef } from 'react'
+import IntersectionObserverOptimizer from "@/components/intersection-observer-optimizer"
+import { useRef, useMemo } from 'react'
  
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   
-  const containerVariants = {
+  // Detect Safari for optimized animations
+  const isSafari = useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+           /Apple/.test(navigator.vendor);
+  }, []);
+  
+  // Safari-optimized animation variants
+  const containerVariants = useMemo(() => ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.8,
-        staggerChildren: 0.2
+        duration: isSafari ? 1.5 : 0.8, // Slower for Safari
+        staggerChildren: isSafari ? 0.4 : 0.2 // More stagger for Safari
       }
     }
-  }
+  }), [isSafari]);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+  const itemVariants = useMemo(() => ({
+    hidden: { opacity: 0, y: isSafari ? 15 : 30 }, // Less movement for Safari
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: easeOut }
+      transition: { 
+        duration: isSafari ? 1.0 : 0, // Slower for Safari
+        ease: isSafari ? "easeInOut" : easeOut // Gentler easing for Safari
+      }
     }
-  }
+  }), [isSafari]);
 
   const PinIcon = () => (
     <img 
@@ -69,10 +81,11 @@ export default function HeroSection() {
 
 
   return (
-    <section ref={heroRef} id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-10 sm:px-6 md:px-10">
-      {/* Retro Grid Background */}
-      <RetroGrid className="absolute inset-0" />
-      <SplashCursor containerRef={heroRef} />
+    <IntersectionObserverOptimizer>
+      <section ref={heroRef} id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-10 sm:px-6 md:px-10">
+        {/* Retro Grid Background */}
+        <RetroGrid className="absolute inset-0" />
+        <SplashCursor containerRef={heroRef} />
       {/* Main Content */}
       <motion.div
         className="relative z-10 max-w-6xl mx-auto px-2 sm:px-4 lg:px-8 text-center pt-16 sm:pt-18 md:pt-20"
@@ -146,8 +159,8 @@ export default function HeroSection() {
               className="glass-card rounded-xl p-3 sm:p-4 text-center"
               variants={itemVariants}
               whileHover={{ 
-                scale: 1.05, 
-                transition: { duration: 0.2 } 
+                scale: isSafari ? 1.02 : 1.05, // Less scale for Safari
+                transition: { duration: isSafari ? 0.4 : 0.2 } // Slower hover for Safari
               }}
             >
               <div className="flex justify-center mb-3">
@@ -163,13 +176,18 @@ export default function HeroSection() {
       {/* Scroll Indicator */}
       <motion.div
           className="absolute bottom-8 left-8"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          animate={{ y: [0, isSafari ? 5 : 10, 0] }} // Less movement for Safari
+          transition={{ 
+            duration: isSafari ? 3 : 2, // Slower for Safari
+            repeat: Infinity,
+            ease: isSafari ? "easeInOut" : "linear" // Gentler easing for Safari
+          }}
         >
           <div className="w-6 h-10 border-2 rounded-full flex justify-center" style={{borderColor: 'var(--safe-black-500)'}}>
             <div className="w-1 h-3 rounded-full mt-2" style={{backgroundColor: 'var(--safe-black-700)'}} />
           </div>
         </motion.div>
-    </section>
+      </section>
+    </IntersectionObserverOptimizer>
   )
 } 
