@@ -218,7 +218,7 @@ export default function Navbar() {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="h-14 w-14 liquid-glass-mobile-trigger"
+              className="h-14 w-14 liquid-glass-mobile-trigger min-h-[44px] min-w-[44px]"
               aria-label="Open navigation menu"
             >
               <Menu className="h-6 w-6" />
@@ -251,7 +251,7 @@ export default function Navbar() {
                 <Link
                   href="#hero-section"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="liquid-glass-mobile-link flex items-center space-x-4 px-4 py-4 text-lg font-semibold group"
+                  className="liquid-glass-mobile-link flex items-center space-x-4 px-4 py-4 text-lg font-semibold group min-h-[44px]"
                 >
                   <Home className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                   <span>Home</span>
@@ -265,7 +265,7 @@ export default function Navbar() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="liquid-glass-mobile-link flex items-center space-x-4 px-4 py-4 text-lg font-semibold group"
+                      className="liquid-glass-mobile-link flex items-center space-x-4 px-4 py-4 text-lg font-semibold group min-h-[44px]"
                     >
                       <IconComponent className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                       <span>{item.label}</span>
@@ -277,7 +277,7 @@ export default function Navbar() {
                 <Link
                   href="/blog"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="liquid-glass-blog-button flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-bold group"
+                  className="liquid-glass-blog-button flex items-center space-x-4 px-4 py-4 rounded-xl text-lg font-bold group min-h-[44px]"
                 >
                   <BookOpen className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                   <span>📝 Blog</span>

@@ -51,7 +51,7 @@ export default function BrowserCompatibility() {
       const supportsIntersectionObserver = 'IntersectionObserver' in window;
       
       // Device capabilities
-      const nav = navigator as any;
+      const nav = navigator as Navigator & { deviceMemory?: number; hardwareConcurrency?: number };
       const deviceMemory = nav.deviceMemory || 4;
       const hardwareConcurrency = nav.hardwareConcurrency || 4;
       

@@ -1205,6 +1205,11 @@ html.blog-page body {
     overscroll-behavior-y: contain;
     /* Enable hardware acceleration for smoother scrolling without creating stacking context */
     will-change: scroll-position;
+    /* Improve text rendering on mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
   }
 
   /* Hide custom scrollbars on mobile for cleaner look */
@@ -1218,6 +1223,89 @@ html.blog-page body {
   .fullscreen-scroll-container {
     /* Better touch responsiveness */
     touch-action: pan-y;
+  }
+
+  /* Mobile-specific improvements */
+  * {
+    /* Improve touch responsiveness */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Ensure all interactive elements are touch-friendly */
+  button, a, [role="button"], input, textarea, select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Improve form elements on mobile */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Mobile typography improvements */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  p, span, div {
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Improve spacing on mobile */
+  .container, .max-w-7xl, .max-w-6xl, .max-w-4xl, .max-w-3xl, .max-w-2xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Better mobile section spacing */
+  section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  /* Improve mobile card spacing */
+  .glass-card, .card {
+    margin-bottom: 1rem;
+  }
+
+  /* Mobile performance optimizations */
+  .lava-lamp-bg::before,
+  .lava-lamp-bg::after,
+  .floating-circle,
+  .floating-circle-small,
+  .dark-lava-lamp-bg::before,
+  .dark-lava-lamp-bg::after,
+  .dark-floating-circle,
+  .dark-floating-circle-small {
+    /* Reduce animation complexity on mobile */
+    animation-duration: 20s !important;
+    animation-timing-function: linear !important;
+  }
+
+  /* Reduce blur effects on mobile for better performance */
+  .glass-card,
+  .glass-with-blur,
+  .glass-card-with-blur,
+  .liquid-glass-navbar,
+  .liquid-glass-mobile-menu {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+
+  /* Optimize images on mobile */
+  img {
+    /* Enable hardware acceleration for images */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Reduce motion on mobile for better performance */
+  .motion-reduce-mobile * {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
   }
 }
 

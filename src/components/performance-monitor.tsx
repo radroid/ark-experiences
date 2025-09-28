@@ -2,12 +2,14 @@
 
 import { useEffect, useCallback } from 'react';
 
-interface PerformanceMetrics {
-  fcp?: number; // First Contentful Paint
-  lcp?: number; // Largest Contentful Paint
-  fid?: number; // First Input Delay
-  cls?: number; // Cumulative Layout Shift
-  ttfb?: number; // Time to First Byte
+// Type definitions for performance monitoring
+interface LayoutShift extends PerformanceEntry {
+  value: number;
+  hadRecentInput: boolean;
+}
+
+interface PerformanceEventTiming extends PerformanceEntry {
+  processingStart: number;
 }
 
 export default function PerformanceMonitor() {
@@ -48,11 +50,13 @@ export default function PerformanceMonitor() {
               logPerformanceMetric({ name: 'LCP', value: entry.startTime });
               break;
             case 'first-input':
-              logPerformanceMetric({ name: 'FID', value: (entry as any).processingStart - entry.startTime });
+              const fidEntry = entry as PerformanceEventTiming;
+              logPerformanceMetric({ name: 'FID', value: fidEntry.processingStart - entry.startTime });
               break;
             case 'layout-shift':
-              if (!(entry as any).hadRecentInput) {
-                logPerformanceMetric({ name: 'CLS', value: (entry as any).value });
+              const clsEntry = entry as LayoutShift;
+              if (!clsEntry.hadRecentInput) {
+                logPerformanceMetric({ name: 'CLS', value: clsEntry.value });
               }
               break;
             case 'navigation':
@@ -66,31 +70,31 @@ export default function PerformanceMonitor() {
       // Observe different types of performance entries
       try {
         observer.observe({ entryTypes: ['paint'] });
-      } catch (e) {
+      } catch {
         // Paint timing not supported
       }
 
       try {
         observer.observe({ entryTypes: ['largest-contentful-paint'] });
-      } catch (e) {
+      } catch {
         // LCP not supported
       }
 
       try {
         observer.observe({ entryTypes: ['first-input'] });
-      } catch (e) {
+      } catch {
         // FID not supported
       }
 
       try {
         observer.observe({ entryTypes: ['layout-shift'] });
-      } catch (e) {
+      } catch {
         // CLS not supported
       }
 
       try {
         observer.observe({ entryTypes: ['navigation'] });
-      } catch (e) {
+      } catch {
         // Navigation timing not supported
       }
 
@@ -135,7 +139,7 @@ export default function PerformanceMonitor() {
     if (typeof window === 'undefined' || !('memory' in performance)) return;
 
     const checkMemory = () => {
-      const memory = (performance as any).memory;
+      const memory = (performance as Performance & { memory?: { usedJSHeapSize: number; totalJSHeapSize: number } }).memory;
       
       if (memory) {
         const usedMemory = memory.usedJSHeapSize / 1048576; // Convert to MB

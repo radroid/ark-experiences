@@ -1,7 +1,7 @@
 'use client'
 /* eslint-disable @next/next/no-img-element */
 
-import { motion, easeOut } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button-2'
 // Pin image will be referenced directly in the component
 import { SplashCursor } from "@/components/ui/splash-cursor"
@@ -38,8 +38,7 @@ export default function HeroSection() {
       opacity: 1,
       y: 0,
       transition: { 
-        duration: isSafari ? 1.0 : 0, // Slower for Safari
-        ease: isSafari ? "easeInOut" : easeOut // Gentler easing for Safari
+        duration: isSafari ? 1.0 : 0.6 // Slower for Safari
       }
     }
   }), [isSafari]);
@@ -48,7 +47,7 @@ export default function HeroSection() {
     <img 
       src="/pin.gif" 
       alt="Location pin" 
-      className="h-20 w-20" 
+      className="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20" 
     />
   )
 
@@ -56,7 +55,7 @@ export default function HeroSection() {
     <img 
       src="/cooperation.gif" 
       alt="Team cooperation" 
-      className="h-20 w-20" 
+      className="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20" 
     />
   )
 
@@ -64,7 +63,7 @@ export default function HeroSection() {
     <img 
       src="/hourglass.gif" 
       alt="Time duration" 
-      className="h-20 w-20" 
+      className="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20" 
     />
   )
 
@@ -131,7 +130,7 @@ export default function HeroSection() {
           >
             <Button 
               size="lg" 
-              className="cta-button px-37 py-7 sm:px-8 sm:py-5 sm:text-lg font-semibold cursor-pointer"   
+              className="cta-button px-8 py-4 sm:px-8 sm:py-5 sm:text-lg font-semibold cursor-pointer min-h-[44px] min-w-[44px]"   
               onClick={scrollToContact}
             >
               Join the Race
@@ -156,7 +155,7 @@ export default function HeroSection() {
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              className="glass-card rounded-xl p-3 sm:p-4 text-center"
+              className="glass-card rounded-xl p-4 sm:p-6 text-center min-h-[120px] flex flex-col justify-center"
               variants={itemVariants}
               whileHover={{ 
                 scale: isSafari ? 1.02 : 1.05, // Less scale for Safari
@@ -166,8 +165,8 @@ export default function HeroSection() {
               <div className="flex justify-center mb-3">
                 <stat.icon />
               </div>
-              <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
-              <p className="text-xs sm:text-sm md:text-sm lg:text-base" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
+              <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-2" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
+              <p className="text-xs sm:text-sm md:text-sm lg:text-base leading-relaxed" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
             </motion.div>
           ))}
         </motion.div>

@@ -349,7 +349,7 @@ export default function GallerySection() {
 
         {/* Category Filter */}
         <motion.div 
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12 px-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -358,7 +358,7 @@ export default function GallerySection() {
           {categories.map((category) => (
             <motion.button
               key={category.id}
-              className="flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300"
+              className="flex items-center gap-2 px-4 sm:px-6 py-3 rounded-full font-medium transition-all duration-300 min-h-[44px] min-w-[44px]"
               style={selectedCategory === category.id ? {
                 backgroundColor: 'var(--primary-blue)',
                 color: 'var(--pure-white)',
@@ -375,14 +375,14 @@ export default function GallerySection() {
               whileTap={{ scale: 0.95 }}
             >
               <category.icon className="h-4 w-4" />
-              {category.label}
+              <span className="text-sm sm:text-base">{category.label}</span>
             </motion.button>
           ))}
         </motion.div>
 
         {/* Responsive Masonry Gallery Grid */}
         <motion.div 
-          className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 space-y-4"
+          className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 sm:gap-4 space-y-3 sm:space-y-4 px-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
