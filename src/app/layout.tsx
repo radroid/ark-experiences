@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from '@/components/ui/navbar'
 import FloatingBlogButton from '@/components/floating-blog-button'
@@ -8,16 +7,6 @@ import ScrollBehaviorHandler from '@/components/scroll-behavior-handler'
 import PerformanceOptimizer from '@/components/performance-optimizer'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "ARK - Toronto's Ultimate Outdoor Escape Room & Downtown Adventure Experience",
@@ -201,7 +190,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        className="antialiased min-h-screen"
       >
         {/* Skip link for accessibility */}
         <a href="#main-content" className="skip-link">
