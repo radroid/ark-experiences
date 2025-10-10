@@ -33,8 +33,9 @@ export default function HeroSection() {
     { icon: Clock, label: '2 Hours', description: 'Duration' },
   ]
 
-  const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+  const openEmailPopover = () => {
+    // Dispatch custom event to open the email popover
+    window.dispatchEvent(new CustomEvent('openEmailPopover'));
   }
 
 
@@ -99,7 +100,7 @@ export default function HeroSection() {
             <Button 
               size="lg" 
               className="cta-button px-8 py-4 text-lg font-semibold cursor-pointer"
-              onClick={scrollToContact}
+              onClick={openEmailPopover}
             >
               Join the Race
             </Button>

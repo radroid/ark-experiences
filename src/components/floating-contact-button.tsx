@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MessageCircle, X, Mail, CheckCircle } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -13,6 +13,16 @@ export default function FloatingContactButton() {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+
+  // Listen for custom event to open popover
+  useEffect(() => {
+    const handleOpenPopover = () => {
+      setIsOpen(true);
+    };
+
+    window.addEventListener('openEmailPopover', handleOpenPopover);
+    return () => window.removeEventListener('openEmailPopover', handleOpenPopover);
+  }, []);
 
   // Don't show on blog pages
   if (pathname?.startsWith('/blog')) {
