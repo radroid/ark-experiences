@@ -241,7 +241,7 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
                         </AnimatePresence>
                       </motion.div>
                       <motion.div
-                        className="absolute -bottom-1 left-1/2 w-4 h-4 -translate-x-1/2"
+                        className="absolute -bottom-1 left-1/2 w-3 h-4 -translate-x-1/2"
                         animate={
                           hoveredTab ? {
                             y: [0, -4, 0],
