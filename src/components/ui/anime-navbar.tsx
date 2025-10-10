@@ -143,7 +143,7 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
                   >
                     <div className="relative w-12 h-12">
                       <motion.div 
-                        className="absolute w-10 h-10 bg-white rounded-full left-1/2 -translate-x-1/2 border-2 border-gray-200"
+                        className="absolute w-10 h-10 bg-white rounded-full left-1/2 -translate-x-1/2 border-1 border-gray-200"
                         animate={
                           hoveredTab ? {
                             scale: [1, 1.1, 1],
