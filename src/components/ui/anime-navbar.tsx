@@ -46,7 +46,7 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
     <div className="fixed top-5 left-0 right-0 z-[9999]">
       <div className="flex justify-center pt-6">
         <motion.div 
-          className="flex items-center gap-3 bg-black/50 border border-white/10 backdrop-blur-lg py-2 px-2 rounded-full shadow-lg relative"
+          className="flex items-center gap-3 bg-white/90 border border-black/10 backdrop-blur-lg py-2 px-2 rounded-full shadow-lg relative"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{
@@ -71,8 +71,8 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
                 onMouseLeave={() => setHoveredTab(null)}
                 className={cn(
                   "relative cursor-pointer text-sm font-semibold px-6 py-3 rounded-full transition-all duration-300",
-                  "text-white/70 hover:text-white",
-                  isActive && "text-white"
+                  "text-black/70 hover:text-black",
+                  isActive && "text-black"
                 )}
               >
                 {isActive && (
@@ -125,7 +125,7 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
-                      className="absolute inset-0 bg-white/10 rounded-full -z-10"
+                      className="absolute inset-0 bg-black/5 rounded-full -z-10"
                     />
                   )}
                 </AnimatePresence>
@@ -143,7 +143,7 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
                   >
                     <div className="relative w-12 h-12">
                       <motion.div 
-                        className="absolute w-10 h-10 bg-white rounded-full left-1/2 -translate-x-1/2"
+                        className="absolute w-10 h-10 bg-white rounded-full left-1/2 -translate-x-1/2 border-2 border-gray-200"
                         animate={
                           hoveredTab ? {
                             scale: [1, 1.1, 1],
@@ -261,7 +261,7 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
                           }
                         }
                       >
-                        <div className="w-full h-full bg-white rotate-45 transform origin-center" />
+                        <div className="w-full h-full bg-white border-2 border-gray-200 rotate-45 transform origin-center" />
                       </motion.div>
                     </div>
                   </motion.div>
