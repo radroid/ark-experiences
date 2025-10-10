@@ -33,6 +33,25 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
+
+  @keyframes pulse-slow {
+    0%, 100% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
 }
 
 :root {
@@ -52,7 +71,7 @@
   --soft-gray: #C7C7C7;
   --safe-black: #181818;
   --pure-white: #FFFFFF;
-  
+
   /* WCAG-Compliant Color Variations */
   --primary-blue-50: rgba(9, 65, 179, 0.05);
   --primary-blue-100: rgba(9, 65, 179, 0.1);
@@ -65,7 +84,7 @@
   --primary-blue-700: rgba(9, 65, 179, 0.7);
   --primary-blue-800: rgba(9, 65, 179, 0.8);
   --primary-blue-900: rgba(9, 65, 179, 0.9);
-  
+
   --accent-orange-50: rgba(189, 46, 0, 0.05);
   --accent-orange-100: rgba(189, 46, 0, 0.1);
   --accent-orange-200: rgba(189, 46, 0, 0.2);
@@ -76,7 +95,7 @@
   --accent-orange-700: rgba(189, 46, 0, 0.7);
   --accent-orange-800: rgba(189, 46, 0, 0.8);
   --accent-orange-900: rgba(189, 46, 0, 0.9);
-  
+
   --highlight-gold-50: rgba(162, 131, 0, 0.05);
   --highlight-gold-100: rgba(162, 131, 0, 0.1);
   --highlight-gold-200: rgba(162, 131, 0, 0.2);
@@ -87,7 +106,7 @@
   --highlight-gold-700: rgba(162, 131, 0, 0.7);
   --highlight-gold-800: rgba(162, 131, 0, 0.8);
   --highlight-gold-900: rgba(162, 131, 0, 0.9);
-  
+
   --soft-gray-50: rgba(199, 199, 199, 0.05);
   --soft-gray-100: rgba(199, 199, 199, 0.1);
   --soft-gray-200: rgba(199, 199, 199, 0.2);
@@ -98,7 +117,7 @@
   --soft-gray-700: rgba(199, 199, 199, 0.7);
   --soft-gray-800: rgba(199, 199, 199, 0.8);
   --soft-gray-900: rgba(199, 199, 199, 0.9);
-  
+
   --safe-black-50: rgba(24, 24, 24, 0.05);
   --safe-black-100: rgba(24, 24, 24, 0.1);
   --safe-black-200: rgba(24, 24, 24, 0.2);
@@ -109,7 +128,7 @@
   --safe-black-700: rgba(24, 24, 24, 0.7);
   --safe-black-800: rgba(24, 24, 24, 0.8);
   --safe-black-900: rgba(24, 24, 24, 0.9);
-  
+
   --pure-white-50: rgba(255, 255, 255, 0.05);
   --pure-white-100: rgba(255, 255, 255, 0.1);
   --pure-white-200: rgba(255, 255, 255, 0.2);
@@ -134,7 +153,7 @@
   --text-on-dark: var(--pure-white);
   --text-on-primary: var(--pure-white);
   --text-on-accent: var(--pure-white);
-  
+
   /* WCAG-Compliant Background Colors */
   --bg-primary: var(--pure-white);
   --bg-secondary: var(--soft-gray-100);
@@ -168,12 +187,12 @@
   * {
     @apply border-border outline-ring/50;
   }
-  
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: 700;
@@ -225,19 +244,19 @@
     transition: all 0.3s ease;
     font-weight: 600;
   }
-  
+
   .secondary-button:hover {
     background: var(--primary-blue);
     color: var(--pure-white);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px var(--primary-blue-300);
   }
-  
+
   /* Gradient Backgrounds */
   .gradient-hero {
     background: var(--gradient-hero);
   }
-  
+
   .gradient-section {
     background: var(--gradient-section);
   }
@@ -297,12 +316,12 @@ html {
   height: 100vh;
   overflow-y: auto;
   scroll-behavior: smooth;
-  
+
   /* Desktop: Enable scroll snapping */
   @media (min-width: 1024px) {
     scroll-snap-type: y mandatory;
   }
-  
+
   /* Mobile: Natural scrolling */
   @media (max-width: 1023px) {
     scroll-snap-type: none;
@@ -316,12 +335,12 @@ html {
   display: flex;
   flex-direction: column;
   position: relative;
-  
+
   @media (min-width: 1024px) {
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
-  
+
   @media (max-width: 1023px) {
     scroll-snap-align: none;
     scroll-snap-stop: normal;
@@ -347,17 +366,17 @@ html.blog-page {
   html {
     scroll-behavior: auto;
   }
-  
+
   body {
     overscroll-behavior-y: contain;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
   }
-  
+
   .fullscreen-scroll-container::-webkit-scrollbar {
     display: none;
   }
-  
+
   .fullscreen-scroll-container {
     touch-action: pan-y;
   }
@@ -501,7 +520,7 @@ html.blog-page {
     bottom: 1rem;
     right: 1rem;
   }
-  
+
   .floating-contact-btn {
     width: 3.5rem;
     height: 3.5rem;
@@ -515,7 +534,7 @@ html.blog-page {
     bottom: 1rem;
     right: 1rem;
   }
-  
+
   .floating-contact-btn {
     bottom: 5.5rem;
     right: 1rem;

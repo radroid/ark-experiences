@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Navbar from '@/components/ui/navbar'
+import { AnimeNavBarWrapper } from '@/components/ui/anime-navbar-wrapper'
 import FloatingContactButton from '@/components/floating-contact-button'
 import ScrollBehaviorHandler from '@/components/scroll-behavior-handler'
 import { Analytics } from "@vercel/analytics/next"
@@ -197,7 +197,7 @@ export default function RootLayout({
         </a>
         <PerformanceOptimizer />
         <ScrollBehaviorHandler />
-        <Navbar />
+        <AnimeNavBarWrapper />
         <FloatingContactButton />
         {children}
         <SpeedInsights />

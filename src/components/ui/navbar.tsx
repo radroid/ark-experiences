@@ -81,7 +81,7 @@ export default function Navbar() {
         className={`navbar-desktop ${isMobileLayout ? 'navbar-hidden' : 'navbar-visible'} absolute left-1/2 transform -translate-x-1/2`}
         style={{ pointerEvents: isMobileLayout ? 'none' : 'auto' }}
       >
-        <div className="w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full glass shadow-lg backdrop-blur-xl px-4" style={{boxShadow: '0 8px 32px 0 var(--safe-black-300)'}}>
+        <div className="w-auto min-w-[350px] max-w-[65vw] h-20 flex items-center justify-center rounded-full shadow-lg backdrop-blur-lg px-4" style={{boxShadow: '0 8px 32px 0 var(--safe-black-300)'}}>
           <NavigationMenu className="w-full">
             <NavigationMenuList className="flex items-center justify-center w-full gap-6 md:gap-8 lg:gap-12">
               {navItems.map((item) => (
