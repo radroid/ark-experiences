@@ -261,7 +261,7 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
                           }
                         }
                       >
-                        <div className="w-full h-full bg-white border-2 border-gray-200 rotate-45 transform origin-center" />
+                        <div className="w-full h-full bg-white border-1 border-gray-200 rotate-45 transform origin-center" />
                       </motion.div>
                     </div>
                   </motion.div>
