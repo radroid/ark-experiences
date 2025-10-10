@@ -39,7 +39,7 @@ export default function HeroSection() {
 
 
   return (
-    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
+    <section id="hero-section" className="relative min-h-screen max-w-screen flex items-center justify-center overflow-hidden p-10">
       {/* Modern Grid Pattern Background */}
       <GridPattern
         width={100}
@@ -85,7 +85,7 @@ export default function HeroSection() {
           </motion.h1>
 
           <motion.p 
-            className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+            className="text-md md:text-lg max-w-2xl mx-auto leading-relaxed"
             style={{color: 'var(--text-body)'}}
             variants={itemVariants}
           >
@@ -117,26 +117,24 @@ export default function HeroSection() {
 
         {/* Stats Section */}
         <motion.div 
-          className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+          className="mt-10 flex flex-wrap justify-center gap-6 max-w-4xl mx-auto"
           variants={containerVariants}
         >
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              className="glass-card rounded-xl p-6 text-center"
+              className="glass-card rounded-xl w-40 h-40 flex flex-col items-center justify-center p-4 text-center"
               variants={itemVariants}
               whileHover={{ 
                 scale: 1.05, 
                 transition: { duration: 0.2 } 
               }}
             >
-              <div className="flex justify-center mb-4">
-                <div className="p-3 rounded-full" style={{backgroundColor: 'var(--eerie-black-100)'}}>
-                  <stat.icon className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" style={{color: 'var(--eerie-black)'}} />
-                </div>
+              <div className="mb-3">
+                <stat.icon className="h-8 w-8" style={{color: 'var(--primary-blue)'}} />
               </div>
-              <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
-              <p className="text-sm md:text-base lg:text-lg" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
+              <h3 className="text-sm font-bold mb-1" style={{color: 'var(--text-primary)'}}>{stat.label}</h3>
+              <p className="text-xs" style={{color: 'var(--text-muted)'}}>{stat.description}</p>
             </motion.div>
           ))}
         </motion.div>
