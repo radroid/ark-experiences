@@ -4,6 +4,7 @@ import { motion, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button-2'
 import { MapPin, Users, Clock } from 'lucide-react'
 import { Typewriter } from '@/components/ui/typewriter'
+import { GridPattern } from '@/components/ui/grid-pattern'
 
 export default function HeroSection() {
   const containerVariants = {
@@ -38,22 +39,19 @@ export default function HeroSection() {
 
 
   return (
-    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10" style={{backgroundColor: 'var(--ghost-white)'}}>
-      {/* Subtle floating elements for visual interest */}
-      <div className="absolute inset-0 lava-lamp-bg" />
-      
-      {/* Additional Floating Circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="floating-circle"></div>
-        <div className="floating-circle"></div>
-        <div className="floating-circle"></div>
-        <div className="floating-circle-small"></div>
-        <div className="floating-circle-small"></div>
-        <div className="floating-circle-small"></div>
-      </div>
+    <section id="hero-section" className="relative min-h-screen flex items-center justify-center overflow-hidden p-10">
+      {/* Modern Grid Pattern Background */}
+      <GridPattern
+        width={100}
+        height={95}
+        x={-1}
+        y={-1}
+        strokeDasharray="0"
+        className="[mask-image:radial-gradient(900px_circle_at_center,white,transparent)]"
+      />
       
       {/* Subtle Overlay for better text readability */}
-      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.9}} />
+      <div className="absolute inset-0" style={{backgroundColor: 'var(--pure-white)', opacity: 0.5}} />
 
       {/* Main Content */}
       <motion.div
@@ -67,7 +65,7 @@ export default function HeroSection() {
           variants={itemVariants}
         >
           <motion.h1 
-            className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight min-h-[120px] md:min-h-[160px] lg:min-h-[200px]"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight"
             style={{color: 'var(--text-primary)'}}
             variants={itemVariants}
           >
