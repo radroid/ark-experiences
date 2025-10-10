@@ -189,14 +189,14 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
                           style={{ right: '25%', top: '40%' }}
                         />
                         <motion.div 
-                          className="absolute w-2 h-1.5 bg-pink-300 rounded-full"
+                          className="absolute w-2 h-1.5 bg-orange-300 rounded-full"
                           animate={{
                             opacity: hoveredTab ? 0.8 : 0.6
                           }}
                           style={{ left: '15%', top: '55%' }}
                         />
                         <motion.div 
-                          className="absolute w-2 h-1.5 bg-pink-300 rounded-full"
+                          className="absolute w-2 h-1.5 bg-orange-300 rounded-full"
                           animate={{
                             opacity: hoveredTab ? 0.8 : 0.6
                           }}
@@ -261,7 +261,7 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
                           }
                         }
                       >
-                        <div className="w-full h-full bg-white border-1 border-gray-200 rotate-45 transform origin-center" />
+                        <div className="w-full h-full bg-white border-1 border-gray-100 rotate-45 transform origin-center" />
                       </motion.div>
                     </div>
                   </motion.div>
