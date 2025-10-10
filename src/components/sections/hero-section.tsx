@@ -3,6 +3,7 @@
 import { motion, easeOut } from 'framer-motion'
 import { Button } from '@/components/ui/button-2'
 import { MapPin, Users, Clock } from 'lucide-react'
+import { Typewriter } from '@/components/ui/typewriter'
 
 export default function HeroSection() {
   const containerVariants = {
@@ -26,10 +27,9 @@ export default function HeroSection() {
   }
 
   const stats = [
-    { icon: MapPin, label: '9 Locations', description: 'Across Toronto' },
-    { icon: Users, label: '2-5 Players', description: 'Team size' },
-    { icon: Clock, label: '4 Hours', description: 'Duration' },
-    // { icon: DollarSign, label: 'Approx. $70 CAD', description: 'Cost per person' }
+    { icon: MapPin, label: '5 Secret Locations', description: 'Across Downtown Toronto' },
+    { icon: Users, label: '2-3 Players', description: 'Per team' },
+    { icon: Clock, label: '2 Hours', description: 'Duration' },
   ]
 
   const scrollToContact = () => {
@@ -67,18 +67,22 @@ export default function HeroSection() {
           variants={itemVariants}
         >
           <motion.h1 
-            className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight min-h-[120px] md:min-h-[160px] lg:min-h-[200px]"
             style={{color: 'var(--text-primary)'}}
             variants={itemVariants}
           >
-            Solve the{' '}
-            <span style={{color: 'var(--primary-blue)'}}>
-              Mystery
-            </span>
+            <span>Experience Toronto&apos;s </span>
             <br />
-            Around the{' '}
-            <span style={{color: 'var(--accent-orange)'}}>
-              City
+            <span style={{color: 'var(--primary-blue)'}}>
+              <Typewriter 
+                text={['Downtown Highlights', 'Amazing Race', 'Mystery Hunt']}
+                speed={100}
+                deleteSpeed={50}
+                waitTime={2000}
+                loop={true}
+                cursorChar="|"
+                cursorClassName="ml-0"
+              />
             </span>
           </motion.h1>
 
@@ -87,11 +91,7 @@ export default function HeroSection() {
             style={{color: 'var(--text-body)'}}
             variants={itemVariants}
           >
-            Are you ready for an epic adventure?
-            <br />
-            <br />
-            Experience Toronto with our immersive <u>Cluedo-themed Scavenger Hunt</u>.
-            <br />
+            A race through Toronto&apos;s downtown where teams compete to complete challenges and unlock clues across 5 secret locations
           </motion.p>
 
           <motion.div
@@ -103,7 +103,7 @@ export default function HeroSection() {
               className="cta-button px-8 py-4 text-lg font-semibold cursor-pointer"
               onClick={scrollToContact}
             >
-              Plan Your Adventure
+              Join the Race
             </Button>
             
             <Button 
