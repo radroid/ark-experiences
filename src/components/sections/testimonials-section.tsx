@@ -1,7 +1,6 @@
 'use client'
 
 import { motion, easeOut } from 'framer-motion'
-import { Button } from '@/components/ui/button-2'
 import { Star, Calendar } from 'lucide-react'
 import { TestimonialsColumn, TestimonialItem } from '@/components/blocks/testimonials-columns-1'
 

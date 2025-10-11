@@ -11,8 +11,10 @@ import {
 
 type GL = Renderer["gl"];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function debounce<T extends (...args: any[]) => void>(func: T, wait: number) {
   let timeout: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (this: any, ...args: Parameters<T>) {
     window.clearTimeout(timeout);
     timeout = window.setTimeout(() => func.apply(this, args), wait);
@@ -23,6 +25,7 @@ function lerp(p1: number, p2: number, t: number): number {
   return p1 + (p2 - p1) * t;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function autoBind(instance: any): void {
   const proto = Object.getPrototypeOf(instance);
   Object.getOwnPropertyNames(proto).forEach((key) => {
@@ -504,6 +507,7 @@ class App {
     last: number;
     position?: number;
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onCheckDebounce: (...args: any[]) => void;
   onItemClick?: (text: string) => void;
   renderer!: Renderer;
@@ -666,12 +670,12 @@ class App {
     });
   }
 
-  onTouchDown(e: MouseEvent | TouchEvent) {
+  onTouchDown() {
     this.startTime = Date.now();
     // Disabled drag/scroll functionality
   }
 
-  onTouchMove(e: MouseEvent | TouchEvent) {
+  onTouchMove() {
     // Disabled drag/scroll functionality
   }
 
@@ -722,7 +726,7 @@ class App {
     this.hoveredMediaIndex = closestIndex;
   }
 
-  onClick(e: MouseEvent) {
+  onClick() {
     // Only trigger click if it was a quick interaction (not a drag)
     const clickDuration = Date.now() - this.startTime;
     if (clickDuration > 200) return; // Was a drag, not a click
