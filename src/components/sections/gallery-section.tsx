@@ -231,7 +231,7 @@ export default function GallerySection() {
   return (
     <section id="gallery" className="relative py-32 overflow-hidden" style={{backgroundColor: 'var(--safe-black)'}}>
       {/* Heading Section - Centered */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           className="text-center"
           variants={containerVariants}
