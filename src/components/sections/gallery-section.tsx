@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence, easeOut } from 'framer-motion'
-import { Camera, Video, Users, MapPin, Play } from 'lucide-react'
-import Image from 'next/image'
+import { useState, useEffect } from 'react'
+import { motion, easeOut } from 'framer-motion'
+import { Component as CircularGallery } from '@/components/ui/circular-gallery'
 import MobileGalleryModal from '@/components/mobile-gallery-modal'
 
 interface GalleryItem {
@@ -22,26 +21,23 @@ interface GalleryItem {
 
 export default function GallerySection() {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null)
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'event' | 'clue' | 'celebration'>('all')
-  const [hoveredVideoId, setHoveredVideoId] = useState<number | null>(null)
-  const hoverVideoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({})
-  const [isTouchDevice, setIsTouchDevice] = useState(false)
+  const [carouselItemClicked, setCarouselItemClicked] = useState<string | null>(null)
 
   // Updated gallery items with real media files and proper aspect ratios
   const galleryItems: GalleryItem[] = [
-    {
-      id: 1,
-      type: 'video',
-      src: '/gallery/all-teams-celebration.mp4',
-      alt: 'All teams celebrating together after completing the hunt',
-      title: 'Ultimate Victory Celebration',
-      description: 'The epic moment when all teams come together to celebrate after solving the murder mystery - pure joy and triumph!',
-      category: 'celebration',
-      thumbnail: '/gallery/all-teams-celebration-thumb.jpg',
-      width: 3840,
-      height: 2160,
-      aspectRatio: 'landscape'
-    },
+    // {
+    //   id: 1,
+    //   type: 'video',
+    //   src: '/gallery/all-teams-celebration.mp4',
+    //   alt: 'All teams celebrating together after completing the hunt',
+    //   title: 'Ultimate Victory Celebration',
+    //   description: 'The epic moment when all teams come together to celebrate after solving the murder mystery - pure joy and triumph!',
+    //   category: 'celebration',
+    //   thumbnail: '/gallery/all-teams-celebration-thumb.jpg',
+    //   width: 1920,
+    //   height: 2160,
+    //   aspectRatio: 'landscape'
+    // },
     {
       id: 2,
       type: 'video',
@@ -179,110 +175,37 @@ export default function GallerySection() {
     }
   ]
 
-  const categories = [
-    { id: 'all', label: 'All Media', icon: Camera },
-    { id: 'event', label: 'Events', icon: Users },
-    { id: 'clue', label: 'Clues', icon: MapPin },
-    { id: 'celebration', label: 'Celebrations', icon: Users }
-  ]
-
-  const filteredItems = selectedCategory === 'all' 
-    ? galleryItems 
-    : galleryItems.filter(item => item.category === selectedCategory)
-
-  // Cleanup hover videos when category changes
-  useEffect(() => {
-    setHoveredVideoId(null)
-    Object.values(hoverVideoRefs.current).forEach(video => {
-      if (video) {
-        video.pause()
-        video.currentTime = 0
-      }
-    })
-  }, [selectedCategory])
-
-  // Cleanup hover videos on unmount
-  useEffect(() => {
-    const currentVideoRefs = hoverVideoRefs.current
-    return () => {
-      Object.values(currentVideoRefs).forEach(video => {
-        if (video) {
-          video.pause()
-        }
-      })
-    }
-  }, [])
-
-  // Detect touch devices (mobile/tablet)
-  useEffect(() => {
-    const hasTouch = () => {
-      if (typeof window === 'undefined') return false
-      const nav = navigator as Navigator & {
-        maxTouchPoints?: number
-        msMaxTouchPoints?: number
-      }
-      return (
-        'ontouchstart' in window ||
-        (typeof nav.maxTouchPoints === 'number' && nav.maxTouchPoints > 0) ||
-        (typeof nav.msMaxTouchPoints === 'number' && nav.msMaxTouchPoints > 0) ||
-        window.matchMedia?.('(pointer: coarse)').matches === true
-      )
-    }
-    setIsTouchDevice(hasTouch())
-  }, [])
+  // Convert gallery items to carousel format
+  const carouselItems = galleryItems.map(item => ({
+    image: item.src, // Use video src for videos, image src for images
+    text: item.title,
+    isVideo: item.type === 'video'
+  }))
 
   const nextItem = () => {
     if (!selectedItem) return
-    const currentIndex = filteredItems.findIndex(item => item.id === selectedItem.id)
-    const nextIndex = (currentIndex + 1) % filteredItems.length
-    setSelectedItem(filteredItems[nextIndex])
+    const currentIndex = galleryItems.findIndex(item => item.id === selectedItem.id)
+    const nextIndex = (currentIndex + 1) % galleryItems.length
+    setSelectedItem(galleryItems[nextIndex])
   }
 
   const prevItem = () => {
     if (!selectedItem) return
-    const currentIndex = filteredItems.findIndex(item => item.id === selectedItem.id)
-    const prevIndex = (currentIndex - 1 + filteredItems.length) % filteredItems.length
-    setSelectedItem(filteredItems[prevIndex])
+    const currentIndex = galleryItems.findIndex(item => item.id === selectedItem.id)
+    const prevIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length
+    setSelectedItem(galleryItems[prevIndex])
   }
 
-
-  const handleVideoHover = (itemId: number) => {
-    setHoveredVideoId(itemId)
-    const video = hoverVideoRefs.current[itemId]
-    if (video) {
-      video.currentTime = 0
-      video.play().catch(() => {
-        // Ignore autoplay failures
-      })
-    }
-  }
-
-  const handleVideoHoverEnd = (itemId: number) => {
-    setHoveredVideoId(null)
-    const video = hoverVideoRefs.current[itemId]
-    if (video) {
-      video.pause()
-      video.currentTime = 0
-    }
-  }
-
-  // Pause any inline preview when opening the lightbox
+  // Handle carousel item click - find the corresponding gallery item
   useEffect(() => {
-    if (selectedItem) {
-      Object.values(hoverVideoRefs.current).forEach(video => {
-        if (video) {
-          video.pause()
-          video.currentTime = 0
-        }
-      })
-      setHoveredVideoId(null)
+    if (carouselItemClicked) {
+      const item = galleryItems.find(g => g.title === carouselItemClicked)
+      if (item) {
+        setSelectedItem(item)
+      }
+      setCarouselItemClicked(null)
     }
-  }, [selectedItem])
-
-  // Handle item click - always open full-screen modal
-  const handleItemClick = (item: GalleryItem) => {
-    setSelectedItem(item)
-  }
+  }, [carouselItemClicked, galleryItems])
 
 
   const containerVariants = {
@@ -306,10 +229,11 @@ export default function GallerySection() {
   }
 
   return (
-    <section id="gallery" className="pt-40 py-24" style={{backgroundColor: 'var(--eerie-black)'}}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="gallery" className="relative py-32 overflow-hidden" style={{backgroundColor: 'var(--safe-black)'}}>
+      {/* Heading Section - Centered */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16">
         <motion.div
-          className="text-center mb-16"
+          className="text-center"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -333,145 +257,22 @@ export default function GallerySection() {
             Immerse yourself in the excitement, mystery, and pure joy of our scavenger hunts through photos and videos
           </motion.p>
         </motion.div>
+      </div>
 
-        {/* Category Filter */}
-        <motion.div 
-          className="flex flex-wrap justify-center gap-4 mb-12"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {categories.map((category) => (
-            <motion.button
-              key={category.id}
-              className="flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300"
-              style={selectedCategory === category.id ? {
-                backgroundColor: 'var(--primary-blue)',
-                color: 'var(--pure-white)',
-                border: '1px solid var(--primary-blue)'
-              } : {
-                backgroundColor: 'var(--pure-white)',
-                color: 'var(--safe-black)',
-                border: '1px solid var(--pure-white)',
-                opacity: 0.95
-              }}
-              onClick={() => setSelectedCategory(category.id as 'all' | 'event' | 'clue' | 'celebration')}
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <category.icon className="h-4 w-4" />
-              {category.label}
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Responsive Masonry Gallery Grid */}
-        <motion.div 
-          className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 space-y-4"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, index) => (
-              <motion.div
-                key={item.id}
-                variants={itemVariants}
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.4 }}
-                className="group cursor-pointer break-inside-avoid mb-4"
-                onClick={() => handleItemClick(item)}
-                onMouseEnter={() => item.type === 'video' && handleVideoHover(item.id)}
-                onMouseLeave={() => item.type === 'video' && handleVideoHoverEnd(item.id)}
-              >
-                <div className="overflow-hidden rounded-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                  <div className="relative overflow-hidden">
-                    {item.type === 'video' && item.thumbnail ? (
-                      <div className="relative">
-                        {/* Thumbnail Image */}
-                        <Image
-                          src={item.thumbnail}
-                          alt={item.alt}
-                          width={item.width || 800}
-                          height={item.height || 600}
-                          className={`w-full h-auto object-cover transition-all duration-300 group-hover:scale-110 ${
-                            hoveredVideoId === item.id ? 'opacity-0' : 'opacity-100'
-                          }`}
-                          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-                          priority={index < 4}
-                        />
-                        
-                        {/* Hover Video */}
-                        <video
-                          ref={(el) => {
-                            if (el) hoverVideoRefs.current[item.id] = el
-                          }}
-                          src={item.src}
-                          className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${
-                            hoveredVideoId === item.id ? 'opacity-100' : 'opacity-0'
-                          }`}
-                          muted
-                          loop
-                          playsInline
-                          preload="metadata"
-                        />
-                        
-                        {/* Video Play Overlay - only show when not hovering */}
-                        <div className={`absolute inset-0 transition-colors duration-300 ${
-                          hoveredVideoId === item.id ? 'opacity-0' : 'opacity-100'
-                        }`} style={{backgroundColor: hoveredVideoId === item.id ? 'transparent' : 'var(--eerie-black-200)'}} />
-                        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
-                          hoveredVideoId === item.id
-                            ? 'opacity-0'
-                            : isTouchDevice
-                              ? 'opacity-100'
-                              : 'opacity-0 group-hover:opacity-100'
-                        }`}>
-                          <div className="rounded-full p-3" style={{backgroundColor: 'var(--ghost-white-900)'}}>
-                            <Play className="h-6 w-6 ml-1" style={{color: 'var(--yinmn-blue)'}} />
-                          </div>
-                        </div>
-                        
-                        {/* Video Icon Badge */}
-                        <div className="absolute top-2 right-2 rounded-full p-2 z-10" style={{backgroundColor: 'var(--eerie-black-700)'}}>
-                          <Video className="h-4 w-4" style={{color: 'var(--ghost-white)'}} />
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="relative">
-                        <Image
-                          src={item.src}
-                          alt={item.alt}
-                          width={item.width || 800}
-                          height={item.height || 600}
-                          className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"
-                          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-                          priority={index < 4}
-                        />
-                        <div className="absolute inset-0 group-hover:transition-colors duration-300" style={{backgroundColor: 'transparent'}} />
-                        {/* Image Icon Badge */}
-                        <div className="absolute top-2 right-2 rounded-full p-2" style={{backgroundColor: 'var(--eerie-black-700)'}}>
-                          <Camera className="h-4 w-4" style={{color: 'var(--ghost-white)'}} />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+      {/* Circular Gallery Carousel - Full Width */}
+      <div className="w-full h-[70vh] overflow-hidden relative">
+        <CircularGallery 
+          items={carouselItems} 
+          bend={3} 
+          textColor="#ffffff" 
+          borderRadius={0.05}
+          onItemClick={(text) => setCarouselItemClicked(text)}
+        />
       </div>
 
       {/* Full-Screen Gallery Modal - All Devices */}
       <MobileGalleryModal
-        items={filteredItems}
+        items={galleryItems}
         selectedItem={selectedItem}
         onClose={() => setSelectedItem(null)}
         onNext={nextItem}
