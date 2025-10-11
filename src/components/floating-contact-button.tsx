@@ -172,7 +172,7 @@ export default function FloatingContactButton() {
               </form>
 
               <p className="text-xs text-center mt-4" style={{ color: 'var(--soft-gray)' }}>
-                Or scroll down for our full contact form
+                Or find our contact details in the footer
               </p>
             </>
           )}

@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button-2'
-import { Menu, Home, Info, Image as ImageIcon, MessageCircle, Mail, BookOpen } from 'lucide-react'
+import { Menu, Home, Info, Image as ImageIcon, MessageCircle, BookOpen, Mail } from 'lucide-react'
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -19,7 +19,7 @@ export default function Navbar() {
     { href: '#how-it-works', label: 'How It Works', icon: Info },
     { href: '#gallery', label: 'Gallery', icon: ImageIcon },
     { href: '#testimonials', label: 'Testimonials', icon: MessageCircle },
-    { href: '#contact', label: 'Contact', icon: Mail }
+    { href: '#footer', label: 'Contact', icon: Mail }
   ]
 
 

@@ -12,7 +12,7 @@ export function AnimeNavBarWrapper() {
     { name: 'How It Works', url: '#how-it-works', icon: Info },
     { name: 'Gallery', url: '#gallery', icon: ImageIcon },
     { name: 'Testimonials', url: '#testimonials', icon: MessageCircle },
-    { name: 'Contact', url: '#contact', icon: Mail }
+    { name: 'Contact', url: '#footer', icon: Mail }
   ]
 
   return (

@@ -75,6 +75,7 @@
    * 
    * WCAG-Compliant Colors with Tested Contrast Ratios:
    * - Primary Blue: #0941B3 (14.6:1 on white) - Primary actions, trust elements
+   * - YInMn Blue: #2E5090 - Dark blue for backgrounds and sections
    * - Accent Orange: #BD2E00 (8.7:1 on white, 7.3:1 on blue) - Energy, calls-to-action
    * - Highlight Gold: #A28300 (9.1:1 on black) - Highlights on dark backgrounds only
    * - Soft Gray: #C7C7C7 - Dividers and subtle elements (not for text)
@@ -82,6 +83,7 @@
    * - Pure White: #FFFFFF - Always safe for backgrounds
    */
   --primary-blue: #0941B3;
+  --yinmn-blue: #2E5090;
   --accent-orange: #BD2E00;
   --highlight-gold: #A28300;
   --soft-gray: #C7C7C7;
@@ -100,6 +102,17 @@
   --primary-blue-700: rgba(9, 65, 179, 0.7);
   --primary-blue-800: rgba(9, 65, 179, 0.8);
   --primary-blue-900: rgba(9, 65, 179, 0.9);
+
+  --yinmn-blue-50: rgba(46, 80, 144, 0.05);
+  --yinmn-blue-100: rgba(46, 80, 144, 0.1);
+  --yinmn-blue-200: rgba(46, 80, 144, 0.2);
+  --yinmn-blue-300: rgba(46, 80, 144, 0.3);
+  --yinmn-blue-400: rgba(46, 80, 144, 0.4);
+  --yinmn-blue-500: rgba(46, 80, 144, 0.5);
+  --yinmn-blue-600: rgba(46, 80, 144, 0.6);
+  --yinmn-blue-700: rgba(46, 80, 144, 0.7);
+  --yinmn-blue-800: rgba(46, 80, 144, 0.8);
+  --yinmn-blue-900: rgba(46, 80, 144, 0.9);
 
   --accent-orange-50: rgba(189, 46, 0, 0.05);
   --accent-orange-100: rgba(189, 46, 0, 0.1);
