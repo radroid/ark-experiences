@@ -74,7 +74,7 @@ export default function HeroSection() {
             <br />
             <span style={{color: 'var(--primary-blue)'}}>
               <Typewriter 
-                text={['Downtown Highlights', 'Amazing Race', 'Mystery Hunt']}
+                text={['Downtown', 'Simple Race', 'Mystery Hunt']}
                 speed={100}
                 deleteSpeed={50}
                 waitTime={2000}
