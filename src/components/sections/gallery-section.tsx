@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { motion, easeOut } from 'framer-motion'
 import { Component as CircularGallery } from '@/components/ui/circular-gallery'
 import MobileGalleryModal from '@/components/mobile-gallery-modal'
@@ -24,7 +24,7 @@ export default function GallerySection() {
   const [carouselItemClicked, setCarouselItemClicked] = useState<string | null>(null)
 
   // Updated gallery items with real media files and proper aspect ratios
-  const galleryItems: GalleryItem[] = [
+  const galleryItems: GalleryItem[] = useMemo(() => [
     // {
     //   id: 1,
     //   type: 'video',
@@ -173,7 +173,7 @@ export default function GallerySection() {
       height: 768,
       aspectRatio: 'landscape'
     }
-  ]
+  ], [])
 
   // Convert gallery items to carousel format
   const carouselItems = galleryItems.map(item => ({
