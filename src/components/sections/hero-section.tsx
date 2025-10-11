@@ -140,17 +140,6 @@ export default function HeroSection() {
           ))}
         </motion.div>
       </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-          className="absolute bottom-8 left-8"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className="w-6 h-10 border-2 rounded-full flex justify-center" style={{borderColor: 'var(--eerie-black-500)'}}>
-            <div className="w-1 h-3 rounded-full mt-2" style={{backgroundColor: 'var(--eerie-black-700)'}} />
-          </div>
-        </motion.div>
     </section>
   )
 } 
