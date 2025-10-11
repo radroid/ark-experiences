@@ -74,7 +74,7 @@ export default function HeroSection() {
             <br />
             <span style={{color: 'var(--primary-blue)'}}>
               <Typewriter 
-                text={['Downtown', 'Simple Race', 'Mystery Hunt']}
+                text={['Downtown', 'Simple Race', 'Mystery Hunt', 'Outdoor Adventure']}
                 speed={100}
                 deleteSpeed={50}
                 waitTime={2000}
@@ -102,7 +102,7 @@ export default function HeroSection() {
               className="cta-button px-8 py-4 text-lg font-semibold cursor-pointer"
               onClick={openEmailPopover}
             >
-              Join the Race
+              Book the Adventure
             </Button>
             
             <Button 
