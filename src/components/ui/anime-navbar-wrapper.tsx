@@ -1,13 +1,14 @@
 "use client"
 
 import { AnimeNavBar } from './anime-navbar'
-import { Home, Info, Image as ImageIcon, MessageCircle, Mail } from 'lucide-react'
+import { Home, Info, Star, Image as ImageIcon, MessageCircle, Mail } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export function AnimeNavBarWrapper() {
   const navItems = [
     { name: 'Home', url: '#hero-section', icon: Home },
+    { name: 'What', url: '#what-section', icon: Star },
     { name: 'How It Works', url: '#how-it-works', icon: Info },
     { name: 'Gallery', url: '#gallery', icon: ImageIcon },
     { name: 'Testimonials', url: '#testimonials', icon: MessageCircle },
@@ -28,7 +29,7 @@ export function AnimeNavBarWrapper() {
       </Link>
       
       {/* Centered Animated Navbar */}
-      <AnimeNavBar items={navItems} />
+      <AnimeNavBar items={navItems} defaultActive="Home" />
     </div>
   )
 }

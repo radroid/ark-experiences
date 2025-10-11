@@ -52,6 +52,22 @@
       transform: translateX(100%);
     }
   }
+  @keyframes animate-aurora-1 {
+  from {
+    transform: translate(-20%, -20%) scale(1);
+    }
+  to {
+    transform: translate(20%, 20%) scale(1.2);
+    }
+  }
+  @keyframes animate-aurora-2 {
+  from {
+    transform: translate(10%, 10%) scale(1);
+    }
+  to {
+    transform: translate(-10%, -10%) scale(0.8);
+    }
+  }
 }
 
 :root {
@@ -538,6 +554,70 @@ html.blog-page {
   .floating-contact-btn {
     bottom: 5.5rem;
     right: 1rem;
+  }
+}
+
+/* Bento Grid Layout - Pinterest Style */
+@layer utilities {
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(200px, auto);
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Different heights for different row spans */
+  .bento-grid .row-span-1 {
+    min-height: 200px;
+  }
+
+  .bento-grid .row-span-2 {
+    min-height: 420px; /* 200px + gap + 200px */
+  }
+
+  .bento-item {
+    border-radius: 1rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  /* Tablet responsiveness */
+  @media (max-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .bento-grid .col-span-2 {
+      grid-column: span 2;
+    }
+
+    .bento-grid .row-span-2 {
+      grid-row: span 1;
+      min-height: 180px;
+    }
+
+    .bento-grid .row-span-1 {
+      min-height: 180px;
+    }
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 640px) {
+    .bento-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .bento-grid > * {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+      min-height: 200px;
+    }
   }
 }
 

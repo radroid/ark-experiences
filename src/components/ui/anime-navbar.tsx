@@ -40,6 +40,78 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
+  // Scroll-based navigation update
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollContainer = document.querySelector('.fullscreen-scroll-container')
+      if (!scrollContainer) return
+
+      const sections = items.map(item => {
+        const element = document.querySelector(item.url)
+        return {
+          name: item.name,
+          element: element,
+        }
+      }).filter(section => section.element)
+
+      if (sections.length === 0) return
+
+      const containerRect = scrollContainer.getBoundingClientRect()
+      const scrollPosition = scrollContainer.scrollTop + containerRect.height / 2
+
+      // Find the section that's currently in the center of the viewport
+      let currentSection = defaultActive
+      let minDistance = Infinity
+
+      for (const section of sections) {
+        const element = section.element as HTMLElement
+        const elementRect = element.getBoundingClientRect()
+        const elementTop = elementRect.top + scrollContainer.scrollTop
+        const elementBottom = elementTop + elementRect.height
+
+        // Check if section is in viewport
+        const distance = Math.abs(scrollPosition - elementTop)
+        if (scrollPosition >= elementTop - 200 && scrollPosition <= elementBottom + 200) {
+          if (distance < minDistance) {
+            minDistance = distance
+            currentSection = section.name
+          }
+        }
+      }
+
+      if (currentSection !== activeTab) {
+        setActiveTab(currentSection)
+      }
+    }
+
+    // Initial check after a delay
+    const initialTimer = setTimeout(handleScroll, 500)
+
+    // Add scroll listener with throttling
+    let ticking = false
+    const throttledScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    const scrollContainer = document.querySelector('.fullscreen-scroll-container')
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', throttledScroll, { passive: true })
+    }
+    
+    return () => {
+      clearTimeout(initialTimer)
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', throttledScroll)
+      }
+    }
+  }, [items, defaultActive, activeTab])
+
   if (!mounted) return null
 
   return (
@@ -64,8 +136,16 @@ export function AnimeNavBar({ items, className, defaultActive = "Home" }: NavBar
               <Link
                 key={item.name}
                 href={item.url}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault()
                   setActiveTab(item.name)
+                  const element = document.querySelector(item.url)
+                  if (element) {
+                    element.scrollIntoView({ 
+                      behavior: 'smooth',
+                      block: 'start'
+                    })
+                  }
                 }}
                 onMouseEnter={() => setHoveredTab(item.name)}
                 onMouseLeave={() => setHoveredTab(null)}

@@ -100,7 +100,7 @@ export default function HowItWorks() {
   }
 
   return (
-    <div ref={containerRef} className="relative">
+    <section id="how-it-works" ref={containerRef} className="relative">
       {/* Continuous Timeline - Spans entire section height, above backgrounds but below content */}
       <motion.div 
         className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-1 z-30"
@@ -116,7 +116,8 @@ export default function HowItWorks() {
       />
 
       {/* Title Section */}
-      <section id="how-it-works" className="min-h-screen flex items-center justify-center px-4 relative" style={{backgroundColor: 'var(--ghost-white)'}}>
+      <div className="min-h-screen flex items-center justify-center px-4 relative" style={{backgroundColor: 'var(--ghost-white)'}}>
+      
         <div className="text-center max-w-4xl mx-auto relative z-10">
           <motion.h2 
             className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 lg:mb-8"
@@ -142,7 +143,7 @@ export default function HowItWorks() {
             A thrilling journey through Toronto where teams race against time to solve a Cluedo-style murder mystery
           </motion.p>
         </div>
-      </section>
+      </div>
 
       {/* Desktop/Tablet Layout */}
       <div className="relative flex min-h-screen">
@@ -303,7 +304,7 @@ export default function HowItWorks() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
