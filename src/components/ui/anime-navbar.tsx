@@ -105,7 +105,7 @@ export function AnimeNavBar({ items, defaultActive = "Home" }: NavBarProps) {
     <div className="fixed top-5 left-0 right-0 z-[9999]">
       <div className="flex justify-center pt-6">
         <motion.div 
-          className="flex items-center gap-3 bg-white/90 border border-black/10 backdrop-blur-lg py-2 px-2 rounded-full shadow-lg relative"
+          className="flex items-center gap-1 sm:gap-2 md:gap-3 bg-white/90 border border-black/10 backdrop-blur-lg py-2 px-1 sm:px-2 md:px-2 rounded-full shadow-lg relative max-w-[95vw] overflow-hidden"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{
@@ -137,7 +137,7 @@ export function AnimeNavBar({ items, defaultActive = "Home" }: NavBarProps) {
                 onMouseEnter={() => setHoveredTab(item.name)}
                 onMouseLeave={() => setHoveredTab(null)}
                 className={cn(
-                  "relative cursor-pointer text-sm font-semibold px-6 py-3 rounded-full transition-all duration-300",
+                  "relative cursor-pointer text-sm font-semibold px-2 sm:px-4 md:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 flex-shrink-0",
                   "text-black/70 hover:text-black",
                   isActive && "text-black"
                 )}
@@ -183,7 +183,7 @@ export function AnimeNavBar({ items, defaultActive = "Home" }: NavBarProps) {
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <Icon size={18} strokeWidth={2.5} />
+                  <Icon size={16} strokeWidth={2.5} className="sm:w-4 sm:h-4 md:w-5 md:h-5" />
                 </motion.span>
           
                 <AnimatePresence>
