@@ -8,14 +8,24 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import PerformanceOptimizer from "@/components/performance-optimizer";
 
 export const metadata: Metadata = {
-  title: "ARK - Toronto's Ultimate Outdoor Escape Room & Downtown Adventure Experience",
-  description: "Experience Toronto's most exciting outdoor escape room adventure! Perfect for escape room enthusiasts, board game lovers, and young professionals who want to explore downtown Toronto in a whole new way. Interactive puzzles, mystery solving, and unforgettable group experiences.",
+  title: "ARK - Outdoor Scavenger Hunt Toronto | Top Summer Activities & Downtown Adventures 2025",
+  description: "Discover Toronto's #1 outdoor scavenger hunt experience! Perfect summer activity for groups, team building, date nights, and weekend adventures. Interactive puzzles and mystery solving across downtown Toronto. Book your outdoor escape room adventure today!",
   keywords: [
-    "outdoor escape room Toronto", "escape room downtown Toronto", "outdoor adventure Toronto", "board game experience Toronto",
-    "friends activities Toronto", "group activities Toronto", "puzzle solving Toronto", "mystery game Toronto",
-    "interactive experience Toronto", "escape room alternative", "outdoor puzzle game", "adventure game Toronto",
-    "downtown Toronto activities", "young professionals Toronto", "weekend activities Toronto", "date activity Toronto",
-    "unique experience Toronto", "problem solving game", "outdoor mystery", "escape room enthusiasts", "board game lovers"
+    // Primary keywords
+    "outdoor scavenger hunt Toronto", "scavenger hunt Toronto", "outdoor scavenger hunt downtown Toronto",
+    "summer activities Toronto", "things to do in Toronto summer", "outdoor activities Toronto",
+    // Secondary keywords
+    "outdoor escape room Toronto", "escape room downtown Toronto", "outdoor adventure Toronto",
+    "summer activities Toronto 2025", "Toronto summer events", "outdoor games Toronto",
+    // Activity-specific
+    "team building activities Toronto", "group activities Toronto", "friends activities Toronto",
+    "date ideas Toronto", "weekend activities Toronto", "fun things to do Toronto",
+    // Experience-related
+    "interactive experience Toronto", "puzzle solving Toronto", "mystery game Toronto",
+    "adventure game Toronto", "treasure hunt Toronto", "city exploration Toronto",
+    // Audience-specific
+    "young professionals Toronto", "downtown Toronto activities", "unique experience Toronto",
+    "outdoor entertainment Toronto", "Toronto attractions", "Toronto tourist activities"
   ],
   authors: [{ name: "ARK Scavenger Hunt", url: "https://www.funwithark.ca" }],
   creator: "ARK Scavenger Hunt",
@@ -24,8 +34,8 @@ export const metadata: Metadata = {
     canonical: "https://www.funwithark.ca",
   },
   openGraph: {
-    title: "ARK - Toronto's Ultimate Outdoor Escape Room Adventure",
-    description: "The ultimate outdoor escape room experience in downtown Toronto! Perfect for escape room enthusiasts, board game lovers, and friends looking for unique adventures. Book your mystery today!",
+    title: "ARK - Outdoor Scavenger Hunt Toronto | Top Summer Activities 2025",
+    description: "Toronto's #1 outdoor scavenger hunt! Perfect summer activity for team building, dates, and weekend fun. Interactive puzzles across downtown Toronto. Book your adventure today!",
     type: "website",
     siteName: "ARK Scavenger Hunt",
     url: "https://www.funwithark.ca",
@@ -35,7 +45,7 @@ export const metadata: Metadata = {
         url: "/ark-logo.png",
         width: 1200,
         height: 630,
-        alt: "ARK Scavenger Hunt - Outdoor Escape Room Experience",
+        alt: "ARK - Outdoor Scavenger Hunt and Summer Activities in Toronto",
       },
     ],
   },
@@ -43,8 +53,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@FunWithARK",
     creator: "@FunWithARK",
-    title: "ARK - Toronto's Ultimate Outdoor Escape Room Adventure",
-    description: "The ultimate outdoor escape room experience in downtown Toronto! Perfect for escape room enthusiasts and board game lovers.",
+    title: "ARK - Outdoor Scavenger Hunt Toronto | Top Summer Activities",
+    description: "Toronto's #1 outdoor scavenger hunt! Perfect summer activity for groups, team building, and weekend adventures in downtown Toronto.",
     images: ["/ark-logo.png"],
   },
   robots: {
@@ -59,7 +69,7 @@ export const metadata: Metadata = {
     },
   },
   category: "Entertainment",
-  classification: "Outdoor Escape Room & Interactive Adventure",
+  classification: "Outdoor Scavenger Hunt, Summer Activities & Interactive Adventures",
   referrer: "origin-when-cross-origin",
   formatDetection: {
     email: false,
@@ -87,7 +97,7 @@ export default function RootLayout({
         "@id": "https://www.funwithark.ca/#organization",
         "name": "ARK",
         "alternateName": "Fun With ARK",
-        "description": "Toronto's ultimate outdoor escape room experience for young professionals, escape room enthusiasts, and board game lovers. Interactive puzzle solving adventures across downtown Toronto.",
+        "description": "Toronto's #1 outdoor scavenger hunt and summer activity destination. Interactive puzzle-solving adventures, outdoor escape room experiences, and team building activities across downtown Toronto. Perfect for groups, dates, and weekend entertainment.",
         "url": "https://www.funwithark.ca",
         "telephone": "+1-647-839-8849", 
         "email": "team@funwithark.ca",
@@ -112,7 +122,16 @@ export default function RootLayout({
             "name": "Ontario"
           }
         ],
-        "serviceType": ["Outdoor Escape Room", "Adventure Game", "Group Activities", "Interactive Experience"],
+        "serviceType": [
+          "Outdoor Scavenger Hunt",
+          "Summer Activities",
+          "Outdoor Escape Room", 
+          "Team Building Activities",
+          "Adventure Game", 
+          "Group Activities", 
+          "Interactive Experience",
+          "Tourist Attraction"
+        ],
         "priceRange": "$$",
         "image": "https://www.funwithark.ca/ark-logo.png",
         "logo": "https://www.funwithark.ca/ark-logo.png",
@@ -120,17 +139,25 @@ export default function RootLayout({
           "https://www.facebook.com/funwithark",
           "https://www.instagram.com/funwithark",
           "https://www.linkedin.com/company/funwithark"
+        ],
+        "knowsAbout": [
+          "Outdoor Scavenger Hunts",
+          "Summer Activities Toronto",
+          "Team Building",
+          "Escape Room Experiences",
+          "Downtown Toronto Adventures"
         ]
       },
       {
         "@type": "Service",
-        "@id": "https://www.funwithark.ca/#how-it-works",
-        "name": "Outdoor Escape Room Adventure",
-        "description": "Interactive outdoor escape room experience designed for escape room enthusiasts, board game lovers, and young professionals exploring downtown Toronto.",
+        "@id": "https://www.funwithark.ca/#service",
+        "name": "Outdoor Scavenger Hunt Toronto",
+        "alternateName": "ARK Outdoor Escape Room Adventure",
+        "description": "Toronto's premier outdoor scavenger hunt experience. Perfect summer activity combining puzzle-solving, city exploration, and team building. Interactive outdoor escape room adventure across downtown Toronto for groups, dates, and weekend fun.",
         "provider": {
-          "@id": "https://www.funwithark.ca/"
+          "@id": "https://www.funwithark.ca/#organization"
         },
-        "serviceType": "Outdoor Escape Room Experience",
+        "serviceType": "Outdoor Scavenger Hunt and Summer Activities",
         "areaServed": {
           "@type": "City",
           "name": "Toronto",
@@ -138,23 +165,61 @@ export default function RootLayout({
         },
         "audience": {
           "@type": "Audience",
-          "audienceType": "Young Professionals and Escape Room Enthusiasts"
+          "audienceType": "Young Professionals, Groups, Tourists, and Adventure Seekers"
         },
-        "category": "Entertainment",
+        "category": "Entertainment & Recreation",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "serviceLocation": {
+            "@type": "City",
+            "name": "Downtown Toronto"
+          }
+        },
         "offers": {
           "@type": "Offer",
           "availability": "https://schema.org/InStock",
-          "priceCurrency": "CAD"
+          "priceCurrency": "CAD",
+          "description": "Outdoor scavenger hunt and escape room experience in Toronto"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "ARK Adventures",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Outdoor Scavenger Hunt",
+                "description": "Interactive outdoor scavenger hunt across downtown Toronto"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Team Building Activities",
+                "description": "Corporate and group team building adventures"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Summer Activities",
+                "description": "Seasonal outdoor entertainment and adventures"
+              }
+            }
+          ]
         }
       },
       {
         "@type": "WebSite",
-        "@id": "https://www.funwithark.ca/",
+        "@id": "https://www.funwithark.ca/#website",
         "url": "https://www.funwithark.ca",
-        "name": "ARK",
-        "description": "Toronto's ultimate outdoor escape room adventure for young professionals and escape room enthusiasts",
+        "name": "ARK - Outdoor Scavenger Hunt Toronto",
+        "description": "Toronto's #1 outdoor scavenger hunt and summer activities destination. Interactive puzzle-solving adventures and outdoor escape room experiences in downtown Toronto.",
         "publisher": {
-          "@id": "https://www.funwithark.ca/"
+          "@id": "https://www.funwithark.ca/#organization"
         },
         "inLanguage": "en-CA",
         "potentialAction": {
@@ -165,7 +230,7 @@ export default function RootLayout({
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://www.funwithark.ca/",
+        "@id": "https://www.funwithark.ca/#breadcrumb",
         "itemListElement": [
           {
             "@type": "ListItem",
@@ -174,6 +239,59 @@ export default function RootLayout({
             "item": "https://www.funwithark.ca"
           }
         ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.funwithark.ca/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is an outdoor scavenger hunt in Toronto?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An outdoor scavenger hunt is an interactive adventure game where teams explore downtown Toronto while solving puzzles and completing challenges. ARK offers Toronto's premier outdoor scavenger hunt experience, combining escape room elements with city exploration for an unforgettable group activity."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the best summer activities in Toronto?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ARK's outdoor scavenger hunt is one of Toronto's top summer activities. Perfect for groups, team building, date nights, and weekend adventures. Our interactive outdoor experience combines puzzle-solving with exploring downtown Toronto's landmarks and hidden gems."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is ARK good for team building activities?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! ARK is an excellent team building activity in Toronto. Our outdoor scavenger hunt encourages collaboration, communication, and problem-solving while teams explore downtown Toronto together."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does the outdoor scavenger hunt take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ARK's outdoor scavenger hunt typically takes 2-3 hours to complete, making it a perfect summer activity for a half-day adventure in downtown Toronto."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "TouristAttraction",
+        "@id": "https://www.funwithark.ca/#attraction",
+        "name": "ARK Outdoor Scavenger Hunt",
+        "description": "Interactive outdoor scavenger hunt and summer activity in downtown Toronto featuring puzzles, mysteries, and city exploration.",
+        "touristType": "Groups, Tourists, Young Professionals",
+        "isAccessibleForFree": false,
+        "availableLanguage": ["English"],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Toronto",
+          "addressRegion": "ON",
+          "addressCountry": "CA"
+        }
       }
     ]
   };
