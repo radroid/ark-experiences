@@ -4,10 +4,10 @@ import { useState, useRef } from 'react'
 import { 
   Mail, 
   Phone, 
-  MapPin, 
-  ArrowRight
+  MapPin,
+  Calendar,
+  ExternalLink
 } from 'lucide-react'
-import { Button } from '@/components/ui/button-2'
 import Image from 'next/image'
 
 export default function Footer() {
@@ -15,10 +15,6 @@ export default function Footer() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
   const titleRef = useRef<HTMLDivElement>(null)
-
-  const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (titleRef.current) {
@@ -71,27 +67,26 @@ export default function Footer() {
   const quickLinks = [
     { name: 'How It Works', href: '#how-it-works' },
     { name: 'Gallery', href: '#gallery' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Testimonials', href: '#testimonials' }
+  ]
+
+  const bookingLinks = [
+    {
+      name: 'Book on Eventbrite',
+      href: 'https://www.eventbrite.com',
+      icon: Calendar
+    },
+    {
+      name: 'Book on Luma',
+      href: 'https://lu.ma',
+      icon: Calendar
+    }
   ]
 
   return (
-    <footer className="relative overflow-hidden" style={{backgroundColor: 'var(--eerie-black)', color: 'var(--text-on-dark)'}}>
-      {/* Dark Lava Lamp Background */}
-      <div className="absolute inset-0 dark-lava-lamp-bg" />
-      
-      {/* Additional Floating Circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="dark-floating-circle"></div>
-        <div className="dark-floating-circle"></div>
-        <div className="dark-floating-circle"></div>
-        <div className="dark-floating-circle-small"></div>
-        <div className="dark-floating-circle-small"></div>
-        <div className="dark-floating-circle-small"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <footer id="footer" style={{backgroundColor: 'var(--yinmn-blue)', color: 'var(--text-on-dark)'}}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
             <div className="flex items-center mb-6">
@@ -100,13 +95,6 @@ export default function Footer() {
             <p className="mb-6" style={{color: 'var(--pure-white)', opacity: 0.9}}>
               Experience Toronto with our immersive Cluedo-themed scavenger hunt.
             </p>
-            <Button 
-              onClick={scrollToContact}
-              className="cta-button"
-            >
-              Contact Us
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
           </div>
 
           {/* Quick Links */}
@@ -117,7 +105,7 @@ export default function Footer() {
                 <li key={index}>
                   <a 
                     href={link.href}
-                    className="transition-colors"
+                    className="transition-colors hover:opacity-100"
                     style={{color: 'var(--pure-white)', opacity: 0.85}}
                   >
                     {link.name}
@@ -127,27 +115,50 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Book Experience */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4" style={{color: 'var(--text-on-dark)'}}>Book Your Adventure</h4>
+            <div className="space-y-3">
+              {bookingLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 transition-colors hover:opacity-100 group"
+                  style={{color: 'var(--pure-white)', opacity: 0.85}}
+                >
+                  <div className="p-2 rounded-full" style={{backgroundColor: 'rgba(255, 255, 255, 0.1)'}}>
+                    <link.icon className="h-4 w-4" style={{color: 'var(--pure-white)'}} />
+                  </div>
+                  <span className="group-hover:underline underline-offset-2">{link.name}</span>
+                  <ExternalLink className="h-3 w-3 opacity-60" />
+                </a>
+              ))}
+            </div>
+          </div>
+
           {/* Contact Info */}
           <div>
             <h4 className="text-lg font-semibold mb-4" style={{color: 'var(--text-on-dark)'}}>Contact Info</h4>
             <div className="space-y-3">
               {contactInfo.map((info, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <div className="p-2 rounded-full" style={{backgroundColor: 'var(--primary-blue-200)'}}>
-                    <info.icon className="h-4 w-4" style={{color: 'var(--yinmn-blue-400)'}} />
+                  <div className="p-2 rounded-full" style={{backgroundColor: 'rgba(255, 255, 255, 0.2)'}}>
+                    <info.icon className="h-4 w-4" style={{color: 'var(--pure-white)'}} />
                   </div>
                   <div>
-                    <p className="text-sm font-medium" style={{color: 'var(--pure-white-700)'}}>{info.title}</p>
+                    <p className="text-sm font-medium" style={{color: 'var(--pure-white)'}}>{info.title}</p>
                      {info.href ? (
                        <a
                          href={info.href}
                          className="text-sm hover:underline underline-offset-2 break-all"
-                         style={{color: 'var(--pure-white)'}}
+                         style={{color: 'var(--soft-gray)'}}
                        >
                          {info.details}
                        </a>
                      ) : (
-                       <p className="text-sm" style={{color: 'var(--primary-blue)'}}>{info.details}</p>
+                       <p className="text-sm" style={{color: 'var(--soft-gray)'}}>{info.details}</p>
                      )}
                     <p className="text-xs" style={{color: 'var(--pure-white)', opacity: 0.8}}>{info.description}</p>
                   </div>
@@ -193,8 +204,8 @@ export default function Footer() {
               <div 
                 className="absolute inset-0 flex items-center justify-center text-[4vw] font-bold"
                 style={{
-                  color: 'var(--primary-blue)',
-                  textShadow: '0 0 10px var(--primary-blue-600)',
+                  color: 'var(--soft-gray)',
+                  textShadow: '0 0 10px var(--soft-gray)',
                   opacity: isFlashlightOn ? 1 : 0,
                   maskImage: isFlashlightOn ? `radial-gradient(circle 200px at ${mousePosition.x}px ${mousePosition.y}px, black 40%, transparent 70%)` : 'radial-gradient(circle 0px at 50% 50%, transparent 100%, transparent 100%)',
                   WebkitMaskImage: isFlashlightOn ? `radial-gradient(circle 200px at ${mousePosition.x}px ${mousePosition.y}px, black 40%, transparent 70%)` : 'radial-gradient(circle 0px at 50% 50%, transparent 100%, transparent 100%)',
@@ -202,7 +213,7 @@ export default function Footer() {
                   WebkitMaskComposite: 'source-in'
                 }}
               >
-                🔍 SECRET CODE: ARK30OFF 🔍
+                🔍 SECRET CODE: ARK25OFF 🔍
               </div>
 
               {/* UV Light Effect */}
@@ -215,9 +226,9 @@ export default function Footer() {
                     width: 160,
                     height: 160,
                     background: `radial-gradient(circle, 
-                      var(--primary-blue-300) 0%, 
-                      var(--primary-blue-200) 30%, 
-                      var(--primary-blue-100) 50%, 
+                      var(--highlight-gold-300) 0%, 
+                      var(--highlight-gold-200) 30%, 
+                      var(--highlight-gold-100) 50%, 
                       transparent 70%)`,
                     borderRadius: '50%',
                     filter: 'blur(2px)',
@@ -236,11 +247,11 @@ export default function Footer() {
                     width: 80,
                     height: 80,
                     background: `radial-gradient(circle, 
-                      var(--primary-blue-600) 0%, 
-                      var(--primary-blue-400) 40%, 
+                      var(--soft-gray-600) 0%, 
+                      var(--soft-gray-400) 40%, 
                       transparent 70%)`,
                     borderRadius: '50%',
-                    boxShadow: '0 0 20px var(--primary-blue-500)'
+                    boxShadow: '0 0 20px var(--soft-gray-500)'
                   }}
                 />
               )}

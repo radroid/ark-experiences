@@ -167,7 +167,7 @@ export default function OutdoorEscapeRoomsTorontoPage() {
             <p className="mb-4">
               Whether you&apos;re an escape room enthusiast, board game lover, or young professional looking for unique weekend activities, ARK offers the perfect blend of mystery, exploration, and fun in downtown Toronto.
             </p>
-            <Link href="/#contact" className="cta-button inline-block px-6 py-3 rounded-lg transition-colors">
+            <Link href="/" className="cta-button inline-block px-6 py-3 rounded-lg transition-colors">
               Book Your Adventure Today
             </Link>
             <div className="mt-4">

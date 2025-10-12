@@ -1,20 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
 import "./globals.css";
-import Navbar from '@/components/ui/navbar'
+import { AnimeNavBarWrapper } from '@/components/ui/anime-navbar-wrapper'
 import FloatingContactButton from '@/components/floating-contact-button'
 import ScrollBehaviorHandler from '@/components/scroll-behavior-handler'
-import PerformanceOptimizer from '@/components/performance-optimizer'
-import PerformanceMonitor from '@/components/performance-monitor'
-import BrowserCompatibility from '@/components/browser-compatibility'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-});
+import PerformanceOptimizer from "@/components/performance-optimizer";
 
 export const metadata: Metadata = {
   title: "ARK - Toronto's Ultimate Outdoor Escape Room & Downtown Adventure Experience",
@@ -198,17 +189,15 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${montserrat.variable} antialiased min-h-screen`}
+        className="antialiased min-h-screen"
       >
         {/* Skip link for accessibility */}
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <BrowserCompatibility />
         <PerformanceOptimizer />
-        <PerformanceMonitor />
         <ScrollBehaviorHandler />
-        <Navbar />
+        <AnimeNavBarWrapper />
         <FloatingContactButton />
         {children}
         <SpeedInsights />
