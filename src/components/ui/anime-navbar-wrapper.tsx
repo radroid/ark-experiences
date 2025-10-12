@@ -10,7 +10,7 @@ export function AnimeNavBarWrapper() {
   const fullNavItems = [
     { name: 'Home', url: '#hero-section', icon: Home },
     { name: 'What', url: '#what-section', icon: Star },
-    { name: 'How It Works', url: '#how-it-works', icon: Info },
+    { name: 'How', url: '#how-it-works', icon: Info },
     { name: 'Gallery', url: '#gallery', icon: ImageIcon },
     { name: 'Testimonials', url: '#testimonials', icon: MessageCircle },
     { name: 'Contact', url: '#footer', icon: Mail }
@@ -20,6 +20,7 @@ export function AnimeNavBarWrapper() {
   const mobileNavItems = [
     { name: 'Home', url: '#hero-section', icon: Home },
     { name: 'What', url: '#what-section', icon: Star },
+    { name: 'How', url: '#how-it-works', icon: Info },
     { name: 'Gallery', url: '#gallery', icon: ImageIcon },
     { name: 'Contact', url: '#footer', icon: Mail }
   ]
