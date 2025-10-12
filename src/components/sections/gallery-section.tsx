@@ -25,6 +25,7 @@ export default function GallerySection() {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null)
   const [carouselItemClicked, setCarouselItemClicked] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [showAllItems, setShowAllItems] = useState(false)
 
   // Check if device is mobile
   useEffect(() => {
@@ -341,17 +342,11 @@ export default function GallerySection() {
               </motion.div>
             ))}
             
-            {/* Show More Button */}
-            {galleryItems.length > 6 && (
+            {/* Show More Button - Only show if not all items are displayed */}
+            {galleryItems.length > 6 && !showAllItems && (
               <motion.div
                 className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group bg-gray-800/50 border-2 border-dashed border-gray-600 flex items-center justify-center"
-                onClick={() => {
-                  // Scroll to show more items or open a different view
-                  const element = document.querySelector('.gallery-more-items')
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' })
-                  }
-                }}
+                onClick={() => setShowAllItems(true)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -370,9 +365,10 @@ export default function GallerySection() {
             )}
           </div>
           
-          {/* Additional items for mobile - hidden by default */}
-          <div className="gallery-more-items grid grid-cols-2 gap-4 max-w-md mx-auto mt-4">
-            {galleryItems.slice(6).map((item, index) => (
+          {/* Additional items for mobile - shown only when "View All" is clicked */}
+          {showAllItems && (
+            <div className="gallery-more-items grid grid-cols-2 gap-4 max-w-md mx-auto mt-4">
+              {galleryItems.slice(6).map((item, index) => (
               <motion.div
                 key={item.id}
                 className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group"
@@ -418,8 +414,9 @@ export default function GallerySection() {
                   </div>
                 </div>
               </motion.div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
