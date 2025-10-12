@@ -37,6 +37,7 @@ interface MobileGalleryModalProps {
   onClose: () => void
   onNext: () => void
   onPrev: () => void
+  isMobile?: boolean
 }
 
 export default function MobileGalleryModal({
@@ -44,7 +45,8 @@ export default function MobileGalleryModal({
   selectedItem,
   onClose,
   onNext,
-  onPrev
+  onPrev,
+  isMobile = false // eslint-disable-line @typescript-eslint/no-unused-vars
 }: MobileGalleryModalProps) {
   const [showControls, setShowControls] = useState(false)
   const [showCaption, setShowCaption] = useState(false)
