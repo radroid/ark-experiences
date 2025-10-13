@@ -4,12 +4,9 @@ import { motion, easeOut } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button-2'
 import Image from 'next/image'
-import EmailDrawer from '@/components/email-drawer'
-import { useState } from 'react'
 import { LiquidGlass } from '@/components/ui/liquid-glass'
 
 export default function ComingSoonSection() {
-  const [isOpenEmailDrawer, setIsOpenEmailDrawer] = useState(false)
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -31,12 +28,8 @@ export default function ComingSoonSection() {
     }
   }
 
-  const openDrawer = () => {
-    setIsOpenEmailDrawer(true)
-  }
-
-  const closeDrawer = () => {
-    setIsOpenEmailDrawer(false)
+  const openEmailPopover = () => {
+    window.dispatchEvent(new Event('openEmailPopover'))
   }
 
   return (
@@ -139,7 +132,7 @@ export default function ComingSoonSection() {
                 <Button 
                   size="lg" 
                   className="cta-button cta-button--gold px-6 py-4 text-base sm:px-8 sm:py-4 sm:text-lg font-semibold cursor-pointer"
-                  onClick={openDrawer}
+                  onClick={openEmailPopover}
                 >
                   Get Notified
                 </Button>
@@ -148,8 +141,6 @@ export default function ComingSoonSection() {
           </Card>
         </motion.div>
       </div>
-
-      <EmailDrawer isOpen={isOpenEmailDrawer} onClose={closeDrawer} theme="dark" />
     </section>
   )
 }
