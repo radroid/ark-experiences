@@ -1,14 +1,15 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { 
-  Mail, 
-  Phone, 
+import {
+  Mail,
+  Phone,
   MapPin,
   Calendar,
   ExternalLink
 } from 'lucide-react'
 import Image from 'next/image'
+import FoundersSection from './founders-section'
 
 export default function Footer() {
   const [isFlashlightOn, setIsFlashlightOn] = useState(false)
@@ -83,41 +84,46 @@ export default function Footer() {
     }
   ]
 
-  return (
-    <footer id="footer" style={{backgroundColor: 'var(--yinmn-blue)', color: 'var(--text-on-dark)'}}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div>
-            <div className="flex items-center mb-6">
-              <Image src="/ark-logo.png" alt="ARK Scavenger Hunt" width={96} height={96} className="h-24 w-auto mr-3" />
-            </div>
-            <p className="mb-6" style={{color: 'var(--pure-white)', opacity: 0.9}}>
-              Experience Toronto with our immersive Cluedo-themed scavenger hunt.
-            </p>
-          </div>
+  // Founders data with social media URLs
+  const founders = [
+    {
+      id: 1,
+      name: "Ayat",
+      designation: "Ideator & Implementer",
+      image: "/founders/Ayat Line Dancing.png",
+      socialUrl: "https://instagram.com/arkexperiences"
+    },
+    {
+      id: 2,
+      name: "Raj",
+      designation: "Problems & Developer",
+      image: "/founders/Raj Matcha.png",
+      socialUrl: "https://x.com/curlycloud__"
+    },
+    {
+      id: 3,
+      name: "Krystle",
+      designation: "Solutions & Designer",
+      image: "/founders/Krystle Concert.png",
+      socialUrl: "https://instagram.com/arkexperiences"
+    }
+  ]
 
-          {/* Quick Links */}
+  return (
+    <footer id="footer" style={{ backgroundColor: 'var(--yinmn-blue)', color: 'var(--text-on-dark)' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Founders Section */}
           <div>
-            <h4 className="text-lg font-semibold mb-4" style={{color: 'var(--text-on-dark)'}}>Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <a 
-                    href={link.href}
-                    className="transition-colors hover:opacity-100"
-                    style={{color: 'var(--pure-white)', opacity: 0.85}}
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <FoundersSection founders={founders} />
+            <p className="mt-4" style={{ color: 'var(--pure-white)', opacity: 0.9 }}>
+              Experience Toronto with our <br />immersive experiences.
+            </p>
           </div>
 
           {/* Book Experience */}
           <div>
-            <h4 className="text-lg font-semibold mb-4" style={{color: 'var(--text-on-dark)'}}>Book Your Adventure</h4>
+            <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-on-dark)' }}>Book Your Adventure</h4>
             <div className="space-y-3">
               {bookingLinks.map((link, index) => (
                 <a
@@ -126,41 +132,59 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 transition-colors hover:opacity-100 group"
-                  style={{color: 'var(--pure-white)', opacity: 0.85}}
+                  style={{ color: 'var(--pure-white)', opacity: 0.85 }}
                 >
-                  <div className="p-2 rounded-full" style={{backgroundColor: 'rgba(255, 255, 255, 0.1)'}}>
-                    <link.icon className="h-4 w-4" style={{color: 'var(--pure-white)'}} />
+                  <div className="p-2 rounded-full" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
+                    <link.icon className="h-4 w-4" style={{ color: 'var(--pure-white)' }} />
                   </div>
                   <span className="group-hover:underline underline-offset-2">{link.name}</span>
                   <ExternalLink className="h-3 w-3 opacity-60" />
                 </a>
               ))}
             </div>
+
+            {/* Quick Links - Moved below Book Your Adventure */}
+            <div className="mt-8">
+              <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-on-dark)' }}>Quick Links</h4>
+              <ul className="space-y-2">
+                {quickLinks.map((link, index) => (
+                  <li key={index}>
+                    <a
+                      href={link.href}
+                      className="transition-colors hover:opacity-100"
+                      style={{ color: 'var(--pure-white)', opacity: 0.85 }}
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4" style={{color: 'var(--text-on-dark)'}}>Contact Info</h4>
+            <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-on-dark)' }}>Contact Info</h4>
             <div className="space-y-3">
               {contactInfo.map((info, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <div className="p-2 rounded-full" style={{backgroundColor: 'rgba(255, 255, 255, 0.2)'}}>
-                    <info.icon className="h-4 w-4" style={{color: 'var(--pure-white)'}} />
+                  <div className="p-2 rounded-full" style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
+                    <info.icon className="h-4 w-4" style={{ color: 'var(--pure-white)' }} />
                   </div>
                   <div>
-                    <p className="text-sm font-medium" style={{color: 'var(--pure-white)'}}>{info.title}</p>
-                     {info.href ? (
-                       <a
-                         href={info.href}
-                         className="text-sm hover:underline underline-offset-2 break-all"
-                         style={{color: 'var(--soft-gray)'}}
-                       >
-                         {info.details}
-                       </a>
-                     ) : (
-                       <p className="text-sm" style={{color: 'var(--soft-gray)'}}>{info.details}</p>
-                     )}
-                    <p className="text-xs" style={{color: 'var(--pure-white)', opacity: 0.8}}>{info.description}</p>
+                    <p className="text-sm font-medium" style={{ color: 'var(--pure-white)' }}>{info.title}</p>
+                    {info.href ? (
+                      <a
+                        href={info.href}
+                        className="text-sm hover:underline underline-offset-2 break-all"
+                        style={{ color: 'var(--soft-gray)' }}
+                      >
+                        {info.details}
+                      </a>
+                    ) : (
+                      <p className="text-sm" style={{ color: 'var(--soft-gray)' }}>{info.details}</p>
+                    )}
+                    <p className="text-xs" style={{ color: 'var(--pure-white)', opacity: 0.8 }}>{info.description}</p>
                   </div>
                 </div>
               ))}
@@ -169,9 +193,9 @@ export default function Footer() {
         </div>
 
         {/* Company Title Section - Full Width with UV Effect */}
-        <div className="mt-12 pt-8 border-t" style={{borderColor: 'var(--safe-black-800)'}}>
+        <div className="mt-12 pt-8 border-t" style={{ borderColor: 'var(--safe-black-800)' }}>
           <div className="text-center">
-            <div 
+            <div
               ref={titleRef}
               className={`relative inline-block ${isHovering ? (isFlashlightOn ? 'cursor-none' : 'cursor-pointer') : 'cursor-pointer'}`}
               onMouseMove={handleMouseMove}
@@ -189,19 +213,19 @@ export default function Footer() {
                 `)}) 16 16, pointer` : undefined
               }}
             >
-                             {/* Main Title */}
-               <h3 
-                 className="text-[8vw] font-bold mb-4 select-none transition-opacity duration-300"
-                 style={{ 
-                   color: 'var(--pure-white)',
-                   opacity: isFlashlightOn ? 0 : 1 
-                 }}
-               >
-                 ARK Scavenger Hunt
-               </h3>
-              
+              {/* Main Title */}
+              <h3
+                className="text-[8vw] font-bold mb-4 select-none transition-opacity duration-300"
+                style={{
+                  color: 'var(--pure-white)',
+                  opacity: isFlashlightOn ? 0 : 1
+                }}
+              >
+                ARK Scavenger Hunt
+              </h3>
+
               {/* Hidden Message - Only visible through UV light */}
-              <div 
+              <div
                 className="absolute inset-0 flex items-center justify-center text-[4vw] font-bold"
                 style={{
                   color: 'var(--soft-gray)',
@@ -256,8 +280,8 @@ export default function Footer() {
                 />
               )}
             </div>
-            
-            <p className="text-sm mt-6" style={{color: 'var(--pure-white)', opacity: 0.8}}>
+
+            <p className="text-sm mt-6" style={{ color: 'var(--pure-white)', opacity: 0.8 }}>
               © 2024 ARK Scavenger Hunt. All rights reserved.
             </p>
           </div>
