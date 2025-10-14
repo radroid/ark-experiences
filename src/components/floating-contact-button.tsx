@@ -67,7 +67,7 @@ export default function FloatingContactButton() {
           }}
           aria-label="Contact Us"
         >
-          <MessageCircle className="w-7 h-7 group-hover:scale-110 transition-transform duration-200" />
+          <MessageCircle className="w-7 h-7 group-hover:scale-110 transition-transform duration-200 cursor-pointer" />
           
           {/* Tooltip - only show when popover is closed */}
           {!isOpen && (
