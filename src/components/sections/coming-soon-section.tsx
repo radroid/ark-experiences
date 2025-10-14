@@ -2,7 +2,7 @@
 
 import { motion, easeOut } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button-2'
+import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { LiquidGlass } from '@/components/ui/liquid-glass'
 

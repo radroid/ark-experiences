@@ -109,7 +109,7 @@ export default function FloatingContactButton() {
           </div>
           <button
             onClick={() => setIsOpen(false)}
-            className="hover:opacity-70 transition-opacity"
+            className="hover:opacity-70 transition-opacity cursor-pointer"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -161,7 +161,7 @@ export default function FloatingContactButton() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-2.5 px-4 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg"
+                  className="w-full py-2.5 px-4 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg cursor-pointer"
                   style={{
                     backgroundColor: 'var(--accent-orange)',
                     color: 'var(--pure-white)',

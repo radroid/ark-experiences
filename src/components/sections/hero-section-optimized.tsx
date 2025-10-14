@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button-2'
+import { Button } from '@/components/ui/button'
 import { MapPin, Users, Clock } from 'lucide-react'
 import { Typewriter } from '@/components/ui/typewriter'
 import { GridPattern } from '@/components/ui/grid-pattern'
