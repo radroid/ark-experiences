@@ -84,27 +84,27 @@ export default function Footer() {
     }
   ]
 
-  // Founders data with social media URLs
+  // Founders data with social media URLs (using optimized WebP images!)
   const founders = [
     {
       id: 1,
       name: "Ayat",
       designation: "Ideator & Implementer",
-      image: "/founders/Ayat Line Dancing.png",
+      image: "/founders-optimized/Ayat Line Dancing.webp",
       socialUrl: "https://instagram.com/arkexperiences"
     },
     {
       id: 2,
       name: "Raj",
       designation: "Problems & Developer",
-      image: "/founders/Raj Matcha.png",
+      image: "/founders-optimized/Raj Matcha.webp",
       socialUrl: "https://x.com/curlycloud__"
     },
     {
       id: 3,
       name: "Krystle",
       designation: "Solutions & Designer",
-      image: "/founders/Krystle Concert.png",
+      image: "/founders-optimized/Krystle Concert.webp",
       socialUrl: "https://instagram.com/arkexperiences"
     }
   ]

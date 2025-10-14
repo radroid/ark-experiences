@@ -45,7 +45,7 @@ export function AnimeNavBarWrapper() {
       {/* ARK Logo - Left Corner */}
       <Link href="#hero-section" className="absolute left-4 md:left-8 top-0 flex-shrink-0">
         <Image 
-          src="/ark-logo.png" 
+          src="/ark-logo.webp" 
           alt="ARK Experience Logo" 
           width={90} 
           height={90} 

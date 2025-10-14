@@ -5,17 +5,24 @@ import GallerySection from '@/components/sections/gallery-section'
 import TestimonialsSection from '@/components/sections/testimonials-section'
 import Footer from '@/components/sections/footer'
 import SectionScrollContainer from '@/components/sections/section-scroll-container'
+import LazySection from '@/components/lazy-section'
 
 export default function Home() {
   return (
     <main id="main-content">
       <SectionScrollContainer>
+        {/* Hero loads immediately - critical for LCP */}
         <HeroSection />
         <WhatSection />
         <HowItWorks />
-        <GallerySection />
-        <TestimonialsSection />
+        
+        <LazySection>
+          <GallerySection />
+        </LazySection>
+        
+        <TestimonialsSection />       
         <Footer />
+        
       </SectionScrollContainer>
     </main>
   )

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   motion,
   useTransform,
@@ -90,13 +91,9 @@ export default function FoundersSection({ founders, className = "" }: FoundersSe
                       </motion.div>
                     )}
                   </AnimatePresence>
-                  <img
+                  <div 
+                    className="relative h-14 w-14"
                     onMouseMove={handleMouseMove}
-                    height={100}
-                    width={100}
-                    src={founder.image}
-                    alt={founder.name}
-                    className="object-cover !m-0 !p-0 object-top rounded-full h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-background relative transition duration-500"
                     style={{
                       cursor: founder.socialUrl ? 'pointer' : 'default'
                     }}
@@ -106,7 +103,18 @@ export default function FoundersSection({ founders, className = "" }: FoundersSe
                         window.open(founder.socialUrl, '_blank', 'noopener,noreferrer');
                       }
                     }}
-                  />
+                  >
+                    <Image
+                      height={56}
+                      width={56}
+                      src={founder.image}
+                      alt={founder.name}
+                      className="object-cover !m-0 !p-0 object-top rounded-full h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-background relative transition duration-500"
+                      quality={90}
+                      sizes="56px"
+                      loading="lazy"
+                    />
+                  </div>
                   {founder.socialUrl && (
                     <div className="absolute inset-0 rounded-full border-2 border-transparent hover:border-white/30 transition-all duration-200 pointer-events-none" />
                   )}

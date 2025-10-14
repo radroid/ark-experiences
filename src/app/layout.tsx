@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     locale: "en_CA",
     images: [
       {
-        url: "/ark-logo.png",
+        url: "/ark-logo.webp",
         width: 1200,
         height: 630,
         alt: "ARK - Outdoor Scavenger Hunt and Summer Activities in Toronto",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     creator: "@FunWithARK",
     title: "ARK - Outdoor Scavenger Hunt Toronto | Top Summer Activities",
     description: "Toronto's #1 outdoor scavenger hunt! Perfect summer activity for groups, team building, and weekend adventures in downtown Toronto.",
-    images: ["/ark-logo.png"],
+    images: ["/ark-logo.webp"],
   },
   robots: {
     index: true,
@@ -133,8 +133,8 @@ export default function RootLayout({
           "Tourist Attraction"
         ],
         "priceRange": "$$",
-        "image": "https://www.funwithark.ca/ark-logo.png",
-        "logo": "https://www.funwithark.ca/ark-logo.png",
+        "image": "https://www.funwithark.ca/ark-logo.webp",
+        "logo": "https://www.funwithark.ca/ark-logo.webp",
         "sameAs": [
           "https://www.facebook.com/funwithark",
           "https://www.instagram.com/funwithark",
@@ -305,6 +305,9 @@ export default function RootLayout({
             __html: JSON.stringify(structuredData),
           }}
         />
+        {/* Resource hints to prioritize hero section */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
       <body
         className="antialiased min-h-screen"

@@ -390,14 +390,14 @@ export default function MobileGalleryModal({
           {prevItem && prevItem.type === 'video' && (
             <video
               src={prevItem.src}
-              preload="metadata"
+              preload="none"
               style={{ display: 'none' }}
             />
           )}
           {nextItem && nextItem.type === 'video' && (
             <video
               src={nextItem.src}
-              preload="metadata"
+              preload="none"
               style={{ display: 'none' }}
             />
           )}

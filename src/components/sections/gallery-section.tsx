@@ -3,9 +3,22 @@
 import { useState, useEffect, useMemo } from 'react'
 import { motion, easeOut } from 'framer-motion'
 import { Play } from 'lucide-react'
-import { Component as CircularGallery } from '@/components/ui/circular-gallery'
+import dynamic from 'next/dynamic'
 import MobileGalleryModal from '@/components/mobile-gallery-modal'
 import Image from 'next/image'
+
+// Lazy load CircularGallery - saves 650KB on initial page load!
+const CircularGallery = dynamic(
+  () => import('@/components/ui/circular-gallery').then(mod => ({ default: mod.Component })),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center bg-transparent">
+        <div className="text-white text-lg animate-pulse">Loading gallery...</div>
+      </div>
+    )
+  }
+)
 
 interface GalleryItem {
   id: number
@@ -62,7 +75,7 @@ export default function GallerySection() {
       title: 'AR Clue Discovery',
       description: 'Experience the future of scavenger hunting with our cutting-edge AR technology revealing hidden clues in real-world locations!',
       category: 'clue',
-      thumbnail: '/gallery/ar-clue-example-thumb.jpg',
+      thumbnail: '/gallery-optimized/ar-clue-example-thumb.webp',
       width: 886,
       height: 1920,
       aspectRatio: 'portrait'
@@ -75,7 +88,7 @@ export default function GallerySection() {
       title: 'Team 1: Solving in Action',
       description: 'Watch Team 1 piece together the clues in this thrilling timelapse - minds working at lightning speed!',
       category: 'event',
-      thumbnail: '/gallery/team1-solving-timelapse-thumb.jpg',
+      thumbnail: '/gallery-optimized/team1-solving-timelapse-thumb.webp',
       width: 720,
       height: 1280,
       aspectRatio: 'portrait'
@@ -83,7 +96,7 @@ export default function GallerySection() {
     {
       id: 4,
       type: 'image',
-      src: '/gallery/billiards-clue-example.jpg',
+      src: '/gallery-optimized/billiards-clue-example.webp',
       alt: 'Billiards table clue discovery',
       title: 'Billiards Mystery Clue',
       description: 'A crucial clue hidden in plain sight at the billiards table - can you spot what the teams discovered here?',
@@ -95,7 +108,7 @@ export default function GallerySection() {
     {
       id: 5,
       type: 'image',
-      src: '/gallery/murder-victim.jpg',
+      src: '/gallery-optimized/murder-victim.webp',
       alt: 'The murder victim scene - crucial evidence',
       title: 'The Murder Victim',
       description: 'A crucial piece of evidence in the mystery - who is this victim and what secrets do they hold?',
@@ -112,7 +125,7 @@ export default function GallerySection() {
       title: 'Team 2 at Location #8',
       description: 'Team 2 discovers hidden clues at one of Toronto\'s iconic mystery locations - what will they find?',
       category: 'event',
-      thumbnail: '/gallery/team2-location8-thumb.jpg',
+      thumbnail: '/gallery-optimized/team2-location8-thumb.webp',
       width: 720,
       height: 1280,
       aspectRatio: 'portrait'
@@ -120,7 +133,7 @@ export default function GallerySection() {
     {
       id: 7,
       type: 'image',
-      src: '/gallery/team1-location2.jpg',
+      src: '/gallery-optimized/team1-location2.webp',
       alt: 'Team 1 investigating at location 2',
       title: 'Team 1: Location Investigation',
       description: 'Team 1 carefully examines clues at their second location - every detail matters in solving the case!',
@@ -132,7 +145,7 @@ export default function GallerySection() {
     {
       id: 8,
       type: 'image',
-      src: '/gallery/team2-location3.jpg',
+      src: '/gallery-optimized/team2-location3.webp',
       alt: 'Team 2 at location 3',
       title: 'Team 2: Hunt in Progress',
       description: 'Team 2 strategizes and searches for vital clues - teamwork makes the dream work!',
@@ -144,7 +157,7 @@ export default function GallerySection() {
     {
       id: 9,
       type: 'image',
-      src: '/gallery/team3-location7.jpg',
+      src: '/gallery-optimized/team3-location7.webp',
       alt: 'Team 3 at location 7',
       title: 'Team 3: Final Stretch',
       description: 'Team 3 reaches one of the later locations in their quest - the mystery is almost solved!',
@@ -156,7 +169,7 @@ export default function GallerySection() {
     {
       id: 10,
       type: 'image',
-      src: '/gallery/team2-location6.jpg',
+      src: '/gallery-optimized/team2-location6.webp',
       alt: 'Team 2 collaborating at location 6',
       title: 'Team 2: Collaboration Zone',
       description: 'Intense collaboration as Team 2 pieces together multiple clues - the excitement is palpable!',
@@ -168,7 +181,7 @@ export default function GallerySection() {
     {
       id: 11,
       type: 'image',
-      src: '/gallery/team3-location6.jpg',
+      src: '/gallery-optimized/team3-location6.webp',
       alt: 'Team 3 investigating at location 6',
       title: 'Team 3: Detective Mode',
       description: 'Team 3 channels their inner detectives, carefully analyzing every clue at this crucial location!',
@@ -180,7 +193,7 @@ export default function GallerySection() {
     {
       id: 12,
       type: 'image',
-      src: '/gallery/team3-location3.jpg',
+      src: '/gallery-optimized/team3-location3.webp',
       alt: 'Team 3 at location 3',
       title: 'Team 3: Early Breakthrough',
       description: 'Team 3 makes an early breakthrough at location 3 - could this be the key to solving the entire mystery?',
@@ -309,8 +322,9 @@ export default function GallerySection() {
                       src={item.src}
                       poster={item.thumbnail}
                       className="w-full h-full object-cover"
-                      preload="metadata"
+                      preload="none"
                       muted
+                      playsInline
                     />
                   ) : (
                     <Image
@@ -319,6 +333,7 @@ export default function GallerySection() {
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 50vw, 25vw"
+                      loading="lazy"
                     />
                   )}
                   
@@ -386,8 +401,9 @@ export default function GallerySection() {
                       src={item.src}
                       poster={item.thumbnail}
                       className="w-full h-full object-cover"
-                      preload="metadata"
+                      preload="none"
                       muted
+                      playsInline
                     />
                   ) : (
                     <Image
@@ -396,6 +412,7 @@ export default function GallerySection() {
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 50vw, 25vw"
+                      loading="lazy"
                     />
                   )}
                   
