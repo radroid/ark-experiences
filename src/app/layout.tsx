@@ -305,9 +305,43 @@ export default function RootLayout({
             __html: JSON.stringify(structuredData),
           }}
         />
-        {/* Resource hints to prioritize hero section */}
+        {/* Preload critical LCP image */}
+        <link 
+          rel="preload" 
+          as="image" 
+          href="/ark-logo.webp"
+          fetchPriority="high"
+        />
+        {/* Optimized font loading with preconnect and async */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Agrandir:wght@400;500;600;700;800&display=swap"
+          media="print"
+          // @ts-ignore - onLoad is valid for link elements
+          onLoad="this.media='all'"
+        />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Agrandir:wght@400;500;600;700;800&display=swap"
+          />
+        </noscript>
+        <link
+          rel="stylesheet"
+          href="https://fonts.cdnfonts.com/css/gagalin"
+          media="print"
+          // @ts-ignore - onLoad is valid for link elements
+          onLoad="this.media='all'"
+        />
+        <noscript>
+          <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/gagalin" />
+        </noscript>
+        {/* DNS prefetch for analytics - defer non-critical connections */}
+        <link rel="dns-prefetch" href="https://vercel.live" />
+        <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
       </head>
       <body
         className="antialiased min-h-screen"
@@ -321,8 +355,8 @@ export default function RootLayout({
         <AnimeNavBarWrapper />
         <FloatingContactButton />
         {children}
-        <SpeedInsights />
-        <Analytics />
+        <SpeedInsights sampleRate={0.1} />
+        <Analytics mode="production" />
       </body>
     </html>
   );

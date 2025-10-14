@@ -48,7 +48,8 @@ export function AnimeNavBarWrapper() {
           src="/ark-logo.webp" 
           alt="ARK Experience Logo" 
           width={90} 
-          height={90} 
+          height={90}
+          priority
           className="w-16 h-16 md:w-[90px] md:h-[90px] drop-shadow-xl hover:scale-105 transition-transform duration-200" 
         />
       </Link>
