@@ -70,7 +70,7 @@ export default function GallerySection() {
     {
       id: 2,
       type: 'video',
-      src: '/gallery/ar-clue-example.mp4',
+      src: '/gallery-optimized/ar-clue-example.mp4',
       alt: 'AR clue example in action',
       title: 'AR Clue Discovery',
       description: 'Experience the future of scavenger hunting with our cutting-edge AR technology revealing hidden clues in real-world locations!',
@@ -83,7 +83,7 @@ export default function GallerySection() {
     {
       id: 3,
       type: 'video',
-      src: '/gallery/team1-solving-timelapse.mp4',
+      src: '/gallery-optimized/team1-solving-timelapse.mp4',
       alt: 'Team 1 solving puzzles in timelapse',
       title: 'Team 1: Solving in Action',
       description: 'Watch Team 1 piece together the clues in this thrilling timelapse - minds working at lightning speed!',
@@ -120,7 +120,7 @@ export default function GallerySection() {
     {
       id: 6,
       type: 'video',
-      src: '/gallery/team2-location8.mp4',
+      src: '/gallery-optimized/team2-location8.mp4',
       alt: 'Team 2 exploring location 8',
       title: 'Team 2 at Location #8',
       description: 'Team 2 discovers hidden clues at one of Toronto\'s iconic mystery locations - what will they find?',
