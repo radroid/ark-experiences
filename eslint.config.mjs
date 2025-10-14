@@ -12,6 +12,12 @@ const compat = new FlatCompat({
 const eslintConfig = [
   {},
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      // Disable Pages Router font warning since we're using App Router
+      "@next/next/no-page-custom-font": "off",
+    },
+  },
 ];
 
 export default eslintConfig;

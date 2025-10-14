@@ -320,7 +320,7 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Agrandir:wght@400;500;600;700;800&display=swap"
           media="print"
-          // @ts-ignore - onLoad is valid for link elements
+          // @ts-expect-error - onLoad is valid for link elements
           onLoad="this.media='all'"
         />
         <noscript>
@@ -333,7 +333,7 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://fonts.cdnfonts.com/css/gagalin"
           media="print"
-          // @ts-ignore - onLoad is valid for link elements
+          // @ts-expect-error - onLoad is valid for link elements
           onLoad="this.media='all'"
         />
         <noscript>
