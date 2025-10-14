@@ -8,7 +8,6 @@ import {
   Calendar,
   ExternalLink
 } from 'lucide-react'
-import Image from 'next/image'
 import FoundersSection from './founders-section'
 
 export default function Footer() {
