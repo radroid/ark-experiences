@@ -32,8 +32,8 @@ const nextConfig: NextConfig = {
         headers: [
           // Enhanced security headers
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' https://curlycloud.dev https://*.curlycloud.dev",
           },
           {
             key: 'X-Content-Type-Options',
