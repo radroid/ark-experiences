@@ -31,6 +31,8 @@ const nextConfig: NextConfig = {
         source: '/(.*)',
         headers: [
           // Enhanced security headers
+          // Note: Only setting frame-ancestors to avoid conflicts with other CSP headers
+          // If you need a full CSP, ensure it doesn't conflict with existing headers
           {
             key: 'Content-Security-Policy',
             value: "frame-ancestors 'self' https://curlycloud.dev https://*.curlycloud.dev",
