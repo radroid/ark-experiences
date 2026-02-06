@@ -3,22 +3,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { motion, easeOut } from 'framer-motion'
 import { Play } from 'lucide-react'
-import dynamic from 'next/dynamic'
 import MobileGalleryModal from '@/components/mobile-gallery-modal'
 import Image from 'next/image'
-
-// Lazy load CircularGallery - saves 650KB on initial page load!
-const CircularGallery = dynamic(
-  () => import('@/components/ui/circular-gallery').then(mod => ({ default: mod.Component })),
-  { 
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-full flex items-center justify-center bg-transparent">
-        <div className="text-white text-lg animate-pulse">Loading gallery...</div>
-      </div>
-    )
-  }
-)
 
 interface GalleryItem {
   id: number
@@ -36,37 +22,16 @@ interface GalleryItem {
 
 export default function GallerySection() {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null)
-  const [carouselItemClicked, setCarouselItemClicked] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
-  const [showAllItems, setShowAllItems] = useState(false)
 
-  // Check if device is mobile
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
     window.addEventListener('resize', checkMobile)
-    
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Updated gallery items with real media files and proper aspect ratios
   const galleryItems: GalleryItem[] = useMemo(() => [
-    // {
-    //   id: 1,
-    //   type: 'video',
-    //   src: '/gallery/all-teams-celebration.mp4',
-    //   alt: 'All teams celebrating together after completing the hunt',
-    //   title: 'Ultimate Victory Celebration',
-    //   description: 'The epic moment when all teams come together to celebrate after solving the murder mystery - pure joy and triumph!',
-    //   category: 'celebration',
-    //   thumbnail: '/gallery/all-teams-celebration-thumb.jpg',
-    //   width: 1920,
-    //   height: 2160,
-    //   aspectRatio: 'landscape'
-    // },
     {
       id: 2,
       type: 'video',
@@ -204,47 +169,35 @@ export default function GallerySection() {
     }
   ], [])
 
-  // Convert gallery items to carousel format
-  const carouselItems = galleryItems.map(item => ({
-    image: item.src, // Use video src for videos, image src for images
-    text: item.title,
-    isVideo: item.type === 'video'
-  }))
+  // Height-aware 3-column distribution for masonry layout
+  const columns = useMemo(() => {
+    const cols: GalleryItem[][] = [[], [], []]
+    const heights = [0, 0, 0]
+    galleryItems.forEach(item => {
+      const shortest = heights.indexOf(Math.min(...heights))
+      cols[shortest].push(item)
+      heights[shortest] += item.aspectRatio === 'portrait' ? 1.6 : item.aspectRatio === 'square' ? 1 : 0.75
+    })
+    return cols
+  }, [galleryItems])
 
   const nextItem = () => {
     if (!selectedItem) return
-    const currentIndex = galleryItems.findIndex(item => item.id === selectedItem.id)
-    const nextIndex = (currentIndex + 1) % galleryItems.length
-    setSelectedItem(galleryItems[nextIndex])
+    const idx = galleryItems.findIndex(item => item.id === selectedItem.id)
+    setSelectedItem(galleryItems[(idx + 1) % galleryItems.length])
   }
 
   const prevItem = () => {
     if (!selectedItem) return
-    const currentIndex = galleryItems.findIndex(item => item.id === selectedItem.id)
-    const prevIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length
-    setSelectedItem(galleryItems[prevIndex])
+    const idx = galleryItems.findIndex(item => item.id === selectedItem.id)
+    setSelectedItem(galleryItems[(idx - 1 + galleryItems.length) % galleryItems.length])
   }
-
-  // Handle carousel item click - find the corresponding gallery item
-  useEffect(() => {
-    if (carouselItemClicked) {
-      const item = galleryItems.find(g => g.title === carouselItemClicked)
-      if (item) {
-        setSelectedItem(item)
-      }
-      setCarouselItemClicked(null)
-    }
-  }, [carouselItemClicked, galleryItems])
-
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.1
-      }
+      transition: { duration: 0.8, staggerChildren: 0.1 }
     }
   }
 
@@ -258,29 +211,27 @@ export default function GallerySection() {
   }
 
   return (
-    <section id="gallery" className="relative py-32 overflow-hidden" style={{backgroundColor: 'var(--safe-black)'}}>
-      {/* Heading Section - Centered */}
+    <section id="gallery" className="relative py-32 overflow-hidden" style={{ backgroundColor: 'var(--safe-black)' }}>
+      {/* Heading */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          className="text-center"
+          className="text-center mb-16"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-4xl md:text-5xl font-bold mb-6"
-            style={{color: 'var(--text-on-dark)'}}
+            style={{ color: 'var(--text-on-dark)' }}
             variants={itemVariants}
           >
             Experience{' '}
-            <span style={{color: 'var(--highlight-gold)'}}>
-              Gallery
-            </span>
+            <span style={{ color: 'var(--highlight-gold)' }}>Gallery</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-xl max-w-3xl mx-auto"
-            style={{color: 'var(--pure-white)', opacity: 0.9}}
+            style={{ color: 'var(--pure-white)', opacity: 0.9 }}
             variants={itemVariants}
           >
             Immerse yourself in the excitement, mystery, and pure joy of our scavenger hunts through photos and videos
@@ -288,156 +239,51 @@ export default function GallerySection() {
         </motion.div>
       </div>
 
-      {/* Gallery Content - Responsive */}
-      <div className="w-full overflow-hidden relative">
-        {/* Desktop: Circular Gallery */}
-        <div className="hidden md:block h-[70vh]">
-          <CircularGallery 
-            items={carouselItems} 
-            bend={3} 
-            textColor="#ffffff" 
-            borderRadius={0.05}
-            onItemClick={(text) => setCarouselItemClicked(text)}
-          />
-        </div>
-        
-        {/* Mobile: Grid Gallery */}
-        <div className="md:hidden px-4 py-8">
-          <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
-            {galleryItems.slice(0, 6).map((item, index) => (
-              <motion.div
-                key={item.id}
-                className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group"
-                onClick={() => setSelectedItem(item)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="relative w-full h-full">
+      {/* Masonry grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {columns.map((col, colIdx) => (
+            <div key={colIdx} className="flex flex-col gap-4">
+              {col.map((item, i) => (
+                <motion.div
+                  key={item.id}
+                  className="relative rounded-xl overflow-hidden cursor-pointer group"
+                  style={{ aspectRatio: item.aspectRatio === 'portrait' ? '9/16' : item.aspectRatio === 'square' ? '1/1' : '4/3' }}
+                  onClick={() => setSelectedItem(item)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
                   {item.type === 'video' ? (
-                    <video
-                      src={item.src}
-                      poster={item.thumbnail}
-                      className="w-full h-full object-cover"
-                      preload="none"
-                      muted
-                      playsInline
-                    />
+                    <video src={item.src} poster={item.thumbnail} className="w-full h-full object-cover" preload="none" muted playsInline />
                   ) : (
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                      loading="lazy"
-                    />
+                    <Image src={item.src} alt={item.alt} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" loading="lazy" />
                   )}
-                  
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-                  
-                  {/* Play button for videos */}
+
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300" />
+
                   {item.type === 'video' && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center">
-                        <Play className="w-6 h-6 text-black ml-1" />
+                    <div className="absolute inset-0 flex items-center justify-center z-10">
+                      <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
+                        <Play className="w-6 h-6 text-white ml-0.5" />
                       </div>
                     </div>
                   )}
-                  
-                  {/* Title overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
-                    <p className="text-white text-sm font-medium line-clamp-2">{item.title}</p>
+
+                  <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out p-5 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                    <p className="text-white font-bold text-base mb-1">{item.title}</p>
+                    <p className="text-white/60 text-sm line-clamp-2">{item.description}</p>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-            
-            {/* Show More Button - Only show if not all items are displayed */}
-            {galleryItems.length > 6 && !showAllItems && (
-              <motion.div
-                className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group bg-gray-800/50 border-2 border-dashed border-gray-600 flex items-center justify-center"
-                onClick={() => setShowAllItems(true)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 6 * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="text-center">
-                  <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <span className="text-white text-lg font-bold">+</span>
-                  </div>
-                  <p className="text-gray-400 text-xs">View All</p>
-                  <p className="text-gray-500 text-xs">{galleryItems.length - 6} more</p>
-                </div>
-              </motion.div>
-            )}
-          </div>
-          
-          {/* Additional items for mobile - shown only when "View All" is clicked */}
-          {showAllItems && (
-            <div className="gallery-more-items grid grid-cols-2 gap-4 max-w-md mx-auto mt-4">
-              {galleryItems.slice(6).map((item, index) => (
-              <motion.div
-                key={item.id}
-                className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group"
-                onClick={() => setSelectedItem(item)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                viewport={{ once: true }}
-              >
-                <div className="relative w-full h-full">
-                  {item.type === 'video' ? (
-                    <video
-                      src={item.src}
-                      poster={item.thumbnail}
-                      className="w-full h-full object-cover"
-                      preload="none"
-                      muted
-                      playsInline
-                    />
-                  ) : (
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                      loading="lazy"
-                    />
-                  )}
-                  
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-                  
-                  {item.type === 'video' && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center">
-                        <Play className="w-5 h-5 text-black ml-0.5" />
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
-                    <p className="text-white text-xs font-medium line-clamp-2">{item.title}</p>
-                  </div>
-                </div>
-              </motion.div>
+                </motion.div>
               ))}
             </div>
-          )}
+          ))}
         </div>
       </div>
 
-      {/* Full-Screen Gallery Modal - All Devices */}
       <MobileGalleryModal
         items={galleryItems}
         selectedItem={selectedItem}
@@ -446,7 +292,6 @@ export default function GallerySection() {
         onPrev={prevItem}
         isMobile={isMobile}
       />
-
     </section>
   )
-} 
+}
