@@ -6,6 +6,7 @@ import ScrollBehaviorHandler from '@/components/scroll-behavior-handler'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import PerformanceOptimizer from "@/components/performance-optimizer";
+import { ConvexClientProvider } from "@/components/convex-client-provider";
 
 export const metadata: Metadata = {
   title: "ARK - Outdoor Scavenger Hunt Toronto | Top Summer Activities & Downtown Adventures 2025",
@@ -350,11 +351,13 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <PerformanceOptimizer />
-        <ScrollBehaviorHandler />
-        <AnimeNavBarWrapper />
-        <FloatingContactButton />
-        {children}
+        <ConvexClientProvider>
+          <PerformanceOptimizer />
+          <ScrollBehaviorHandler />
+          <AnimeNavBarWrapper />
+          <FloatingContactButton />
+          {children}
+        </ConvexClientProvider>
         <SpeedInsights sampleRate={0.1} />
         <Analytics mode="production" />
       </body>

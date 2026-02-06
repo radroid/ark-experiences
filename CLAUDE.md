@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-ARK Scavenger Hunt is a marketing/landing website for ARK Experiences, a corporate team-building scavenger hunt service in Toronto. Built with Next.js 15 (App Router), React 19, TypeScript 5.9, and Tailwind CSS 4. Deployed on Vercel with Supabase as the backend.
+ARK Scavenger Hunt is a marketing/landing website for ARK Experiences, a corporate team-building scavenger hunt service in Toronto. Built with Next.js 15 (App Router), React 19, TypeScript 5.9, and Tailwind CSS 4. Deployed on Vercel with Convex as the backend.
 
 ## Commands
 
@@ -37,14 +37,15 @@ Package manager is **pnpm**. No test suite is configured.
 
 ### Backend Integration
 
-- **Supabase**: PostgreSQL database with RLS enabled. Tables: `contacts`, `reviews`, `gallery_images`, `videos`, `email_signups`
-- **Supabase Edge Functions**: `supabase/functions/send-contact-email/` (Deno) handles contact form email dispatch
-- **Resend**: Email API for team notifications and customer confirmations. Templates in `src/lib/email-templates.ts`
-- Supabase clients configured in `src/lib/supabase.ts` (public client + admin client with service role key)
+- **Convex**: Real-time backend. Schema in `convex/schema.ts`. Tables: `contacts`, `emailSignups`
+- **Convex Functions**: `convex/contacts.ts` (mutation + action for contact form + email dispatch), `convex/emailSignups.ts` (mutation for newsletter signup)
+- **Resend**: Email API called via Convex action (HTTP API directly, no SDK). Email templates are inline in `convex/contacts.ts`
+- Convex client provider in `src/components/convex-client-provider.tsx`, wraps app in `layout.tsx`
 
 ### Key Libraries
 
-- **Framer Motion** + **GSAP** for animations
+- **Convex** for backend (database, server functions, actions)
+- **Framer Motion** for animations
 - **CVA** (class-variance-authority) for type-safe component variants
 - **Lucide React** for icons
 - **OGL** for WebGL (future use)
@@ -70,14 +71,15 @@ Package manager is **pnpm**. No test suite is configured.
 
 Required in `.env.local`:
 ```
-NEXT_PUBLIC_SUPABASE_URL
-NEXT_PUBLIC_SUPABASE_ANON_KEY
-SUPABASE_SERVICE_ROLE_KEY
-RESEND_API_KEY
+NEXT_PUBLIC_CONVEX_URL        # Convex deployment URL
 NEXT_PUBLIC_APP_URL           # http://localhost:3000 for dev
 ```
 
-Server-only: `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`
+Convex environment variables (set via `npx convex env set`):
+```
+RESEND_API_KEY                # Resend email API key
+ARK_TEAM_EMAILS               # Comma-separated team notification emails
+```
 
 ## Build Notes & Documentation
 
