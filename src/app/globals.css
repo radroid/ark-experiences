@@ -192,8 +192,9 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     font-family: var(--font-sans);
+    background-color: var(--yinmn-blue);
   }
 
   h1, h2, h3, h4, h5, h6 {

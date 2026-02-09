@@ -35,17 +35,23 @@ function TrailPath() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start center', 'end center'] })
   const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1])
 
+  // Path passes through x=60 (center) at each step position (evenly spaced at y=0,167,333,500,667,833,1000)
+  // and curves outward (to x=100 or x=20) between steps
+  const d = [
+    'M60 0',
+    'C100 56, 100 111, 60 167',
+    'C20 222, 20 278, 60 333',
+    'C100 389, 100 444, 60 500',
+    'C20 556, 20 611, 60 667',
+    'C100 722, 100 778, 60 833',
+    'C20 889, 20 944, 60 1000',
+  ].join(' ')
+
   return (
     <div ref={ref} className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-32 hidden md:block">
       <svg className="w-full h-full" viewBox="0 0 120 1000" preserveAspectRatio="none" fill="none" style={{ height: '100%' }}>
-        <path
-          d="M60 0 C60 50, 20 80, 20 140 S100 200, 100 260 S20 340, 20 400 S100 460, 100 520 S20 600, 20 660 S100 720, 100 780 S60 860, 60 1000"
-          stroke="var(--soft-gray-300)" strokeWidth="2" strokeDasharray="8 6"
-        />
-        <motion.path
-          d="M60 0 C60 50, 20 80, 20 140 S100 200, 100 260 S20 340, 20 400 S100 460, 100 520 S20 600, 20 660 S100 720, 100 780 S60 860, 60 1000"
-          stroke="var(--primary-blue)" strokeWidth="3" style={{ pathLength }}
-        />
+        <path d={d} stroke="var(--soft-gray-300)" strokeWidth="2" strokeDasharray="8 6" />
+        <motion.path d={d} stroke="var(--primary-blue)" strokeWidth="3" style={{ pathLength }} />
       </svg>
     </div>
   )
@@ -55,8 +61,8 @@ function TiltCard({ step, index, isLeft }: { step: Step; index: number; isLeft: 
   const ref = useRef<HTMLDivElement>(null)
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
-  const rotateX = useSpring(useTransform(my, [-100, 100], [5, -5]), { stiffness: 300, damping: 30 })
-  const rotateY = useSpring(useTransform(mx, [-100, 100], [-5, 5]), { stiffness: 300, damping: 30 })
+  const rotateX = useSpring(useTransform(my, [-100, 100], [3, -3]), { stiffness: 300, damping: 30 })
+  const rotateY = useSpring(useTransform(mx, [-100, 100], [-3, 3]), { stiffness: 300, damping: 30 })
 
   function handleMouse(e: React.MouseEvent) {
     const rect = ref.current?.getBoundingClientRect()
@@ -82,6 +88,8 @@ function TiltCard({ step, index, isLeft }: { step: Step; index: number; isLeft: 
         rotateX,
         rotateY,
         transformPerspective: 1200,
+        willChange: 'transform',
+        backfaceVisibility: 'hidden',
       }}
       onMouseMove={handleMouse}
       onMouseLeave={handleLeave}
