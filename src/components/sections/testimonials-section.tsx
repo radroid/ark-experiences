@@ -67,7 +67,7 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <section id="testimonials" className="relative py-32 overflow-hidden" style={{backgroundColor: 'var(--safe-black)'}}>
+    <section id="testimonials" className="relative py-32 overflow-hidden min-h-screen" style={{backgroundColor: 'var(--safe-black)'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
