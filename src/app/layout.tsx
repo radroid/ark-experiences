@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AnimeNavBarWrapper } from '@/components/ui/anime-navbar-wrapper'
 import FloatingContactButton from '@/components/floating-contact-button'
+import { ScrollEmailPrompt } from '@/components/scroll-email-prompt'
 import ScrollBehaviorHandler from '@/components/scroll-behavior-handler'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -356,6 +357,7 @@ export default function RootLayout({
           <ScrollBehaviorHandler />
           <AnimeNavBarWrapper />
           <FloatingContactButton />
+          <ScrollEmailPrompt />
           {children}
         </ConvexClientProvider>
         <SpeedInsights sampleRate={0.1} />

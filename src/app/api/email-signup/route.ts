@@ -7,8 +7,12 @@ const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!)
 export async function POST(request: NextRequest) {
   try {
     const { email } = await request.json()
+    const userAgent = request.headers.get('user-agent') ?? undefined
 
-    const result = await convex.mutation(api.emailSignups.subscribe, { email })
+    const result = await convex.action(api.emailSignups.subscribeAndNotify, {
+      email,
+      userAgent,
+    })
 
     if (result.alreadySubscribed) {
       return NextResponse.json(

@@ -5,15 +5,16 @@ import { api } from '../../../convex/_generated/api';
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
-export async function subscribeEmail(email: string) {
+export async function subscribeEmail(email: string, userAgent?: string) {
   try {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !emailRegex.test(email)) {
       return { success: false, error: 'Please enter a valid email address' };
     }
 
-    const result = await convex.mutation(api.emailSignups.subscribe, {
+    const result = await convex.action(api.emailSignups.subscribeAndNotify, {
       email,
+      userAgent,
     });
 
     if (result.alreadySubscribed) {

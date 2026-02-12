@@ -35,7 +35,7 @@ export default function FloatingContactButton() {
     setStatus('idle');
     setMessage('');
 
-    const result = await subscribeEmail(email);
+    const result = await subscribeEmail(email, navigator.userAgent);
 
     setIsLoading(false);
 
