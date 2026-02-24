@@ -8,8 +8,12 @@
  * @module
  */
 
+import type * as bookings from "../bookings.js";
 import type * as contacts from "../contacts.js";
 import type * as emailSignups from "../emailSignups.js";
+import type * as events from "../events.js";
+import type * as lib_validators from "../lib/validators.js";
+import type * as seed from "../seed.js";
 
 import type {
   ApiFromModules,
@@ -18,8 +22,12 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  bookings: typeof bookings;
   contacts: typeof contacts;
   emailSignups: typeof emailSignups;
+  events: typeof events;
+  "lib/validators": typeof lib_validators;
+  seed: typeof seed;
 }>;
 
 /**
