@@ -70,6 +70,13 @@ export default function Footer() {
     { name: 'Testimonials', href: '#testimonials' }
   ]
 
+  const legalLinks = [
+    { name: 'Support', href: '/support' },
+    { name: 'Terms of Service', href: '/terms' },
+    { name: 'Privacy Policy', href: '/privacy' },
+    { name: 'Cancellation & Refund Policy', href: '/refund-policy' }
+  ]
+
   const bookingLinks = [
     {
       name: 'Book on Eventbrite',
@@ -280,8 +287,24 @@ export default function Footer() {
               )}
             </div>
 
-            <p className="text-sm mt-6" style={{ color: 'var(--pure-white)', opacity: 0.8 }}>
-              © 2024 ARK Scavenger Hunt. All rights reserved.
+            <nav
+              aria-label="Legal"
+              className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm"
+            >
+              {legalLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="transition-opacity hover:opacity-100 hover:underline underline-offset-2"
+                  style={{ color: 'var(--pure-white)', opacity: 0.85 }}
+                >
+                  {link.name}
+                </a>
+              ))}
+            </nav>
+
+            <p className="text-sm mt-4" style={{ color: 'var(--pure-white)', opacity: 0.8 }}>
+              © 2024–2026 ARK Scavenger Hunt. All rights reserved.
             </p>
           </div>
         </div>
